@@ -29,41 +29,41 @@
 | # | Page | Route | Status | Prompt # |
 |---|------|-------|--------|----------|
 | 1 | Homepage | `/` | ✅ Done | 1 |
-| 2 | Pet Listings | `/pets` | 🔄 In Progress | 2 |
-| 3 | Pet Detail | `/pets/[slug]` | ⬜ Pending | 3 |
-| 4 | Products | `/products` | ⬜ Pending | 4 |
-| 5 | Product Detail | `/products/[slug]` | ⬜ Pending | 5 |
-| 6 | Services | `/services` | ⬜ Pending | 6 |
-| 7 | Provider Detail | `/services/[id]` | ⬜ Pending | 7 |
-| 8 | Breed Guides | `/breeds/[breed]` | ⬜ Pending | 8 |
-| 9 | About Us | `/about` | ⬜ Pending | 9 |
-| 10 | Contact | `/contact` | ⬜ Pending | 10 |
-| 11 | FAQ | `/faq` | ⬜ Pending | 11 |
-| 12 | Terms of Service | `/terms` | ⬜ Pending | 12 |
-| 13 | Privacy Policy | `/privacy` | ⬜ Pending | 13 |
-| 14 | Refund Policy | `/refund-policy` | ⬜ Pending | 14 |
-| 15 | Seller Landing | `/sell` | ⬜ Pending | 15 |
-| 16 | Login / Signup | `/auth` | ⬜ Pending | 16 |
-| 17 | My Account | `/account` | ⬜ Pending | 17 |
-| 18 | My Orders | `/account/orders` | ⬜ Pending | 18 |
-| 19 | Order Detail | `/account/orders/[id]` | ⬜ Pending | 19 |
-| 20 | My Wishlist | `/account/wishlist` | ⬜ Pending | 20 |
-| 21 | My Addresses | `/account/addresses` | ⬜ Pending | 21 |
-| 22 | Account Settings | `/account/settings` | ⬜ Pending | 22 |
-| 23 | Cart | `/cart` | ⬜ Pending | 23 |
-| 24 | Checkout | `/checkout` | ⬜ Pending | 24 |
-| 25 | Order Success | `/order-success` | ⬜ Pending | 25 |
-| 26 | Search Results | `/search` | ⬜ Pending | 26 |
-| 27 | Community Home | `/community` | ⬜ Pending | 27 |
-| 28 | Post Detail | `/community/[id]` | ⬜ Pending | 28 |
-| 29 | Lost & Found | `/community/lost-found` | ⬜ Pending | 29 |
-| 30 | Blog / Education | `/learn` | ⬜ Pending | 30 |
-| 31 | Article Detail | `/learn/[slug]` | ⬜ Pending | 31 |
-| 32 | Seller Dashboard | `/seller` | ⬜ Pending | 32 |
-| 33 | Seller Listings | `/seller/listings` | ⬜ Pending | 33 |
-| 34 | Seller Orders | `/seller/orders` | ⬜ Pending | 34 |
-| 35 | Seller Payouts | `/seller/payouts` | ⬜ Pending | 35 |
-| 36 | Chat | `/chat` | ⬜ Pending | 36 |
+| 2 | Pet Listings | `/pets` | ✅ Done | 2 |
+| 3 | Pet Detail | `/pets/[slug]` | ✅ Done | 3 |
+| 4 | Products | `/products` | ✅ Done | 4 |
+| 5 | Product Detail | `/products/[slug]` | ✅ Done | 5 |
+| 6 | Services | `/services` | ✅ Done | 6 |
+| 7 | Provider Detail | `/services/[id]` | ✅ Done | 7 |
+| 8 | Breed Guides | `/breeds/[breed]` | ✅ Done | 8 |
+| 9 | About Us | `/about` | ✅ Done | 9 |
+| 10 | Contact | `/contact` | ✅ Done | 10 |
+| 11 | FAQ | `/faq` | ✅ Done | 11 |
+| 12 | Legal Pages (Terms/Privacy/Refund) | `/terms`, `/privacy`, `/refund-policy` | ✅ Done | 12 |
+| 13 | Privacy Policy | `/privacy` | ✅ Done (covered in #12) | — |
+| 14 | Refund Policy | `/refund-policy` | ✅ Done (covered in #12) | — |
+| 15 | Seller Landing | `/sell` | ✅ Done | 13 |
+| 16 | Login / Signup | `/auth` | ✅ Done | 14 |
+| 17 | My Account | `/account` | ✅ Done | 16 |
+| 18 | My Orders | `/account/orders` | ✅ Done | 17 |
+| 19 | Order Detail | `/account/orders/[id]` | ✅ Done | 18 |
+| 20 | My Wishlist | `/account/wishlist` | ✅ Done | 19 |
+| 21 | My Addresses | `/account/addresses` | ✅ Done (part of #16) | — |
+| 22 | Account Settings | `/account/settings` | ✅ Done (part of #16) | — |
+| 23 | Cart | `/cart` | ✅ Done | 20 |
+| 24 | Checkout | `/checkout` | ✅ Done | 21 |
+| 25 | Order Success | `/order-success` | ✅ Done | 22 |
+| 26 | Search Results | `/search` | ✅ Done | 15 |
+| 27 | Community Home | `/community` | ✅ Done | 25 |
+| 28 | Post Detail | `/community/[id]` | ✅ Done | 26 |
+| 29 | Lost & Found | `/community/lost-found` | ✅ Done | 27 |
+| 30 | Blog / Education | `/learn` | ✅ Done | 28 |
+| 31 | Article Detail | `/learn/[slug]` | ✅ Done | 29 |
+| 32 | Seller Dashboard | `/seller` | ✅ Done | 23 |
+| 33 | Seller Listings | `/seller/listings` | ✅ Done | 24 |
+| 34 | Seller Orders | `/seller/orders` | ✅ Done | 30 |
+| 35 | Seller Payouts | `/seller/payouts` | ✅ Done | 31 |
+| 36 | Chat | `/chat` | ✅ Done | 32 |
 
 ---
 
@@ -108,7 +108,7 @@ Style: Clean, spacious, modern e-commerce feel. Pet-friendly and trustworthy. Re
 
 ### Prompt #2 — Pet Listings (`/pets`)
 
-**Status**: 🔄 In Progress
+**Status**: ✅ Completed
 
 ```
 Design the Pet Listings page for PetZonic — a marketplace where users browse and filter pets for sale. Desktop view (1440px), Next.js website.
@@ -162,7 +162,7 @@ Vibe: Clean, browsable, easy to scan. Feels like a premium marketplace — trust
 
 ### Prompt #3 — Pet Detail (`/pets/[slug]`)
 
-**Status**: ⬜ Pending
+**Status**: ✅ Completed
 
 ```
 Design the Pet Detail page for PetZonic — the individual pet listing page where buyers see full information and contact the seller. Desktop view (1440px), Next.js.
