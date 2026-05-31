@@ -1,0 +1,374 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>About Us | PetZonic - Building India's Most Trusted Pet Community</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#ece1d3",
+                        "surface": "#f9f9fc",
+                        "tertiary-container": "#b2a99c",
+                        "surface-dim": "#dadadc",
+                        "on-tertiary-fixed": "#201b13",
+                        "primary-container": "#ff8c00",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#1a1c1e",
+                        "on-primary-fixed-variant": "#6e3900",
+                        "surface-container-high": "#e8e8ea",
+                        "primary-fixed-dim": "#ffb77d",
+                        "on-secondary-fixed": "#002020",
+                        "secondary-fixed": "#93f2f2",
+                        "background": "#f9f9fc",
+                        "outline-variant": "#ddc1ae",
+                        "on-tertiary-fixed-variant": "#4c463c",
+                        "secondary-container": "#90efef",
+                        "on-surface-variant": "#564334",
+                        "on-primary-container": "#623200",
+                        "tertiary-fixed-dim": "#cfc5b8",
+                        "secondary": "#006a6a",
+                        "on-tertiary-container": "#443e34",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed-dim": "#76d6d5",
+                        "on-secondary-container": "#006e6e",
+                        "on-primary-fixed": "#2f1500",
+                        "outline": "#897362",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed-variant": "#004f4f",
+                        "surface-container": "#eeeef0",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "surface-variant": "#e2e2e5",
+                        "inverse-on-surface": "#f0f0f3",
+                        "inverse-surface": "#2f3133",
+                        "error-container": "#ffdad6",
+                        "primary-fixed": "#ffdcc3",
+                        "surface-container-low": "#f3f3f6",
+                        "surface-bright": "#f9f9fc",
+                        "surface-container-highest": "#e2e2e5",
+                        "primary": "#904d00",
+                        "on-background": "#1a1c1e",
+                        "inverse-primary": "#ffb77d",
+                        "tertiary": "#645d53",
+                        "surface-tint": "#904d00",
+                        "on-error-container": "#93000a",
+                        "error": "#ba1a1a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "48px",
+                        "container-max": "1280px",
+                        "margin-mobile": "16px",
+                        "base": "8px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "label-lg": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-xl-mobile": ["Montserrat"],
+                        "headline-xl": ["Montserrat"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "headline-md": ["Montserrat"],
+                        "headline-lg": ["Montserrat"],
+                        "body-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-xl-mobile": ["30px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #f9f9fc 0%, #ece1d3 100%);
+        }
+        .card-elevation {
+            box-shadow: 0 4px 16px -4px rgba(0, 128, 128, 0.12);
+        }
+        .card-elevation:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px -8px rgba(0, 128, 128, 0.18);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop max-w-full h-16 bg-surface shadow-sm transition-all duration-200">
+<div class="flex items-center gap-base">
+<span class="font-headline-md text-headline-md font-bold text-primary">PetZonic</span>
+</div>
+<div class="hidden md:flex items-center gap-gutter">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Browse Pets</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Adoption Centers</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Pet Care</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Community</a>
+</div>
+<div class="flex items-center gap-gutter">
+<div class="hidden md:flex gap-base">
+<span class="material-symbols-outlined text-on-surface-variant p-2 hover:bg-surface-container-low rounded-full cursor-pointer">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant p-2 hover:bg-surface-container-low rounded-full cursor-pointer">favorite</span>
+<span class="material-symbols-outlined text-on-surface-variant p-2 hover:bg-surface-container-low rounded-full cursor-pointer">person</span>
+</div>
+<button class="bg-primary text-on-primary font-label-lg px-6 h-10 rounded-lg scale-95 active:opacity-80 transition-all">List a Pet</button>
+</div>
+</nav>
+<main class="pt-16">
+<!-- Hero Section -->
+<section class="hero-gradient py-24 md:py-32 px-margin-mobile overflow-hidden relative">
+<div class="max-w-container-max mx-auto grid md:grid-cols-2 items-center gap-gutter">
+<div class="z-10">
+<span class="text-secondary font-label-lg uppercase tracking-widest mb-4 block">Our Mission</span>
+<h1 class="font-headline-xl text-headline-xl-mobile md:text-headline-xl mb-6 text-on-surface leading-tight">
+                        Building India's Most <span class="text-primary">Trusted</span> Pet Community
+                    </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-8 max-w-lg">
+                        We are more than a marketplace. PetZonic is a movement dedicated to ensuring every wagging tail and gentle purr finds a safe, loving home with ethical breeders and responsible parents.
+                    </p>
+<div class="flex flex-wrap gap-base">
+<button class="bg-primary text-on-primary font-label-lg px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all h-[56px] min-w-[160px]">Explore Pets</button>
+<button class="border-2 border-secondary text-secondary font-label-lg px-8 py-4 rounded-xl hover:bg-secondary-container/20 transition-all h-[56px] min-w-[160px]">Our Impact</button>
+</div>
+</div>
+<div class="relative mt-12 md:mt-0">
+<div class="bg-white p-4 rounded-[40px] shadow-2xl rotate-3 relative z-10">
+<img alt="Happy golden retriever with Indian family" class="rounded-[32px] w-full h-[400px] object-cover" data-alt="A joyful Golden Retriever sitting happily between a young Indian couple in a sun-drenched modern living room. The scene is bathed in warm, soft golden hour light, reflecting the brand's 'joyful reliability' aesthetic. The colors are vibrant and saturated, featuring deep teals and primary orange accents in the home decor, creating a welcoming and high-end atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfA_bHpW7BsZG4pOJ9zx-EyvO_SxEsVhjBYq0wjORqa_DTqHZuKQYOa94-MVn4Wj4sIPtxD8lJktupBt4tlxTQ_3_z70Cl21TFIaOoXXFXYgMGOUh0TLPI_kI5j8ufKIZgC2Xw0JyzsE9w9pvmUoX_n0D55Buz6RuIg0kfhUNFxQgzsmnLJ9VRk8UvMp0JjVV3PFfF58LTdkFKruRQUgbliwQpZvDYFyAFbq_usIyAFv3WzOaORZEXELnuskhf91HC_ND8uf8RH40">
+</div>
+<div class="absolute -top-10 -left-10 w-40 h-40 bg-primary-container/20 rounded-full blur-3xl"></div>
+<div class="absolute -bottom-10 -right-10 w-64 h-64 bg-secondary-container/30 rounded-full blur-3xl"></div>
+</div>
+</div>
+</section>
+<!-- Stats Strip -->
+<section class="bg-secondary py-12 px-margin-mobile">
+<div class="max-w-container-max mx-auto grid grid-cols-2 md:grid-cols-4 gap-gutter text-center">
+<div class="flex flex-col gap-1">
+<span class="font-headline-lg text-on-secondary">15k+</span>
+<span class="font-label-lg text-secondary-fixed opacity-90">Pets Rehomed</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-headline-lg text-on-secondary">5k+</span>
+<span class="font-label-lg text-secondary-fixed opacity-90">Verified Sellers</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-headline-lg text-on-secondary">24/7</span>
+<span class="font-label-lg text-secondary-fixed opacity-90">Vet Support</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-headline-lg text-on-secondary">100%</span>
+<span class="font-label-lg text-secondary-fixed opacity-90">Safe Adoption</span>
+</div>
+</div>
+</section>
+<!-- Our Story Section -->
+<section class="py-gutter md:py-margin-desktop px-margin-mobile">
+<div class="max-w-container-max mx-auto grid md:grid-cols-2 gap-16 items-center">
+<div>
+<img alt="PetZonic Founders" class="rounded-3xl shadow-xl w-full aspect-[4/3] object-cover" data-alt="Two professional and smiling founders, a man and a woman in their early 30s, interacting with a playful beagle in a minimalist office space with large windows. The lighting is soft and natural, emphasizing a high-end and trustworthy environment. The color palette incorporates professional teals and warm wood tones, conveying a sense of authentic and human-centric pet care leadership." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7Qnzu0kVmxsQhCmxgzNklKX2Yx2Dtvwr7xqqM8-qLgtKXes-_FXHvJ4NGFOtpqJ-jocyIynFrzY3s3Y8Qy_El29W0Z0BWcml4kGTs3b4oTTsVB4veOMdXjOsHJAUlD3J-184APNDmCEth6Yug1X40kV9rSsd93IMHQNwabXtbGl_OEyd7YOw1AwUrIQyyxikTHSIGbjrQOjUcJ7pPO27DLVx7ab5Q7NGumGgbRb3wuP8oV95p-w1ME7rb2k6ucqJeqYr-MS1_Cac">
+</div>
+<div class="flex flex-col gap-6">
+<h2 class="font-headline-lg text-on-surface">How PetZonic Was Born</h2>
+<p class="font-body-md text-on-surface-variant">
+                        Our journey started in 2018 when we realized the difficulty of finding ethical breeders and healthy companions in India. Too many pet parents were facing heartbreak due to lack of transparency and poor health standards.
+                    </p>
+<p class="font-body-md text-on-surface-variant">
+                        We built PetZonic to bridge that gap—a platform where trust is the primary currency. By vetting every seller and supporting every buyer, we've created a safe haven for India's growing pet family. Our commitment is to joyful reliability, ensuring that the bond between you and your new companion starts on the best possible foundation.
+                    </p>
+<div class="pt-4">
+<div class="flex items-center gap-4 p-4 bg-tertiary-fixed/30 rounded-2xl border border-tertiary-fixed">
+<span class="material-symbols-outlined text-primary scale-125">volunteer_activism</span>
+<span class="font-label-lg text-on-tertiary-fixed-variant">Dedicated to animal welfare &amp; ethical breeding across India.</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Values Cards -->
+<section class="bg-surface-container-low py-gutter md:py-margin-desktop px-margin-mobile">
+<div class="max-w-container-max mx-auto">
+<div class="text-center mb-16">
+<h2 class="font-headline-lg mb-4">Values That Guide Us</h2>
+<div class="h-1 w-24 bg-primary mx-auto rounded-full"></div>
+</div>
+<div class="grid md:grid-cols-3 gap-gutter">
+<div class="bg-white p-8 rounded-3xl card-elevation transition-all flex flex-col items-center text-center">
+<div class="w-16 h-16 bg-primary-fixed rounded-2xl flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-on-primary-fixed-variant text-4xl">verified_user</span>
+</div>
+<h3 class="font-headline-md mb-3">Trust First</h3>
+<p class="font-body-md text-on-surface-variant">Every seller on PetZonic undergoes a rigorous 5-step verification process to ensure transparency and reliability.</p>
+</div>
+<div class="bg-white p-8 rounded-3xl card-elevation transition-all flex flex-col items-center text-center">
+<div class="w-16 h-16 bg-secondary-fixed rounded-2xl flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-on-secondary-fixed-variant text-4xl">pets</span>
+</div>
+<h3 class="font-headline-md mb-3">Pet Welfare</h3>
+<p class="font-body-md text-on-surface-variant">The health and happiness of the animal is our non-negotiable priority. We partner with top vets for health audits.</p>
+</div>
+<div class="bg-white p-8 rounded-3xl card-elevation transition-all flex flex-col items-center text-center">
+<div class="w-16 h-16 bg-tertiary-fixed rounded-2xl flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-on-tertiary-fixed-variant text-4xl">groups</span>
+</div>
+<h3 class="font-headline-md mb-3">Community</h3>
+<p class="font-body-md text-on-surface-variant">We believe in a support system for pet parents, offering expert advice, community forums, and 24/7 assistance.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- How It Works -->
+<section class="py-gutter md:py-margin-desktop px-margin-mobile">
+<div class="max-w-container-max mx-auto">
+<h2 class="font-headline-lg text-center mb-16">Simple. Safe. Transparent.</h2>
+<div class="grid md:grid-cols-4 gap-8 relative">
+<!-- Connector line for desktop -->
+<div class="hidden md:block absolute top-1/4 left-0 right-0 h-0.5 bg-outline-variant -z-10"></div>
+<div class="flex flex-col items-center text-center group">
+<div class="w-14 h-14 bg-white border-4 border-primary rounded-full flex items-center justify-center font-headline-md text-primary mb-6 transition-transform group-hover:scale-110">1</div>
+<h4 class="font-label-lg mb-2">Discover</h4>
+<p class="font-label-sm text-on-surface-variant">Browse thousands of verified pets and breeders near you.</p>
+</div>
+<div class="flex flex-col items-center text-center group">
+<div class="w-14 h-14 bg-white border-4 border-primary rounded-full flex items-center justify-center font-headline-md text-primary mb-6 transition-transform group-hover:scale-110">2</div>
+<h4 class="font-label-lg mb-2">Connect</h4>
+<p class="font-label-sm text-on-surface-variant">Chat directly with sellers through our secure platform.</p>
+</div>
+<div class="flex flex-col items-center text-center group">
+<div class="w-14 h-14 bg-white border-4 border-primary rounded-full flex items-center justify-center font-headline-md text-primary mb-6 transition-transform group-hover:scale-110">3</div>
+<h4 class="font-label-lg mb-2">Audit</h4>
+<p class="font-label-sm text-on-surface-variant">Our team performs health and documentation checks.</p>
+</div>
+<div class="flex flex-col items-center text-center group">
+<div class="w-14 h-14 bg-white border-4 border-primary rounded-full flex items-center justify-center font-headline-md text-primary mb-6 transition-transform group-hover:scale-110">4</div>
+<h4 class="font-label-lg mb-2">Rehome</h4>
+<p class="font-label-sm text-on-surface-variant">Bring your new companion home with lifelong support.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Team Section -->
+<section class="py-gutter md:py-margin-desktop px-margin-mobile bg-surface">
+<div class="max-w-container-max mx-auto">
+<div class="flex justify-between items-end mb-12">
+<div>
+<span class="text-primary font-label-lg uppercase">The Pack</span>
+<h2 class="font-headline-lg mt-2">Meet the Team</h2>
+</div>
+<button class="text-secondary font-label-lg flex items-center gap-2 hover:gap-4 transition-all">
+                        View Careers <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-gutter">
+<div class="group cursor-pointer">
+<div class="relative overflow-hidden rounded-2xl aspect-[3/4] mb-4">
+<img alt="Arjun Mehta" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A portrait of a confident male executive in his late 30s, Arjun Mehta, standing in a brightly lit, modern pet-friendly office. He has a warm smile and is wearing a professional yet casual dark teal polo shirt. The background is a soft-focus office with lush indoor plants and primary orange accents, capturing a high-end, reliable, and approachable professional aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoINJVN5IafQNGU_SN1aFn_vtY6KJKqiRejaBrLu9qkxBoY4K-jF9hupwASLKRC32cIHGlXy2xbRazXuI168CagP9MPTtUApH_QkEJz_DB2RZOAe58NenSzU3vTEj0_m3ol9Syt9lP-2xeGTayia2WuDqDabRhUB3AT4z_i7M3HCUGHZsTWCDnRh3xoW4TIuDR-yTnNBBg0RbIxhcMgfGVfhM-4bZxJHqco0N8q06KRJXOTsA5zSuufAv1D1QdOZ6NFPgzMXl0BVs">
+</div>
+<h5 class="font-headline-md text-body-md font-bold">Arjun Mehta</h5>
+<p class="font-label-sm text-on-surface-variant">Founder &amp; CEO</p>
+</div>
+<div class="group cursor-pointer">
+<div class="relative overflow-hidden rounded-2xl aspect-[3/4] mb-4">
+<img alt="Priya Singh" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A portrait of a smiling female executive, Priya Singh, with a modern professional style, wearing a tailored cream blazer. She is in a high-end workplace setting with soft ambient lighting that creates a bright, light-mode feel. The atmosphere is vibrant and warm, reflecting a focus on community and trust, with subtle teal highlights in the environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyT3DwwSo2OshQx2WMKtwENG8IpydqAatRSiQUek81kNzPICU3aRVVHugEi--hu6a5lxCGznPV0731n7wWb434-veLCs3EotzELiLMF3G7rdVvX8l4j8NAatEORUL7T2nV4nqeuUvxO5mBX7u3VpmqMTw9y7etn2SrS1p5zdspMwUa6FeCejQsDBFJAyJoYagjBoKYqbOejA7utMKqXnbYKysOcMMdkfINrbBdR1YS1WrPXYedti1IkWJ4etWk3knTfdsH4v7QuGU">
+</div>
+<h5 class="font-headline-md text-body-md font-bold">Priya Singh</h5>
+<p class="font-label-sm text-on-surface-variant">Head of Operations</p>
+</div>
+<div class="group cursor-pointer">
+<div class="relative overflow-hidden rounded-2xl aspect-[3/4] mb-4">
+<img alt="Rohan Verma" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A portrait of a young male professional, Rohan Verma, wearing a modern gray sweater, standing in a contemporary office space with warm lighting. He has a friendly, trustworthy expression. The scene is shot with a shallow depth of field, highlighting his personality while keeping the vibrant, high-end office background softly blurred, using a palette of teal and orange." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYx2C1Xh50dByAKRUwO_cvlDBX83ZBz3Aupjf24Sb1Tm7zSIPpnV2D4Vg3rbbSPYPjy5EurqDOIysf7TfVpTsrCPV1oihCwZHe_3mYNH_cdJd2LzOfj-6xkca8zxMPv7x-ICNa0SIjrBkE4RKFOeROVWHZdpWoLeI6HSa0a1n97Yvb20anahJo_h9nQvAx5aERVDzV8EQYKNjMT8ddV33A9Ggg9h88jk2uCo3l0H-oEhn6LaapdSbT3MOmmul3lAVnmiIG-a1VnBE">
+</div>
+<h5 class="font-headline-md text-body-md font-bold">Rohan Verma</h5>
+<p class="font-label-sm text-on-surface-variant">Tech Lead</p>
+</div>
+<div class="group cursor-pointer">
+<div class="relative overflow-hidden rounded-2xl aspect-[3/4] mb-4">
+<img alt="Ananya Roy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A portrait of a professional woman, Ananya Roy, with a warm and approachable smile, wearing a sophisticated teal top. She is positioned in a modern, brightly lit environment that exudes a professional yet welcoming atmosphere. The visual style is consistent with a high-end marketplace, emphasizing clarity, warmth, and reliable human connection." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAa3xCmt7HpxGFOO2XTSZehulFa1-L_giZt4-fyO2NCURq__7RXloxc3p-3nn7oCac9wZnrn16QDU_BLaRcFcYFBQ4v-nXGFrToOItPS3kuPDVdaHQ5Lhi36husFdTAwZFCGozpRWO9z6BaOBAtUvDjoiHq6KYf2JBotUmCkhSUcQUG4aBhtBiaEAHSTUIHWbgi6CHe5jZ4iaAtiKkYn3If2_toxg2BdZfguwrDZ2mSV1dVeDyxhkCLax_9AudP2fz2JOAgMemeK3g">
+</div>
+<h5 class="font-headline-md text-body-md font-bold">Ananya Roy</h5>
+<p class="font-label-sm text-on-surface-variant">Chief Vet Officer</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Final CTA -->
+<section class="py-24 px-margin-mobile">
+<div class="max-w-container-max mx-auto bg-primary text-on-primary rounded-[48px] p-12 md:p-24 text-center relative overflow-hidden">
+<div class="absolute -top-10 -right-10 opacity-20 transform rotate-12">
+<span class="material-symbols-outlined text-[200px]" style="font-variation-settings: 'FILL' 1;">pets</span>
+</div>
+<div class="relative z-10">
+<h2 class="font-headline-xl text-headline-xl-mobile md:text-headline-xl mb-6">Join Our Journey</h2>
+<p class="font-body-lg mb-10 opacity-90 max-w-2xl mx-auto">
+                        Whether you're looking to find your new best friend or you're an ethical seller looking for the right platform, we're here to welcome you.
+                    </p>
+<div class="flex flex-col md:flex-row justify-center gap-base">
+<button class="bg-white text-primary font-label-lg px-10 py-5 rounded-2xl shadow-xl hover:scale-105 transition-transform flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">shopping_bag</span> Shop for Pets
+                        </button>
+<button class="bg-primary-container text-on-primary-container font-label-lg px-10 py-5 rounded-2xl shadow-xl hover:scale-105 transition-transform flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">sell</span> Start Selling
+                        </button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-gutter border-t border-outline-variant bg-surface-container-highest">
+<div class="w-full py-margin-desktop px-margin-desktop flex flex-col md:flex-row justify-between items-center max-w-container-max mx-auto gap-gutter">
+<div class="flex flex-col items-center md:items-start gap-4">
+<span class="font-headline-md text-headline-md font-bold text-on-surface">PetZonic</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant text-center md:text-left">© 2024 PetZonic Marketplace. Joyful Reliability for Pet Parents.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-gutter">
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary hover:underline transition-all" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary hover:underline transition-all" href="#">Terms of Service</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary hover:underline transition-all" href="#">Safety Tips</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary hover:underline transition-all" href="#">Contact Support</a>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interactions for smooth scrolling or hover effects
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Sticky header background shift
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 20) {
+                nav.classList.add('bg-white/90', 'backdrop-blur-md', 'shadow-md');
+                nav.classList.remove('bg-surface');
+            } else {
+                nav.classList.remove('bg-white/90', 'backdrop-blur-md', 'shadow-md');
+                nav.classList.add('bg-surface');
+            }
+        });
+    </script>
+</body></html>

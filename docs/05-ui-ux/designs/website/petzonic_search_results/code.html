@@ -1,0 +1,396 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Search Results: Golden Retriever | PetZonic</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .scollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .card-shadow {
+            box-shadow: 0 4px 16px -2px rgba(0, 128, 128, 0.12);
+        }
+        .card-shadow:hover {
+            box-shadow: 0 12px 32px -4px rgba(0, 128, 128, 0.18);
+            transform: translateY(-4px);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed": "#ece1d3",
+                      "surface": "#f9f9fc",
+                      "tertiary-container": "#b2a99c",
+                      "surface-dim": "#dadadc",
+                      "on-tertiary-fixed": "#201b13",
+                      "primary-container": "#ff8c00",
+                      "on-tertiary": "#ffffff",
+                      "on-surface": "#1a1c1e",
+                      "on-primary-fixed-variant": "#6e3900",
+                      "surface-container-high": "#e8e8ea",
+                      "primary-fixed-dim": "#ffb77d",
+                      "on-secondary-fixed": "#002020",
+                      "secondary-fixed": "#93f2f2",
+                      "background": "#f9f9fc",
+                      "outline-variant": "#ddc1ae",
+                      "on-tertiary-fixed-variant": "#4c463c",
+                      "secondary-container": "#90efef",
+                      "on-surface-variant": "#564334",
+                      "on-primary-container": "#623200",
+                      "tertiary-fixed-dim": "#cfc5b8",
+                      "secondary": "#006a6a",
+                      "on-tertiary-container": "#443e34",
+                      "on-primary": "#ffffff",
+                      "secondary-fixed-dim": "#76d6d5",
+                      "on-secondary-container": "#006e6e",
+                      "on-primary-fixed": "#2f1500",
+                      "outline": "#897362",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary-fixed-variant": "#004f4f",
+                      "surface-container": "#eeeef0",
+                      "on-secondary": "#ffffff",
+                      "on-error": "#ffffff",
+                      "surface-variant": "#e2e2e5",
+                      "inverse-on-surface": "#f0f0f3",
+                      "inverse-surface": "#2f3133",
+                      "error-container": "#ffdad6",
+                      "primary-fixed": "#ffdcc3",
+                      "surface-container-low": "#f3f3f6",
+                      "surface-bright": "#f9f9fc",
+                      "surface-container-highest": "#e2e2e5",
+                      "primary": "#904d00",
+                      "on-background": "#1a1c1e",
+                      "inverse-primary": "#ffb77d",
+                      "tertiary": "#645d53",
+                      "surface-tint": "#904d00",
+                      "on-error-container": "#93000a",
+                      "error": "#ba1a1a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-desktop": "48px",
+                      "container-max": "1280px",
+                      "margin-mobile": "16px",
+                      "base": "8px",
+                      "gutter": "24px"
+              },
+              "fontFamily": {
+                      "label-lg": ["Plus Jakarta Sans"],
+                      "body-lg": ["Plus Jakarta Sans"],
+                      "headline-xl-mobile": ["Montserrat"],
+                      "headline-xl": ["Montserrat"],
+                      "label-sm": ["Plus Jakarta Sans"],
+                      "headline-md": ["Montserrat"],
+                      "headline-lg": ["Montserrat"],
+                      "body-md": ["Plus Jakarta Sans"]
+              },
+              "fontSize": {
+                      "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "headline-xl-mobile": ["30px", {"lineHeight": "36px", "fontWeight": "700"}],
+                      "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface font-body-md selection:bg-primary-fixed">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-desktop max-w-container-max mx-auto h-16 bg-surface dark:bg-inverse-surface shadow-sm">
+<div class="flex items-center gap-gutter">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">PetZonic</span>
+<nav class="hidden md:flex gap-gutter items-center">
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Browse Pets</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Adoption Centers</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Pet Care</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Community</a>
+</nav>
+</div>
+<div class="flex items-center gap-base">
+<div class="hidden lg:flex items-center gap-base pr-gutter">
+<div class="flex items-center gap-base text-on-surface-variant">
+<span class="material-symbols-outlined">notifications</span>
+<span class="material-symbols-outlined">favorite</span>
+<span class="material-symbols-outlined">person</span>
+</div>
+</div>
+<button class="bg-primary text-on-primary font-label-lg text-label-lg py-2 px-6 rounded-lg hover:opacity-90 transition-all scale-95 active:opacity-80">List a Pet</button>
+</div>
+</header>
+<main class="pt-16 pb-margin-desktop">
+<!-- Hero Search Section -->
+<section class="bg-surface-container-low pt-12 pb-8 px-margin-desktop">
+<div class="max-w-container-max mx-auto">
+<div class="flex flex-col gap-base mb-gutter">
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Search Results</h1>
+<p class="text-on-surface-variant font-body-md">Showing results for <span class="font-bold text-primary">"Golden Retriever"</span></p>
+</div>
+<!-- Main Search Bar -->
+<div class="relative w-full max-w-3xl group">
+<input class="w-full h-14 pl-14 pr-32 rounded-xl bg-surface-container-lowest border-none shadow-md focus:ring-2 focus:ring-secondary transition-all font-body-md" placeholder="Search for pets, products or services..." type="text" value="Golden Retriever">
+<div class="absolute left-5 top-1/2 -translate-y-1/2 text-on-surface-variant">
+<span class="material-symbols-outlined">search</span>
+</div>
+<button class="absolute right-2 top-1/2 -translate-y-1/2 bg-primary-container text-on-primary-container font-label-lg px-6 h-10 rounded-lg hover:opacity-90 transition-all">Search</button>
+</div>
+</div>
+</section>
+<!-- Tab Navigation -->
+<nav class="sticky top-16 z-40 bg-surface shadow-sm border-b border-surface-container">
+<div class="max-w-container-max mx-auto px-margin-desktop">
+<div class="flex gap-gutter overflow-x-auto scrollbar-hide py-4">
+<button class="whitespace-nowrap text-primary font-bold border-b-2 border-primary pb-1 font-label-lg">All (87)</button>
+<button class="whitespace-nowrap text-on-surface-variant hover:text-primary transition-colors font-label-lg">Pets (24)</button>
+<button class="whitespace-nowrap text-on-surface-variant hover:text-primary transition-colors font-label-lg">Products (45)</button>
+<button class="whitespace-nowrap text-on-surface-variant hover:text-primary transition-colors font-label-lg">Services (12)</button>
+<button class="whitespace-nowrap text-on-surface-variant hover:text-primary transition-colors font-label-lg">Guides (6)</button>
+</div>
+</div>
+</nav>
+<div class="max-w-container-max mx-auto px-margin-desktop mt-gutter flex flex-col gap-12">
+<!-- Featured Breed Guide (Asymmetric Layout) -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center bg-secondary-container/20 rounded-3xl p-gutter overflow-hidden relative">
+<div class="md:col-span-7 flex flex-col gap-base z-10">
+<span class="bg-secondary text-on-secondary px-3 py-1 rounded-full text-label-sm w-fit">Featured Breed Guide</span>
+<h2 class="font-headline-lg text-headline-lg text-on-secondary-container">Golden Retriever: The Ultimate Family Companion</h2>
+<p class="text-on-surface-variant text-body-md max-w-xl">Intelligent, friendly, and devoted. Learn about temperament, grooming needs, and health considerations before bringing your Golden home.</p>
+<div class="flex gap-base mt-4">
+<button class="bg-secondary text-on-secondary px-6 py-3 rounded-xl font-label-lg hover:shadow-lg transition-all">Read Breed Guide</button>
+<button class="border-2 border-secondary text-secondary px-6 py-3 rounded-xl font-label-lg hover:bg-secondary/10 transition-all">Watch Overview</button>
+</div>
+</div>
+<div class="md:col-span-5 relative h-64 md:h-80">
+<img alt="Golden Retriever" class="w-full h-full object-cover rounded-2xl card-shadow" data-alt="A close-up high-resolution portrait of a happy Golden Retriever sitting in a sun-drenched park during the golden hour. The dog has a gentle expression, soft golden fur, and bright eyes. The background is a soft bokeh of lush green trees and warm sunlight, creating a joyful and reliable atmosphere consistent with a premium pet marketplace." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwprLoIr5k0Fi_yw-lT3TrziUA0UL_40ku22W1YxjhDEGlC_vafSIsmJID8WxX6G7KbKKv1nGliUumltgSxZcSm9U5b3Pwjy56AesFviyqXWFBAtyQRVigvgmKTrVEKKTbTm_yR2BXf-AM8G-owTusCvmYZ3tZX63SRsnvSGy4XvibV-PImdpFc5rcchCgcXX_GPjYCIYzq0YBOoS1vswdLFjTBwYf_1iUjqxEEih45DuNHkk57tVVkbqwyCAQqytVPGBrdqX2R_8">
+</div>
+</section>
+<!-- Pets Section (Horizontal Scroller) -->
+<section>
+<div class="flex justify-between items-end mb-6">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Available Pets</h3>
+<p class="text-on-surface-variant font-label-lg">Purebred and mix Goldens looking for a home</p>
+</div>
+<a class="text-primary font-label-lg hover:underline" href="#">View all Pets</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Pet Card 1 -->
+<div class="group bg-surface-container-lowest rounded-2xl overflow-hidden card-shadow transition-all duration-300">
+<div class="relative h-48 overflow-hidden">
+<img alt="Buddy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A friendly male Golden Retriever puppy playing with a ball on a clean, light-toned hardwood floor. The scene is brightly lit with natural window light, creating soft shadows. The overall aesthetic is clean, modern, and warm, featuring a high-end residential interior that evokes professional trust and animal welfare." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBITQOvLTXcI58dFkS9GbNLtzV7IUdJ6AycbQFq-wHdc2YAhpT5KHN002SXN5p5wKrEHth9lsZ10j30YuzlZAGSOw17-rPSXFELdCEZrj3PBduF8HK2S89rGNb-q6fckvJuDZRueUoR-lWBTflVdj5u5Zb4ua3dwbHDjdL3VTHYAog3oB0neqyzSF-MPuy4CzMkayPXMfjOhJj5Jo-HfOVP6snGbgRgpHiYzJqA0-vOfcGnPPHGhXvAlAYeGToFZan77XJg3MnORJs">
+<div class="absolute top-3 right-3 bg-secondary-container/90 text-on-secondary-container px-2 py-1 rounded-md text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">verified</span> Verified
+                            </div>
+</div>
+<div class="p-4 flex flex-col gap-2">
+<div class="flex justify-between items-center">
+<h4 class="font-headline-md text-headline-md text-on-surface text-[18px]">Buddy</h4>
+<span class="text-primary font-bold text-label-lg">₹25,000</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant text-label-sm">
+<span class="material-symbols-outlined text-sm">location_on</span> Mumbai, MH
+                                <span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+                                3 Months
+                            </div>
+</div>
+</div>
+<!-- Pet Card 2 -->
+<div class="group bg-surface-container-lowest rounded-2xl overflow-hidden card-shadow transition-all duration-300">
+<div class="relative h-48 overflow-hidden">
+<img alt="Daisy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A beautiful adult female Golden Retriever sitting elegantly on a soft teal rug in a bright, modern living room. The room has high ceilings and minimalist decor. The dog's coat is impeccably groomed and shines under soft, ambient indoor lighting. The mood is serene, upscale, and welcoming." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtW_zanssl315Cu2HB11QOdV73AnzPZDGBqsf7S-8lGEEtAb2gvHRiZUWuc4_NsnOe8l-ZtFVjOxC11-Nq7K3LT0LJnXnPfYPYSZ-3IlRfIBnXd2qX6gzlIN6Jcj8xLK7cBFlY98tXl5iG1wn4tVDmIRv41d5L1lxc1VX21SwCypUXrDUD2GKlLU7OaXj4SQy0Xg532vvotVvyl_CjFcWyZplB9HsHl3YrZW74ZEFaTi-FlKqHx0dt9XKQwRajM49FE5GAWv_6Dp0">
+<div class="absolute top-3 right-3 bg-secondary-container/90 text-on-secondary-container px-2 py-1 rounded-md text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">verified</span> Verified
+                            </div>
+</div>
+<div class="p-4 flex flex-col gap-2">
+<div class="flex justify-between items-center">
+<h4 class="font-headline-md text-headline-md text-on-surface text-[18px]">Daisy</h4>
+<span class="text-primary font-bold text-label-lg">₹32,000</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant text-label-sm">
+<span class="material-symbols-outlined text-sm">location_on</span> Bangalore, KA
+                                <span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+                                2 Years
+                            </div>
+</div>
+</div>
+<!-- Pet Card 3 -->
+<div class="group bg-surface-container-lowest rounded-2xl overflow-hidden card-shadow transition-all duration-300">
+<div class="relative h-48 overflow-hidden">
+<img alt="Cooper" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A playful male Golden Retriever running through a well-maintained garden with vibrant flowers and green grass. The action shot captures the dog's joy and movement. The lighting is bright and clear, reflecting a high-energy, healthy pet lifestyle typical of an premium adoption marketplace." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhOroAKtNJ2cY8hZ3cWqc4SDwtmmbWGNw4sMEFipe0w8oYDL3dazb7w4dTR2-TfDeQB0kgAshgrJRjbyuMXEDoVSjGHH6_LR436X57gNMeJErtAICMOjXYn4o_qyIE_xU-9F_KSkgndsKYATyU_cJ6_dHBZBiWsY8HJB-8N6Ry4hciJRUjZ14tAwRbfeonJCgCKwPp68NE5T9nmQM0a68dmbsNSVbxUZkOUOzOpnqbGyYzx_zwZbDa0Rx4meuDjHOQhFNd-IIBCyE">
+</div>
+<div class="p-4 flex flex-col gap-2">
+<div class="flex justify-between items-center">
+<h4 class="font-headline-md text-headline-md text-on-surface text-[18px]">Cooper</h4>
+<span class="text-primary font-bold text-label-lg">₹28,500</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant text-label-sm">
+<span class="material-symbols-outlined text-sm">location_on</span> Pune, MH
+                                <span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+                                6 Months
+                            </div>
+</div>
+</div>
+<!-- Pet Card 4 -->
+<div class="group bg-surface-container-lowest rounded-2xl overflow-hidden card-shadow transition-all duration-300">
+<div class="relative h-48 overflow-hidden">
+<img alt="Luna" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A dark golden-hued Golden Retriever pup resting its head on its paws on a plush white blanket. The shot is high-key with soft morning light, creating a feeling of tenderness and reliability. The aesthetic is extremely high-end and clean, focusing on the quality of life and care for the animal." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2teFC5mhEf-wr2AZCOP3RsdCmEEFZeRpBCeg95cBj95buAYq1l4cWcMUsz1yhVmC5NGNeV95JsMQT6pQyGfPSHSGsGvywq6FD4LaurRSs0ZiQbfprPM2b1X2ZGcMTIRHrCIKoj__6kpFjI_rO0OyUYLXaBOn2bCm_BqEZXTdNgwhxMHjC3pFkKDJ1qOoeLOyaZR96lqkqPtl1Ad6zzQwZtf8TUhq_1kr0EixA6ACq92lbRkxSkI8Vnn597Mvt6U10fGEOkrFzWzY">
+</div>
+<div class="p-4 flex flex-col gap-2">
+<div class="flex justify-between items-center">
+<h4 class="font-headline-md text-headline-md text-on-surface text-[18px]">Luna</h4>
+<span class="text-primary font-bold text-label-lg">₹30,000</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant text-label-sm">
+<span class="material-symbols-outlined text-sm">location_on</span> Delhi, NCR
+                                <span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+                                4 Months
+                            </div>
+</div>
+</div>
+</div>
+</section>
+<!-- Products Section (Grid) -->
+<section>
+<div class="flex justify-between items-end mb-6">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Essential Products</h3>
+<p class="text-on-surface-variant font-label-lg">Grooming and food specifically for Golden Retrievers</p>
+</div>
+<a class="text-primary font-label-lg hover:underline" href="#">Shop All Products</a>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-base">
+<!-- Product 1 -->
+<div class="bg-surface-container-lowest p-3 rounded-xl card-shadow group">
+<div class="h-32 bg-surface rounded-lg mb-3 flex items-center justify-center overflow-hidden">
+<img alt="Dog Food" class="h-full w-full object-cover group-hover:scale-105 transition-transform" data-alt="Premium dog food packaging for large breed dogs, featuring a Golden Retriever illustration. The packaging is minimalist and professional, sitting on a clean kitchen counter with high-key lighting. The color palette is composed of primary oranges and teals, matching the brand identity of PetZonic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUI9eol9lIVIe12_pTVvogoxWYsuT2v5LFcca42GN93B6y4MmFYVPEfdk2iDTXI7sTYjh6Wsq9OIF0jjcYCspwEqysIdR7_XF8YT9dxoF0JkyMc0inYB_HORWuRxu204160RWwezeIawnYNRz_OoB_kFfouOyBO5FbIK83Evp02taOruremqPkaQzo-hF4lIRgg8XU_Byn0gEotc4GDihOxDizUXiga8FlDM4f4r5Ar6s1r5zIaWabyKM9vjHKiEb7haHRynKuMmo">
+</div>
+<h5 class="text-label-lg text-on-surface truncate">Royal Canin Golden Adult</h5>
+<div class="flex justify-between items-center mt-1">
+<span class="text-primary font-bold">₹5,400</span>
+<span class="text-label-sm text-secondary">4.8 ★</span>
+</div>
+</div>
+<!-- Product 2 -->
+<div class="bg-surface-container-lowest p-3 rounded-xl card-shadow group">
+<div class="h-32 bg-surface rounded-lg mb-3 flex items-center justify-center overflow-hidden">
+<img alt="Brush" class="h-full w-full object-cover group-hover:scale-105 transition-transform" data-alt="A professional-grade pet grooming brush designed for thick coats like that of a Golden Retriever. The brush is made of high-quality materials and is presented in a bright, clinical studio setting. The lighting is soft and ambient, reinforcing the premium and tactile nature of the product." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWNXRkBKPgSw8rlrhxU4GaF_2s9gHpuqN3xX1qLP4SR0tAkgXIzUASJCQpwwSt2QBOMz_uynMd1j-1_QN3K9m52Fq9CWIzeL1peSJqU1zcfCTE2iW0WoUvxV5vKzIi2GZECzbvj6N9SW5Ew9S_GqC8l4tcC6dACMb33QVms3OaQGeV-pJ2MsHGvvb1aX1TwQ4ozFBf48aVjNg9wGGd74ykoyt_C1pJUZA7lZEb6zH7PZ_eRRlymBNqE0tfzb3pgv-LAT3JA4FSdXk">
+</div>
+<h5 class="text-label-lg text-on-surface truncate">Self-Cleaning Slicker Brush</h5>
+<div class="flex justify-between items-center mt-1">
+<span class="text-primary font-bold">₹1,250</span>
+<span class="text-label-sm text-secondary">4.9 ★</span>
+</div>
+</div>
+<!-- Product 3 -->
+<div class="bg-surface-container-lowest p-3 rounded-xl card-shadow group">
+<div class="h-32 bg-surface rounded-lg mb-3 flex items-center justify-center overflow-hidden">
+<img alt="Shampoo" class="h-full w-full object-cover group-hover:scale-105 transition-transform" data-alt="A bottle of organic dog shampoo with natural extracts, standing in a clean, white-tiled bathroom. The scene is bright and airy, suggesting high quality and animal welfare. The bottle design is modern and clean, fitting into a luxurious pet care routine." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpIQaX_VPGwfUmrbSQh8r-OVWyY-EGdofh2Wif9JF9CDzVXaCwOC3ugN5HOhqzwKqg2o3aAORt78vqB1_2UpgU8DDSSOwndTvXRP82-pkVYuJ-SvrFF6TkI4gKjmvYruINUBy8UaEqJ1pSSiAWl0g8vTFZ9s7KBaqtWyjMuDL2eQR-01dhUvCp5SzdP3Y25BjsvIv4N0MUTEyKfJqshhgAkSgnTR3aO68_kIQgTK8m3xEnjFwbrFkcjS9MMzu4PriAbXs31K0xbEQ">
+</div>
+<h5 class="text-label-lg text-on-surface truncate">Oatmeal &amp; Alo Shampoo</h5>
+<div class="flex justify-between items-center mt-1">
+<span class="text-primary font-bold">₹850</span>
+<span class="text-label-sm text-secondary">4.7 ★</span>
+</div>
+</div>
+<!-- Product 4 -->
+<div class="bg-surface-container-lowest p-3 rounded-xl card-shadow group">
+<div class="h-32 bg-surface rounded-lg mb-3 flex items-center justify-center overflow-hidden">
+<img alt="Bed" class="h-full w-full object-cover group-hover:scale-105 transition-transform" data-alt="A large, plush memory foam dog bed in a contemporary gray fabric, placed in a sunny corner of a modern apartment. The lighting is warm and invites a sense of comfort and high-end living. The image emphasizes the tactile, plump, and friendly aesthetic of the design system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4pZozpjMMjT8bJiiumqyoUzQ24gY9lzZVCGF3DcZ8YoUYU5CCS8884O6_08R4nA_uUDVNqc_9bbmDj0MtPmrwa55QMoW9e2UG_6hUND2kN84UBzavt7V55xOw-35-fjVfLrKwiUvKtxKNZdHraFKVzk88k8fZ_WrXsX1E3dH93yR6D-r3dyQYPy9Sc7id1KAkgRZzbtyYB7LAMaic2N4Eaq_-1G93KeopK7sNbKwuEhddDbDw0nxNWVHqv-vcmKk2DiStY3mHzds">
+</div>
+<h5 class="text-label-lg text-on-surface truncate">Orthopedic Bolster Bed</h5>
+<div class="flex justify-between items-center mt-1">
+<span class="text-primary font-bold">₹3,800</span>
+<span class="text-label-sm text-secondary">4.9 ★</span>
+</div>
+</div>
+<!-- Product 5 -->
+<div class="bg-surface-container-lowest p-3 rounded-xl card-shadow group">
+<div class="h-32 bg-surface rounded-lg mb-3 flex items-center justify-center overflow-hidden">
+<img alt="Leash" class="h-full w-full object-cover group-hover:scale-105 transition-transform" data-alt="A durable, high-visibility orange nylon pet leash and harness set laid out on a clean white surface. The set is well-lit and professionally photographed, highlighting the vibrant colors and strong craftsmanship. The image suggests safety and reliability for active pet parents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8C_uFCx6VOePLeK0K7AtkcBE5coUjWEp0NU4RXp-_FKDQklcwBYqAjnb9PbAptwK4ZwRCObPUM_DdgElXY-8_SAgJ7b8BeSLuDcarR5KXEtdO4PZr7Lz4D2oJsH7OVs5XoumVDcXTNjK07Xp6poa-vpPR2Sgcq3FhFo7f4vvFLyai3EB-ySDaBBE29yw8gyRkOmsTBgEwzvUs-nX_62bdg9OGQNcE8fMmyWc5PC916GnmocvJYzL_PkwRiub1zCJeqfbKLq2oJIE">
+</div>
+<h5 class="text-label-lg text-on-surface truncate">Durable Harness Set</h5>
+<div class="flex justify-between items-center mt-1">
+<span class="text-primary font-bold">₹1,950</span>
+<span class="text-label-sm text-secondary">4.6 ★</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Services Section -->
+<section class="bg-surface-container-low rounded-3xl p-gutter">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md text-on-surface">Nearby Services</h3>
+<a class="text-secondary font-label-lg hover:underline" href="#">Find More</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Service 1 -->
+<div class="flex gap-4 bg-surface-container-lowest p-4 rounded-2xl card-shadow group">
+<div class="w-24 h-24 rounded-xl overflow-hidden shrink-0">
+<img alt="Grooming" class="w-full h-full object-cover" data-alt="A professional dog groomer carefully brushing a Golden Retriever in a clean, modern grooming studio with teal accents and warm lighting. The groomer is wearing professional attire, and the environment is organized and peaceful, ensuring trust and animal safety." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtlQLRJuQ7wY1WCns670fRLaMpYPHxAM3xUUMv4oEkk7az58D5zItqKfxIy3fychEv7FbloPBfU3IHJeNjBTAbiVnZR5wrIdfcYLFWva6a-ED9W5HtiA4D3F5_n6WYKd8wEbqqB64wbPThJtwl6LRv3kc29NRunKYMU-gmmk2drGgPalMl0kJTho0HDhMd6CGk93AzyjKGqaCu4qoiQvRauPluxD9ECCILRjPjDiQYfu3lzgd0kkV5o7FSLDqBCKehXDaeT2YKLlA">
+</div>
+<div class="flex flex-col justify-center gap-1">
+<h6 class="font-bold text-on-surface">Pawsome Spa &amp; Grooming</h6>
+<p class="text-label-sm text-on-surface-variant">Expert Golden retriever coat care &amp; de-shedding</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="text-secondary font-bold text-label-sm">₹1,200/session</span>
+<span class="text-on-surface-variant text-label-sm">• 1.2 km away</span>
+</div>
+</div>
+</div>
+<!-- Service 2 -->
+<div class="flex gap-4 bg-surface-container-lowest p-4 rounded-2xl card-shadow group">
+<div class="w-24 h-24 rounded-xl overflow-hidden shrink-0">
+<img alt="Training" class="w-full h-full object-cover" data-alt="A certified professional dog trainer teaching a Golden Retriever to sit in a spacious, sunny indoor training facility. The lighting is high-key and bright, with soft teal accents on the equipment. The trainer and dog show a clear bond of trust and professional animal welfare." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZfp3cr7DEHWAuccF2-kfrACSLlpJgiBOI-N-eMuoyNCgcMC4J4TzufmHste68kYPfmOAgp3ezQS3IQvkVBmGUnjQ_DUuPumAvRrw5Soi5JgJOSLwcI3PAKVIcqb76-0YMgC5woi7U8cwfr6EgYS4jr-aQCx4zMJV2LVOH9gkiWHKA_3jkx8saB0YgnDiXfNGNJXZxrOoJDq8BMOhZeSEej4V5n9WRbPMb1eviD-5tB6LyKIE_EMeu0TrZjRNjhwmOjrIhpLkkCPk">
+</div>
+<div class="flex flex-col justify-center gap-1">
+<h6 class="font-bold text-on-surface">Golden Obedience Academy</h6>
+<p class="text-label-sm text-on-surface-variant">Specialized training for active companions</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="text-secondary font-bold text-label-sm">₹800/class</span>
+<span class="text-on-surface-variant text-label-sm">• 3.5 km away</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-gutter bg-surface-container-highest dark:bg-inverse-surface border-t border-outline-variant">
+<div class="w-full py-margin-desktop px-margin-desktop flex flex-col md:flex-row justify-between items-center max-w-container-max mx-auto">
+<div class="flex flex-col gap-2 mb-gutter md:mb-0">
+<span class="font-headline-md text-headline-md font-bold text-on-surface">PetZonic</span>
+<p class="text-on-surface-variant font-label-sm max-w-xs">© 2024 PetZonic Marketplace. Joyful Reliability for Pet Parents.</p>
+</div>
+<div class="flex gap-gutter flex-wrap justify-center">
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-sm" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-sm" href="#">Terms of Service</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-sm" href="#">Safety Tips</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-sm" href="#">Contact Support</a>
+</div>
+</div>
+</footer>
+<!-- FAB for quick search change (Mobile focused) -->
+<button class="fixed bottom-margin-mobile right-margin-mobile md:hidden bg-primary-container text-on-primary-container p-4 rounded-full shadow-xl z-50 flex items-center justify-center">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+</body></html>

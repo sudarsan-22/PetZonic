@@ -1,0 +1,314 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>PetZonic FAQ | Helpful Support for Pet Parents</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed": "#ece1d3",
+                    "surface": "#f9f9fc",
+                    "tertiary-container": "#b2a99c",
+                    "surface-dim": "#dadadc",
+                    "on-tertiary-fixed": "#201b13",
+                    "primary-container": "#ff8c00",
+                    "on-tertiary": "#ffffff",
+                    "on-surface": "#1a1c1e",
+                    "on-primary-fixed-variant": "#6e3900",
+                    "surface-container-high": "#e8e8ea",
+                    "primary-fixed-dim": "#ffb77d",
+                    "on-secondary-fixed": "#002020",
+                    "secondary-fixed": "#93f2f2",
+                    "background": "#f9f9fc",
+                    "outline-variant": "#ddc1ae",
+                    "on-tertiary-fixed-variant": "#4c463c",
+                    "secondary-container": "#90efef",
+                    "on-surface-variant": "#564334",
+                    "on-primary-container": "#623200",
+                    "tertiary-fixed-dim": "#cfc5b8",
+                    "secondary": "#006a6a",
+                    "on-tertiary-container": "#443e34",
+                    "on-primary": "#ffffff",
+                    "secondary-fixed-dim": "#76d6d5",
+                    "on-secondary-container": "#006e6e",
+                    "on-primary-fixed": "#2f1500",
+                    "outline": "#897362",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-fixed-variant": "#004f4f",
+                    "surface-container": "#eeeef0",
+                    "on-secondary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "surface-variant": "#e2e2e5",
+                    "inverse-on-surface": "#f0f0f3",
+                    "inverse-surface": "#2f3133",
+                    "error-container": "#ffdad6",
+                    "primary-fixed": "#ffdcc3",
+                    "surface-container-low": "#f3f3f6",
+                    "surface-bright": "#f9f9fc",
+                    "surface-container-highest": "#e2e2e5",
+                    "primary": "#904d00",
+                    "on-background": "#1a1c1e",
+                    "inverse-primary": "#ffb77d",
+                    "tertiary": "#645d53",
+                    "surface-tint": "#904d00",
+                    "on-error-container": "#93000a",
+                    "error": "#ba1a1a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "48px",
+                    "container-max": "1280px",
+                    "margin-mobile": "16px",
+                    "base": "8px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "label-lg": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "headline-xl-mobile": ["Montserrat"],
+                    "headline-xl": ["Montserrat"],
+                    "label-sm": ["Plus Jakarta Sans"],
+                    "headline-md": ["Montserrat"],
+                    "headline-lg": ["Montserrat"],
+                    "body-md": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-xl-mobile": ["30px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+        }
+        .accordion-item.active .accordion-content {
+            max-height: 300px;
+            padding-bottom: 24px;
+        }
+        .accordion-item.active .rotate-icon {
+            transform: rotate(180deg);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e2e2e5;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md selection:bg-primary-fixed">
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-desktop max-w-container-max mx-auto h-16 bg-surface shadow-sm dark:bg-surface-container">
+<div class="flex items-center gap-base">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">PetZonic</span>
+</div>
+<nav class="hidden md:flex gap-gutter items-center">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Browse Pets</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Adoption Centers</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Pet Care</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Community</a>
+</nav>
+<div class="flex items-center gap-gutter">
+<div class="hidden lg:flex items-center gap-base">
+<span class="material-symbols-outlined text-on-surface-variant">favorite</span>
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant">person</span>
+</div>
+<button class="bg-primary-container text-on-primary-container px-6 py-2 rounded-full font-label-lg transition-transform active:scale-95">List a Pet</button>
+</div>
+</header>
+<main class="pt-32 pb-margin-desktop px-margin-mobile">
+<section class="max-w-[800px] mx-auto">
+<div class="text-center mb-12">
+<h1 class="font-headline-xl text-headline-xl mb-base text-on-surface">How can we help?</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-gutter">Find answers to frequently asked questions about PetZonic.</p>
+<div class="relative w-full max-w-2xl mx-auto group">
+<div class="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline">search</span>
+</div>
+<input class="w-full pl-12 pr-32 py-4 rounded-xl border-none bg-surface-container-low shadow-sm ring-1 ring-outline-variant focus:ring-2 focus:ring-secondary transition-all outline-none" placeholder="Search for questions (e.g., 'Verification', 'Shipping')" type="text">
+<button class="absolute right-2 top-2 bottom-2 bg-primary text-on-primary px-6 rounded-lg font-label-lg hover:bg-on-primary-fixed-variant transition-colors">
+                        Search
+                    </button>
+</div>
+</div>
+<div class="flex overflow-x-auto gap-base pb-4 mb-gutter custom-scrollbar scroll-smooth whitespace-nowrap">
+<button class="category-tab px-6 py-2 rounded-full font-label-lg bg-primary text-on-primary shadow-sm transition-all" data-category="all" onclick="filterCategory('all')">All</button>
+<button class="category-tab px-6 py-2 rounded-full font-label-lg bg-surface-container-high text-on-surface-variant hover:bg-secondary-container hover:text-on-secondary-container transition-all" data-category="buying" onclick="filterCategory('buying')">Buying</button>
+<button class="category-tab px-6 py-2 rounded-full font-label-lg bg-surface-container-high text-on-surface-variant hover:bg-secondary-container hover:text-on-secondary-container transition-all" data-category="selling" onclick="filterCategory('selling')">Selling</button>
+<button class="category-tab px-6 py-2 rounded-full font-label-lg bg-surface-container-high text-on-surface-variant hover:bg-secondary-container hover:text-on-secondary-container transition-all" data-category="adoption" onclick="filterCategory('adoption')">Adoption</button>
+<button class="category-tab px-6 py-2 rounded-full font-label-lg bg-surface-container-high text-on-surface-variant hover:bg-secondary-container hover:text-on-secondary-container transition-all" data-category="safety" onclick="filterCategory('safety')">Safety &amp; Verification</button>
+<button class="category-tab px-6 py-2 rounded-full font-label-lg bg-surface-container-high text-on-surface-variant hover:bg-secondary-container hover:text-on-secondary-container transition-all" data-category="shipping" onclick="filterCategory('shipping')">Shipping</button>
+</div>
+<div class="space-y-4 mb-margin-desktop" id="faq-list">
+<div class="accordion-item group bg-surface-container-lowest rounded-xl shadow-sm border border-transparent hover:border-outline-variant transition-all duration-300 overflow-hidden" data-category="buying">
+<button class="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none" onclick="toggleAccordion(this)">
+<span class="font-label-lg text-body-md text-on-surface">How do I buy a pet on PetZonic?</span>
+<span class="material-symbols-outlined rotate-icon transition-transform duration-300 text-outline">expand_more</span>
+</button>
+<div class="accordion-content px-6">
+<p class="text-on-surface-variant font-body-md leading-relaxed">
+                            Buying a pet is simple and secure. Browse our listed pets, use filters to find the right breed and age, and click "Enquire" or "Buy Now". You'll be connected with the verified seller to discuss health certificates, vaccination records, and delivery options before completing the transaction through our secure portal.
+                        </p>
+</div>
+</div>
+<div class="accordion-item group bg-surface-container-lowest rounded-xl shadow-sm border border-transparent hover:border-outline-variant transition-all duration-300 overflow-hidden" data-category="safety">
+<button class="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none" onclick="toggleAccordion(this)">
+<span class="font-label-lg text-body-md text-on-surface">Are sellers verified?</span>
+<span class="material-symbols-outlined rotate-icon transition-transform duration-300 text-outline">expand_more</span>
+</button>
+<div class="accordion-content px-6">
+<p class="text-on-surface-variant font-body-md leading-relaxed">
+                            Yes, absolutely. We have a multi-step verification process. Every seller must provide government ID, proof of residence, and if they are a breeder, their kennel license. Look for the "Verified" Teal badge on profiles for the highest level of trust and security.
+                        </p>
+</div>
+</div>
+<div class="accordion-item group bg-surface-container-lowest rounded-xl shadow-sm border border-transparent hover:border-outline-variant transition-all duration-300 overflow-hidden" data-category="selling">
+<button class="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none" onclick="toggleAccordion(this)">
+<span class="font-label-lg text-body-md text-on-surface">What are the fees for listing a pet?</span>
+<span class="material-symbols-outlined rotate-icon transition-transform duration-300 text-outline">expand_more</span>
+</button>
+<div class="accordion-content px-6">
+<p class="text-on-surface-variant font-body-md leading-relaxed">
+                            Listing a pet is currently free for individual pet parents! Professional breeders can choose from our 'Standard' or 'Premium' monthly subscription plans which offer higher visibility and advanced analytics for their listings.
+                        </p>
+</div>
+</div>
+<div class="accordion-item group bg-surface-container-lowest rounded-xl shadow-sm border border-transparent hover:border-outline-variant transition-all duration-300 overflow-hidden" data-category="shipping">
+<button class="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none" onclick="toggleAccordion(this)">
+<span class="font-label-lg text-body-md text-on-surface">How does pet transportation work?</span>
+<span class="material-symbols-outlined rotate-icon transition-transform duration-300 text-outline">expand_more</span>
+</button>
+<div class="accordion-content px-6">
+<p class="text-on-surface-variant font-body-md leading-relaxed">
+                            We partner with climate-controlled, pet-certified logistics providers. Once a purchase is confirmed, you can choose "PetZonic Transport". Our team handles the pickup, ensures the pet has a comfortable journey with scheduled breaks, and delivers them right to your doorstep with real-time tracking.
+                        </p>
+</div>
+</div>
+<div class="accordion-item group bg-surface-container-lowest rounded-xl shadow-sm border border-transparent hover:border-outline-variant transition-all duration-300 overflow-hidden" data-category="adoption">
+<button class="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none" onclick="toggleAccordion(this)">
+<span class="font-label-lg text-body-md text-on-surface">How can I support local animal shelters?</span>
+<span class="material-symbols-outlined rotate-icon transition-transform duration-300 text-outline">expand_more</span>
+</button>
+<div class="accordion-content px-6">
+<p class="text-on-surface-variant font-body-md leading-relaxed">
+                            PetZonic has a dedicated "Adoption Centers" section. You can browse pets from local shelters, donate directly through their verified profiles, or sign up to be a volunteer. 100% of donations made through our platform go directly to the respective animal welfare organizations.
+                        </p>
+</div>
+</div>
+</div>
+<div class="bg-secondary-container rounded-3xl p-gutter md:p-12 flex flex-col md:flex-row items-center gap-gutter relative overflow-hidden">
+<div class="flex-1 text-center md:text-left z-10">
+<h2 class="font-headline-lg text-headline-lg text-on-secondary-container mb-base">Still Need Help?</h2>
+<p class="font-body-md text-on-secondary-container opacity-90 mb-gutter">Our expert support team is available 24/7 to help you with any questions about pet care or the marketplace.</p>
+<div class="flex flex-wrap gap-base justify-center md:justify-start">
+<button class="bg-on-secondary-container text-secondary-container px-8 py-3 rounded-full font-label-lg hover:shadow-lg transition-all active:scale-95">Contact Support</button>
+<button class="bg-transparent border-2 border-on-secondary-container text-on-secondary-container px-8 py-3 rounded-full font-label-lg hover:bg-on-secondary-container hover:text-secondary-container transition-all">Chat with Us</button>
+</div>
+</div>
+<div class="w-48 h-48 md:w-64 md:h-64 relative z-10 flex-shrink-0">
+<img alt="Support Specialist" class="w-full h-full object-cover rounded-2xl shadow-xl border-4 border-white" data-alt="A portrait of a friendly female customer support specialist wearing high-tech headphones, smiling warmly in a bright, modern office setting. The environment uses a soft, high-key lighting aesthetic with a color palette of clean whites and soothing teals. The mood is professional, reliable, and approachable, perfectly aligning with the PetZonic brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7E5wQZYzwbmJ-E8pGGenGiT8ZlraKkx2FscrI26sL700ZgoweSiTlEsxUpcHykieMG86aoCf1BLNAKrN0WX9hyKa-BZeRWaQaIEvLNLmaA_EidnFbxakOd5VVGSxgp10ML5ivRcS9WkN5zumGFXDjiVY8vlCR8WZVxIUqyTSEArDlIvFF0InHBnTqQHYzFAHN6p5KejTZbu7IyhhJD8bT-HUcQkjV63dqYlYcGeUVNvZaz5vjQ6BBc7LN7vQ3SNhYfS4rYwmRWoU">
+<div class="absolute -bottom-2 -right-2 bg-primary-container p-2 rounded-full shadow-lg">
+<span class="material-symbols-outlined text-white text-3xl">support_agent</span>
+</div>
+</div>
+<div class="absolute -top-12 -right-12 w-48 h-48 bg-white/20 rounded-full blur-3xl"></div>
+<div class="absolute -bottom-12 -left-12 w-48 h-48 bg-primary/10 rounded-full blur-3xl"></div>
+</div>
+</section>
+</main>
+<footer class="w-full bg-surface-container-highest dark:bg-inverse-surface mt-gutter border-t border-outline-variant">
+<div class="w-full py-margin-desktop px-margin-desktop flex flex-col md:flex-row justify-between items-center max-w-container-max mx-auto gap-gutter">
+<div class="flex flex-col items-center md:items-start gap-base">
+<span class="font-headline-md text-headline-md font-bold text-on-surface">PetZonic</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant text-center md:text-left opacity-90">© 2024 PetZonic Marketplace. Joyful Reliability for Pet Parents.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-gutter">
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-opacity" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-opacity" href="#">Terms of Service</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-opacity" href="#">Safety Tips</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-opacity" href="#">Contact Support</a>
+</div>
+</div>
+</footer>
+<script>
+        function toggleAccordion(element) {
+            const item = element.parentElement;
+            const isActive = item.classList.contains('active');
+            
+            // Close all other items
+            document.querySelectorAll('.accordion-item').forEach(otherItem => {
+                otherItem.classList.remove('active');
+            });
+
+            // Toggle current item
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        }
+
+        function filterCategory(category) {
+            // Update tabs UI
+            document.querySelectorAll('.category-tab').forEach(tab => {
+                tab.classList.remove('bg-primary', 'text-on-primary', 'shadow-sm');
+                tab.classList.add('bg-surface-container-high', 'text-on-surface-variant');
+            });
+            const activeTab = document.querySelector(`[data-category="${category}"]`);
+            activeTab.classList.remove('bg-surface-container-high', 'text-on-surface-variant');
+            activeTab.classList.add('bg-primary', 'text-on-primary', 'shadow-sm');
+
+            // Filter accordion items
+            const items = document.querySelectorAll('.accordion-item');
+            items.forEach(item => {
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.style.display = 'block';
+                    item.classList.add('animate-fade-in');
+                } else {
+                    item.style.display = 'none';
+                    item.classList.remove('animate-fade-in');
+                }
+            });
+        }
+
+        // Search logic
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            const items = document.querySelectorAll('.accordion-item');
+            
+            items.forEach(item => {
+                const text = item.innerText.toLowerCase();
+                if (text.includes(term)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body></html>

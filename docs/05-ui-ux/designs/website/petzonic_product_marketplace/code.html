@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PetZonic - Premium Pet Products</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline-variant": "#ddc1ae",
+                        "on-primary-fixed-variant": "#6e3900",
+                        "on-error-container": "#93000a",
+                        "surface-dim": "#dadadc",
+                        "on-secondary-fixed": "#002020",
+                        "on-primary-container": "#623200",
+                        "error": "#ba1a1a",
+                        "tertiary": "#645d53",
+                        "surface-container-highest": "#e2e2e5",
+                        "on-secondary-container": "#006e6e",
+                        "error-container": "#ffdad6",
+                        "surface-variant": "#e2e2e5",
+                        "surface-container": "#eeeef0",
+                        "inverse-primary": "#ffb77d",
+                        "tertiary-fixed-dim": "#cfc5b8",
+                        "on-surface": "#1a1c1e",
+                        "on-error": "#ffffff",
+                        "secondary-container": "#90efef",
+                        "outline": "#897362",
+                        "on-surface-variant": "#564334",
+                        "primary-container": "#ff8c00",
+                        "on-tertiary-fixed": "#201b13",
+                        "surface-tint": "#904d00",
+                        "primary": "#904d00",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "secondary": "#006a6a",
+                        "on-tertiary-fixed-variant": "#4c463c",
+                        "on-primary-fixed": "#2f1500",
+                        "inverse-surface": "#2f3133",
+                        "background": "#f9f9fc",
+                        "tertiary-fixed": "#ece1d3",
+                        "tertiary-container": "#b2a99c",
+                        "surface": "#f9f9fc",
+                        "surface-container-high": "#e8e8ea",
+                        "on-secondary-fixed-variant": "#004f4f",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#76d6d5",
+                        "on-tertiary-container": "#443e34",
+                        "inverse-on-surface": "#f0f0f3",
+                        "surface-bright": "#f9f9fc",
+                        "secondary-fixed": "#93f2f2",
+                        "on-tertiary": "#ffffff",
+                        "on-background": "#1a1c1e",
+                        "primary-fixed-dim": "#ffb77d",
+                        "surface-container-low": "#f3f3f6",
+                        "primary-fixed": "#ffdcc3"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.8rem",
+                        "xl": "1.2rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "48px",
+                        "gutter": "24px",
+                        "container-max": "1280px",
+                        "base": "8px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Montserrat"],
+                        "headline-xl": ["Montserrat"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-xl-mobile": ["Montserrat"],
+                        "headline-md": ["Montserrat"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "label-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-xl-mobile": ["30px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .product-card-shadow { box-shadow: 0 4px 16px rgba(0, 128, 128, 0.12); }
+        .product-card-shadow:hover { box-shadow: 0 12px 24px rgba(0, 128, 128, 0.18); transform: translateY(-4px); }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md">
+<!-- TopNavBar -->
+<header class="bg-surface/95 backdrop-blur-sm shadow-[0_4px_16px_rgba(0,128,128,0.12)] docked full-width top-0 sticky z-50 transition-all duration-300">
+<div class="flex justify-between items-center w-full px-margin-desktop py-4 max-w-container-max mx-auto">
+<div class="text-headline-lg font-headline-lg text-primary italic tracking-tight">PetZonic</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-200 font-label-lg text-label-lg" href="#">Pets</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-label-lg text-label-lg" href="#">Products</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-200 font-label-lg text-label-lg" href="#">Services</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-200 font-label-lg text-label-lg" href="#">Community</a>
+</nav>
+<div class="flex items-center gap-6">
+<div class="relative hidden lg:block">
+<input class="bg-surface-container-low border-none rounded-lg py-2 pl-4 pr-10 w-64 focus:ring-2 focus:ring-primary-container transition-all" placeholder="Search products..." type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-2 text-primary" data-icon="search">search</span>
+</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:scale-110 transition-transform" data-icon="favorite">favorite</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:scale-110 transition-transform" data-icon="shopping_cart">shopping_cart</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:scale-110 transition-transform" data-icon="account_circle">account_circle</span>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-margin-desktop py-8">
+<!-- Breadcrumb -->
+<nav class="mb-8 flex items-center gap-2 text-on-surface-variant font-label-lg text-label-lg">
+<a class="hover:text-primary" href="#">Home</a>
+<span class="material-symbols-outlined text-[16px]" data-icon="chevron_right">chevron_right</span>
+<span class="text-on-surface">Products</span>
+</nav>
+<!-- Category Banner -->
+<section class="mb-12">
+<div class="flex gap-8 overflow-x-auto hide-scrollbar pb-4 -mx-4 px-4 snap-x">
+<!-- Categories -->
+<button class="flex-none flex flex-col items-center gap-3 group snap-start">
+<div class="w-20 h-20 rounded-full border-4 border-primary p-1 bg-white overflow-hidden transition-transform group-hover:scale-105">
+<img alt="Dog Food" class="w-full h-full object-cover rounded-full" data-alt="A professional studio shot of high-quality dry dog food kibble arranged neatly in a bright ceramic bowl. The lighting is warm and joyful, reflecting a premium pet care brand identity. The background is a soft, solid teal color that provides a modern, clean, and tactile feel consistent with a high-end pet marketplace." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1niSjN5RvBwykGTOvbuz8XiwhtgUYUMnE2zpjwP6BzphCgMtdgb7bEPgjAAdyENG-TWZsLaaSGq-TyqGcWTsSz1ShWVGavZbyA6lnAhFqZRLEzDlgAXjQiY5E0KDZBn5RHVlSsXTTVTmZxYGnoh8f_87-xmSw-eilzejDKBhZL9JlkaqiqGAMqaf0jwS0S3RaIC-EydlHRpw6y12l4mnfe4jfUDTWjS44L3Vmh8Bn9D1SHSyVTQ7YgvOUcnLA6Inni5ZE5fHIjE0"/>
+</div>
+<span class="font-label-lg text-label-lg text-primary">Dog Food</span>
+</button>
+<button class="flex-none flex flex-col items-center gap-3 group snap-start">
+<div class="w-20 h-20 rounded-full border-4 border-transparent p-1 bg-white overflow-hidden transition-transform group-hover:scale-105">
+<img alt="Cat Food" class="w-full h-full object-cover rounded-full" data-alt="Close-up of a content ginger cat looking at a bowl of nutritious cat food. The image is bathed in soft, natural morning light, creating a sense of reliable and warm pet care. The aesthetic is modern and vibrant, utilizing high-saturation accents and organic depth typical of a premium Indian pet culture brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4qAJaKRAwXmgMZVbf_8DNQ2Km5w2rVxj0ql894FzRq7ufFNqYjAxMGB0s0OA7Mp7IDW8NQb6as1-Hd9DnXQXzAP0qkH4Ib2HIgATsi4mvkaE4pqRHbCfPXGej-XJy_CdpJmoFyZdFO6_OtuzU6If_AD09wXOmijfpJZlDMRGKvmnv_WDQAOJzqS7w0VJ_CaQaBeHEhlJfGvGJs20-DHQmvMySRzn2bN4q6cpN7y0L0p3BlocwGiw_hEgElQFJu4fXzSthHCTFaY4"/>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface-variant">Cat Food</span>
+</button>
+<!-- More Categories -->
+<button class="flex-none flex flex-col items-center gap-3 group snap-start">
+<div class="w-20 h-20 rounded-full border-4 border-transparent p-1 bg-white overflow-hidden transition-transform group-hover:scale-105">
+<img alt="Toys" class="w-full h-full object-cover rounded-full" data-alt="A vibrant assortment of colorful pet toys including a knotted rope, a rubber ball, and a plush squeaky toy. The scene is bright and energetic, with high-saturation oranges and teals that evoke a sense of playfulness and vitality. The overall look is clean, high-end, and approachable for modern pet parents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBadIwyo5YNIaTxL6i08HyIP0032LFUKRRnXvvGx0e2H8B217MzMP-E5UUeHsOv4Pcg6WzeNBx3Y54MHI05nlZZ32YAlzEu74wn4ujBmBhR1GUA8cbDAGSwdAUFxEHfdE6VP7ZD42EaZBUHn_hSBGtsuUfKuX3ElQZsWjXrHQ4z4dOUvSLHWVZmO5KEdaTnaCNr5e2XMfjc3sifQGFbBzwHHepxrgMInJPRpLN55qyWqgBuutPpKS1k9rnHDZnMEhW2DRZ3O9jwks"/>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface-variant">Toys</span>
+</button>
+<button class="flex-none flex flex-col items-center gap-3 group snap-start">
+<div class="w-20 h-20 rounded-full border-4 border-transparent p-1 bg-white overflow-hidden transition-transform group-hover:scale-105">
+<img alt="Accessories" class="w-full h-full object-cover rounded-full" data-alt="A stylish leather dog collar and matching leash set displayed on a light gray marble surface. The lighting is elegant and soft, emphasizing the premium quality of the materials. The color palette features rich browns and gold hardware accents, fitting a sophisticated and trustworthy brand identity for pet owners." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEepHfMHIGhKXHQb_SnyrUncbzMkEX9iTQTl6vtCsPb5lyuAidN9PKfnRqKSf5Kx9iQItVjPnzLpQ67wswJ7rYXF8yhnuFJmGzLaeSX4NTltoo2GYNc4NxHgtNFbAG01Vqg_m1gI3iltIhpAzDQixr6ybzXpQd8mWGUWmg6sFNu_f_Qiu2oUVE1vw3-hPzQ2tHN17jxTFxO8plshRiPw_rOjJ8UhcQ18iXGSYV9KqCHX91v8BCTTfOFWMNaEyGL1tNsPJ-adU_YdA"/>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface-variant">Accessories</span>
+</button>
+<button class="flex-none flex flex-col items-center gap-3 group snap-start">
+<div class="w-20 h-20 rounded-full border-4 border-transparent p-1 bg-white overflow-hidden transition-transform group-hover:scale-105">
+<img alt="Grooming" class="w-full h-full object-cover rounded-full" data-alt="A collection of professional pet grooming tools like a stainless steel brush, a bottle of organic shampoo, and a soft towel. The setting is a clean, bright bathroom with white tiles and soft focus. The mood is serene and professional, reflecting high-value transactions and animal welfare trust." src="https://lh3.googleusercontent.com/aida-public/AB6AXuChbVFnNaDHhiqodZ7zygfpiaOQrwHtZRrjUEuMtRklRB1puKl2lllew4fu7jLXDH8JN3u7NNEuNxo5n_Uwd9Wwk2pl_kq8WwQZBKJo3DKbDkrm0_NqrQZNt-OTWtw_lygJtdWRKF6973UwkhnKoChlvSpOer8jN75PBZML2L3PNM73ag-9hLP-Ip9SFOKiLrR582vjzFxRVBX-R8vgLvLPBviI-c5tVPn3W0_XjGYoY_Bd6eFAQQaMATVmPLb7wAVwILgwEwNcISc"/>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface-variant">Grooming</span>
+</button>
+<button class="flex-none flex flex-col items-center gap-3 group snap-start">
+<div class="w-20 h-20 rounded-full border-4 border-transparent p-1 bg-white overflow-hidden transition-transform group-hover:scale-105">
+<img alt="Health" class="w-full h-full object-cover rounded-full" data-alt="A clear glass bottle of pet vitamins next to a few scattered supplement tablets on a clean, modern surface. The lighting is clinical yet warm, suggesting health and vitality. The teal and orange color accents in the background maintain harmony with the pet-focused design system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxri9qbe_AdzB0QEAlXfQb5vcD6L2NGrnXtMX16nsJ9EhUJ-QcROrZyCWnVx-Ne57tIsZ7_amWmeAyrs5dPzDaM2e4Ltr2f1XHrlEejTF6yumvysGsN-ode5FeDRacB-8nHM1QmprZ7wfXCeKMBbkodhsCOxkKXvtHWiqyohAfI3VunZefsI9Y60oofNt8zMLad3iIHA14hPrnNLhUrAYJB-LCJ6SAJpiz3yZdvBC_ngibZW8nLldWZaEP1Ub1l_JWIQX-ETrLveg"/>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface-variant">Health</span>
+</button>
+<button class="flex-none flex flex-col items-center gap-3 group snap-start">
+<div class="w-20 h-20 rounded-full border-4 border-transparent p-1 bg-white overflow-hidden transition-transform group-hover:scale-105">
+<img alt="Beds" class="w-full h-full object-cover rounded-full" data-alt="A plush, soft pet bed in a light charcoal color, looking extremely comfortable and inviting. It is placed in a sun-drenched corner of a modern living room with a green plant nearby. The atmosphere is warm, cozy, and high-end, reinforcing the brand's 'joyful reliability' promise." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRIkUoHl6LXHdObkmLSkgfxiqCl8jv84mnARnrfvHibNpQhNC6OmJL-d3HPLAvxMTX94IHRBGkRi6gZ4xJZC9iwgEm1XS_y6BkGMy5O9D-iJJXWou8MrnSffiK-NI_gSPqHrh9Wb7mRckc2gIYAeFK8Hb7bWyfv3E5bwYdyD_qOELn2WAEdKUYeljfLfhpet_CG4ctGJB1YO3IfCPDfWMhX0eTeUzhDka0iJv09DBvG5SRI9vKPaIvYL516DeDkqMVYLY5ZcAqPJk"/>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface-variant">Beds</span>
+</button>
+<button class="flex-none flex flex-col items-center gap-3 group snap-start">
+<div class="w-20 h-20 rounded-full border-4 border-transparent p-1 bg-white overflow-hidden transition-transform group-hover:scale-105">
+<img alt="Training" class="w-full h-full object-cover rounded-full" data-alt="A clicker and some training treats held in a hand, with a blurry golden retriever looking up expectantly. The lighting is vibrant and outdoor-focused, capturing a moment of animal learning and welfare. The style is tactile and modern, emphasizing the community-driven atmosphere of the brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzV660dvQ17NY7vot7bGkCVMlmiuxPnrKM-ytXn82pfeVPgblBYeYnn0vJkzMTnxpe1iySK37VDhwSt6IdtHGK4LeZDGw-cuDisGN_eHYjnWmMmJ3brOH7cPkSg41Hnj5gscrYtPv0MZqE-8XACI0TJtuPx9up26Yl13K2a5NiJF81HQwzWbtoXT8vFhj_l6KG2YRpqwhEnYTJnpd86V6rOY4JPPsg3bdGx3xFTwjqSerNu42IDTvwCY16h05D_r73LfIZvmO-nRI"/>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface-variant">Training</span>
+</button>
+</div>
+</section>
+<!-- Header Controls -->
+<header class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+<div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface mb-2">Pet Products &amp; Supplies</h1>
+<p class="text-on-surface-variant font-body-md text-body-md">Showing 1,892 premium quality results</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex bg-surface-container-low p-1 rounded-lg">
+<button class="p-2 bg-white shadow-sm rounded-md text-primary"><span class="material-symbols-outlined" data-icon="grid_view">grid_view</span></button>
+<button class="p-2 text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined" data-icon="list">list</span></button>
+</div>
+<div class="relative min-w-[180px]">
+<select class="w-full bg-surface-container-low border-none rounded-lg font-label-lg py-2.5 focus:ring-2 focus:ring-primary-container appearance-none pr-10 cursor-pointer">
+<option>Sort by: Popular</option>
+<option>Price: Low to High</option>
+<option>Price: High to Low</option>
+<option>Newest Arrivals</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-2.5 pointer-events-none text-on-surface-variant" data-icon="unfold_more">unfold_more</span>
+</div>
+</div>
+</header>
+<div class="flex flex-col lg:flex-row gap-gutter">
+<!-- Sidebar Filters -->
+<aside class="w-full lg:w-[280px] flex-none space-y-10">
+<!-- Category Filter -->
+<section>
+<h3 class="font-headline-md text-headline-md mb-4">Category</h3>
+<div class="space-y-3">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="rounded border-outline-variant text-primary focus:ring-primary-container w-5 h-5 transition-all" type="checkbox"/>
+<span class="text-body-md font-body-md group-hover:text-primary">Dog Food (842)</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="rounded border-outline-variant text-primary focus:ring-primary-container w-5 h-5 transition-all" type="checkbox"/>
+<span class="text-body-md font-body-md group-hover:text-primary">Supplements (124)</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="rounded border-outline-variant text-primary focus:ring-primary-container w-5 h-5 transition-all" type="checkbox"/>
+<span class="text-body-md font-body-md group-hover:text-primary">Chews &amp; Treats (431)</span>
+</label>
+</div>
+</section>
+<!-- Brand Filter -->
+<section>
+<h3 class="font-headline-md text-headline-md mb-4">Brand</h3>
+<div class="relative mb-4">
+<input class="w-full bg-surface-container-low border-none rounded-lg text-label-lg py-2 pl-3 focus:ring-1 focus:ring-primary" placeholder="Search brands..." type="text"/>
+</div>
+<div class="space-y-3 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="rounded border-outline-variant text-primary w-5 h-5" type="checkbox"/>
+<span class="text-body-md group-hover:text-primary">Royal Canin</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="rounded border-outline-variant text-primary w-5 h-5" type="checkbox"/>
+<span class="text-body-md group-hover:text-primary">Pedigree</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="rounded border-outline-variant text-primary w-5 h-5" type="checkbox"/>
+<span class="text-body-md group-hover:text-primary">Farmina N&amp;D</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="rounded border-outline-variant text-primary w-5 h-5" type="checkbox"/>
+<span class="text-body-md group-hover:text-primary">Orijen</span>
+</label>
+</div>
+</section>
+<!-- Price Range -->
+<section>
+<h3 class="font-headline-md text-headline-md mb-4">Price Range</h3>
+<div class="px-2">
+<input class="w-full accent-primary h-2 bg-surface-container-high rounded-lg cursor-pointer" max="5000" min="0" type="range"/>
+<div class="flex justify-between mt-3 text-label-lg text-on-surface-variant">
+<span>₹0</span>
+<span>₹5,000+</span>
+</div>
+</div>
+</section>
+<!-- Rating -->
+<section>
+<h3 class="font-headline-md text-headline-md mb-4">Rating</h3>
+<div class="space-y-2">
+<button class="flex items-center gap-2 hover:bg-surface-container-low w-full p-1 rounded-lg transition-colors">
+<div class="flex text-[#FFB300]">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]">star</span>
+</div>
+<span class="text-label-lg">&amp; Up</span>
+</button>
+</div>
+</section>
+<!-- Availability Toggle -->
+<section class="flex items-center justify-between py-2 border-t border-surface-container-high mt-4">
+<span class="font-label-lg text-label-lg">In Stock Only</span>
+<button class="w-12 h-6 bg-secondary-container rounded-full relative p-1 transition-colors">
+<div class="w-4 h-4 bg-secondary rounded-full absolute right-1"></div>
+</button>
+</section>
+</aside>
+<!-- Product Grid -->
+<div class="flex-1">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-gutter">
+<!-- Product Card Instance -->
+<article class="bg-white rounded-xl product-card-shadow transition-all duration-300 overflow-hidden relative group">
+<button class="absolute top-3 right-3 z-10 w-10 h-10 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center hover:bg-white text-on-surface-variant hover:text-error transition-all active:scale-90">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+</button>
+<div class="aspect-square overflow-hidden">
+<img alt="Pedigree Dry Dog Food" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A detailed shot of a premium Pedigree dry dog food bag placed on a clean wooden floor. Soft sunlight illuminates the bag, highlighting the vibrant yellow branding. The mood is trustworthy and domestic, showcasing a high-quality product for a healthy pet lifestyle. The aesthetic is warm and polished." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8g8Dcd2guXJrjZlCUZ_w9qnXFFBd4o2wvnYsDWYtSIWbUwz828e6m2Ii0R3jETJN_6_jA1f0Titw_vJF9yw9oB7P-kmo_MYNhQOtZTnMgSB8ywtxhOIzx9YpblQqDQgrBcqQ4Mk7ZZqkE6pljRJag-4YxtoBWF2tKQF2pCzjEICGTXkvLQNj5kbgIuuR77lp6vSjDTt6b7-hHYMqOCwTo48NIWbUUaB2glNQulAqGDfEBUsEaORsUMqOnafA1V3mdTf_4q3v_2Dw"/>
+</div>
+<div class="p-4">
+<p class="text-label-sm font-label-sm text-tertiary mb-1">PEDIGREE</p>
+<h4 class="font-headline-md text-body-md line-clamp-2 mb-2 min-h-[48px]">Chicken &amp; Vegetables Adult Dry Dog Food</h4>
+<div class="flex items-center gap-2 mb-3">
+<div class="flex text-[#FFB300]">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 0.5;">star_half</span>
+</div>
+<span class="text-label-sm text-on-surface-variant">(1.2k)</span>
+</div>
+<div class="flex items-center gap-2 mb-4">
+<span class="text-headline-md text-primary-container font-bold">₹1,450</span>
+<span class="text-label-sm text-on-surface-variant line-through">₹1,700</span>
+<span class="bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded text-label-sm font-bold">15% OFF</span>
+</div>
+<button class="w-full py-3 border-2 border-primary-container text-primary-container hover:bg-primary-container hover:text-white font-bold rounded-lg transition-all active:scale-95 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="shopping_cart">shopping_cart</span>
+                                Add to Cart
+                            </button>
+</div>
+</article>
+<!-- Mock Products - Repeat structure -->
+<article class="bg-white rounded-xl product-card-shadow transition-all duration-300 overflow-hidden relative group">
+<button class="absolute top-3 right-3 z-10 w-10 h-10 rounded-full bg-white/80 flex items-center justify-center text-error"><span class="material-symbols-outlined" data-icon="favorite" style="font-variation-settings: 'FILL' 1;">favorite</span></button>
+<div class="aspect-square overflow-hidden">
+<img alt="Cat Toy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A colorful, multi-layered interactive cat toy with spinning balls. The product is shown in a bright, playful setting with soft daylight and vibrant color pops. The composition is clean and modern, highlighting the tactile quality of the plastic and the joy of feline play. The lighting is high-key and optimistic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbSxAplaZF4VLfirNmqIpscmqkuTkRMgMBHQ81L684H69QdAn4M2d4TA_AdpWcCTXTpgd1JHvp4Et6_F3XjIErBZdEMauIL0gFJ4hp7WaltCR2A-qAYob0U01k78hr5MA_G_lkPq9MI-tunYZ4RteNqjqyY--FoMnO-bH5Fe9hnd-87LgMAWqCA-3BoQMAOZ2sPgDtyq0GAuJmpi_ofM3o5o4nftd1OAyR3hOU-KQRA5MTZi-5gRbsvIS8PsmHrfPTA_4HXdUAhRQ"/>
+</div>
+<div class="p-4">
+<p class="text-label-sm font-label-sm text-tertiary mb-1">PETZONIC ORIGINALS</p>
+<h4 class="font-headline-md text-body-md line-clamp-2 mb-2 min-h-[48px]">Interactive 3-Tier Tower Tracks Cat Toy</h4>
+<div class="flex items-center gap-2 mb-3">
+<div class="flex text-[#FFB300]"><span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span></div>
+<span class="text-label-sm text-on-surface-variant">(458)</span>
+</div>
+<div class="flex items-center gap-2 mb-4">
+<span class="text-headline-md text-primary-container font-bold">₹899</span>
+<span class="bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded text-label-sm font-bold">SALE</span>
+</div>
+<button class="w-full py-3 border-2 border-primary-container text-primary-container hover:bg-primary-container hover:text-white font-bold rounded-lg transition-all flex items-center justify-center gap-2">Add to Cart</button>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="bg-white rounded-xl product-card-shadow transition-all duration-300 overflow-hidden relative group">
+<button class="absolute top-3 right-3 z-10 w-10 h-10 rounded-full bg-white/80 flex items-center justify-center"><span class="material-symbols-outlined" data-icon="favorite">favorite</span></button>
+<div class="aspect-square overflow-hidden">
+<img alt="Royal Canin" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Professional product photography of a Royal Canin feline health nutrition bag. The shot is minimalist and sophisticated, set against a pristine white background with soft, tinted shadows. The packaging's scientific and premium nature is emphasized by crisp focus and high-end studio lighting, reflecting professional trust." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCu4yfsujzI168eD-SFt_m62U2mnThSdYr50G4PBuxzDrViI-W69dOqoeXSsj2xHKzFCceCi-f7__K_lez9lTYMCwCPbwY9JhELauYEsNxZMQ0ub6QgVvZ80KTQYNPLucS1tvHjZLOdlq466ki-7QrL8Mw2nGTi-pLg5IZVdq9e9gXBbHKUT5DziR8O_r_yeDzu3pjh-Cj077_awQ-PpEeUmi-YvuW_CVIcFI7HBCWLHyb9kxVqhhI7IqeAtBklFfYmUJ931RBAq3c"/>
+</div>
+<div class="p-4">
+<p class="text-label-sm font-label-sm text-tertiary mb-1">ROYAL CANIN</p>
+<h4 class="font-headline-md text-body-md line-clamp-2 mb-2 min-h-[48px]">Indoor 27 Adult Dry Cat Food for Better Digestion</h4>
+<div class="flex items-center gap-2 mb-3">
+<div class="flex text-[#FFB300]"><span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined text-[16px]">star</span></div>
+<span class="text-label-sm text-on-surface-variant">(921)</span>
+</div>
+<div class="flex items-center gap-2 mb-4">
+<span class="text-headline-md text-primary-container font-bold">₹2,100</span>
+</div>
+<button class="w-full py-3 border-2 border-primary-container text-primary-container hover:bg-primary-container hover:text-white font-bold rounded-lg transition-all flex items-center justify-center gap-2">Add to Cart</button>
+</div>
+</article>
+<!-- Card 4 -->
+<article class="bg-white rounded-xl product-card-shadow transition-all duration-300 overflow-hidden relative group">
+<div class="absolute top-3 left-3 z-10 bg-error text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">Low Stock</div>
+<button class="absolute top-3 right-3 z-10 w-10 h-10 rounded-full bg-white/80 flex items-center justify-center"><span class="material-symbols-outlined" data-icon="favorite">favorite</span></button>
+<div class="aspect-square overflow-hidden">
+<img alt="Leather Leash" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A premium hand-crafted brown leather dog leash with gold brass hardware. The leash is coiled neatly on a rustic wooden table, surrounded by warm, ambient indoor lighting. The style is heritage-inspired and tactile, suggesting high-end durability and craftsmanship for discerning pet parents. Cohesive warm color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaeJ8K7GUtu5pcu1TDycQTVFCnR62Eb7KscRqbwVfYv1nGTpcX4KDFj5G0tp_k8aeKzG9Uhl0Lfbvq5rHQ-l8JLkXFSWQr9XzWgdB2qmM3Dji0rPyd30LlUODP_1iOwu8_K_JG1ZSI5Ce6rAkdVC1Qi0JqyaqlkqytyQ4X7fM98s_aqYOcmKl-BlYi_P3UXhMBoJWEfg0OwmkJxIK4_hkrrYiIkG_h38N4guFJhUzsrwA4syBcsfdSWqyGMc_L2XVnHwfPcwqKm2M"/>
+</div>
+<div class="p-4">
+<p class="text-label-sm font-label-sm text-tertiary mb-1">HANDCRAFTED</p>
+<h4 class="font-headline-md text-body-md line-clamp-2 mb-2 min-h-[48px]">Genuine Padded Leather Leash - 5ft Classic Brown</h4>
+<div class="flex items-center gap-2 mb-3">
+<div class="flex text-[#FFB300]"><span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span></div>
+<span class="text-label-sm text-on-surface-variant">(84)</span>
+</div>
+<div class="flex items-center gap-2 mb-4">
+<span class="text-headline-md text-primary-container font-bold">₹1,299</span>
+<span class="text-label-sm text-on-surface-variant line-through">₹1,999</span>
+<span class="bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded text-label-sm font-bold">35% OFF</span>
+</div>
+<button class="w-full py-3 border-2 border-primary-container text-primary-container hover:bg-primary-container hover:text-white font-bold rounded-lg transition-all flex items-center justify-center gap-2">Add to Cart</button>
+</div>
+</article>
+<!-- Repeat Grid items for full 4 columns visual -->
+<!-- Simulating 16 products with dynamic-looking placeholders -->
+<script>
+                        const grid = document.querySelector('.grid');
+                        const images = [
+                            "https://images.unsplash.com/photo-1591768793355-74d7c80605b7",
+                            "https://images.unsplash.com/photo-1548199973-03cce0bbc87b",
+                            "https://images.unsplash.com/photo-1576201836106-db1758fd1c97",
+                            "https://images.unsplash.com/photo-1516733725897-1aa73b87c8e8",
+                            "https://images.unsplash.com/photo-1601758228041-f3b2795255f1",
+                            "https://images.unsplash.com/photo-1583337130417-3346a1be7dee",
+                            "https://images.unsplash.com/photo-1537151608828-ea2b11777ee8",
+                            "https://images.unsplash.com/photo-1589924691995-400dc9ecc119",
+                            "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba",
+                            "https://images.unsplash.com/photo-1601758124510-52d02ddb7cbd",
+                            "https://images.unsplash.com/photo-1628134711291-b39bfa9a2741",
+                            "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55"
+                        ];
+                        const products = ["Organic Hemp Dog treats", "Nylon Reflective Harness", "Orthopedic Foam Bed", "Catnip Infused Mouse Toy", "Advanced Flea & Tick Collar", "Gentle Silicone Grooming Glove", "Collapsible Travel Water Bowl", "Freeze-Dried Liver Bites", "Plush Squirrel Squeaker", "Dental Hygiene Chew Sticks", "Automatic Timed Pet Feeder", "Waterproof Car Seat Cover"];
+                        const brandsArray = ["Orijen", "Zodiac", "Kong", "Petmate", "Furminator", "Hills Science", "Acana", "Trixie", "Whiskas", "Drools", "Aristo-cats", "Lassie"];
+
+                        images.forEach((img, index) => {
+                            const card = `
+                            <article class="bg-white rounded-xl product-card-shadow transition-all duration-300 overflow-hidden relative group">
+                                <button class="absolute top-3 right-3 z-10 w-10 h-10 rounded-full bg-white/80 flex items-center justify-center"><span class="material-symbols-outlined" data-icon="favorite">favorite</span></button>
+                                <div class="aspect-square overflow-hidden">
+                                    <img src="${img}?auto=format&fit=crop&q=80&w=400" alt="Pet Product" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A professional high-end product lifestyle photograph for PetZonic. The scene features a high-quality ${products[index]} accessory presented in a well-lit, minimalist environment with soft, organic depth and high-saturation teal accents. The mood is cheerful yet professional, capturing the reliable and modern pet culture in India.">
+                                </div>
+                                <div class="p-4">
+                                    <p class="text-label-sm font-label-sm text-tertiary mb-1">${brandsArray[index].toUpperCase()}</p>
+                                    <h4 class="font-headline-md text-body-md line-clamp-2 mb-2 min-h-[48px]">${products[index]}</h4>
+                                    <div class="flex items-center gap-2 mb-3">
+                                        <div class="flex text-[#FFB300]"><span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span><span class="material-symbols-outlined text-[16px]">star</span></div>
+                                        <span class="text-label-sm text-on-surface-variant">(${Math.floor(Math.random()*500)})</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 mb-4">
+                                        <span class="text-headline-md text-primary-container font-bold">₹${Math.floor(Math.random()*3000)+300}</span>
+                                    </div>
+                                    <button class="w-full py-3 border-2 border-primary-container text-primary-container hover:bg-primary-container hover:text-white font-bold rounded-lg transition-all flex items-center justify-center gap-2">Add to Cart</button>
+                                </div>
+                            </article>`;
+                            grid.innerHTML += card;
+                        });
+                    </script>
+</div>
+<!-- Pagination -->
+<nav class="mt-16 flex items-center justify-center gap-4">
+<button class="w-10 h-10 rounded-lg flex items-center justify-center border-2 border-surface-container-high text-on-surface-variant hover:border-primary-container transition-all">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center bg-primary-container text-white font-bold shadow-md">1</button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center border-2 border-surface-container-high text-on-surface-variant hover:border-primary-container transition-all">2</button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center border-2 border-surface-container-high text-on-surface-variant hover:border-primary-container transition-all">3</button>
+<span class="text-on-surface-variant px-2">...</span>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center border-2 border-surface-container-high text-on-surface-variant hover:border-primary-container transition-all">12</button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center border-2 border-surface-container-high text-on-surface-variant hover:border-primary-container transition-all">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</nav>
+</div>
+</div>
+</main>
+<!-- Deals of the Day Banner -->
+<section class="mt-16 bg-primary-container py-8 overflow-hidden relative">
+<div class="max-w-container-max mx-auto px-margin-desktop flex flex-col md:flex-row items-center justify-between gap-8">
+<div class="flex flex-col items-center md:items-start text-white">
+<span class="bg-white/20 px-4 py-1 rounded-full text-label-sm font-bold uppercase tracking-widest mb-4">Limited Time Offer</span>
+<h2 class="text-headline-xl font-headline-xl mb-4">Deals of the Day</h2>
+<div class="flex items-center gap-4">
+<div class="flex flex-col items-center bg-white/10 backdrop-blur-md rounded-lg p-3 min-w-[64px]">
+<span class="text-2xl font-bold" id="timer-h">08</span>
+<span class="text-[10px] uppercase">Hours</span>
+</div>
+<div class="text-2xl font-bold">:</div>
+<div class="flex flex-col items-center bg-white/10 backdrop-blur-md rounded-lg p-3 min-w-[64px]">
+<span class="text-2xl font-bold" id="timer-m">45</span>
+<span class="text-[10px] uppercase">Mins</span>
+</div>
+<div class="text-2xl font-bold">:</div>
+<div class="flex flex-col items-center bg-white/10 backdrop-blur-md rounded-lg p-3 min-w-[64px]">
+<span class="text-2xl font-bold" id="timer-s">12</span>
+<span class="text-[10px] uppercase">Secs</span>
+</div>
+</div>
+</div>
+<div class="flex-1 w-full flex gap-6 overflow-x-auto hide-scrollbar snap-x px-4">
+<div class="flex-none w-64 bg-white rounded-xl p-3 shadow-lg snap-start">
+<img alt="Flash Deal" class="w-full h-32 object-cover rounded-lg mb-3" data-alt="A close-up action shot of a vibrant yellow tennis ball for pets being chased by a happy golden retriever in a sunlit grassy field. The lighting is high-key and joyous. The product is the central focus, looking durable and fun. The color palette is bright and energized with natural greens and brand oranges." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaM8c9fwFEyvaBvGC3rAiBb4IgyZ8tSn00lMj6m_m2IPOOg497JAdw-75m_jUKhNV7hEkEuVfnh27VsdblimHFKbWQD1Ns2Bd8znKo7RsRL2aiIFFgunmM_mnzsgvFNGFpMDalGs09_x42sHWwx_1PTMHBREvtRJ1vQeRTpBjs-NbTD8GZcA8xQa3HrAleUr_8iGK0Fq4YYLuWzY9f8iicpIzfDYupjot56o9w3qhwV_VjJs5sy01MsL4xkOCpQ3HX5oJy7ijj4iM"/>
+<p class="font-label-lg line-clamp-1 mb-1">Durable Rubber Squeaker</p>
+<div class="flex items-center gap-2">
+<span class="text-primary font-bold">₹199</span>
+<span class="text-on-surface-variant line-through text-xs">₹399</span>
+</div>
+</div>
+<div class="flex-none w-64 bg-white rounded-xl p-3 shadow-lg snap-start">
+<img alt="Flash Deal" class="w-full h-32 object-cover rounded-lg mb-3" data-alt="A beautiful ceramic dog water bowl with a blue marble design, sitting on a clean, modern kitchen floor. The shot is well-lit with soft natural light, highlighting the premium finish of the product. The mood is domestic and refined, showcasing reliability and high-end pet accessories in a warm home environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnlRZzeOCDgyrG1--IQAkx7B-_46cmH3g-ib82s5ZlUaBwKCdSrqgMYTlqFyBZkAC-LgAValb5BczfJTsumqoF816eZe3vmfKaRopXlEYmkGRQ1caMfzaGbNWIe2uPg9tIVOeGlNjvJGjEa21QmqbYnK0ZJWH9nQvUkFS04cYmP8XRylfSx_QnRGkITyMROHn6yiaVDS4E1ZQ9yKdYbpNKBB5VBwDxTJL9mXw2U0b9HHs4Qqrqusk9p7YgJahTzN-07Vbcb9Tddfk"/>
+<p class="font-label-lg line-clamp-1 mb-1">Ceramic Marbled Water Bowl</p>
+<div class="flex items-center gap-2">
+<span class="text-primary font-bold">₹499</span>
+<span class="text-on-surface-variant line-through text-xs">₹999</span>
+</div>
+</div>
+<div class="flex-none w-64 bg-white rounded-xl p-3 shadow-lg snap-start">
+<img alt="Flash Deal" class="w-full h-32 object-cover rounded-lg mb-3" data-alt="A fluffy white cat curled up inside a high-quality grey felt pet cave. The scene is quiet and peaceful, emphasizing comfort and safety. Soft, ambient lighting creates a cozy atmosphere that speaks to pet welfare and joyful reliability. Modern, minimalist aesthetic with high tactile detail." src="https://lh3.googleusercontent.com/aida-public/AB6AXuATYijm-9btgO2o77qaB2ePhhpZSh19BbKdu8zHItfXNlMK2FPYqPbqx0Tg0sp71YM0RwHFrdp5fJMmP52adWPuxjkC3g51MnGedyW2Jyr1xXimh5jji60vxoBAdSNEbPht9Jacmf5jH_Z8VKFTdQ8AWkfKIyV7CS1kEUZ7CrcHm6y2uJx_bnV0QQ4EO-1KZx2kpiInUCju7ahdIWNarR3MSTdPE5HV933rjCkMS3orOEkWCwP5EkkX4aquVvHsPoaVmDbr45ayHJU"/>
+<p class="font-label-lg line-clamp-1 mb-1">Cozy Felt Pet Hideout</p>
+<div class="flex items-center gap-2">
+<span class="text-primary font-bold">₹850</span>
+<span class="text-on-surface-variant line-through text-xs">₹1,500</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-tertiary-container dark:bg-on-tertiary-container mt-12 w-full px-margin-desktop py-12 max-w-container-max mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter mb-12">
+<div class="space-y-4">
+<div class="text-headline-md font-headline-md text-on-tertiary-container dark:text-tertiary-fixed">PetZonic</div>
+<p class="text-body-md text-on-tertiary-container/80 font-body-md">Your trusted partner in providing joyful reliability for every pet family across India.</p>
+</div>
+<div>
+<h4 class="font-label-lg text-label-lg text-on-tertiary-container mb-4">Quick Links</h4>
+<ul class="space-y-2">
+<li><a class="text-label-sm text-on-tertiary-container/80 hover:text-on-tertiary-container transition-all hover:underline" href="#">About Us</a></li>
+<li><a class="text-label-sm text-on-tertiary-container/80 hover:text-on-tertiary-container transition-all hover:underline" href="#">Shipping Info</a></li>
+<li><a class="text-label-sm text-on-tertiary-container/80 hover:text-on-tertiary-container transition-all hover:underline" href="#">Returns</a></li>
+<li><a class="text-label-sm text-on-tertiary-container/80 hover:text-on-tertiary-container transition-all hover:underline" href="#">Contact Support</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-lg text-label-lg text-on-tertiary-container mb-4">Policies</h4>
+<ul class="space-y-2">
+<li><a class="text-label-sm text-on-tertiary-container/80 hover:text-on-tertiary-container transition-all hover:underline" href="#">Terms of Service</a></li>
+<li><a class="text-label-sm text-on-tertiary-container/80 hover:text-on-tertiary-container transition-all hover:underline" href="#">Privacy Policy</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-lg text-label-lg text-on-tertiary-container mb-4">Newsletter</h4>
+<div class="flex flex-col gap-3">
+<p class="text-label-sm text-on-tertiary-container/80">Join our pet parent community for exclusive deals.</p>
+<div class="flex">
+<input class="bg-surface-container-lowest border-none rounded-l-lg p-2 flex-1 focus:ring-1 focus:ring-primary" placeholder="Your email" type="email"/>
+<button class="bg-primary-container text-white px-4 py-2 rounded-r-lg font-bold">Join</button>
+</div>
+</div>
+</div>
+</div>
+<div class="pt-8 border-t border-on-tertiary-container/10 flex flex-col md:flex-row justify-between items-center gap-4 text-label-sm text-on-tertiary-container/60">
+<p>© 2024 PetZonic India. Joyful Reliability for your Pet Family.</p>
+<div class="flex gap-6">
+<span class="material-symbols-outlined cursor-pointer hover:text-on-tertiary-container">social_leaderboard</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-on-tertiary-container">camera_alt</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-on-tertiary-container">youtube_activity</span>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interactions and timer
+        let hours = 8, minutes = 45, seconds = 12;
+        const hEl = document.getElementById('timer-h');
+        const mEl = document.getElementById('timer-m');
+        const sEl = document.getElementById('timer-s');
+
+        setInterval(() => {
+            seconds--;
+            if (seconds < 0) {
+                seconds = 59;
+                minutes--;
+                if (minutes < 0) {
+                    minutes = 59;
+                    hours--;
+                }
+            }
+            hEl.textContent = String(hours).padStart(2, '0');
+            mEl.textContent = String(minutes).padStart(2, '0');
+            sEl.textContent = String(seconds).padStart(2, '0');
+        }, 1000);
+
+        // Sticky Nav subtle effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 20) {
+                header.classList.add('py-2');
+                header.classList.remove('py-4');
+            } else {
+                header.classList.add('py-4');
+                header.classList.remove('py-2');
+            }
+        });
+    </script>
+</body></html>

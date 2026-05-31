@@ -1,0 +1,586 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Dr. Priya Sharma - PetPals India</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#e2e2e5",
+                    "inverse-surface": "#2f3133",
+                    "tertiary-fixed": "#ece1d3",
+                    "secondary-fixed-dim": "#76d6d5",
+                    "primary-container": "#ff8c00",
+                    "on-secondary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "background": "#f9f9fc",
+                    "on-tertiary-fixed": "#201b13",
+                    "surface-container-high": "#e8e8ea",
+                    "on-primary-fixed": "#2f1500",
+                    "error": "#ba1a1a",
+                    "secondary-container": "#90efef",
+                    "on-surface-variant": "#564334",
+                    "surface-container-highest": "#e2e2e5",
+                    "tertiary-container": "#b2a99c",
+                    "surface": "#f9f9fc",
+                    "on-secondary-container": "#006e6e",
+                    "surface-dim": "#dadadc",
+                    "tertiary-fixed-dim": "#cfc5b8",
+                    "on-error-container": "#93000a",
+                    "primary-fixed-dim": "#ffb77d",
+                    "primary-fixed": "#ffdcc3",
+                    "on-primary-fixed-variant": "#6e3900",
+                    "secondary-fixed": "#93f2f2",
+                    "on-tertiary-fixed-variant": "#4c463c",
+                    "surface-bright": "#f9f9fc",
+                    "on-primary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-container": "#623200",
+                    "on-tertiary-container": "#443e34",
+                    "on-error": "#ffffff",
+                    "surface-tint": "#904d00",
+                    "on-secondary-fixed-variant": "#004f4f",
+                    "surface-container": "#eeeef0",
+                    "primary": "#904d00",
+                    "secondary": "#006a6a",
+                    "outline-variant": "#ddc1ae",
+                    "surface-container-low": "#f3f3f6",
+                    "on-tertiary": "#ffffff",
+                    "outline": "#897362",
+                    "on-background": "#1a1c1e",
+                    "on-surface": "#1a1c1e",
+                    "tertiary": "#645d53",
+                    "on-secondary-fixed": "#002020",
+                    "inverse-primary": "#ffb77d",
+                    "inverse-on-surface": "#f0f0f3"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "margin-desktop": "48px",
+                    "margin-mobile": "16px",
+                    "container-max": "1280px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Plus Jakarta Sans"],
+                    "headline-xl": ["Montserrat"],
+                    "label-lg": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Montserrat"],
+                    "headline-md": ["Montserrat"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-surface font-body-md text-on-surface">
+<!-- Top Navigation -->
+<header class="sticky top-0 w-full z-50 shadow-md bg-surface dark:bg-background">
+<nav class="max-w-container-max mx-auto px-margin-desktop flex justify-between items-center h-20">
+<div class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">PetPals India</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors" href="#">Dogs</a>
+<a class="font-label-lg text-label-lg text-primary font-bold border-b-2 border-primary" href="#">Services</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors" href="#">Cats</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors" href="#">Breeds</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors" href="#">Shop</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant">favorite</button>
+<div class="h-10 w-10 rounded-full overflow-hidden border-2 border-primary-container">
+<img alt="User profile photo" data-alt="A professional headshot of a young adult male with a friendly expression, set against a clean, out-of-focus urban background. The lighting is natural and bright, highlighting the warm skin tones and modern aesthetic of the PetPals India user interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBnf1NJBoiCnUPtlodqMdVKh6T09iZz9_N15MxnJYgKZexgrVLXSCDvPCX6yTlJTbxTuH9_Hr6AwGViS85CoDxzLBMwjhF0g077JHGat3dEI-ljMrw67gpgjdafiir6TFe3K5xhCoNqNPs-7lUnoFdYRtC5NZJVc4wpN1PfsYc27Q9Dqc4z9_tKjR8zRaTRwpAu8HmHb2evhzm2B183naYvZwM789pphinuNWzaxoWcZiORdCp_lB0h0cNwB_-BC449VtAGjgWHJg">
+</div>
+</div>
+</nav>
+</header>
+<!-- Profile Header -->
+<section class="bg-[#FFF7ED] py-12 border-b border-outline-variant">
+<div class="max-w-container-max mx-auto px-margin-desktop">
+<div class="flex flex-col md:flex-row gap-8 items-start md:items-center">
+<div class="relative">
+<div class="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-white shadow-lg overflow-hidden">
+<img alt="Dr. Priya Sharma" data-alt="A professional and warm portrait of Dr. Priya Sharma, a female veterinarian in her late 30s wearing a clean white lab coat and a stethoscope. She is smiling confidently in a bright, modern clinic setting with soft, high-key lighting that emphasizes trust and professional expertise within the PetPals India healthcare ecosystem." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5HnE_9FMrIT7UOmxukKPhX_nlLZ9412FsO7f1rknEcM8PXSmf82vmrzlAkPF7Mdgv8q_jZvyKhdyDSp00lDVtCusISJ-mIpy4c--9myC0nM3O3Al5WH01odLAlGUTX9ZpkXHyCGbvbl40HWx5SCZ5f75wJfvUzEwvQfbHANgxp6FE5R4z44uXv2Q2EipFpW5HdzT8TMDmtSej2yxyuQ4mRiDTdCuwG4UL6hbf60BFBw76yUHUc5GTTVrFCIa99vdJzxZRodRACe8">
+</div>
+<div class="absolute bottom-2 right-2 bg-secondary text-white p-1 rounded-full flex items-center justify-center border-2 border-white">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+<div class="flex-grow">
+<div class="flex flex-wrap items-center gap-3 mb-2">
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Dr. Priya Sharma</h1>
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full font-label-sm text-label-sm">Veterinary</span>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-4">BVSc, MVSc — 12 years experience</p>
+<div class="flex items-center gap-2 mb-6">
+<div class="flex text-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star_half</span>
+</div>
+<span class="font-bold text-on-surface">4.9</span>
+<span class="text-on-surface-variant">(1,240 Reviews)</span>
+</div>
+<div class="flex flex-wrap gap-4">
+<button class="bg-primary-container text-on-primary-container px-8 py-3 rounded-lg font-label-lg text-label-lg shadow-md hover:scale-[1.02] transition-transform active:scale-95">Book Appointment</button>
+<button class="border-2 border-secondary text-secondary px-8 py-3 rounded-lg font-label-lg text-label-lg hover:bg-secondary-container transition-colors active:scale-95">Contact</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Quick Info Strip -->
+<div class="bg-surface-container-lowest py-6 border-b border-outline-variant">
+<div class="max-w-container-max mx-auto px-margin-desktop">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-gutter text-center">
+<div class="space-y-1">
+<div class="text-primary font-bold font-headline-md text-headline-md">2,500+</div>
+<div class="text-on-surface-variant font-label-sm">Consultations</div>
+</div>
+<div class="space-y-1">
+<div class="text-primary font-bold font-headline-md text-headline-md">12 years</div>
+<div class="text-on-surface-variant font-label-sm">Experience</div>
+</div>
+<div class="space-y-1">
+<div class="text-primary font-bold font-headline-md text-headline-md">4.9</div>
+<div class="text-on-surface-variant font-label-sm">Rating</div>
+</div>
+<div class="space-y-1">
+<div class="text-primary font-bold font-headline-md text-headline-md">&lt; 1hr</div>
+<div class="text-on-surface-variant font-label-sm">Response</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Content -->
+<main class="max-w-container-max mx-auto px-margin-desktop py-12">
+<div class="flex flex-col lg:flex-row gap-gutter">
+<!-- Left Column: 65% -->
+<div class="lg:w-[65%] space-y-12">
+<!-- About Section -->
+<section>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-4">About Dr. Priya</h2>
+<p class="text-on-surface-variant leading-relaxed mb-6 font-body-md">
+                        Dr. Priya Sharma is a highly dedicated veterinarian with over 12 years of experience in small animal practice. She specializes in advanced surgery and internal medicine, providing compassionate care for dogs, cats, and exotic pets. Her clinic, Happy Tails Veterinary Care, is equipped with state-of-the-art diagnostic facilities to ensure the best outcomes for your furry companions.
+                    </p>
+<div class="flex flex-wrap gap-2">
+<span class="px-4 py-2 bg-surface-container-high rounded-lg text-on-surface font-label-lg">Surgery</span>
+<span class="px-4 py-2 bg-surface-container-high rounded-lg text-on-surface font-label-lg">Internal Medicine</span>
+<span class="px-4 py-2 bg-surface-container-high rounded-lg text-on-surface font-label-lg">Dermatology</span>
+<span class="px-4 py-2 bg-surface-container-high rounded-lg text-on-surface font-label-lg">Vaccination</span>
+<span class="px-4 py-2 bg-surface-container-high rounded-lg text-on-surface font-label-lg">Exotic Pets</span>
+</div>
+</section>
+<!-- Services Offered -->
+<section>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-6">Services Offered</h2>
+<div class="overflow-hidden rounded-xl border border-outline-variant">
+<table class="w-full text-left">
+<thead class="bg-surface-container text-on-surface-variant font-label-lg">
+<tr>
+<th class="p-4">Service</th>
+<th class="p-4">Price Range</th>
+<th class="p-4 text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-4 font-body-md font-semibold">General Checkup</td>
+<td class="p-4 text-on-surface-variant font-body-md">₹500 - ₹800</td>
+<td class="p-4 text-right">
+<button class="text-secondary font-bold font-label-lg hover:underline">Book</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-4 font-body-md font-semibold">Vaccination Package</td>
+<td class="p-4 text-on-surface-variant font-body-md">₹1,200 - ₹2,500</td>
+<td class="p-4 text-right">
+<button class="text-secondary font-bold font-label-lg hover:underline">Book</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-4 font-body-md font-semibold">Dental Cleaning</td>
+<td class="p-4 text-on-surface-variant font-body-md">₹3,000 - ₹5,000</td>
+<td class="p-4 text-right">
+<button class="text-secondary font-bold font-label-lg hover:underline">Book</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-4 font-body-md font-semibold">Emergency Surgery</td>
+<td class="p-4 text-on-surface-variant font-body-md">Starting ₹8,000</td>
+<td class="p-4 text-right">
+<button class="text-secondary font-bold font-label-lg hover:underline">Book</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Photo Gallery -->
+<section>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-6">Happy Tails Clinic Gallery</h2>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+<div class="rounded-xl overflow-hidden h-48 shadow-sm hover:shadow-md transition-shadow">
+<img alt="Clinic Interior" class="w-full h-full object-cover" data-alt="A bright and sterile veterinary clinic examination room featuring modern stainless steel tables and high-tech diagnostic equipment. The room is filled with soft, natural light coming from large windows, creating a clean and professional atmosphere characteristic of high-end medical facilities in India." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqJzj4XqzL2LnOZ6iQQQ5SspN7fJGOOpuMcEzp5TQQgYDcG-znAPZO81DcBci8i1knSVE-e70zyM1BzqvO8uQw2D7CWCXzNAeuGY8Gs3r7duLLHEmODTaIlf8lCzsVo3tyfSAfwzW-DZZHeY4w7zS0sri56tBJuNCxq7RHU0vyc--NPZAaBG3nQKsQVe-Z_LrAFAhgUvUB2nMw5ej8y5skheDIFyZsjE7_bCZHZwAXw9JNgLQDlbRSciCqg7mNDhA86PNi_rM1Vrg">
+</div>
+<div class="rounded-xl overflow-hidden h-48 shadow-sm hover:shadow-md transition-shadow">
+<img alt="Waiting Area" class="w-full h-full object-cover" data-alt="A warm and welcoming veterinary clinic waiting area with comfortable seating, pet-themed wall art, and a clean, modern reception desk. The space is designed with soft wood accents and a palette of creams and teals, evoking a sense of calm and joyful reliability for pet parents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB66dSnqOThODQUrfY2xnxYSqx4SL9B23rwvw_ENehoc4VlPmkPk4DDbS9d1TTwsuBwQRqruKPW2g29U41k1FNjw-T38Mdzg2DF-bCkaJxw0RyIVZ1ovnovs23Y3OPCoAlA7B_Bs0LPWYjwltCDcDh5iZ4xC64d3abVHaQrGAMiw0KGmonmh0AVWoTS0H3cFsOJ6ageHQpvKQdXSXQpbSVlU8oQhUfqXSR0Slqi-kY0QTB2odB_Cfw2DcICS4tswAeeEHX5EFkOqyc">
+</div>
+<div class="rounded-xl overflow-hidden h-48 shadow-sm hover:shadow-md transition-shadow">
+<img alt="Surgery Room" class="w-full h-full object-cover" data-alt="A highly detailed view of a sterile veterinary surgery suite, showing advanced medical monitors and surgical lights. The atmosphere is professional and high-tech, using a clean white and teal color scheme to communicate trust and top-tier animal welfare standards." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmkqWJyXyq8Vgzy1ikppk3Ze80hytrcY3IkRarP1oKzhcPyvYYeQYsfYpZlpbmxS7nRvWqJhIaEK1CcXhf2uBUpjbrkc459I6J5wjEMk5_Uw1om0F19VN5kpmpyW_J01NbZCZMRJvNyMpBp8HHUHsHHEYlbDy0eoC7oYrt4BQpGyFm7A7gQlhXoBJYfESIaMDh2rQV4W7cTf1rQYYvZ-fFxsv_yWOBhb-7Ne2T5WWn-A9DWThHtHcZU-QZ2RPbKLLUp1snvs550u8">
+</div>
+</div>
+</section>
+<!-- Reviews Section -->
+<section>
+<div class="flex items-center justify-between mb-8">
+<h2 class="font-headline-md text-headline-md text-on-surface">Pet Parent Reviews</h2>
+<button class="text-primary font-bold font-label-lg">Write a Review</button>
+</div>
+<div class="grid md:grid-cols-[200px,1fr] gap-10 mb-12 items-center">
+<div class="text-center md:text-left">
+<div class="text-[56px] font-bold text-on-surface leading-none mb-2">4.9</div>
+<div class="flex justify-center md:justify-start text-primary-container mb-2">
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined)">star</span>
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+</div>
+<p class="text-on-surface-variant font-label-sm">Based on 1.2k+ reviews</p>
+</div>
+<div class="space-y-2">
+<div class="flex items-center gap-4">
+<span class="w-4 font-label-sm">5</span>
+<div class="flex-grow h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container" style="width: 85%"></div>
+</div>
+<span class="w-12 text-right text-on-surface-variant font-label-sm">85%</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="w-4 font-label-sm">4</span>
+<div class="flex-grow h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container" style="width: 10%"></div>
+</div>
+<span class="w-12 text-right text-on-surface-variant font-label-sm">10%</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="w-4 font-label-sm">3</span>
+<div class="flex-grow h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container" style="width: 3%"></div>
+</div>
+<span class="w-12 text-right text-on-surface-variant font-label-sm">3%</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="w-4 font-label-sm">2</span>
+<div class="flex-grow h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container" style="width: 1%"></div>
+</div>
+<span class="w-12 text-right text-on-surface-variant font-label-sm">1%</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="w-4 font-label-sm">1</span>
+<div class="flex-grow h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container" style="width: 1%"></div>
+</div>
+<span class="w-12 text-right text-on-surface-variant font-label-sm">1%</span>
+</div>
+</div>
+</div>
+<div class="space-y-6">
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed flex items-center justify-center font-bold text-on-tertiary-fixed">RK</div>
+<div>
+<h4 class="font-label-lg">Rahul Kapoor</h4>
+<p class="text-on-surface-variant text-[12px]">2 days ago • Golden Retriever Parent</p>
+</div>
+</div>
+<div class="flex text-primary-container">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<p class="text-on-surface-variant font-body-md">Dr. Priya is amazing! She handled my senior dog with such care and patience. The diagnosis was quick and the treatment plan worked wonders. Highly recommended.</p>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center font-bold text-on-secondary-fixed">AM</div>
+<div>
+<h4 class="font-label-lg">Anjali Mehta</h4>
+<p class="text-on-surface-variant text-[12px]">1 week ago • Persian Cat Parent</p>
+</div>
+</div>
+<div class="flex text-primary-container">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<p class="text-on-surface-variant font-body-md">Very professional clinic. The wait time was minimal and the staff were very helpful. Dr. Priya took the time to explain the vaccination schedule in detail.</p>
+</div>
+</div>
+<button class="w-full mt-8 py-4 border-2 border-outline rounded-xl font-label-lg text-on-surface hover:bg-surface-container transition-colors">See All Reviews</button>
+</section>
+</div>
+<!-- Right Column: 35% (Sticky) -->
+<aside class="lg:w-[35%]">
+<div class="sticky top-24 space-y-8">
+<!-- Booking Card -->
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-lg border border-outline-variant">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-6">Available Slots</h3>
+<!-- Date Picker -->
+<div class="flex gap-3 overflow-x-auto hide-scrollbar pb-6 mb-6 border-b border-outline-variant">
+<button class="flex flex-col items-center min-w-[60px] p-2 rounded-xl border-2 border-primary bg-primary-fixed text-on-primary-fixed">
+<span class="text-[12px] font-bold">MON</span>
+<span class="text-[18px] font-bold">12</span>
+</button>
+<button class="flex flex-col items-center min-w-[60px] p-2 rounded-xl border-2 border-outline-variant hover:border-primary-container transition-colors">
+<span class="text-[12px] font-on-surface-variant">TUE</span>
+<span class="text-[18px] font-bold">13</span>
+</button>
+<button class="flex flex-col items-center min-w-[60px] p-2 rounded-xl border-2 border-outline-variant hover:border-primary-container transition-colors">
+<span class="text-[12px] font-on-surface-variant">WED</span>
+<span class="text-[18px] font-bold">14</span>
+</button>
+<button class="flex flex-col items-center min-w-[60px] p-2 rounded-xl border-2 border-outline-variant hover:border-primary-container transition-colors">
+<span class="text-[12px] font-on-surface-variant">THU</span>
+<span class="text-[18px] font-bold">15</span>
+</button>
+<button class="flex flex-col items-center min-w-[60px] p-2 rounded-xl border-2 border-outline-variant hover:border-primary-container transition-colors">
+<span class="text-[12px] font-on-surface-variant">FRI</span>
+<span class="text-[18px] font-bold">16</span>
+</button>
+</div>
+<!-- Time Slots -->
+<div class="mb-8">
+<p class="font-label-lg mb-4">Morning</p>
+<div class="grid grid-cols-3 gap-2 mb-6">
+<button class="py-2 text-center rounded-lg border border-outline-variant font-label-sm hover:bg-primary-container hover:text-white transition-colors">09:00 AM</button>
+<button class="py-2 text-center rounded-lg border border-outline-variant font-label-sm hover:bg-primary-container hover:text-white transition-colors">10:00 AM</button>
+<button class="py-2 text-center rounded-lg border border-primary-container bg-primary-container text-white font-label-sm">11:30 AM</button>
+</div>
+<p class="font-label-lg mb-4">Evening</p>
+<div class="grid grid-cols-3 gap-2">
+<button class="py-2 text-center rounded-lg border border-outline-variant font-label-sm hover:bg-primary-container hover:text-white transition-colors">04:30 PM</button>
+<button class="py-2 text-center rounded-lg border border-outline-variant font-label-sm hover:bg-primary-container hover:text-white transition-colors">05:30 PM</button>
+<button class="py-2 text-center rounded-lg border border-outline-variant font-label-sm opacity-40 cursor-not-allowed">07:00 PM</button>
+</div>
+</div>
+<button class="w-full bg-primary-container text-on-primary-container font-bold py-4 rounded-xl shadow-md hover:scale-[1.02] transition-transform active:scale-95">Book This Slot</button>
+<p class="text-center text-[12px] text-on-surface-variant mt-4">No booking fees. Free cancellation up to 4 hrs before.</p>
+</div>
+<!-- Location & Hours -->
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-lg border border-outline-variant">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-4">Location</h3>
+<div class="rounded-xl overflow-hidden h-40 mb-4 border border-outline-variant">
+<img alt="Map Location" class="w-full h-full object-cover" data-alt="A stylized digital map showing the urban grid of Mumbai, India, with a prominent orange location pin marked for the Happy Tails Veterinary Clinic. The map uses a clean, modern aesthetic with soft teals and grays to align with the professional PetPals India design system." data-location="Mumbai" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbsTcajhBg0atA55KlrhtCFpgJxgXMtAJTqSK50MOXIjfRNyQvOnOcse2ofvvDf60kONb6Cpqr-lD66PZz5sLYJbKyU_ipD8gM3WtkxFZYkTFLplPuwHFdn5TCAV-kgdwtmmT6x0FzuOLeEMppfMRoR-7gv52nMeW4sqfSWUUpVe_HGh98l0e3KNxRkfmrsAlpT-j3C-MsFh83mRUUbWmU7CdRCCZCTF73_xKsaEQZbK7YdTB5hgxRcliIp4y__p2HYL6uV749BsA">
+</div>
+<div class="flex items-start gap-3 mb-6">
+<span class="material-symbols-outlined text-secondary">location_on</span>
+<p class="font-body-md text-on-surface-variant">Plot 45, Sector 18, Near Central Park, Bandra West, Mumbai, Maharashtra 400050</p>
+</div>
+<div class="space-y-2">
+<h4 class="font-label-lg mb-2">Working Hours</h4>
+<div class="flex justify-between font-body-md text-on-surface-variant">
+<span>Mon - Fri</span>
+<span class="font-semibold">09:00 AM - 08:00 PM</span>
+</div>
+<div class="flex justify-between font-body-md text-on-surface-variant">
+<span>Saturday</span>
+<span class="font-semibold">10:00 AM - 06:00 PM</span>
+</div>
+<div class="flex justify-between font-body-md text-on-surface-variant">
+<span>Sunday</span>
+<span class="text-error font-semibold">Closed</span>
+</div>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</main>
+<!-- Bottom: Other Providers Nearby -->
+<section class="bg-surface-container py-16">
+<div class="max-w-container-max mx-auto px-margin-desktop">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-8">Other Providers Nearby</h2>
+<div class="flex gap-6 overflow-x-auto hide-scrollbar pb-8">
+<!-- Provider Card 1 -->
+<div class="min-w-[300px] bg-surface-container-lowest rounded-2xl shadow-md border border-outline-variant hover:shadow-lg transition-all hover:-translate-y-1">
+<div class="h-40 rounded-t-2xl overflow-hidden">
+<img alt="Dr. Amit Verma" class="w-full h-full object-cover" data-alt="A professional photo of Dr. Amit Verma, a male veterinarian in a clinical setting. He has a friendly and approachable demeanor, wearing professional medical attire. The background is a clean, modern pet clinic with soft, warm lighting that emphasizes high-quality healthcare and trust." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwP2gv7ax-NuVy_9S2fayLMIfFyk-9nLj58HYrHXlZSRo7xJf3_0Dzrpk-W4YTFOkzBMcLxo65lnohSLMrCq0Di2xVNEHF5hNEf9UIwz_Pp6aM_ysizR2fXBvnPMGoiH0F2lC46PrrRUdvDWzy4U8Gf7fJPv5YcNeBiFx5kphAZOi9G666I-2NWZ1zSsIr6FvtQqJZ148Sa5WZk3gMXdcXwiAl7--hwnKyMsn2oevqFKPGfUFTNrJB8I-dfCpspc1wZtiXx82j91o">
+</div>
+<div class="p-5">
+<h4 class="font-headline-md text-headline-md text-[18px] mb-1">Dr. Amit Verma</h4>
+<p class="text-on-surface-variant font-label-sm mb-3">General Physician • 8 Yrs Exp</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-bold text-on-surface">4.8</span>
+</div>
+<span class="text-secondary font-bold font-label-lg">View Profile</span>
+</div>
+</div>
+</div>
+<!-- Provider Card 2 -->
+<div class="min-w-[300px] bg-surface-container-lowest rounded-2xl shadow-md border border-outline-variant hover:shadow-lg transition-all hover:-translate-y-1">
+<div class="h-40 rounded-t-2xl overflow-hidden">
+<img alt="Dr. Sneha Rao" class="w-full h-full object-cover" data-alt="A bright, professional portrait of Dr. Sneha Rao, a female veterinarian specializing in cats. She is holding a calm cat in a clean, modern clinic environment. The lighting is soft and cheerful, highlighting the compassionate and reliable nature of the PetPals India service network." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoqJsZymlG4jF95FCPFUCqQlVCvzokDFDyBFH3yb5OO8RW6OXPUx5YZkvidTktJmR5md2LruauXyvzoNQOx67hEzlgnhtPtu0IiCliKTmKL7dY41G7l_GXVUBE8GC538KYDSvb_uairxmU5ay72lkAhds1YQ71AS7aystXpS2__-ljTJB-7WTW7ZbL4hs8sqRu0G3WM9nMRJaejqcdPYR4GXWKJBJVndlrBsUX9R4puo_-oc4HMpvCqQqnKV3D372wZyckAo8MmYk">
+</div>
+<div class="p-5">
+<h4 class="font-headline-md text-headline-md text-[18px] mb-1">Dr. Sneha Rao</h4>
+<p class="text-on-surface-variant font-label-sm mb-3">Cat Specialist • 10 Yrs Exp</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-bold text-on-surface">4.7</span>
+</div>
+<span class="text-secondary font-bold font-label-lg">View Profile</span>
+</div>
+</div>
+</div>
+<!-- Provider Card 3 -->
+<div class="min-w-[300px] bg-surface-container-lowest rounded-2xl shadow-md border border-outline-variant hover:shadow-lg transition-all hover:-translate-y-1">
+<div class="h-40 rounded-t-2xl overflow-hidden">
+<img alt="Pet Wellness Center" class="w-full h-full object-cover" data-alt="A wide view of the modern exterior of a Pet Wellness Center in an upscale Indian urban neighborhood. The architecture is contemporary with large glass windows and clean signage. The lighting is bright and airy, communicating a sense of health and vitality for pets." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMr5Su7p23zSq2w_1RBxBBIl81ACm64bNJM27b_PA8xFq98mLh4_0fXblia5nyeesr2OIpP1J817rK6v0K5A9Y_7rEz6DLmif-hN18edzRxd43H-3jbmmXZ7lvffNtN_WXYXp1AsbjTZjPqlSKFDnkWHxV9aEV6G3YBxOvJUuxfhEuiDJxny5MjHYdPOGf1vaHEHRRp1q5uDEVW8CJ-HGFP1656_9rzNfj0mgYS-V6f4kMOa5D9j1St61BgYZ7hG7h_05c4LTh-L8">
+</div>
+<div class="p-5">
+<h4 class="font-headline-md text-headline-md text-[18px] mb-1">Pet Wellness Center</h4>
+<p class="text-on-surface-variant font-label-sm mb-3">Multi-Speciality Hospital</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-bold text-on-surface">4.9</span>
+</div>
+<span class="text-secondary font-bold font-label-lg">View Profile</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-inverse-surface dark:bg-surface-container-lowest w-full py-12">
+<div class="max-w-container-max mx-auto px-margin-desktop grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<div class="col-span-1 md:col-span-1">
+<div class="font-headline-md text-headline-md font-bold text-secondary-fixed mb-4">PetPals India</div>
+<p class="text-surface-variant font-body-md">Connecting pet parents with world-class healthcare and premium pet supplies across India.</p>
+</div>
+<div>
+<h4 class="text-white font-bold mb-4">Quick Links</h4>
+<ul class="space-y-2">
+<li><a class="text-surface-variant hover:text-on-secondary-fixed-variant transition-colors" href="#">About Us</a></li>
+<li><a class="text-surface-variant hover:text-on-secondary-fixed-variant transition-colors text-secondary-fixed underline" href="#">Find a Vet</a></li>
+<li><a class="text-surface-variant hover:text-on-secondary-fixed-variant transition-colors" href="#">Breed Encyclopedia</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-white font-bold mb-4">Legal</h4>
+<ul class="space-y-2">
+<li><a class="text-surface-variant hover:text-on-secondary-fixed-variant transition-colors" href="#">Pet Adoption</a></li>
+<li><a class="text-surface-variant hover:text-on-secondary-fixed-variant transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="text-surface-variant hover:text-on-secondary-fixed-variant transition-colors" href="#">Terms of Service</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-white font-bold mb-4">Newsletter</h4>
+<div class="flex gap-2">
+<input class="bg-surface-container-high rounded-lg px-4 py-2 w-full outline-none" placeholder="Email" type="email">
+<button class="bg-secondary-fixed text-on-secondary-fixed px-4 py-2 rounded-lg font-bold">Join</button>
+</div>
+</div>
+</div>
+<div class="max-w-container-max mx-auto px-margin-desktop mt-12 pt-8 border-t border-surface-variant/20 text-center text-surface-variant font-label-sm">
+            © 2024 PetPals India. All rights reserved.
+        </div>
+</footer>
+<!-- Bottom Navigation (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-4 pt-2 md:hidden bg-surface-container dark:bg-inverse-surface shadow-lg">
+<button class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-2xl px-4 py-1">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">medical_services</span>
+<span class="font-label-sm">Services</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">pets</span>
+<span class="font-label-sm">Explore</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm">Profile</span>
+</button>
+</nav>
+<script>
+        // Micro-interaction: Active state for slot picking
+        const slots = document.querySelectorAll('.grid-cols-3 button:not(.opacity-40)');
+        slots.forEach(slot => {
+            slot.addEventListener('click', () => {
+                slots.forEach(s => s.classList.remove('bg-primary-container', 'text-white', 'border-primary-container'));
+                slots.forEach(s => s.classList.add('border-outline-variant'));
+                slot.classList.add('bg-primary-container', 'text-white', 'border-primary-container');
+                slot.classList.remove('border-outline-variant');
+            });
+        });
+
+        // Simple smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,407 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>PetZonic Seller Central</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-background": "#1a1c1e",
+                    "on-secondary-fixed-variant": "#004f4f",
+                    "inverse-surface": "#2f3133",
+                    "on-secondary": "#ffffff",
+                    "surface-container-high": "#e8e8ea",
+                    "secondary": "#006a6a",
+                    "on-surface": "#1a1c1e",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "outline-variant": "#ddc1ae",
+                    "inverse-on-surface": "#f0f0f3",
+                    "error": "#ba1a1a",
+                    "on-tertiary-fixed": "#201b13",
+                    "primary-fixed-dim": "#ffb77d",
+                    "on-secondary-container": "#006e6e",
+                    "primary-fixed": "#ffdcc3",
+                    "surface-tint": "#904d00",
+                    "on-primary-fixed": "#2f1500",
+                    "outline": "#897362",
+                    "secondary-container": "#90efef",
+                    "on-tertiary-container": "#443e34",
+                    "surface-container-highest": "#e2e2e5",
+                    "on-tertiary-fixed-variant": "#4c463c",
+                    "on-primary-fixed-variant": "#6e3900",
+                    "inverse-primary": "#ffb77d",
+                    "tertiary-container": "#b2a99c",
+                    "secondary-fixed": "#93f2f2",
+                    "primary": "#904d00",
+                    "secondary-fixed-dim": "#76d6d5",
+                    "on-secondary-fixed": "#002020",
+                    "on-primary-container": "#623200",
+                    "surface-bright": "#f9f9fc",
+                    "on-surface-variant": "#564334",
+                    "surface-container-low": "#f3f3f6",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#ff8c00",
+                    "on-error": "#ffffff",
+                    "surface-dim": "#dadadc",
+                    "surface": "#f9f9fc",
+                    "tertiary-fixed-dim": "#cfc5b8",
+                    "on-error-container": "#93000a",
+                    "error-container": "#ffdad6",
+                    "background": "#f9f9fc",
+                    "surface-container": "#eeeef0",
+                    "tertiary": "#645d53",
+                    "surface-variant": "#e2e2e5",
+                    "tertiary-fixed": "#ece1d3"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-mobile": "16px",
+                    "base": "8px",
+                    "container-max": "1280px",
+                    "gutter": "24px",
+                    "margin-desktop": "48px"
+            },
+            "fontFamily": {
+                    "label-lg": ["Plus Jakarta Sans"],
+                    "headline-xl-mobile": ["Montserrat"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "headline-xl": ["Montserrat"],
+                    "headline-md": ["Montserrat"],
+                    "label-sm": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Montserrat"]
+            },
+            "fontSize": {
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-xl-mobile": ["30px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .chart-bar:hover {
+            filter: brightness(1.1);
+            transform: scaleY(1.05);
+            transition: all 0.2s ease-in-out;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- Sidebar Navigation -->
+<aside class="h-full w-64 fixed left-0 top-0 bg-surface-container-low dark:bg-inverse-surface shadow-xl hidden lg:flex flex-col py-margin-desktop gap-base z-40">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined">pets</span>
+</div>
+<h1 class="font-headline-md text-headline-md text-primary">Seller Central</h1>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">PetZonic Verified Partner</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 bg-primary-container text-on-primary-container rounded-lg p-3 mx-4 transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-lg text-label-lg">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant dark:text-surface-variant p-3 mx-4 hover:bg-secondary-container hover:text-on-secondary-container rounded-lg transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">pets</span>
+<span class="font-label-lg text-label-lg">My Listings</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant dark:text-surface-variant p-3 mx-4 hover:bg-secondary-container hover:text-on-secondary-container rounded-lg transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">shopping_bag</span>
+<span class="font-label-lg text-label-lg">Orders</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant dark:text-surface-variant p-3 mx-4 hover:bg-secondary-container hover:text-on-secondary-container rounded-lg transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-lg text-label-lg">Earnings</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant dark:text-surface-variant p-3 mx-4 hover:bg-secondary-container hover:text-on-secondary-container rounded-lg transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">chat</span>
+<span class="font-label-lg text-label-lg">Messages</span>
+</a>
+</nav>
+<div class="px-4 mt-auto">
+<button class="w-full bg-primary text-on-primary font-label-lg text-label-lg py-3 rounded-xl shadow-lg hover:scale-[1.02] active:scale-95 transition-all duration-200 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">add_circle</span>
+            Add New Listing
+        </button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="lg:pl-64 min-h-screen">
+<!-- Top App Bar -->
+<header class="w-full top-0 sticky z-30 bg-surface dark:bg-on-background shadow-[0_4px_16px_rgba(0,128,128,0.12)] h-20">
+<div class="flex justify-between items-center px-margin-mobile lg:px-margin-desktop h-full max-w-container-max mx-auto">
+<div class="lg:hidden flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">menu</span>
+<span class="font-headline-lg text-headline-lg font-black text-primary">PetZonic</span>
+</div>
+<div class="hidden lg:block font-headline-md text-headline-md font-bold text-on-surface">Overview</div>
+<div class="flex items-center gap-gutter">
+<div class="relative hidden md:block">
+<input class="bg-surface-container-low border-none rounded-lg pl-10 pr-4 py-2 w-64 focus:ring-2 focus:ring-secondary transition-all" placeholder="Search orders..." type="text">
+<span class="material-symbols-outlined absolute left-3 top-2 text-on-surface-variant">search</span>
+</div>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="flex items-center gap-3 pl-gutter border-l border-outline-variant">
+<div class="text-right hidden sm:block">
+<p class="font-label-lg text-label-lg text-on-surface">The Pet Shop</p>
+<p class="font-label-sm text-label-sm text-secondary">Pro Seller</p>
+</div>
+<img alt="User Profile" class="w-10 h-10 rounded-full border-2 border-primary" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjKyM90KvtSMoL_KkrqKpX4t0TUS9Yuuy_gv3UkdEv0OyVbm_Pw7ERIvLQwStvPllyO8E8BjT_EQa8X7ae9VxfDHuj49j7Stgpdm_q-HFb_3oFZpskqVYvDI9g90Nt7rpLe_f5H3Br6lWYBeULXG2_FaUDRtTBDD3glXvdeApQNlTrLyWXBH_edT8ivH1rjNPUzDJ6YFiPuWgSezRmwMwDT6U9pfGv7lhzsAI92_j-82SO76TPaQzYrDqrYn3IFJcO_Ky7CqAiYlo">
+</div>
+</div>
+</div>
+</header>
+<div class="p-margin-mobile lg:p-margin-desktop max-w-container-max mx-auto space-y-gutter">
+<!-- Hero Stats Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Stat Card 1 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_4px_16px_rgba(0,128,128,0.06)] border border-outline-variant/30 group hover:shadow-xl transition-all duration-300">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-secondary-container text-on-secondary-container rounded-lg">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<span class="text-secondary font-label-lg text-label-lg">+12.5%</span>
+</div>
+<p class="font-label-lg text-label-lg text-on-surface-variant mb-1">Total Revenue</p>
+<h3 class="font-headline-lg text-headline-lg font-bold text-on-surface">₹48,250</h3>
+</div>
+<!-- Stat Card 2 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_4px_16px_rgba(0,128,128,0.06)] border border-outline-variant/30 hover:shadow-xl transition-all duration-300">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-primary-fixed text-on-primary-fixed-variant rounded-lg">
+<span class="material-symbols-outlined">shopping_cart</span>
+</div>
+<span class="text-primary font-label-lg text-label-lg">8 New</span>
+</div>
+<p class="font-label-lg text-label-lg text-on-surface-variant mb-1">Active Orders</p>
+<h3 class="font-headline-lg text-headline-lg font-bold text-on-surface">24</h3>
+</div>
+<!-- Stat Card 3 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_4px_16px_rgba(0,128,128,0.06)] border border-outline-variant/30 hover:shadow-xl transition-all duration-300">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-tertiary-fixed text-on-tertiary-fixed-variant rounded-lg">
+<span class="material-symbols-outlined">pets</span>
+</div>
+<span class="text-tertiary font-label-lg text-label-lg">Active</span>
+</div>
+<p class="font-label-lg text-label-lg text-on-surface-variant mb-1">Listed Products</p>
+<h3 class="font-headline-lg text-headline-lg font-bold text-on-surface">156</h3>
+</div>
+<!-- Stat Card 4 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_4px_16px_rgba(0,128,128,0.06)] border border-outline-variant/30 hover:shadow-xl transition-all duration-300">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-error-container text-on-error-container rounded-lg">
+<span class="material-symbols-outlined">star</span>
+</div>
+<span class="text-error font-label-lg text-label-lg">4.9/5</span>
+</div>
+<p class="font-label-lg text-label-lg text-on-surface-variant mb-1">Store Rating</p>
+<h3 class="font-headline-lg text-headline-lg font-bold text-on-surface">1.2k Reviews</h3>
+</div>
+</section>
+<!-- Main Dashboard Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Chart & Table Column -->
+<div class="lg:col-span-2 space-y-gutter">
+<!-- Revenue Chart Area -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_4px_16px_rgba(0,128,128,0.06)] border border-outline-variant/20">
+<div class="flex justify-between items-center mb-gutter">
+<h3 class="font-headline-md text-headline-md">Revenue Growth</h3>
+<select class="bg-surface-container-low border-none rounded-lg font-label-sm text-label-sm focus:ring-primary px-4 py-2">
+<option>Last 7 Days</option>
+<option>Last 30 Days</option>
+<option>This Year</option>
+</select>
+</div>
+<div class="h-64 flex items-end justify-between gap-4 px-2">
+<div class="w-full bg-secondary-container rounded-t-lg chart-bar h-[40%]" title="Mon: ₹1,200"></div>
+<div class="w-full bg-secondary-container rounded-t-lg chart-bar h-[65%]" title="Tue: ₹2,400"></div>
+<div class="w-full bg-secondary-container rounded-t-lg chart-bar h-[45%]" title="Wed: ₹1,800"></div>
+<div class="w-full bg-primary-container rounded-t-lg chart-bar h-[90%]" title="Thu: ₹4,200"></div>
+<div class="w-full bg-secondary-container rounded-t-lg chart-bar h-[60%]" title="Fri: ₹2,100"></div>
+<div class="w-full bg-secondary-container rounded-t-lg chart-bar h-[75%]" title="Sat: ₹3,100"></div>
+<div class="w-full bg-primary-container rounded-t-lg chart-bar h-[85%]" title="Sun: ₹3,800"></div>
+</div>
+<div class="flex justify-between mt-4 px-2 font-label-sm text-label-sm text-on-surface-variant">
+<span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+</div>
+</div>
+<!-- Recent Orders Table -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_4px_16px_rgba(0,128,128,0.06)] border border-outline-variant/20 overflow-hidden">
+<div class="p-6 flex justify-between items-center border-b border-outline-variant/30">
+<h3 class="font-headline-md text-headline-md">Recent Orders</h3>
+<button class="text-primary font-label-lg text-label-lg hover:underline transition-all">View All</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">
+<tr>
+<th class="px-6 py-4">Order ID</th>
+<th class="px-6 py-4">Pet Product</th>
+<th class="px-6 py-4">Status</th>
+<th class="px-6 py-4 text-right">Amount</th>
+<th class="px-6 py-4 text-right">Date</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20 font-body-md text-body-md">
+<tr class="hover:bg-surface-container-low transition-colors cursor-pointer">
+<td class="px-6 py-4 font-bold text-on-surface">#PZ-9082</td>
+<td class="px-6 py-4">Organic Puppy Chow (5kg)</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full text-xs font-bold">Shipped</span>
+</td>
+<td class="px-6 py-4 font-bold text-right">₹2,499</td>
+<td class="px-6 py-4 text-on-surface-variant text-right">Oct 24, 2023</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors cursor-pointer">
+<td class="px-6 py-4 font-bold text-on-surface">#PZ-8911</td>
+<td class="px-6 py-4">Orthopedic Cat Bed (Large)</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 bg-primary-fixed text-on-primary-fixed-variant rounded-full text-xs font-bold">Pending</span>
+</td>
+<td class="px-6 py-4 font-bold text-right">₹4,150</td>
+<td class="px-6 py-4 text-on-surface-variant text-right">Oct 23, 2023</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors cursor-pointer">
+<td class="px-6 py-4 font-bold text-on-surface">#PZ-8756</td>
+<td class="px-6 py-4">Automatic Water Fountain</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 bg-surface-container-highest text-on-surface-variant rounded-full text-xs font-bold">Delivered</span>
+</td>
+<td class="px-6 py-4 font-bold text-right">₹1,890</td>
+<td class="px-6 py-4 text-on-surface-variant text-right">Oct 22, 2023</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Right Sidebar: Pending Actions & Wallet -->
+<div class="space-y-gutter">
+<!-- Wallet -->
+<div class="bg-primary p-6 rounded-xl shadow-lg text-on-primary space-y-gutter">
+<h4 class="font-headline-md text-headline-md">Wallet</h4>
+<div class="flex items-center justify-between">
+<div>
+<p class="font-label-sm text-label-sm opacity-80">Withdrawable Balance</p>
+<p class="font-headline-lg text-headline-lg font-bold">₹12,400</p>
+</div>
+<span class="material-symbols-outlined text-4xl opacity-50">account_balance_wallet</span>
+</div>
+<button class="w-full bg-white text-primary font-label-lg text-label-lg py-4 rounded-xl shadow-md hover:bg-surface-container-lowest transition-all">
+                        Withdraw Earnings
+                    </button>
+</div>
+<!-- Pending Actions List -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_4px_16px_rgba(0,128,128,0.06)] border border-outline-variant/20">
+<h3 class="font-headline-md text-headline-md mb-6">Pending Actions</h3>
+<div class="space-y-4">
+<div class="flex items-start gap-4 p-4 rounded-lg bg-surface-container-low border border-outline-variant/30 hover:border-primary transition-all">
+<div class="bg-error-container text-on-error-container p-2 rounded-full">
+<span class="material-symbols-outlined text-sm">warning</span>
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-on-surface">Verify Identity</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Complete KYC to unlock full payouts</p>
+<button class="text-primary font-label-sm text-label-sm mt-2 font-bold uppercase tracking-wider">Fix Now</button>
+</div>
+</div>
+<div class="flex items-start gap-4 p-4 rounded-lg bg-surface-container-low border border-outline-variant/30 hover:border-primary transition-all">
+<div class="bg-secondary-container text-on-secondary-container p-2 rounded-full">
+<span class="material-symbols-outlined text-sm">inventory_2</span>
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-on-surface">Restock Needed</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">3 items are below 5 units in stock</p>
+<button class="text-primary font-label-sm text-label-sm mt-2 font-bold uppercase tracking-wider">Update Inventory</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Marketplace Insight Image -->
+<div class="relative h-56 rounded-xl overflow-hidden shadow-lg group">
+<img alt="Pet Community" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVlWZSwVANOkLWkS_On_me_buEO2cbkSDxW8L0iasR-pCiwMJQL3gFp28tUFebgrzHGrwzjI6tptiPrKmIixNMHFqs2kzRsqJqY7J1wuBI_DZMyJoELkkSDM9N-cSt3uA4rqS_Ii8BDquTcizUg7gZlQh4W4kIPko0hvfevMQxa3mg9qIUB3VgzTkzcF6f-fs2LpGvxa7lSevAaHf7y-dSMuun6z1IYOMrRGJLOMX4yfOuxQf9ne0AThuQA2MEq0xruZEc63VBExY">
+<div class="absolute inset-0 bg-gradient-to-t from-on-background/80 to-transparent flex flex-col justify-end p-6">
+<p class="text-white font-headline-md text-headline-md leading-tight">Join the Diwali Pet Gala!</p>
+<p class="text-secondary-fixed font-label-sm text-label-sm">Boost visibility by 40%</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation for Mobile -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full bg-surface dark:bg-on-background shadow-[0_-4px_16px_rgba(0,128,128,0.12)] flex justify-around items-center px-4 py-3 pb-safe z-50 rounded-t-xl">
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 transition-all duration-150" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant p-2" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-sm text-label-sm">Community</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant p-2" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-sm text-label-sm">Cart</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant p-2" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</a>
+</nav>
+<!-- Footer -->
+<footer class="lg:pl-64 w-full bg-surface-container-highest dark:bg-inverse-surface mt-margin-desktop">
+<div class="w-full py-margin-desktop px-margin-mobile lg:px-margin-desktop flex flex-col md:flex-row justify-between items-center max-w-container-max mx-auto gap-gutter">
+<div class="text-center md:text-left">
+<span class="text-primary font-bold text-headline-md block mb-2">PetZonic</span>
+<p class="font-body-md text-body-md text-on-surface-variant">© 2024 PetZonic Marketplace. Joyful reliability for pet parents.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-gutter">
+<a class="text-on-surface-variant hover:text-secondary underline transition-all font-body-md text-body-md" href="#">About Us</a>
+<a class="text-on-surface-variant hover:text-secondary underline transition-all font-body-md text-body-md" href="#">Seller Terms</a>
+<a class="text-on-surface-variant hover:text-secondary underline transition-all font-body-md text-body-md" href="#">Shipping Policy</a>
+<a class="text-on-surface-variant hover:text-secondary underline transition-all font-body-md text-body-md" href="#">Privacy</a>
+<a class="text-on-surface-variant hover:text-secondary underline transition-all font-body-md text-body-md" href="#">Contact</a>
+</div>
+</div>
+</footer>
+<script>
+    document.querySelectorAll('section > div').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.style.transform = 'translateY(-4px)';
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'translateY(0)';
+        });
+    });
+</script>
+</body></html>

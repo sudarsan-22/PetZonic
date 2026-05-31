@@ -1,0 +1,354 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Order Success | PetZonic</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&amp;family=Plus+Jakarta+Sans:wght@100..900&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#1a1c1e",
+                        "on-secondary-fixed-variant": "#004f4f",
+                        "inverse-surface": "#2f3133",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#e8e8ea",
+                        "secondary": "#006a6a",
+                        "on-surface": "#1a1c1e",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "outline-variant": "#ddc1ae",
+                        "inverse-on-surface": "#f0f0f3",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed": "#201b13",
+                        "primary-fixed-dim": "#ffb77d",
+                        "on-secondary-container": "#006e6e",
+                        "primary-fixed": "#ffdcc3",
+                        "surface-tint": "#904d00",
+                        "on-primary-fixed": "#2f1500",
+                        "outline": "#897362",
+                        "secondary-container": "#90efef",
+                        "on-tertiary-container": "#443e34",
+                        "surface-container-highest": "#e2e2e5",
+                        "on-tertiary-fixed-variant": "#4c463c",
+                        "on-primary-fixed-variant": "#6e3900",
+                        "inverse-primary": "#ffb77d",
+                        "tertiary-container": "#b2a99c",
+                        "secondary-fixed": "#93f2f2",
+                        "primary": "#904d00",
+                        "secondary-fixed-dim": "#76d6d5",
+                        "on-secondary-fixed": "#002020",
+                        "on-primary-container": "#623200",
+                        "surface-bright": "#f9f9fc",
+                        "on-surface-variant": "#564334",
+                        "surface-container-low": "#f3f3f6",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#ff8c00",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#dadadc",
+                        "surface": "#f9f9fc",
+                        "tertiary-fixed-dim": "#cfc5b8",
+                        "on-error-container": "#93000a",
+                        "error-container": "#ffdad6",
+                        "background": "#f9f9fc",
+                        "surface-container": "#eeeef0",
+                        "tertiary": "#645d53",
+                        "surface-variant": "#e2e2e5",
+                        "tertiary-fixed": "#ece1d3"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "base": "8px",
+                        "container-max": "1280px",
+                        "gutter": "24px",
+                        "margin-desktop": "48px"
+                    },
+                    "fontFamily": {
+                        "label-lg": ["Plus Jakarta Sans"],
+                        "headline-xl-mobile": ["Montserrat"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-xl": ["Montserrat"],
+                        "headline-md": ["Montserrat"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Montserrat"]
+                    },
+                    "fontSize": {
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-xl-mobile": ["30px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md overflow-x-hidden">
+<canvas class="confetti-canvas" id="confetti"></canvas>
+<!-- TopNavBar (Shared Component) -->
+<header class="w-full top-0 sticky z-50 shadow-[0_4px_16px_rgba(0,128,128,0.12)] bg-surface dark:bg-on-background">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 max-w-container-max mx-auto">
+<div class="font-headline-lg text-headline-lg font-black text-primary dark:text-primary-container">PetZonic</div>
+<nav class="hidden md:flex gap-8 items-center">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors font-label-lg text-label-lg" href="#">Marketplace</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors font-label-lg text-label-lg" href="#">Community</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors font-label-lg text-label-lg" href="#">Sellers</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary" data-icon="notifications">notifications</button>
+<button class="material-symbols-outlined text-primary" data-icon="favorite">favorite</button>
+<div class="relative w-10 h-10 rounded-full overflow-hidden border-2 border-primary-fixed">
+<img alt="User profile" data-alt="A professional close-up portrait of a friendly man in his 30s with a warm smile, set against a soft blurred indoor background. The lighting is high-key and natural, creating a bright and approachable feel. The aesthetic is clean and modern, using a balanced color palette that aligns with a high-end service platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKmyYrJc7Uu66cDsajoiLvZK-sb3WaXjuf-Ypry_Zhv9QDne-RNBQsBDOC2zbJ86WMrsOpz3KLLhtpgWurZMdG1t2lDXNQH8V8X1vW0AV8l4HPlp5weNolP__irjvFSppL17Vp-9Gdbvvv_hCpiL_MrTcSw-6ajEyCmzT9Z9Jz26lVGp4cxOJ4Nhh7JZXNHuSR6J4gFj5EhXQAaQ5eRRk_ZnDRtZKTfx25qI8vLOfmmb_Z4PrwpzWQGJqJcD-Tbul8pyT6d9sDokY">
+</div>
+</div>
+</div>
+</header>
+<main class="flex-grow w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12 relative z-10">
+<!-- Success Header -->
+<div class="flex flex-col items-center text-center mb-16 animate-fade-in-up">
+<div class="w-24 h-24 bg-secondary-container text-on-secondary-container rounded-full flex items-center justify-center mb-6 shadow-[0_8px_30px_rgb(144,239,239,0.5)] transform hover:scale-110 transition-transform duration-500">
+<span class="material-symbols-outlined text-6xl" style="font-variation-settings: 'FILL' 1, 'wght' 700;">check_circle</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl mb-4 text-on-background">Wags and Purrs!</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Your order <span class="font-bold text-primary">#PZ-2026-12345</span> has been placed successfully. We've sent a confirmation email to your inbox.</p>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Delivery & Summary -->
+<div class="lg:col-span-8 space-y-gutter">
+<!-- Delivery Details Card -->
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_4px_16px_rgba(0,128,128,0.12)] border border-surface-variant/50">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div>
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-secondary" data-icon="local_shipping">local_shipping</span>
+<h3 class="font-headline-md text-headline-md">Estimated Delivery</h3>
+</div>
+<p class="font-headline-md text-primary mb-1">Thursday, Oct 24th</p>
+<p class="text-on-surface-variant font-label-lg">Standard Delivery (3-5 Business Days)</p>
+</div>
+<div>
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-secondary" data-icon="location_on">location_on</span>
+<h3 class="font-headline-md text-headline-md">Shipping Address</h3>
+</div>
+<p class="text-on-surface font-body-md">Rahul Sharma</p>
+<p class="text-on-surface-variant font-body-md">Flat 402, Green Valley Apartments<br>Indiranagar, Bangalore, 560038</p>
+</div>
+</div>
+</div>
+<!-- Item List Card -->
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_4px_16px_rgba(0,128,128,0.12)] border border-surface-variant/50">
+<h3 class="font-headline-md text-headline-md mb-6">Order Items</h3>
+<div class="space-y-6">
+<!-- Item 1 -->
+<div class="flex items-center gap-6 group">
+<div class="w-24 h-24 rounded-lg overflow-hidden bg-surface-container flex-shrink-0">
+<img alt="Premium Dog Food" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A high-quality studio photograph of a premium bag of organic dog food, featuring vibrant packaging with a happy golden retriever. The lighting is crisp and bright, emphasizing the high-end nutritional quality of the product. The setting is clean and minimalist, reflecting a professional marketplace aesthetic with warm orange and teal accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCA1e4hR9XqwQ1pvDtFrmW5nFsMGu3yhpVu9UeXKtcf5UoBuwx0ABUNIYasfJhIJa6prJdV8ink_7QeLjuF3uHp-SvgImq1-tklkTQgKY8RsGMBCgsjPRoYFmqtsWVVHAf5HK6ySAKrHZV7SAQGfKbZiIQSCy3ag7V7vF0aZgAyxWmb_1p8QVUtoiAtoVYGYqoBnY8SHeDNOVS94HBX3RaNxLUxtUG2IAPrlY5F9MjwwD3AhOyUHP17jrCehnfIaYAM3ShGGTgz8Y4">
+</div>
+<div class="flex-grow">
+<p class="font-label-lg text-label-lg text-secondary mb-1">PawLuxury</p>
+<h4 class="font-body-lg font-bold text-on-surface">Grain-Free Salmon &amp; Sweet Potato (12kg)</h4>
+<p class="text-on-surface-variant">Qty: 1</p>
+</div>
+<p class="font-headline-md text-primary">₹4,499</p>
+</div>
+<div class="h-px bg-surface-variant"></div>
+<!-- Item 2 -->
+<div class="flex items-center gap-6 group">
+<div class="w-24 h-24 rounded-lg overflow-hidden bg-surface-container flex-shrink-0">
+<img alt="Pet Grooming Kit" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A sleek and modern pet grooming kit arranged neatly on a wooden surface. The kit includes professional-grade brushes and clippers in a stylish teal and silver finish. The lighting is soft and ambient, creating a sense of premium reliability and care. The overall composition is balanced and inviting for a pet parent." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgF1tOKuAWYueEHod5zIsnBcENUQ8ayT0UCwnH6Mr6KvHl25TWpiwbF4nq8ZTGzuG0eZo1oCG02NJ3j9l3V5XNXXWe34AxfBToB2MOlx2OuZyZnIT7hc2KrpyPQ1JAmQDu9K4s4Fmva_enndLx4eNYidFwtXgiusJ6E3yKRvRLsysmeS5Uf_oM4TnY4QNxXGePzlXRCojgA2yL_PCmZ2Ba7ja5dGjYOIxlUWqbYXkeCqs37AEG0fZklT_t3TejAtwPn7Ln4Undyow">
+</div>
+<div class="flex-grow">
+<p class="font-label-lg text-label-lg text-secondary mb-1">GroomMaster</p>
+<h4 class="font-body-lg font-bold text-on-surface">Professional 5-in-1 Grooming Set</h4>
+<p class="text-on-surface-variant">Qty: 1</p>
+</div>
+<p class="font-headline-md text-primary">₹1,850</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Side Panels -->
+<div class="lg:col-span-4 space-y-gutter">
+<!-- What's Next Card -->
+<div class="bg-primary-container text-on-primary-container rounded-xl p-8 shadow-xl relative overflow-hidden">
+<div class="relative z-10">
+<h3 class="font-headline-md text-headline-md mb-6">What's Next?</h3>
+<ul class="space-y-6">
+<li class="flex gap-4">
+<div class="w-8 h-8 rounded-full bg-on-primary-container/20 flex items-center justify-center flex-shrink-0">
+<span class="font-bold">1</span>
+</div>
+<div>
+<p class="font-bold mb-1">Preparing Order</p>
+<p class="text-sm opacity-90">The seller is carefully packing your items for a safe journey.</p>
+</div>
+</li>
+<li class="flex gap-4 opacity-70">
+<div class="w-8 h-8 rounded-full bg-on-primary-container/20 flex items-center justify-center flex-shrink-0">
+<span class="font-bold">2</span>
+</div>
+<div>
+<p class="font-bold mb-1">Shipped with Love</p>
+<p class="text-sm opacity-90">You'll receive a tracking link via SMS once it leaves the warehouse.</p>
+</div>
+</li>
+<li class="flex gap-4 opacity-70">
+<div class="w-8 h-8 rounded-full bg-on-primary-container/20 flex items-center justify-center flex-shrink-0">
+<span class="font-bold">3</span>
+</div>
+<div>
+<p class="font-bold mb-1">Delivery Day</p>
+<p class="text-sm opacity-90">Get ready for some happy tail wags at your doorstep!</p>
+</div>
+</li>
+</ul>
+</div>
+<!-- Decorative Paw Print -->
+<span class="material-symbols-outlined absolute -bottom-4 -right-4 text-on-primary-container/10 text-9xl rotate-12" style="font-variation-settings: 'FILL' 1;">pets</span>
+</div>
+<!-- Actions Card -->
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_4px_16px_rgba(0,128,128,0.12)] border border-surface-variant/50">
+<button class="w-full bg-primary text-on-primary font-bold py-4 rounded-lg mb-4 hover:shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">track_changes</span>
+                        Track Your Order
+                    </button>
+<button class="w-full border-2 border-secondary text-secondary font-bold py-4 rounded-lg hover:bg-secondary-container/20 transition-all active:scale-95">
+                        Continue Shopping
+                    </button>
+<p class="text-center text-on-surface-variant font-label-sm mt-6">Need help? <a class="text-secondary font-bold hover:underline" href="#">Contact Support</a></p>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="w-full mt-12 bg-surface-container-highest dark:bg-inverse-surface">
+<div class="w-full py-12 px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-center max-w-container-max mx-auto gap-8">
+<div class="flex flex-col items-center md:items-start">
+<div class="text-primary font-bold text-headline-md mb-2">PetZonic</div>
+<p class="text-on-surface-variant dark:text-surface-variant font-body-md text-center md:text-left">© 2024 PetZonic Marketplace. Joyful reliability for pet parents.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-6">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary underline transition-all font-body-md" href="#">About Us</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary underline transition-all font-body-md" href="#">Seller Terms</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary underline transition-all font-body-md" href="#">Shipping Policy</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary underline transition-all font-body-md" href="#">Privacy</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-secondary underline transition-all font-body-md" href="#">Contact</a>
+</div>
+</div>
+</footer>
+<!-- BottomNavBar for Mobile (Shared Component) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-3 pb-safe bg-surface dark:bg-on-background shadow-[0_-4px_16px_rgba(0,128,128,0.12)] z-50 rounded-t-xl">
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+<span class="font-label-sm text-label-sm">Community</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span class="font-label-sm text-label-sm">Cart</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</div>
+</nav>
+<script>
+        // Micro-interaction: Confetti Effect
+        const canvas = document.getElementById('confetti');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const pieces = [];
+        const numberOfPieces = 150;
+        const colors = ['#904d00', '#008080', '#ff8c00', '#90efef', '#ffdcc3'];
+
+        class Piece {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height - canvas.height;
+                this.rotation = Math.random() * 360;
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.diameter = Math.random() * 10 + 5;
+                this.speed = Math.random() * 3 + 2;
+            }
+            update() {
+                this.y += this.speed;
+                this.rotation += this.speed;
+                if (this.y > canvas.height) {
+                    this.y = -20;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation * Math.PI / 180);
+                ctx.fillStyle = this.color;
+                ctx.fillRect(-this.diameter / 2, -this.diameter / 2, this.diameter, this.diameter);
+                ctx.restore();
+            }
+        }
+
+        for (let i = 0; i < numberOfPieces; i++) {
+            pieces.push(new Piece());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            pieces.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+        
+        // Stop confetti after 5 seconds to focus on content
+        setTimeout(() => {
+            const fadeEffect = setInterval(() => {
+                if (!canvas.style.opacity) canvas.style.opacity = 1;
+                if (canvas.style.opacity > 0) {
+                    canvas.style.opacity -= 0.1;
+                } else {
+                    clearInterval(fadeEffect);
+                    canvas.style.display = 'none';
+                }
+            }, 50);
+        }, 6000);
+    </script>
+</body></html>

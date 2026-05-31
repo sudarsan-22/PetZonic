@@ -1,7 +1,7 @@
 # PetZonic — Tech Stack
 
-> **Version**: 1.0.0  
-> **Date**: May 28, 2026
+> **Version**: 1.1.0 (FROZEN)  
+> **Date**: May 31, 2026
 
 ---
 
@@ -10,15 +10,15 @@
 | Layer | Technology | Version |
 |-------|-----------|---------|
 | **Mobile** | Flutter (Dart) | 3.x (latest stable) |
-| **Web (Customer)** | Next.js (React 19) | 15.x |
-| **Web (Admin)** | Next.js (React 19) | 15.x |
-| **Backend** | NestJS (Node.js) | 11.x (NestJS) / 22.x (Node) |
+| **Web (Customer)** | React.js (React 19) | 15.x |
+| **Web (Admin)** | React.js (React 19) | 15.x |
+| **Backend** | Node.js + Express | 22.x (Node) / 5.x (Express) |
 | **Language** | TypeScript | 5.x |
 | **ORM** | Prisma | 6.x |
-| **Database** | PostgreSQL | 16 |
+| **Database** | MongoDB + PostgreSQL | 8.x (Mongo) / 16 (PG) |
 | **Cache** | Redis | 7.x |
 | **Search** | Meilisearch | 1.x |
-| **Queue** | Bull (Redis-backed) | 5.x |
+| **Queue** | BullMQ (Redis-backed) | 5.x |
 | **Real-time** | Socket.io | 4.x |
 | **Cloud** | AWS | - |
 | **CI/CD** | GitHub Actions | - |
@@ -69,9 +69,9 @@
 
 ---
 
-## 3. Frontend — Web (Next.js)
+## 3. Frontend — Web (React.js + Next.js)
 
-### Why Next.js?
+### Why React.js + Next.js?
 | Criteria | Next.js | Angular | Nuxt (Vue) |
 |----------|---------|---------|-----------|
 | SEO (SSR/SSG) | ⭐⭐⭐⭐⭐ Built-in | ⭐⭐⭐ Angular Universal | ⭐⭐⭐⭐ Good |
@@ -81,14 +81,14 @@
 | Learning curve | ⭐⭐⭐⭐ Moderate | ⭐⭐⭐ Steeper | ⭐⭐⭐⭐⭐ Easy |
 | Dev pool (India) | ⭐⭐⭐⭐⭐ Largest | ⭐⭐⭐⭐ Large | ⭐⭐⭐ Growing |
 
-**Decision**: Next.js — Best for SEO-critical e-commerce, large React ecosystem, excellent performance features, largest developer pool.
+**Decision**: React.js with Next.js framework — Best for SEO-critical e-commerce, large React ecosystem, excellent performance features, largest developer pool.
 
 ### Web Key Libraries
 
 | Purpose | Library |
 |---------|---------|
 | UI Components | Tailwind CSS + Headless UI |
-| State Management | Zustand (client) + React Query (server) |
+| State Management | Redux |
 | Forms | React Hook Form + Zod validation |
 | HTTP | Axios |
 | Real-time | socket.io-client |
@@ -102,7 +102,6 @@
 | Image optimization | Next.js Image (built-in) |
 
 ### Web Architecture
-- **App Router** (Next.js 15 app directory)
 - **Server Components** for data-fetching pages (SEO)
 - **Client Components** for interactive UI
 - **API routes** for BFF (Backend for Frontend) pattern when needed
@@ -110,54 +109,58 @@
 
 ---
 
-## 4. Backend — NestJS
+## 4. Backend — Node.js + Express
 
-### Why NestJS?
-| Criteria | NestJS | Express.js | Django (Python) | Spring Boot (Java) |
-|----------|--------|-----------|-----------------|-------------------|
-| TypeScript | ⭐⭐⭐⭐⭐ First-class | ⭐⭐⭐⭐ With setup | ❌ Python | ❌ Java/Kotlin |
-| Architecture | ⭐⭐⭐⭐⭐ Opinionated, modular | ⭐⭐ Freestyle | ⭐⭐⭐⭐⭐ Opinionated | ⭐⭐⭐⭐⭐ Enterprise |
-| Scalability | ⭐⭐⭐⭐⭐ Microservice-ready | ⭐⭐⭐ Manual | ⭐⭐⭐⭐ Good | ⭐⭐⭐⭐⭐ Excellent |
-| Dev Speed | ⭐⭐⭐⭐⭐ CLI, decorators, DI | ⭐⭐⭐⭐ Fast but messy | ⭐⭐⭐⭐ Good | ⭐⭐⭐ Slower |
-| Maintainability | ⭐⭐⭐⭐⭐ Enforced patterns | ⭐⭐ Depends on team | ⭐⭐⭐⭐ Good | ⭐⭐⭐⭐⭐ Excellent |
-| WebSocket | ⭐⭐⭐⭐⭐ Built-in gateway | ⭐⭐⭐ socket.io manual | ⭐⭐⭐ Channels | ⭐⭐⭐⭐ |
-| Shared lang with frontend | ✅ TypeScript | ✅ JavaScript | ❌ | ❌ |
+### Why Node.js + Express?
+| Criteria | Node.js + Express | NestJS | Django (Python) | Spring Boot (Java) |
+|----------|-------------------|--------|-----------------|--------------------|
+| TypeScript | ⭐⭐⭐⭐⭐ Full support | ⭐⭐⭐⭐⭐ First-class | ❌ Python | ❌ Java/Kotlin |
+| Flexibility | ⭐⭐⭐⭐⭐ Full control | ⭐⭐⭐ Opinionated | ⭐⭐⭐ Opinionated | ⭐⭐⭐ Opinionated |
+| Dev Speed | ⭐⭐⭐⭐⭐ Lightweight, fast | ⭐⭐⭐⭐ Boilerplate | ⭐⭐⭐⭐ Good | ⭐⭐⭐ Slower |
+| Ecosystem | ⭐⭐⭐⭐⭐ Largest npm ecosystem | ⭐⭐⭐⭐ NestJS wrappers | ⭐⭐⭐⭐ Good | ⭐⭐⭐⭐ Good |
+| Learning curve | ⭐⭐⭐⭐⭐ Minimal | ⭐⭐⭐ Decorators, DI | ⭐⭐⭐⭐ Moderate | ⭐⭐⭐ Steep |
+| WebSocket | ⭐⭐⭐⭐⭐ socket.io native | ⭐⭐⭐⭐⭐ Built-in gateway | ⭐⭐⭐ Channels | ⭐⭐⭐⭐ |
+| Shared lang with frontend | ✅ TypeScript | ✅ TypeScript | ❌ | ❌ |
 
-**Decision**: NestJS — Enterprise-grade structure with TypeScript, same language as frontend, modular design supports future microservices migration, excellent WebSocket support.
+**Decision**: Node.js + Express — Lightweight, full control over architecture, massive ecosystem, same language as frontend, simpler learning curve, direct library usage without framework wrappers.
 
 ### Backend Key Libraries
 
 | Purpose | Library |
 |---------|---------|
 | ORM | Prisma 6 |
-| Validation | class-validator + class-transformer |
-| Auth | @nestjs/passport + @nestjs/jwt |
-| WebSocket | @nestjs/websockets + socket.io |
-| Queue | @nestjs/bull |
-| Cache | @nestjs/cache-manager + ioredis |
-| File Upload | multer + @nestjs/platform-express |
-| Swagger | @nestjs/swagger |
-| Config | @nestjs/config |
-| Throttle | @nestjs/throttler |
-| Health Check | @nestjs/terminus |
+| Validation | Zod |
+| Auth | jsonwebtoken + bcryptjs |
+| WebSocket | socket.io |
+| Queue | BullMQ |
+| Cache | ioredis |
+| File Upload | multer |
+| Swagger | swagger-ui-express |
+| Config | dotenv |
+| Throttle | express-rate-limit |
+| Health Check | express-actuator / custom middleware |
 | Testing | Jest + Supertest |
-| Logging | nestjs-pino (structured JSON logs) |
-| Scheduling | @nestjs/schedule |
+| Logging | pino (structured JSON logs) |
+| Scheduling | node-cron |
 
 ### Backend Architecture Pattern
-- **Modular Monolith** (each feature is a NestJS module)
-- **Controller → Service → Repository** pattern
-- **DTOs** for request/response validation
-- **Guards** for authentication & authorization
-- **Interceptors** for response transformation, caching, logging
-- **Pipes** for input validation
-- **Filters** for exception handling
+- **Modular Monolith** (each feature is a separate module/folder)
+- **Router → Controller → Service → Repository** pattern
+- **Zod schemas** for request/response validation
+- **Middleware** for authentication, logging, rate limiting
+- **Error handlers** for centralized exception handling
+- **Feature-first** folder structure
+- **Dependency injection** via factory functions
 
 ---
 
-## 5. Database — PostgreSQL
+## 5. Database — MongoDB + PostgreSQL
 
-### Why PostgreSQL?
+### Why Both?
+- **MongoDB**: Flexible schema for pets catalog, chat messages, notifications, activity logs
+- **PostgreSQL**: Strict relational data for orders, payments, users, inventory, financial transactions
+
+### Why PostgreSQL (for transactional data)?
 | Criteria | PostgreSQL | MongoDB | MySQL |
 |----------|-----------|---------|-------|
 | ACID Compliance | ⭐⭐⭐⭐⭐ Full | ⭐⭐⭐ Eventually consistent | ⭐⭐⭐⭐⭐ Full |
@@ -170,12 +173,19 @@
 
 **Decision**: PostgreSQL — Relational integrity critical for e-commerce (orders, payments, inventory), ACID compliance for financial transactions, JSONB for flexible fields, proven at scale.
 
-### Why Prisma (ORM)?
+### Why Prisma (ORM for PostgreSQL)?
 - **Type-safe**: Auto-generated TypeScript types from schema
 - **Migration system**: Version-controlled schema changes
 - **Query performance**: Optimized SQL generation
 - **Developer experience**: Auto-complete, intuitive API
 - **Schema-first**: Single source of truth for database structure
+
+### Why Mongoose (ODM for MongoDB)?
+- **Schema validation**: Define structure for flexible documents
+- **Middleware hooks**: Pre/post save, validate, remove
+- **Population**: Reference-based joins across collections
+- **TypeScript support**: Strong typing with interfaces
+- **Mature ecosystem**: Most popular MongoDB ODM for Node.js
 
 ---
 
@@ -202,7 +212,7 @@
 - **Fallback support**: WebSocket → HTTP long-polling (important for Indian networks)
 - **Room-based**: Perfect for buyer-seller chat rooms
 - **Scalable**: Redis adapter for multi-server support
-- **NestJS integration**: First-class @nestjs/websockets support
+- **Express integration**: Easy middleware setup with socket.io
 - **Flutter client**: Official socket_io_client package
 - **Proven**: Used by major chat platforms
 
@@ -251,7 +261,7 @@
 | **Husky** | Git hooks (lint on commit, test on push) |
 | **Commitlint** | Conventional commits enforced |
 | **Sentry** | Error tracking and monitoring |
-| **Swagger/OpenAPI** | API documentation (auto-generated from NestJS) |
+| **Swagger/OpenAPI** | API documentation (swagger-ui-express) |
 
 ---
 
@@ -287,11 +297,11 @@ Required installations:
 
 | Repo | Contents |
 |------|----------|
-| `petzonic-api` | NestJS backend |
+| `petzonic-api` | Node.js + Express backend |
 | `petzonic-customer-app` | Flutter customer app |
 | `petzonic-seller-app` | Flutter seller app |
-| `petzonic-web` | Next.js website |
-| `petzonic-admin` | Next.js admin panel |
+| `petzonic-web` | React.js + Next.js website |
+| `petzonic-admin` | React.js + Next.js admin panel |
 | `petzonic-infra` | Terraform, Docker configs |
 | `petzonic-shared` | Shared types/constants (npm package) |
 

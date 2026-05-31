@@ -1,0 +1,501 @@
+<!DOCTYPE html><html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Learn | PetZonic - Your Pet Education Hub</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Montserrat:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-bright": "#f9f9fc",
+                    "outline-variant": "#ddc1ae",
+                    "on-error-container": "#93000a",
+                    "error-container": "#ffdad6",
+                    "surface-variant": "#e2e2e5",
+                    "error": "#ba1a1a",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#ff8c00",
+                    "tertiary": "#645d53",
+                    "inverse-on-surface": "#f0f0f3",
+                    "inverse-surface": "#2f3133",
+                    "tertiary-fixed": "#ece1d3",
+                    "secondary": "#006a6a",
+                    "background": "#f9f9fc",
+                    "secondary-container": "#90efef",
+                    "surface-container": "#eeeef0",
+                    "on-tertiary-container": "#443e34",
+                    "on-surface-variant": "#564334",
+                    "on-background": "#1a1c1e",
+                    "tertiary-fixed-dim": "#cfc5b8",
+                    "surface-container-highest": "#e2e2e5",
+                    "secondary-fixed-dim": "#76d6d5",
+                    "on-primary-fixed": "#2f1500",
+                    "tertiary-container": "#b2a99c",
+                    "on-secondary": "#ffffff",
+                    "surface-container-high": "#e8e8ea",
+                    "on-primary-container": "#623200",
+                    "primary-fixed": "#ffdcc3",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed-dim": "#ffb77d",
+                    "on-secondary-fixed": "#002020",
+                    "outline": "#897362",
+                    "surface-container-low": "#f3f3f6",
+                    "on-secondary-fixed-variant": "#004f4f",
+                    "primary": "#904d00",
+                    "surface-tint": "#904d00",
+                    "surface-dim": "#dadadc",
+                    "secondary-fixed": "#93f2f2",
+                    "inverse-primary": "#ffb77d",
+                    "on-primary-fixed-variant": "#6e3900",
+                    "on-tertiary-fixed": "#201b13",
+                    "surface": "#f9f9fc",
+                    "on-tertiary-fixed-variant": "#4c463c",
+                    "on-error": "#ffffff",
+                    "on-secondary-container": "#006e6e",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface": "#1a1c1e"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "48px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px",
+                    "container-max": "1280px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "label-lg": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "headline-xl-mobile": ["Montserrat"],
+                    "label-sm": ["Plus Jakarta Sans"],
+                    "headline-xl": ["Montserrat"],
+                    "headline-md": ["Montserrat"],
+                    "headline-lg": ["Montserrat"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-xl-mobile": ["30px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #006a6a;
+            border-radius: 10px;
+        }
+        .elevation-l2 {
+            box-shadow: 0 4px 16px rgba(0, 128, 128, 0.12);
+        }
+        .hero-zoom:hover img {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="bg-surface-bright text-on-surface font-body-md selection:bg-primary-container/30">
+<!-- Top Navigation Bar -->
+<nav class="bg-surface-container-lowest dark:bg-inverse-surface shadow-md dark:bg-surface-dim sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-margin-desktop py-4 max-w-container-max mx-auto">
+<div class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">PetZonic</div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Marketplace</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Community</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Services</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-md text-body-md" href="#">Learn</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined p-2 hover:bg-surface-container rounded-full transition-all text-on-surface-variant" data-icon="shopping_cart">shopping_cart</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container/20">
+<img alt="User Profile Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCe5pTD7GLFx9hAN1-kqMeyhgkKvocjnj5XoZ6FDbksrVq-1mpvsU3sHR2XPQolOn3_zoVpZSiUG-6_kXACch5jK9GTBQLTe-CjUDwmPXne-SruH79GXLcsqQH3c1kdY6GwMlIX68t-CW-UkVY40ykEFIncgsdWUYOo7rHKnIJUWmDhOXzsE3CV1xXryFGbtN7ypcr2bCw7tRNjxf0IJvKPIKOGPGU_Zr5fVMkYyzLnMiOlG3k6cxIdO0CkMIkqGe4t44oglyQxghs">
+</div>
+</div>
+</div>
+</nav>
+<main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12">
+<!-- Hero Section: Featured Article -->
+<section class="mb-16">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter bg-surface-container-lowest rounded-xl overflow-hidden elevation-l2 hero-zoom group cursor-pointer transition-all">
+<div class="relative h-[300px] lg:h-[480px] overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 ease-out" data-alt="A heartwarming high-resolution photograph of two healthy, happy dogs playing together in a sun-drenched, lush green park. The lighting is warm and golden, characteristic of a late afternoon sun, creating a joyful and reliable atmosphere. The image uses a vibrant color palette with high saturation, focusing on the expressive joy of the pets. Soft focus on the background emphasizes the professional yet approachable aesthetic of the PetZonic brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdIdtI_r-KISUa5X5TuYSXck3QjKfJx4jvNrbg914_rX7J-Y1p9z5g3JCWfAo5lichiRY0m3DFVITMVH4cLWmXv3EdlndDM_RrWC_s--gQeS_ZSZl5_5ky7n-whikkXWfsX8FZ24Wx0HOrJJIsHe6rwMQjsrlCdPGoLni0pb5pd9eP-ijk9ku8TTN8wO7buL0g5VL5LRm7pUua7EM9GI3I0WqsJaFI8j9Dv4lXZXfy-etTStH_uIePC14ZcE1pFR3NXiMf4QtwNE4">
+<div class="absolute top-6 left-6">
+<span class="bg-secondary text-on-secondary px-4 py-1 rounded-full font-label-lg text-label-lg">Featured Article</span>
+</div>
+</div>
+<div class="p-8 md:p-12 flex flex-col justify-center">
+<div class="flex gap-4 items-center mb-6">
+<span class="text-secondary font-bold font-label-lg text-label-lg">DOG CARE</span>
+<span class="w-1 h-1 bg-outline-variant rounded-full"></span>
+<span class="text-on-surface-variant font-label-lg text-label-lg">8 min read</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface mb-6 leading-tight">Mastering the Art of Pet Socialization: A Guide for New Owners</h1>
+<p class="text-on-surface-variant font-body-lg text-body-lg mb-8 line-clamp-3">
+                        Socializing your new pet is more than just meeting other animals. Discover the gentle, reliable methods to build confidence in your furry friend during their critical developmental phases.
+                    </p>
+<div class="flex items-center gap-4">
+<img alt="Author" class="w-12 h-12 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAi_rVLkx9GNvj9b-RXgZq76mn4v1KNLVYDrMjSYKK3gFzwBUA2KkIJ5kseI01RUp72VktHI_t0mDITeDni11pXS-3Yzl-2nz5OSu_2qCn91wa2sesJIGUCuyQFUiBoi4yTFmif8yt8fmswDXF9qec1vJK0yaK54u_jMV5tWz2wSb2khOoUDB_pC7cjcoKNvGaj6fORTq_ZzbEC4sFLtCHAEgC_mmdxo7TRB0UBwjX93cF9yLK_aEW_vJ7epsr1xBwjHMjhYYcq0Tc">
+<div>
+<p class="font-label-lg text-label-lg text-on-surface">Anjali Sharma</p>
+<p class="text-on-surface-variant text-label-sm font-label-sm">Senior Pet Behaviorist</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Category Tabs -->
+<div class="flex items-center gap-4 overflow-x-auto pb-4 mb-12 custom-scrollbar no-scrollbar">
+<button class="whitespace-nowrap bg-primary text-on-primary px-6 py-2 rounded-full font-label-lg text-label-lg transition-all">All Articles</button>
+<button class="whitespace-nowrap bg-surface-container-high hover:bg-secondary-container/50 text-on-surface-variant px-6 py-2 rounded-full font-label-lg text-label-lg transition-all">Dog Care</button>
+<button class="whitespace-nowrap bg-surface-container-high hover:bg-secondary-container/50 text-on-surface-variant px-6 py-2 rounded-full font-label-lg text-label-lg transition-all">Cat Care</button>
+<button class="whitespace-nowrap bg-surface-container-high hover:bg-secondary-container/50 text-on-surface-variant px-6 py-2 rounded-full font-label-lg text-label-lg transition-all">Nutrition</button>
+<button class="whitespace-nowrap bg-surface-container-high hover:bg-secondary-container/50 text-on-surface-variant px-6 py-2 rounded-full font-label-lg text-label-lg transition-all">Training</button>
+<button class="whitespace-nowrap bg-surface-container-high hover:bg-secondary-container/50 text-on-surface-variant px-6 py-2 rounded-full font-label-lg text-label-lg transition-all">Small Pets</button>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-gutter">
+<!-- Article Grid -->
+<div class="lg:col-span-3">
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
+<!-- Card 1 -->
+<article class="bg-surface-container-lowest rounded-xl overflow-hidden elevation-l2 group cursor-pointer">
+<div class="aspect-video overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A close-up, high-end portrait of a sleek, well-groomed cat in a modern, brightly lit home interior. The lighting is soft and ambient, highlighting the feline's vibrant coat colors and intelligent eyes. The overall mood is peaceful and professional, maintaining PetZonic's warm and vital aesthetic. Subtle hints of Teal accents in the background decor create a cohesive brand feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRwdKyBSvB2zZJ0X_Q3Y6yn3AFQ2bGmBaOV_q14Pb4FAuflXe9Olfq1a8TDY-MOV5HayrPbKQ--NGlG_V86i4_ZUWoHw3z3RwqB6k-LhKLe8Xjfmiwz4VqFEKgk52GVIgcIz8wD2KL6ysMDJvTg_j-b4SR8EyfOafB6QfOlb52Iy-8uOdrQJEubGEWx8UP7VivDd-Wgq53xKbFOyIeU3fUBJwmsjy8w-yxm00G1TVLTYtSSCyR1rlCWr89AyPX209Cawcg_g_vS0M">
+</div>
+<div class="p-6">
+<span class="inline-block bg-secondary-container text-on-secondary-container px-3 py-1 rounded-lg text-label-sm font-label-sm mb-4">CAT CARE</span>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-3 group-hover:text-primary transition-colors line-clamp-2">The Ultimate Indoor Cat Enrichment Guide</h3>
+<p class="text-on-surface-variant text-body-md font-body-md mb-6 line-clamp-2">How to keep your indoor feline active, healthy, and happy with simple DIY tools.</p>
+<div class="flex justify-between items-center text-label-sm font-label-sm text-on-surface-variant">
+<span>Dr. Rajesh V.</span>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="visibility">visibility</span>
+<span>2.4k</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="bg-surface-container-lowest rounded-xl overflow-hidden elevation-l2 group cursor-pointer">
+<div class="aspect-video overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A beautiful spread of fresh, organic pet food ingredients including lean meats, bright vegetables, and wholesome grains, arranged on a rustic wooden table. The lighting is high-key and bright, evoking a sense of vitality and health. The style is modern and tactile, with rich colors that reflect the joyful reliability of PetZonic's professional nutrition advice." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBF1cNHVlm7CSiX7WgnSYUpSgEeqleWdGq8-y-H1cLtqP_c5e2EG-Sp_oy0zFsVIqR_-5z27SbNtc72BwClu3vLco54eC5fx44-CiiAl9RRZRwdzWqp9O-mZBuC44Dbh2xrSISpZiDR3wVsuZtCYjjBFtLBKnq_YG4DvbprBS8Jns3dQEQHEElknfDnNKFwT6q1s2QYEhCKNQpelBBtGKZuZgU6etpzmaXIVTJMh8M41zzOa8vCJCqqrtUnXY7rfAobkW8cXUL5_8">
+</div>
+<div class="p-6">
+<span class="inline-block bg-secondary-container text-on-secondary-container px-3 py-1 rounded-lg text-label-sm font-label-sm mb-4">NUTRITION</span>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-3 group-hover:text-primary transition-colors line-clamp-2">Raw Food vs. Kibble: What's Best?</h3>
+<p class="text-on-surface-variant text-body-md font-body-md mb-6 line-clamp-2">Expert analysis on the best dietary choices for your pet's long-term health and vitality.</p>
+<div class="flex justify-between items-center text-label-sm font-label-sm text-on-surface-variant">
+<span>Sarah Miller</span>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="visibility">visibility</span>
+<span>1.8k</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="bg-surface-container-lowest rounded-xl overflow-hidden elevation-l2 group cursor-pointer">
+<div class="aspect-video overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A professional dog trainer working with a golden retriever in a clean, modern training studio. The lighting is soft white and focused, creating a high-end, trustworthy atmosphere. The trainer and pet share a joyful connection, emphasizing PetZonic's community-driven and approachable brand personality. Accents of Primary Orange and Teal are subtly integrated into the studio equipment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBA3oemU4v8Rzjp2K2clkvFzO6YMptWGGkRdP09MljvwAjNFiqxw2zmAUXjgFMENQYscTWFJt2gwif6R_xmo_SuYA2EqrfR8vP6aYOa2fqYP_4l_rzGJ0FV53hqTALfz1iiFMx1xVdlHaXskFtMiHtZGbg50sPp1UDmRvITJLF4s7-ApqmqHcS6wxGICFxrHEClrkO9qQDuhXACh3xmSPpHrCJmtLUrx679DRXV7aYY2aymO1QWczFcJiD1za9oz2eHqF8TP7eFlGY">
+</div>
+<div class="p-6">
+<span class="inline-block bg-secondary-container text-on-secondary-container px-3 py-1 rounded-lg text-label-sm font-label-sm mb-4">TRAINING</span>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-3 group-hover:text-primary transition-colors line-clamp-2">Leash Pulling: 5 Fast Fixes</h3>
+<p class="text-on-surface-variant text-body-md font-body-md mb-6 line-clamp-2">Transform your daily walks into a stress-free experience for both you and your dog.</p>
+<div class="flex justify-between items-center text-label-sm font-label-sm text-on-surface-variant">
+<span>Vikram Singh</span>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="visibility">visibility</span>
+<span>4.1k</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 4 (Repeat pattern) -->
+<article class="bg-surface-container-lowest rounded-xl overflow-hidden elevation-l2 group cursor-pointer">
+<div class="aspect-video overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A cheerful family including a child and a puppy playing on a modern, light-filled patio. The image is captured with bright, high-key lighting that emphasizes warmth and joy. The color palette is vibrant, aligning with the tactile and approachable design language of PetZonic. The scene represents professional trust and animal welfare in a domestic Indian setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_V6Tg_o0GyiDZV_du3rjI-8ZX1drmU1BQ2EQ1BMJtGqgVE1pp8HzLZ9qQ_jDBxoknn6DEuYbXnD9pIAY_qQb1BfDlSonnuOu0NPeYb_PCzuJ_0q9DuiOy8s_WzT-Mdopf553yB5QEPb0qHz82274_eNcU4uoJknic_wToObvbO9egcyG68A0xKkzIBAqQdhruu3ZTknBuWndTUgxhcZTDGuhoAhsaaiuqhoSGm8AYt5G-VRFst37aVCuGQMyrTfnznuKyuxCX6Oc">
+</div>
+<div class="p-6">
+<span class="inline-block bg-secondary-container text-on-secondary-container px-3 py-1 rounded-lg text-label-sm font-label-sm mb-4">COMMUNITY</span>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-3 group-hover:text-primary transition-colors line-clamp-2">Preparing Your Home for a Puppy</h3>
+<p class="text-on-surface-variant text-body-md font-body-md mb-6 line-clamp-2">A checklist to ensure your home is safe and welcoming for your newest family member.</p>
+<div class="flex justify-between items-center text-label-sm font-label-sm text-on-surface-variant">
+<span>Priya Das</span>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="visibility">visibility</span>
+<span>3.2k</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 5 (Repeat pattern) -->
+<article class="bg-surface-container-lowest rounded-xl overflow-hidden elevation-l2 group cursor-pointer">
+<div class="aspect-video overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A detailed, vibrant shot of various pet vitamins and health supplements on a clean, white surface. The lighting is professional and bright, giving a medical yet approachable feel. The image features a balanced palette with PetZonic's Teal and Primary Orange branding elements subtly present in the background. It evokes a sense of JOYFUL RELIABILITY and animal wellness." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPdbXcy1GAOMOHB9wt99rAOBvLoV46IBE3QAQ21bRwSSCUv8WXuZg7Kl-RDusuEm14-18itFNgMMGK4BDfGDR_d3TxFQLHRDIoEB03vQc-rRkWWA13bfBKcpieFHFldMYcuAXbYEk4dzoukMIL14NJZWoyWiK1j2DPTO9Q0PCOCgwdil_BOK5FUIrOpz9O-9k3W89KNV579sBevwQIxgtvKz58l9wHU3i24mVWKbp6bivz0ZvOcynKJxZ2u3mEO9ZbVa57B4mvYNk">
+</div>
+<div class="p-6">
+<span class="inline-block bg-secondary-container text-on-secondary-container px-3 py-1 rounded-lg text-label-sm font-label-sm mb-4">HEALTH</span>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-3 group-hover:text-primary transition-colors line-clamp-2">Seasonal Health Checkups</h3>
+<p class="text-on-surface-variant text-body-md font-body-md mb-6 line-clamp-2">Why preventative care is the best gift you can give your pet this monsoon season.</p>
+<div class="flex justify-between items-center text-label-sm font-label-sm text-on-surface-variant">
+<span>Dr. Amit K.</span>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="visibility">visibility</span>
+<span>1.1k</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 6 (Repeat pattern) -->
+<article class="bg-surface-container-lowest rounded-xl overflow-hidden elevation-l2 group cursor-pointer">
+<div class="aspect-video overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A serene, high-quality image of a rabbit in a clean, organic-style enclosure with fresh hay and wooden toys. The setting is modern and bright, utilizing high-key lighting that creates a welcoming, high-end atmosphere. The visual tokens of PetZonic—warmth, professional trust, and vitality—are woven into the scene's soft textures and vibrant natural colors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3jwKegxDAbv3cCvPQGWiZOgEy9tuTnkHxKSl0soUZXuTgUHWCapsxzsdlDxt_EEgKucJT5XSz6ajJiRmIq6UyDjs7LYVFbHKZnvkMWhjWqbYmOszBPutX3Vd1fezXXQ4asdEr34u45pP0UzPGCmlUtojKUav830Ou-97pIvqRkki6I5O1EFcZx1vOS3boaS1wHXEW2AaYS6H61yujJQ67A0G9jUv7EWx5A8oeYcuFbTuXWZu-pZX2zg05SKsQpM8XmYGHi8yiA_g">
+</div>
+<div class="p-6">
+<span class="inline-block bg-secondary-container text-on-secondary-container px-3 py-1 rounded-lg text-label-sm font-label-sm mb-4">SMALL PETS</span>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-3 group-hover:text-primary transition-colors line-clamp-2">Rabbit Care 101: Beyond Carrots</h3>
+<p class="text-on-surface-variant text-body-md font-body-md mb-6 line-clamp-2">Understanding the complex dietary and habitat needs of your domestic rabbit.</p>
+<div class="flex justify-between items-center text-label-sm font-label-sm text-on-surface-variant">
+<span>Lucy Gray</span>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="visibility">visibility</span>
+<span>900</span>
+</div>
+</div>
+</div>
+</article>
+</div>
+<!-- Pagination -->
+<div class="flex justify-center mt-16 gap-2">
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container-high text-on-surface-variant hover:bg-primary hover:text-on-primary transition-all">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-on-primary font-bold">1</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container-high text-on-surface-variant hover:bg-primary hover:text-on-primary transition-all font-bold">2</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container-high text-on-surface-variant hover:bg-primary hover:text-on-primary transition-all font-bold">3</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container-high text-on-surface-variant hover:bg-primary hover:text-on-primary transition-all">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Sidebar -->
+<aside class="space-y-12">
+<!-- Search -->
+<div class="bg-surface-container-lowest p-6 rounded-xl elevation-l2">
+<h4 class="font-headline-md text-headline-md mb-4">Search Articles</h4>
+<div class="relative flex items-center">
+<input class="w-full bg-[#F8F9FA] border-outline-variant rounded-lg px-4 py-3 focus:ring-2 focus:ring-secondary focus:border-transparent transition-all outline-none" placeholder="Search keywords..." type="text">
+<button class="absolute right-2 bg-primary text-on-primary p-2 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+</div>
+</div>
+<!-- Popular Articles -->
+<div class="bg-surface-container-lowest p-6 rounded-xl elevation-l2">
+<h4 class="font-headline-md text-headline-md mb-6 border-b border-outline-variant pb-2">Popular Stories</h4>
+<ul class="space-y-6">
+<li class="group cursor-pointer flex gap-4">
+<span class="text-headline-md font-bold text-outline-variant/50 group-hover:text-primary transition-colors">01</span>
+<div>
+<p class="text-label-sm font-label-sm text-secondary mb-1">DOG CARE</p>
+<h5 class="font-label-lg text-label-lg group-hover:text-primary transition-colors">How to Treat Separation Anxiety</h5>
+</div>
+</li>
+<li class="group cursor-pointer flex gap-4">
+<span class="text-headline-md font-bold text-outline-variant/50 group-hover:text-primary transition-colors">02</span>
+<div>
+<p class="text-label-sm font-label-sm text-secondary mb-1">NUTRITION</p>
+<h5 class="font-label-lg text-label-lg group-hover:text-primary transition-colors">Safe Fruit Snacks for Pups</h5>
+</div>
+</li>
+<li class="group cursor-pointer flex gap-4">
+<span class="text-headline-md font-bold text-outline-variant/50 group-hover:text-primary transition-colors">03</span>
+<div>
+<p class="text-label-sm font-label-sm text-secondary mb-1">LEARN</p>
+<h5 class="font-label-lg text-label-lg group-hover:text-primary transition-colors">Understanding Cat Body Language</h5>
+</div>
+</li>
+</ul>
+</div>
+<!-- Tags -->
+<div class="bg-surface-container-lowest p-6 rounded-xl elevation-l2">
+<h4 class="font-headline-md text-headline-md mb-4">Popular Tags</h4>
+<div class="flex flex-wrap gap-2">
+<a class="px-3 py-1 bg-surface-container-high text-on-surface-variant rounded-lg text-label-sm font-label-sm hover:bg-secondary hover:text-on-secondary transition-colors" href="#">#puppycare</a>
+<a class="px-3 py-1 bg-surface-container-high text-on-surface-variant rounded-lg text-label-sm font-label-sm hover:bg-secondary hover:text-on-secondary transition-colors" href="#">#cathealth</a>
+<a class="px-3 py-1 bg-surface-container-high text-on-surface-variant rounded-lg text-label-sm font-label-sm hover:bg-secondary hover:text-on-secondary transition-colors" href="#">#trainingtips</a>
+<a class="px-3 py-1 bg-surface-container-high text-on-surface-variant rounded-lg text-label-sm font-label-sm hover:bg-secondary hover:text-on-secondary transition-colors" href="#">#organicpetfood</a>
+<a class="px-3 py-1 bg-surface-container-high text-on-surface-variant rounded-lg text-label-sm font-label-sm hover:bg-secondary hover:text-on-secondary transition-colors" href="#">#petgrooming</a>
+</div>
+</div>
+<!-- Socials -->
+<div class="bg-secondary-container p-6 rounded-xl elevation-l2">
+<h4 class="font-headline-md text-headline-md text-on-secondary-container mb-4">Join our community</h4>
+<div class="flex gap-4">
+<a class="w-10 h-10 flex items-center justify-center bg-on-secondary-container text-secondary-container rounded-full hover:scale-110 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="share">share</span>
+</a>
+<a class="w-10 h-10 flex items-center justify-center bg-on-secondary-container text-secondary-container rounded-full hover:scale-110 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="forum">forum</span>
+</a>
+<a class="w-10 h-10 flex items-center justify-center bg-on-secondary-container text-secondary-container rounded-full hover:scale-110 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+</a>
+</div>
+</div>
+</aside>
+</div>
+<!-- Video Guides Horizontal Scroll -->
+<section class="mt-24 mb-16">
+<div class="flex justify-between items-end mb-8">
+<div>
+<h2 class="font-headline-lg text-headline-lg mb-2">Video Guides</h2>
+<p class="text-on-surface-variant font-body-md text-body-md">Watch our experts in action.</p>
+</div>
+<button class="text-secondary font-bold flex items-center gap-2 hover:underline">
+                    View all videos <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<div class="flex gap-6 overflow-x-auto pb-8 no-scrollbar scroll-smooth">
+<!-- Video Card 1 -->
+<div class="min-w-[320px] bg-surface-container-lowest rounded-xl overflow-hidden elevation-l2 flex-shrink-0 group cursor-pointer">
+<div class="relative aspect-video">
+<img class="w-full h-full object-cover" data-alt="A professional video thumbnail featuring a bright, modern veterinary clinic. A friendly vet is demonstrating basic checkup techniques on a happy dog. The lighting is crisp and high-key, with a clean light-mode aesthetic. The composition is dynamic and focuses on the warmth and professional trust essential to the PetZonic brand experience." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxGSLz-W_eqkErpgCiPSL1SuVifB68v2WwwhexVXSPXCaEY5gj0zQsWdwF4yfizisEfB6Ab-VAbJqITJp_wB2t9Cpi3WWlv0HfbygWlbIM0YAR9ZvH0NhcU84YRJiM1JGprIDsspIM5HqoJH8mFPpZOjq3TzYW2KyxSmyH8G1WPLt8n6o4cDN1vira2WrtxyHLo6sB1MCBqGv_C6fI-xTkRBU0_CzxXC9wD0DlJsr645Hd5JhSrJl0S2UWoKyI8_m5z4L9704rBh8">
+<div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 flex items-center justify-center transition-all">
+<div class="w-12 h-12 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center shadow-lg transform group-hover:scale-125 transition-all">
+<span class="material-symbols-outlined text-[24px]" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+</div>
+</div>
+<div class="p-4">
+<h4 class="font-label-lg text-label-lg text-on-surface line-clamp-1">Brushing Your Pet's Teeth: The Easy Way</h4>
+</div>
+</div>
+<!-- Video Card 2 -->
+<div class="min-w-[320px] bg-surface-container-lowest rounded-xl overflow-hidden elevation-l2 flex-shrink-0 group cursor-pointer">
+<div class="relative aspect-video">
+<img class="w-full h-full object-cover" data-alt="A cinematic video still showing a joyful outdoor training session with a lively puppy and a professional trainer. The background is a lush, vibrant park in soft focus, with high-saturation greens. The lighting is warm and golden, reflecting a modern, tactile aesthetic that is both approachable and premium. The mood is energetic and optimistic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6lSNSoJyTkA5y-LgW-5mis_X8hWr0TkUsZj-S5RzCmZy0-VpkdO0g_CJSGVfyrXmTVCPIIccakbG50Fu74yFG1G3tmmZ9JLj3LUzAdeE2WbKHDZlMVM8zFx1JM2EEb9lj8Sv4wg5uTjRu2Lps3TY4gJWQgjSeOQCrsjcuSj2pAKm7HHOIBF5o_YOhKO562jT1yt_uhUnqhUW6RYsR0fhaCH6J4fu7XWIFULE1sz6vKQWvIrRDDR2GHMHHNHg25IYy43r3_Oyj58o">
+<div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 flex items-center justify-center transition-all">
+<div class="w-12 h-12 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center shadow-lg transform group-hover:scale-125 transition-all">
+<span class="material-symbols-outlined text-[24px]" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+</div>
+</div>
+<div class="p-4">
+<h4 class="font-label-lg text-label-lg text-on-surface line-clamp-1">Training Your Puppy to Sit in 5 Mins</h4>
+</div>
+</div>
+<!-- Video Card 3 -->
+<div class="min-w-[320px] bg-surface-container-lowest rounded-xl overflow-hidden elevation-l2 flex-shrink-0 group cursor-pointer">
+<div class="relative aspect-video">
+<img class="w-full h-full object-cover" data-alt="A professional close-up video frame showing the preparation of a colorful, healthy pet meal. Bright pieces of pumpkin, lean meat, and fresh greens are arranged in a modern ceramic bowl. The high-key lighting creates a clean, trust-focused visual style. The color palette is rich and appetizing, reinforcing PetZonic's commitment to high-quality animal welfare and nutrition." src="https://lh3.googleusercontent.com/aida-public/AB6AXuARvAordhh9idghlbb2NlNo2kvlqLj8qUbAD2d36wO77K23-UiCb5usyCTDmgfE6-LeWK1FVR-iFk-tcL2DrAwJq-ewOOaBo8b-_stoQn7dpO73PipxfUxE200FhAz3k6Tyvs6t-EgX_ff1oXQM4X8kufYdjqaRHTZJqHLuwL8sMIt6xAWkRkYQRpIuRDmLOquQ--JEFJyi1UYsu0ikSkQFex9j-MAkyKIQZwrqMP7Mz66D82YymPqsUTciqSv_9FmgcrxyOY_mL80">
+<div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 flex items-center justify-center transition-all">
+<div class="w-12 h-12 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center shadow-lg transform group-hover:scale-125 transition-all">
+<span class="material-symbols-outlined text-[24px]" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+</div>
+</div>
+<div class="p-4">
+<h4 class="font-label-lg text-label-lg text-on-surface line-clamp-1">Preparing a Balanced Raw Meal</h4>
+</div>
+</div>
+<!-- Video Card 4 -->
+<div class="min-w-[320px] bg-surface-container-lowest rounded-xl overflow-hidden elevation-l2 flex-shrink-0 group cursor-pointer">
+<div class="relative aspect-video">
+<img class="w-full h-full object-cover" data-alt="A high-quality video thumbnail featuring a groomer working carefully on a cat in a bright, modern studio. The lighting is soft and consistent, highlighting the professional and gentle care. The scene is clean and minimalist, using PetZonic's signature light-mode aesthetic and soft Teal accents in the grooming tools to ensure brand cohesion." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdqqU8NuiS3yy7RJ1mzNj9NujYTS5sNHeAZnNtVNGJpLNHsO3TbyGDnCcPN-RCI65OaUrlKiEXMVKYdiapYxNzOQ6WMLKFuhcCoyAVoJErd605ZaPf5iS97pRmVHZIMVrqvsA9f7UJXDoTEEeKYKgdrEScAtBgc_7rNK8lhwteYtIcaQ5kr0UO7-oVtK_fDhkmIWakc9xEBvBewwypWeB9lsDmdegDp2kyG2BmQeY4N59SuzALp3mSaqdIM7K0YgPhtUlZgiHW6OA">
+<div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 flex items-center justify-center transition-all">
+<div class="w-12 h-12 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center shadow-lg transform group-hover:scale-125 transition-all">
+<span class="material-symbols-outlined text-[24px]" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+</div>
+</div>
+<div class="p-4">
+<h4 class="font-label-lg text-label-lg text-on-surface line-clamp-1">Stress-Free Grooming for Cats</h4>
+</div>
+</div>
+</div>
+</section>
+<!-- Newsletter Bar -->
+<section class="mt-24">
+<div class="bg-primary-fixed p-8 md:p-12 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-8 elevation-l2">
+<div class="max-w-xl">
+<h2 class="font-headline-lg text-headline-lg text-on-primary-fixed mb-4">Get the best pet tips in your inbox</h2>
+<p class="text-on-primary-fixed-variant font-body-md text-body-md">Join over 50,000 pet parents who receive our weekly guide on health, nutrition, and training.</p>
+</div>
+<form class="flex w-full md:w-auto gap-4" onsubmit="event.preventDefault(); alert('Subscribed!')">
+<input class="flex-grow md:w-80 bg-surface-container-lowest border-transparent rounded-lg px-6 py-4 focus:ring-2 focus:ring-primary outline-none" placeholder="Enter your email" required="" type="email">
+<button class="bg-primary text-on-primary px-8 py-4 rounded-lg font-bold hover:bg-primary-fixed-dim hover:text-on-primary-fixed transition-all active:scale-95" type="submit">Subscribe</button>
+</form>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest dark:bg-inverse-surface border-t border-outline-variant mt-24">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-desktop py-12 max-w-container-max mx-auto">
+<div class="col-span-1 md:col-span-1">
+<div class="font-headline-md text-headline-md font-bold text-primary mb-6">PetZonic</div>
+<p class="text-on-surface-variant font-body-md text-body-md mb-6">The ultimate hub for joyful pet parenting. Built for a vibrant pet culture.</p>
+</div>
+<div>
+<h4 class="font-label-lg text-label-lg text-on-surface mb-6">Quick Links</h4>
+<ul class="space-y-3">
+<li><a class="text-on-surface-variant hover:text-secondary hover:underline transition-all" href="#">About Us</a></li>
+<li><a class="text-on-surface-variant hover:text-secondary hover:underline transition-all" href="#">Contact</a></li>
+<li><a class="text-on-surface-variant hover:text-secondary hover:underline transition-all" href="#">Privacy Policy</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-lg text-label-lg text-on-surface mb-6">Support</h4>
+<ul class="space-y-3">
+<li><a class="text-on-surface-variant hover:text-secondary hover:underline transition-all" href="#">Terms of Service</a></li>
+<li><a class="text-on-surface-variant hover:text-secondary hover:underline transition-all" href="#">FAQ</a></li>
+<li><a class="text-on-surface-variant hover:text-secondary hover:underline transition-all" href="#">Sitemap</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-lg text-label-lg text-on-surface mb-6">Follow Us</h4>
+<div class="flex gap-4">
+<a class="text-on-surface-variant hover:text-primary transition-all opacity-80 hover:opacity-100" href="#"><span class="material-symbols-outlined" data-icon="language">language</span></a>
+<a class="text-on-surface-variant hover:text-primary transition-all opacity-80 hover:opacity-100" href="#"><span class="material-symbols-outlined" data-icon="star">star</span></a>
+<a class="text-on-surface-variant hover:text-primary transition-all opacity-80 hover:opacity-100" href="#"><span class="material-symbols-outlined" data-icon="favorite">favorite</span></a>
+</div>
+</div>
+</div>
+<div class="px-margin-desktop py-6 border-t border-outline-variant text-center text-on-surface-variant text-label-sm font-label-sm">
+            © 2024 PetZonic. All rights reserved.
+        </div>
+</footer>
+<script>
+        // Micro-interactions and horizontal scroll button logic could go here
+        // Currently relying on native browser smooth scrolling and hover classes
+    </script>
+</body></html>

@@ -1,0 +1,453 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>PetZonic Seller Portal - Payouts</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Montserrat:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-bright": "#f9f9fc",
+                    "outline-variant": "#ddc1ae",
+                    "on-error-container": "#93000a",
+                    "error-container": "#ffdad6",
+                    "surface-variant": "#e2e2e5",
+                    "error": "#ba1a1a",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#ff8c00",
+                    "tertiary": "#645d53",
+                    "inverse-on-surface": "#f0f0f3",
+                    "inverse-surface": "#2f3133",
+                    "tertiary-fixed": "#ece1d3",
+                    "secondary": "#006a6a",
+                    "background": "#f9f9fc",
+                    "secondary-container": "#90efef",
+                    "surface-container": "#eeeef0",
+                    "on-tertiary-container": "#443e34",
+                    "on-surface-variant": "#564334",
+                    "on-background": "#1a1c1e",
+                    "tertiary-fixed-dim": "#cfc5b8",
+                    "surface-container-highest": "#e2e2e5",
+                    "secondary-fixed-dim": "#76d6d5",
+                    "on-primary-fixed": "#2f1500",
+                    "tertiary-container": "#b2a99c",
+                    "on-secondary": "#ffffff",
+                    "surface-container-high": "#e8e8ea",
+                    "on-primary-container": "#623200",
+                    "primary-fixed": "#ffdcc3",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed-dim": "#ffb77d",
+                    "on-secondary-fixed": "#002020",
+                    "outline": "#897362",
+                    "surface-container-low": "#f3f3f6",
+                    "on-secondary-fixed-variant": "#004f4f",
+                    "primary": "#904d00",
+                    "surface-tint": "#904d00",
+                    "surface-dim": "#dadadc",
+                    "secondary-fixed": "#93f2f2",
+                    "inverse-primary": "#ffb77d",
+                    "on-primary-fixed-variant": "#6e3900",
+                    "on-tertiary-fixed": "#201b13",
+                    "surface": "#f9f9fc",
+                    "on-tertiary-fixed-variant": "#4c463c",
+                    "on-error": "#ffffff",
+                    "on-secondary-container": "#006e6e",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface": "#1a1c1e"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "48px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px",
+                    "container-max": "1280px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "label-lg": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "headline-xl-mobile": ["Montserrat"],
+                    "label-sm": ["Plus Jakarta Sans"],
+                    "headline-xl": ["Montserrat"],
+                    "headline-md": ["Montserrat"],
+                    "headline-lg": ["Montserrat"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-xl-mobile": ["30px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e2e2e5;
+            border-radius: 10px;
+        }
+        .shadow-level-2 {
+            box-shadow: 0 4px 16px rgba(0, 128, 128, 0.12);
+        }
+        .lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0, 128, 128, 0.18);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+<!-- SideNavBar Anchor -->
+<aside class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 bg-surface-container-low p-4 gap-2 shadow-lg z-50">
+<div class="mb-8 px-2">
+<h1 class="font-headline-md text-headline-md font-bold text-secondary">Seller Portal</h1>
+<p class="font-label-lg text-label-lg text-on-surface-variant opacity-70">Manage your shop</p>
+</div>
+<nav class="flex flex-col gap-2 flex-grow">
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-variant rounded-lg px-4 py-3 transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-lg text-label-lg">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-variant rounded-lg px-4 py-3 transition-colors" href="#">
+<span class="material-symbols-outlined">pets</span>
+<span class="font-label-lg text-label-lg">Listings</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-variant rounded-lg px-4 py-3 transition-colors" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-lg text-label-lg">Orders</span>
+</a>
+<!-- Active Tab: Payouts -->
+<a class="flex items-center gap-3 bg-secondary-container text-on-secondary-container rounded-lg px-4 py-3 shadow-level-2 translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">payments</span>
+<span class="font-label-lg text-label-lg">Payouts</span>
+</a>
+</nav>
+<div class="mt-auto flex flex-col gap-2 pt-4 border-t border-outline-variant/30">
+<div class="flex items-center gap-3 px-4 py-3">
+<div class="w-10 h-10 rounded-full bg-secondary overflow-hidden">
+<img alt="Seller Profile Avatar" class="w-full h-full object-cover" data-alt="A professional headshot of a friendly Indian small business owner in a modern pet boutique setting. The lighting is warm and natural, creating a welcoming and trustworthy atmosphere. The style is clean and high-end, utilizing a soft focus background that hints at a well-organized store with premium pet supplies." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvY-ln25dO45qNyuAa3olVozN2hQv19EH1-kHGKpoAHaU-R1IwzcSNOP3nGc6FayY3qpDyEp0jc5i3uHOHHCpH8nBRn_Wken3cTrbX3uFnf3VWDU_6tfJJHVCNzybV9tPIN2t-yGVtIX9InKJ9BNND8Jj-aOBzVLqj67021fg5_N8j360nHRMqkfgRCcjIkIJLMOq7yD6IpAHPy-1grlJHZQVwtSrT83mZc9P1tV8d3wYvmHg3rGHx9b0jufVr-YsipbYepy3ZlQw">
+</div>
+<div>
+<p class="font-label-lg text-label-lg">Arjun's Pet Hub</p>
+<p class="text-[10px] uppercase tracking-wider text-secondary font-bold">Pro Seller</p>
+</div>
+</div>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-variant rounded-lg px-4 py-3 transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-lg text-label-lg">Settings</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-variant rounded-lg px-4 py-3 transition-colors" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-lg text-label-lg">Help</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 min-h-screen">
+<!-- TopBar for Mobile/Desktop -->
+<header class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-6 max-w-container-max mx-auto">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-background">Financial Overview</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Manage your earnings and bank transfers</p>
+</div>
+<div class="hidden md:flex items-center gap-4">
+<button class="bg-primary text-on-primary font-label-lg px-6 py-3 rounded-full shadow-level-2 lift transition-all active:scale-95">
+                    Add New Listing
+                </button>
+</div>
+</header>
+<div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto pb-12 space-y-gutter">
+<!-- Financial Overview Grid -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Available Balance -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-level-2 lift transition-all border-l-4 border-secondary">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-secondary bg-secondary-container/30 p-2 rounded-lg">account_balance_wallet</span>
+<span class="text-secondary font-label-lg flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+                            +12%
+                        </span>
+</div>
+<p class="font-label-lg text-label-lg text-on-surface-variant mb-1">Available Balance</p>
+<h3 class="font-headline-lg text-headline-lg text-secondary">₹42,500.00</h3>
+</div>
+<!-- Pending Payouts -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-level-2 lift transition-all">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-tertiary bg-tertiary-container/20 p-2 rounded-lg">schedule</span>
+</div>
+<p class="font-label-lg text-label-lg text-on-surface-variant mb-1">Pending Clearance</p>
+<h3 class="font-headline-lg text-headline-lg text-on-surface">₹8,240.50</h3>
+</div>
+<!-- Total Earned -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-level-2 lift transition-all">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-primary bg-primary-fixed/30 p-2 rounded-lg">payments</span>
+</div>
+<p class="font-label-lg text-label-lg text-on-surface-variant mb-1">Total Earned (YTD)</p>
+<h3 class="font-headline-lg text-headline-lg text-on-surface">₹3,42,000.00</h3>
+</div>
+</section>
+<!-- Middle Section: Chart & Withdraw -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Earnings Chart (Bento Style) -->
+<div class="lg:col-span-2 bg-surface-container-lowest p-8 rounded-xl shadow-level-2">
+<div class="flex justify-between items-center mb-8">
+<h4 class="font-headline-md text-headline-md">Earnings Trend</h4>
+<div class="flex gap-2">
+<button class="px-3 py-1 text-label-sm rounded-full bg-secondary-container text-on-secondary-container">6 Months</button>
+<button class="px-3 py-1 text-label-sm rounded-full hover:bg-surface-variant transition-colors">1 Year</button>
+</div>
+</div>
+<div class="relative h-64 w-full flex items-end justify-between gap-2 md:gap-4 px-2">
+<!-- Bar Chart Simulation -->
+<div class="flex flex-col items-center flex-1 gap-2">
+<div class="w-full bg-primary-fixed-dim rounded-t-lg transition-all hover:bg-primary" style="height: 40%"></div>
+<span class="text-label-sm text-on-surface-variant">JAN</span>
+</div>
+<div class="flex flex-col items-center flex-1 gap-2">
+<div class="w-full bg-primary-fixed-dim rounded-t-lg transition-all hover:bg-primary" style="height: 55%"></div>
+<span class="text-label-sm text-on-surface-variant">FEB</span>
+</div>
+<div class="flex flex-col items-center flex-1 gap-2">
+<div class="w-full bg-primary-fixed-dim rounded-t-lg transition-all hover:bg-primary" style="height: 75%"></div>
+<span class="text-label-sm text-on-surface-variant">MAR</span>
+</div>
+<div class="flex flex-col items-center flex-1 gap-2">
+<div class="w-full bg-primary-fixed-dim rounded-t-lg transition-all hover:bg-primary" style="height: 60%"></div>
+<span class="text-label-sm text-on-surface-variant">APR</span>
+</div>
+<div class="flex flex-col items-center flex-1 gap-2">
+<div class="w-full bg-primary-fixed-dim rounded-t-lg transition-all hover:bg-primary" style="height: 90%"></div>
+<span class="text-label-sm text-on-surface-variant">MAY</span>
+</div>
+<div class="flex flex-col items-center flex-1 gap-2">
+<div class="w-full bg-primary rounded-t-lg shadow-md" style="height: 85%"></div>
+<span class="text-label-sm font-bold text-primary">JUN</span>
+</div>
+</div>
+</div>
+<!-- Withdraw Section -->
+<div class="bg-surface-container-lowest p-8 rounded-xl shadow-level-2 border border-outline-variant/20">
+<h4 class="font-headline-md text-headline-md mb-6">Withdraw Funds</h4>
+<div class="space-y-4">
+<div>
+<label class="block font-label-lg text-label-lg mb-2">Select Bank Account</label>
+<div class="relative group">
+<select class="w-full p-4 bg-surface-container-low border-none rounded-lg font-body-md focus:ring-2 focus:ring-secondary/50 appearance-none cursor-pointer">
+<option>HDFC Bank (****1234)</option>
+<option>ICICI Bank (****5678)</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none group-hover:text-secondary">expand_more</span>
+</div>
+</div>
+<div>
+<label class="block font-label-lg text-label-lg mb-2">Amount (₹)</label>
+<div class="relative">
+<input class="w-full p-4 bg-surface-container-low border-none rounded-lg font-body-md focus:ring-2 focus:ring-secondary/50" placeholder="Enter amount" type="number" value="10000">
+<button class="absolute right-4 top-1/2 -translate-y-1/2 text-primary font-bold text-label-sm hover:underline">MAX</button>
+</div>
+</div>
+<div class="bg-secondary-fixed/20 p-4 rounded-lg flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">account_balance</span>
+<div>
+<p class="text-label-sm font-bold text-secondary uppercase tracking-tight">HDFC BANK LTD</p>
+<p class="text-label-sm text-on-surface-variant">Branch: MUMBAI CENTRAL</p>
+</div>
+</div>
+<button class="w-full bg-primary-container text-on-primary-container font-headline-md py-4 rounded-lg shadow-level-2 lift active:scale-[0.98] transition-all mt-4">
+                            Withdraw Now
+                        </button>
+<p class="text-center text-label-sm text-on-surface-variant italic">Estimated processing time: 24-48 hours</p>
+</div>
+</div>
+</section>
+<!-- Payout History Table -->
+<section class="bg-surface-container-lowest rounded-xl shadow-level-2 overflow-hidden">
+<div class="p-8 border-b border-surface-variant flex justify-between items-center">
+<h4 class="font-headline-md text-headline-md">Payout History</h4>
+<button class="flex items-center gap-2 text-secondary font-label-lg hover:underline">
+<span class="material-symbols-outlined">filter_list</span> Filter
+                    </button>
+</div>
+<div class="overflow-x-auto custom-scrollbar">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low">
+<tr>
+<th class="px-8 py-4 font-label-lg text-on-surface-variant">Date</th>
+<th class="px-8 py-4 font-label-lg text-on-surface-variant">Type</th>
+<th class="px-8 py-4 font-label-lg text-on-surface-variant">Reference</th>
+<th class="px-8 py-4 font-label-lg text-on-surface-variant">Status</th>
+<th class="px-8 py-4 font-label-lg text-on-surface-variant text-right">Amount</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-variant">
+<tr class="hover:bg-surface-bright transition-colors">
+<td class="px-8 py-5 text-on-surface">12 Jun 2024</td>
+<td class="px-8 py-5">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-sm">account_balance</span>
+                                        Bank Transfer
+                                    </div>
+</td>
+<td class="px-8 py-5 font-mono text-label-sm">#TXN-982341</td>
+<td class="px-8 py-5">
+<span class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-label-sm font-bold">COMPLETED</span>
+</td>
+<td class="px-8 py-5 text-right font-bold text-on-surface">₹15,000.00</td>
+</tr>
+<tr class="hover:bg-surface-bright transition-colors">
+<td class="px-8 py-5 text-on-surface">08 Jun 2024</td>
+<td class="px-8 py-5">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-sm">account_balance</span>
+                                        Bank Transfer
+                                    </div>
+</td>
+<td class="px-8 py-5 font-mono text-label-sm">#TXN-982105</td>
+<td class="px-8 py-5">
+<span class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 text-label-sm font-bold">PENDING</span>
+</td>
+<td class="px-8 py-5 text-right font-bold text-on-surface">₹5,240.50</td>
+</tr>
+<tr class="hover:bg-surface-bright transition-colors">
+<td class="px-8 py-5 text-on-surface">01 Jun 2024</td>
+<td class="px-8 py-5">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-sm">account_balance</span>
+                                        Bank Transfer
+                                    </div>
+</td>
+<td class="px-8 py-5 font-mono text-label-sm">#TXN-981882</td>
+<td class="px-8 py-5">
+<span class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-label-sm font-bold">COMPLETED</span>
+</td>
+<td class="px-8 py-5 text-right font-bold text-on-surface">₹22,400.00</td>
+</tr>
+<tr class="hover:bg-surface-bright transition-colors">
+<td class="px-8 py-5 text-on-surface">25 May 2024</td>
+<td class="px-8 py-5">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm">payments</span>
+                                        Commission Reversal
+                                    </div>
+</td>
+<td class="px-8 py-5 font-mono text-label-sm">#REF-4502</td>
+<td class="px-8 py-5">
+<span class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-label-sm font-bold">COMPLETED</span>
+</td>
+<td class="px-8 py-5 text-right font-bold text-secondary">+ ₹450.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Commission Info Card -->
+<section class="bg-tertiary-fixed text-on-tertiary-fixed p-8 rounded-xl flex flex-col md:flex-row items-center justify-between gap-6">
+<div class="flex items-center gap-4">
+<div class="p-4 bg-tertiary rounded-full text-on-tertiary shadow-lg">
+<span class="material-symbols-outlined text-4xl">info</span>
+</div>
+<div>
+<h5 class="font-headline-md text-headline-md mb-1">Fee Structure &amp; Commission</h5>
+<p class="font-body-md text-body-md opacity-80">You are currently on the <span class="font-bold">Gold Tier</span> with a 5% flat commission rate on all sales.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<button class="bg-tertiary text-on-tertiary px-6 py-3 rounded-lg font-label-lg hover:opacity-90 transition-all">View Policy</button>
+<button class="border-2 border-tertiary text-tertiary px-6 py-3 rounded-lg font-label-lg hover:bg-tertiary hover:text-on-tertiary transition-all">Support</button>
+</div>
+</section>
+</div>
+<!-- Footer Anchor -->
+<footer class="bg-surface-container-highest border-t border-outline-variant mt-12 py-12 px-margin-mobile md:px-margin-desktop">
+<div class="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<div class="space-y-4">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">PetZonic</h1>
+<p class="text-on-surface-variant font-body-md">Empowering pet businesses across India with joyful reliability.</p>
+</div>
+<div class="flex flex-col gap-3">
+<h6 class="font-label-lg text-label-lg text-on-surface uppercase">Company</h6>
+<a class="text-on-surface-variant hover:text-secondary transition-all" href="#">About Us</a>
+<a class="text-on-surface-variant hover:text-secondary transition-all" href="#">Contact</a>
+<a class="text-on-surface-variant hover:text-secondary transition-all" href="#">FAQ</a>
+</div>
+<div class="flex flex-col gap-3">
+<h6 class="font-label-lg text-label-lg text-on-surface uppercase">Legal</h6>
+<a class="text-on-surface-variant hover:text-secondary transition-all" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:text-secondary transition-all" href="#">Terms of Service</a>
+</div>
+<div class="flex flex-col gap-3">
+<h6 class="font-label-lg text-label-lg text-on-surface uppercase">Connect</h6>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-secondary cursor-pointer hover:scale-110 transition-transform">share</span>
+<span class="material-symbols-outlined text-secondary cursor-pointer hover:scale-110 transition-transform">mail</span>
+</div>
+</div>
+</div>
+<div class="max-w-container-max mx-auto mt-12 pt-8 border-t border-outline-variant/30 text-center md:text-left">
+<p class="text-on-surface-variant font-label-sm">© 2024 PetZonic. All rights reserved.</p>
+</div>
+</footer>
+</main>
+<!-- Mobile Bottom Nav -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-surface-container-lowest border-t border-surface-variant px-6 py-3 flex justify-between items-center z-50">
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] font-bold">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="text-[10px] font-bold">Orders</span>
+</a>
+<div class="relative -top-6">
+<button class="bg-primary p-4 rounded-full text-on-primary shadow-lg ring-4 ring-background">
+<span class="material-symbols-outlined text-2xl">add</span>
+</button>
+</div>
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">payments</span>
+<span class="text-[10px] font-bold">Payouts</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">account_circle</span>
+<span class="text-[10px] font-bold">Profile</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for number counter effect (simulated)
+        document.querySelectorAll('h3').forEach(el => {
+            el.addEventListener('mouseover', () => {
+                el.classList.add('scale-105');
+            });
+            el.addEventListener('mouseleave', () => {
+                el.classList.remove('scale-105');
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,384 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>PetZonic | Lost &amp; Found Board</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 16px -4px rgba(0, 128, 128, 0.12);
+        }
+        .urgency-pulse {
+            animation: pulse-red 2s infinite;
+        }
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 0 0 rgba(186, 26, 26, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(186, 26, 26, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(186, 26, 26, 0); }
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-bright": "#f9f9fc",
+                      "outline-variant": "#ddc1ae",
+                      "on-error-container": "#93000a",
+                      "error-container": "#ffdad6",
+                      "surface-variant": "#e2e2e5",
+                      "error": "#ba1a1a",
+                      "on-primary": "#ffffff",
+                      "primary-container": "#ff8c00",
+                      "tertiary": "#645d53",
+                      "inverse-on-surface": "#f0f0f3",
+                      "inverse-surface": "#2f3133",
+                      "tertiary-fixed": "#ece1d3",
+                      "secondary": "#006a6a",
+                      "background": "#f9f9fc",
+                      "secondary-container": "#90efef",
+                      "surface-container": "#eeeef0",
+                      "on-tertiary-container": "#443e34",
+                      "on-surface-variant": "#564334",
+                      "on-background": "#1a1c1e",
+                      "tertiary-fixed-dim": "#cfc5b8",
+                      "surface-container-highest": "#e2e2e5",
+                      "secondary-fixed-dim": "#76d6d5",
+                      "on-primary-fixed": "#2f1500",
+                      "tertiary-container": "#b2a99c",
+                      "on-secondary": "#ffffff",
+                      "surface-container-high": "#e8e8ea",
+                      "on-primary-container": "#623200",
+                      "primary-fixed": "#ffdcc3",
+                      "on-tertiary": "#ffffff",
+                      "primary-fixed-dim": "#ffb77d",
+                      "on-secondary-fixed": "#002020",
+                      "outline": "#897362",
+                      "surface-container-low": "#f3f3f6",
+                      "on-secondary-fixed-variant": "#004f4f",
+                      "primary": "#904d00",
+                      "surface-tint": "#904d00",
+                      "surface-dim": "#dadadc",
+                      "secondary-fixed": "#93f2f2",
+                      "inverse-primary": "#ffb77d",
+                      "on-primary-fixed-variant": "#6e3900",
+                      "on-tertiary-fixed": "#201b13",
+                      "surface": "#f9f9fc",
+                      "on-tertiary-fixed-variant": "#4c463c",
+                      "on-error": "#ffffff",
+                      "on-secondary-container": "#006e6e",
+                      "surface-container-lowest": "#ffffff",
+                      "on-surface": "#1a1c1e"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-desktop": "48px",
+                      "margin-mobile": "16px",
+                      "gutter": "24px",
+                      "container-max": "1280px",
+                      "base": "8px"
+              },
+              "fontFamily": {
+                      "body-lg": ["Plus Jakarta Sans"],
+                      "label-lg": ["Plus Jakarta Sans"],
+                      "body-md": ["Plus Jakarta Sans"],
+                      "headline-xl-mobile": ["Montserrat"],
+                      "label-sm": ["Plus Jakarta Sans"],
+                      "headline-xl": ["Montserrat"],
+                      "headline-md": ["Montserrat"],
+                      "headline-lg": ["Montserrat"]
+              },
+              "fontSize": {
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-xl-mobile": ["30px", {"lineHeight": "36px", "fontWeight": "700"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                      "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-surface-bright text-on-surface font-body-md selection:bg-primary-fixed">
+<!-- Top Navigation Bar -->
+<nav class="bg-surface-container-lowest dark:bg-inverse-surface shadow-md docked full-width top-0 z-50">
+<div class="flex justify-between items-center w-full px-margin-desktop py-4 max-w-container-max mx-auto">
+<div class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">PetZonic</div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Marketplace</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Community</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Services</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Learn</a>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden lg:block">
+<input class="bg-surface-container-low border-none rounded-lg px-4 py-2 w-64 focus:ring-2 focus:ring-secondary/20" placeholder="Search for pets..." type="text">
+<span class="material-symbols-outlined absolute right-3 top-2 text-on-surface-variant">search</span>
+</div>
+<button class="material-symbols-outlined text-primary scale-95 active:scale-90 transition-transform">shopping_cart</button>
+<button class="material-symbols-outlined text-primary scale-95 active:scale-90 transition-transform">account_circle</button>
+</div>
+</div>
+</nav>
+<!-- Urgent Header -->
+<header class="bg-error-container/30 border-b border-error/10 py-12">
+<div class="max-w-container-max mx-auto px-margin-desktop text-center">
+<h1 class="font-headline-xl text-headline-xl text-primary mb-4">Lost &amp; Found Board</h1>
+<p class="text-on-surface-variant max-w-2xl mx-auto font-body-lg text-body-lg mb-8">
+                Every second counts when a pet goes missing. Our community is here to help you reunite with your furry family members.
+            </p>
+<div class="flex flex-wrap justify-center gap-4">
+<button class="bg-primary hover:bg-primary/90 text-white px-8 py-4 rounded-xl font-bold flex items-center gap-2 shadow-lg transition-all scale-100 active:scale-95">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">error</span>
+                    Report Lost Pet
+                </button>
+<button class="bg-secondary hover:bg-secondary/90 text-white px-8 py-4 rounded-xl font-bold flex items-center gap-2 shadow-lg transition-all scale-100 active:scale-95">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                    Report Found Pet
+                </button>
+</div>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-margin-desktop py-12">
+<!-- Filters & View Toggle -->
+<div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-12">
+<div class="flex gap-2 p-1 bg-surface-container rounded-xl overflow-hidden">
+<button class="px-6 py-2 rounded-lg bg-surface-container-lowest shadow-sm text-primary font-bold">All Posts</button>
+<button class="px-6 py-2 rounded-lg text-on-surface-variant flex items-center gap-2 hover:bg-white/50 transition-colors">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+                    Lost
+                </button>
+<button class="px-6 py-2 rounded-lg text-on-surface-variant flex items-center gap-2 hover:bg-white/50 transition-colors">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+                    Found
+                </button>
+</div>
+<div class="flex items-center gap-4 w-full md:w-auto">
+<div class="flex-1 md:w-64 relative">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-secondary">location_on</span>
+<input class="w-full pl-10 pr-4 py-2.5 bg-surface-container-lowest border-outline-variant/30 rounded-lg shadow-sm focus:ring-2 focus:ring-secondary/20" placeholder="Near Me (New Delhi)" type="text">
+</div>
+<button class="flex items-center gap-2 px-4 py-2.5 bg-surface-container-high rounded-lg text-on-surface-variant hover:bg-secondary-container transition-colors">
+<span class="material-symbols-outlined">map</span>
+                    Map View
+                </button>
+</div>
+</div>
+<!-- Post Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+<!-- LOST Card 1 -->
+<div class="bg-white rounded-xl overflow-hidden border-l-4 border-error shadow-md card-hover transition-all">
+<div class="relative h-64 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A medium-sized Golden Retriever with a friendly face, sitting in a suburban park setting. The lighting is warm and golden-hour styled, typical of a high-end pet community platform. The overall aesthetic is clean and modern, highlighting the pet's features clearly against a soft blurred background of greenery." src="https://lh3.googleusercontent.com/aida-public/AB6AXuChuKTDi8_cntODLI6CO_UaEHsGOJuGfG_hslLXamoYI075kTij_Qy8We3q-JItPnLUXWzey-vw_4ABn2gaKqlhxmFmqCcYfrwwrRUXMlwOTF2oI2VrkmGck45IuIsXZfLz3ZdCIcpibcl6LUV0IDoPjS-GdC_a4DGJLwHULpCAAr3w3Um-IBnJ83wlFKhYavI8txa2Gt7HQMgN0tZcJ46dlidZzq-KtU0hgmoyx7iBwngp_61eY0R__EPPubDm7DGQ8A5uK_ME8O0">
+<div class="absolute top-4 left-4 bg-error text-white px-3 py-1 rounded-full font-bold text-sm tracking-wider">LOST</div>
+<div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-error font-bold text-xs flex items-center gap-1 urgency-pulse">
+<span class="material-symbols-outlined text-xs">timer</span>
+                        MISSING 2H AGO
+                    </div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-headline-md">Buddy</h3>
+<span class="text-secondary font-bold text-sm bg-secondary-container/20 px-2 py-1 rounded">Golden Retriever</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant mb-4 text-sm">
+<span class="material-symbols-outlined text-sm">location_on</span>
+                        Hauz Khas, New Delhi
+                    </div>
+<p class="text-on-surface-variant line-clamp-2 mb-6">Last seen wearing a blue collar. Very friendly but might be scared. Please call if spotted near the park entrance.</p>
+<button class="w-full bg-primary text-white py-3 rounded-lg font-bold flex items-center justify-center gap-2 hover:bg-primary/90 transition-colors">
+<span class="material-symbols-outlined">call</span>
+                        Contact Owner
+                    </button>
+</div>
+</div>
+<!-- FOUND Card 1 -->
+<div class="bg-white rounded-xl overflow-hidden border-l-4 border-secondary shadow-md card-hover transition-all">
+<div class="relative h-64 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A domestic shorthair cat with calico markings looking curious towards the camera. The setting is an indoor apartment with high-key lighting and a minimalist, cozy atmosphere. The color palette is composed of soft teals and warm wood tones, creating a professional and welcoming mood for a pet rescue context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKGv8PM1OvP0Aasz-2YhkxUjn2dt5HEgqVKXQw-2XqpqNuRn6kT08cJGNkXyOz9D2IXk0zOQZ7Gaj1fzQf8jLacMtUzLLmizQBJweZai08zkmHHE82SZlW3tW9qArk6KXmQktwbltUNCx6RjP8tCo09boBotpaOnLGPtv_RB47__TOH6QyoxCyCw9gNnfH3E5_2BUtzQ08j9JrXaCGQwvAWyOzZ2Fj2EJOFunTMIBNQtT-XogSp_GFMZ9qALbf-uJOGh7IITrCZEI">
+<div class="absolute top-4 left-4 bg-secondary text-white px-3 py-1 rounded-full font-bold text-sm tracking-wider">FOUND</div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-headline-md">Calico Cat</h3>
+<span class="text-secondary font-bold text-sm bg-secondary-container/20 px-2 py-1 rounded">Domestic Shorthair</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant mb-4 text-sm">
+<span class="material-symbols-outlined text-sm">location_on</span>
+                        Saket, Sector 4
+                    </div>
+<p class="text-on-surface-variant line-clamp-2 mb-6">Found wandering near the coffee shop. No collar, very well groomed. Currently being cared for at a local foster.</p>
+<button class="w-full border-2 border-secondary text-secondary py-3 rounded-lg font-bold flex items-center justify-center gap-2 hover:bg-secondary-container/10 transition-colors">
+<span class="material-symbols-outlined">pets</span>
+                        Claim This Pet
+                    </button>
+</div>
+</div>
+<!-- LOST Card 2 -->
+<div class="bg-white rounded-xl overflow-hidden border-l-4 border-error shadow-md card-hover transition-all">
+<div class="relative h-64 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A small Beagle dog with brown and white markings, looking slightly anxious in a garden setting. The photograph uses a bright, high-contrast style with vibrant primary orange accents in the environment. The focus is sharp on the dog's eyes to evoke empathy and urgency, typical of a lost pet notice." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_voYWh5f1bOWnmT3oR-VFO4wRhCOIAft3ylwAbMKChyHTtg0Dpne7waVa2afPnj_v2ob3ORJGcLz5pYqy9Wf9SOHo0F38YOlo5yZrSh6dWDE_vmF-Euswwox4JeYxagQs9acE4tulVBFiLjW4yBvXXlTuoD3mNr2TXxeMG4qkm6Uqr1mIU0syhSqZpoknZK2ciN4oVmXFM2qnLhewHy4_DY5lXhG4T2-YwIWGxASGxeolzk2myrHgnfeGka-hJfxKZ9J-AKYuE_8">
+<div class="absolute top-4 left-4 bg-error text-white px-3 py-1 rounded-full font-bold text-sm tracking-wider">LOST</div>
+<div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-error font-bold text-xs flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">timer</span>
+                        MISSING 1D AGO
+                    </div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-headline-md">Cooper</h3>
+<span class="text-secondary font-bold text-sm bg-secondary-container/20 px-2 py-1 rounded">Beagle</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant mb-4 text-sm">
+<span class="material-symbols-outlined text-sm">location_on</span>
+                        GK II, Outer Ring Road
+                    </div>
+<p class="text-on-surface-variant line-clamp-2 mb-6">Copper escaped from the backyard. Microchipped. He responds to his name and loves treats.</p>
+<button class="w-full bg-primary text-white py-3 rounded-lg font-bold flex items-center justify-center gap-2 hover:bg-primary/90 transition-colors">
+<span class="material-symbols-outlined">call</span>
+                        Contact Owner
+                    </button>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="flex justify-center items-center gap-4 mb-20">
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-white font-bold">1</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container transition-colors">2</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container transition-colors">3</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+<!-- Tips Section -->
+<section class="bg-surface-container-low rounded-3xl p-10 border border-outline-variant/20">
+<div class="flex items-center gap-3 mb-8">
+<span class="material-symbols-outlined text-primary text-3xl">lightbulb</span>
+<h2 class="font-headline-lg text-headline-lg">What to do right now</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="space-y-4">
+<div class="w-12 h-12 bg-primary-container rounded-full flex items-center justify-center text-on-primary-container font-bold text-xl">1</div>
+<h4 class="font-bold text-lg">Report Immediately</h4>
+<p class="text-on-surface-variant text-sm leading-relaxed">The first few hours are critical. Post on PetZonic, tell your neighbors, and notify local animal shelters and vets.</p>
+</div>
+<div class="space-y-4">
+<div class="w-12 h-12 bg-secondary-container rounded-full flex items-center justify-center text-on-secondary-container font-bold text-xl">2</div>
+<h4 class="font-bold text-lg">Leave Scent Markers</h4>
+<p class="text-on-surface-variant text-sm leading-relaxed">Place your pet's bed or a piece of your worn clothing outside your door. The familiar scent can guide them back home.</p>
+</div>
+<div class="space-y-4">
+<div class="w-12 h-12 bg-tertiary-fixed rounded-full flex items-center justify-center text-on-tertiary-container font-bold text-xl">3</div>
+<h4 class="font-bold text-lg">Check Microchips</h4>
+<p class="text-on-surface-variant text-sm leading-relaxed">Ensure your contact information is up to date in the national microchip database so rescuers can reach you.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest dark:bg-inverse-surface w-full mt-auto border-t border-outline-variant">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-desktop py-12 max-w-container-max mx-auto">
+<div class="space-y-4">
+<div class="font-headline-md text-headline-md font-bold text-primary">PetZonic</div>
+<p class="text-on-surface-variant font-body-md text-body-md">Connecting pet lovers and ensuring every pet finds a loving home in India.</p>
+</div>
+<div class="space-y-4">
+<h5 class="font-bold text-primary">Quick Links</h5>
+<ul class="space-y-2">
+<li><a class="text-on-surface-variant hover:text-secondary hover:underline transition-all" href="#">About Us</a></li>
+<li><a class="text-on-surface-variant hover:text-secondary hover:underline transition-all" href="#">Contact</a></li>
+<li><a class="text-on-surface-variant hover:text-secondary hover:underline transition-all" href="#">FAQ</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h5 class="font-bold text-primary">Legal</h5>
+<ul class="space-y-2">
+<li><a class="text-on-surface-variant hover:text-secondary hover:underline transition-all" href="#">Privacy Policy</a></li>
+<li><a class="text-on-surface-variant hover:text-secondary hover:underline transition-all" href="#">Terms of Service</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h5 class="font-bold text-primary">Stay Connected</h5>
+<div class="flex gap-4">
+<button class="w-10 h-10 bg-surface-container-low rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined">share</span>
+</button>
+<button class="w-10 h-10 bg-surface-container-low rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined">mail</span>
+</button>
+</div>
+<p class="text-on-surface-variant text-sm mt-4">© 2024 PetZonic. All rights reserved.</p>
+</div>
+</div>
+</footer>
+<!-- Mobile Navigation Bar -->
+<div class="md:hidden fixed bottom-0 left-0 right-0 bg-surface-container-lowest shadow-[0_-4px_10px_rgba(0,0,0,0.05)] flex justify-around items-center py-3 z-50">
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">home</span>
+<span class="text-[10px] font-bold">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">explore</span>
+<span class="text-[10px] font-bold">Find</span>
+</button>
+<div class="relative -top-6">
+<button class="w-14 h-14 bg-primary text-white rounded-full flex items-center justify-center shadow-lg active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+</div>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">chat</span>
+<span class="text-[10px] font-bold">Messages</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-bold">Profile</span>
+</button>
+</div>
+<script>
+        // Micro-interactions and simple effects
+        document.querySelectorAll('.card-hover').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                const img = card.querySelector('img');
+                if(img) img.style.transform = 'scale(1.05)';
+            });
+            card.addEventListener('mouseleave', () => {
+                const img = card.querySelector('img');
+                if(img) img.style.transform = 'scale(1)';
+            });
+        });
+
+        // Toggle Active State for Tabs
+        const filterButtons = document.querySelectorAll('.bg-surface-container button');
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => {
+                    b.classList.remove('bg-surface-container-lowest', 'shadow-sm', 'text-primary', 'font-bold');
+                    b.classList.add('text-on-surface-variant');
+                });
+                btn.classList.add('bg-surface-container-lowest', 'shadow-sm', 'text-primary', 'font-bold');
+                btn.classList.remove('text-on-surface-variant');
+            });
+        });
+    </script>
+</body></html>

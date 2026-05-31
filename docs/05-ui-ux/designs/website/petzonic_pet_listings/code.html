@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PetZonic | Find Your Perfect Pet</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#ff8c00",
+                        "on-tertiary-fixed": "#201b13",
+                        "surface-container-high": "#e8e8ea",
+                        "inverse-surface": "#2f3133",
+                        "tertiary-fixed-dim": "#cfc5b8",
+                        "tertiary-container": "#b2a99c",
+                        "surface-tint": "#904d00",
+                        "secondary-fixed": "#93f2f2",
+                        "on-primary": "#ffffff",
+                        "surface-dim": "#dadadc",
+                        "primary-fixed-dim": "#ffb77d",
+                        "on-secondary-fixed": "#002020",
+                        "surface-container": "#eeeef0",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#006e6e",
+                        "error": "#ba1a1a",
+                        "surface-variant": "#e2e2e5",
+                        "surface-container-lowest": "#ffffff",
+                        "surface": "#f9f9fc",
+                        "on-tertiary-fixed-variant": "#4c463c",
+                        "tertiary-fixed": "#ece1d3",
+                        "tertiary": "#645d53",
+                        "on-primary-fixed": "#2f1500",
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#ffb77d",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed-variant": "#6e3900",
+                        "on-tertiary-container": "#443e34",
+                        "on-secondary-fixed-variant": "#004f4f",
+                        "primary-fixed": "#ffdcc3",
+                        "outline-variant": "#ddc1ae",
+                        "on-background": "#1a1c1e",
+                        "on-surface": "#1a1c1e",
+                        "secondary-container": "#90efef",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#f0f0f3",
+                        "background": "#f9f9fc",
+                        "surface-container-low": "#f3f3f6",
+                        "on-primary-container": "#623200",
+                        "outline": "#897362",
+                        "secondary-fixed-dim": "#76d6d5",
+                        "surface-bright": "#f9f9fc",
+                        "surface-container-highest": "#e2e2e5",
+                        "on-error-container": "#93000a",
+                        "primary": "#904d00",
+                        "secondary": "#006a6a",
+                        "on-surface-variant": "#564334"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "margin-desktop": "48px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "headline-xl-mobile": ["Montserrat"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "headline-md": ["Montserrat"],
+                        "headline-lg": ["Montserrat"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "label-lg": ["Plus Jakarta Sans"],
+                        "headline-xl": ["Montserrat"]
+                    },
+                    "fontSize": {
+                        "headline-xl-mobile": ["30px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .card-elevation {
+            box-shadow: 0 4px 16px -2px rgba(0, 128, 128, 0.12);
+        }
+        .card-elevation:hover {
+            box-shadow: 0 12px 32px -4px rgba(0, 128, 128, 0.18);
+            transform: translateY(-4px);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #ff8c00;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto h-16 bg-surface dark:bg-inverse-surface shadow-sm">
+<div class="flex items-center gap-base">
+<img alt="PetZonic Logo" class="h-10 w-10 object-contain" src="https://lh3.googleusercontent.com/aida/ADBb0uiH00EFTI1YsWaaPPhkmY1GiOSr2WGJybOUZMHgepIQNtsWuWBaQ6hsL5zVc2_8LF8PlGLUhnZihjrczni31XJ9VJ7ZLFGGiAzAisMTgseYywr3pjddxEV7u2qse7-qDMZVuCNaiaLFZcPh6lmn1HTkBBrqM8hXMyKX8gRC_C6OESS2uZK_CI0Uw-UrntymWtVjq8mHX8LdoaUsTVCKsfQC-4CibfYWv52l-F1_sX7m9850iVGYiEeE5lA"/>
+<span class="font-headline-md text-headline-md font-bold text-primary">PetZonic</span>
+</div>
+<nav class="hidden md:flex gap-gutter items-center">
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-md text-body-md" href="#">Browse Pets</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Adoption Centers</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Pet Care</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Community</a>
+</nav>
+<div class="flex items-center gap-gutter">
+<div class="hidden lg:flex items-center gap-base">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:bg-surface-container-low p-2 rounded-full transition-all">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:bg-surface-container-low p-2 rounded-full transition-all">favorite</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:bg-surface-container-low p-2 rounded-full transition-all">person</span>
+</div>
+<button class="bg-primary-container text-on-primary font-bold px-6 py-2 rounded-lg scale-95 active:opacity-80 transition-all">List a Pet</button>
+</div>
+</header>
+<main class="pt-24 pb-margin-desktop max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<!-- Breadcrumbs -->
+<nav class="flex items-center gap-2 mb-8 text-on-surface-variant font-label-lg">
+<a class="hover:text-primary transition-colors" href="#">Home</a>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+<span class="text-primary font-bold">Pets</span>
+</nav>
+<!-- Header Section -->
+<div class="mb-10">
+<h1 class="font-headline-xl text-headline-xl text-on-surface mb-2">Find Your Perfect Pet</h1>
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<p class="text-on-surface-variant font-body-lg text-body-lg max-w-2xl">Browse verified pets from trusted sellers across India. Every pet listed here undergoes a basic verification process for safety.</p>
+<span class="bg-secondary-container text-on-secondary-container px-4 py-1 rounded-full font-label-lg text-label-lg">Showing 1,240 pets</span>
+</div>
+</div>
+<div class="flex flex-col lg:flex-row gap-gutter">
+<!-- Sidebar / Filters -->
+<aside class="w-full lg:w-[280px] flex-shrink-0">
+<div class="bg-surface-container-low rounded-xl p-6 sticky top-24">
+<div class="flex items-center justify-between mb-6">
+<h2 class="font-headline-md text-headline-md text-primary">Filters</h2>
+<button class="text-primary font-label-lg hover:underline">Clear all</button>
+</div>
+<div class="space-y-6">
+<!-- Species -->
+<div>
+<label class="font-label-lg block mb-3">Species</label>
+<div class="flex flex-wrap gap-2">
+<button class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-lg font-label-sm border border-secondary">All</button>
+<button class="bg-surface hover:bg-surface-variant px-3 py-1 rounded-lg font-label-sm transition-colors">Dogs</button>
+<button class="bg-surface hover:bg-surface-variant px-3 py-1 rounded-lg font-label-sm transition-colors">Cats</button>
+<button class="bg-surface hover:bg-surface-variant px-3 py-1 rounded-lg font-label-sm transition-colors">Birds</button>
+</div>
+</div>
+<!-- Breed -->
+<div>
+<label class="font-label-lg block mb-2">Breed</label>
+<select class="w-full bg-surface-container-highest border-none rounded-lg p-3 font-body-md focus:ring-2 focus:ring-secondary transition-all">
+<option>Select Breed</option>
+<option>Golden Retriever</option>
+<option>Persian Cat</option>
+<option>Indie Dog</option>
+</select>
+</div>
+<!-- Price Slider -->
+<div>
+<label class="font-label-lg block mb-2">Price Range (₹)</label>
+<input class="w-full accent-primary-container" max="100000" min="1000" type="range"/>
+<div class="flex justify-between mt-2 text-label-sm text-on-surface-variant">
+<span>₹1,000</span>
+<span>₹1,00,000</span>
+</div>
+</div>
+<!-- Verified Toggle -->
+<div class="flex items-center justify-between p-3 bg-surface rounded-lg">
+<span class="font-label-lg">Verified Seller Only</span>
+<div class="relative inline-block w-10 h-6">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-full h-full bg-surface-variant rounded-full peer peer-checked:bg-secondary transition-colors"></div>
+<div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform peer-checked:translate-x-4"></div>
+</div>
+</div>
+<!-- Location -->
+<div>
+<label class="font-label-lg block mb-2">City</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-3 text-on-surface-variant text-body-md">location_on</span>
+<input class="w-full pl-10 pr-4 py-3 bg-surface-container-highest border-none rounded-lg font-body-md focus:ring-2 focus:ring-secondary" placeholder="Search city..." type="text"/>
+</div>
+</div>
+<button class="w-full bg-primary-container text-on-primary font-bold py-4 rounded-lg shadow-md hover:shadow-lg transition-all active:scale-95">Apply Filters</button>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<div class="flex-grow">
+<!-- Sorting Bar -->
+<div class="flex items-center justify-between mb-8 bg-surface-container-low p-4 rounded-xl">
+<div class="flex items-center gap-gutter">
+<div class="flex items-center gap-2">
+<span class="text-on-surface-variant font-label-lg">Sort by:</span>
+<select class="bg-transparent border-none font-bold text-primary focus:ring-0 cursor-pointer">
+<option>Newest First</option>
+<option>Price: Low to High</option>
+<option>Price: High to Low</option>
+</select>
+</div>
+</div>
+<div class="flex bg-surface rounded-lg p-1">
+<button class="p-2 bg-secondary-container text-on-secondary-container rounded-md">
+<span class="material-symbols-outlined">grid_view</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-variant rounded-md transition-colors">
+<span class="material-symbols-outlined">view_list</span>
+</button>
+</div>
+</div>
+<!-- Product Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
+<!-- Pet Card 1 -->
+<div class="bg-white rounded-xl overflow-hidden card-elevation transition-all duration-300 group">
+<div class="relative aspect-square overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A cheerful Golden Retriever puppy sitting in a sun-drenched green lawn, looking directly at the camera with its tongue out. The lighting is warm and golden hour, creating a joyful and reliable atmosphere. The background is softly blurred to emphasize the pet, adhering to a premium pet marketplace aesthetic with high-saturation natural colors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgnQ8iMLVSVp8S9UIEDnaK7b5P1927YCqVa_bnHmqMJ6KQyIPF1a3Kla-xbyQV8zGxA0ngIvS4w8Qoq5NaCyZJQmqX1yCc4CH1sQyGdhdCp7E_pKO51QRPbC1DElcGeZatqtUows8-7sU13R7HBgLOV8D3gta28hYBYtgbRzuZMDaB6IgBpd-F0m-oigacBFsLcBvbR-w98grxjLf2q90rTPzGvDylp3sP_ii-wR0Ig8dmMEqSaBUEwdoETa8-msfVQ84F1QF2DnY"/>
+<button class="absolute top-4 right-4 bg-white/80 backdrop-blur-md p-2 rounded-full text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+<div class="absolute bottom-4 left-4">
+<span class="bg-primary-container text-white px-3 py-1 rounded-full text-label-sm font-bold shadow-lg">Premium</span>
+</div>
+</div>
+<div class="p-5">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface">Golden Retriever</h3>
+<span class="text-primary font-bold text-lg">₹25,000</span>
+</div>
+<p class="text-on-surface-variant font-label-lg mb-4">Male • 3 months • Vaccinated</p>
+<div class="flex items-center gap-2 mb-4 text-on-surface-variant text-label-sm">
+<span class="material-symbols-outlined text-sm">location_on</span>
+<span>Bangalore, Karnataka</span>
+</div>
+<div class="flex items-center justify-between border-t border-outline-variant pt-4">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container font-bold text-xs">RK</div>
+<span class="font-label-lg">Rahul K.</span>
+<span class="material-symbols-outlined text-secondary text-sm" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<span class="text-label-sm text-on-surface-variant">2 days ago</span>
+</div>
+</div>
+</div>
+<!-- Pet Card 2 -->
+<div class="bg-white rounded-xl overflow-hidden card-elevation transition-all duration-300 group">
+<div class="relative aspect-square overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A beautiful white Persian cat with striking blue eyes sitting elegantly on a soft grey plush rug. The setting is a clean, modern apartment with bright, high-key lighting. The overall mood is sophisticated and peaceful, reflecting a high-end pet adoption experience. Colors are muted with a focus on clean whites and soft textures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBo6oLv3_jBczEYbBUoMqqqZkE08nJibWLLFNM0tJ14flDJdXASHbaeWr_foN-TGa-Y917j_55zFDpNDnVvwwuyvnaBzsPClkac7mpuCxONWayrRKy-tgnWXjuyGbk5Ymv9fcKHYavXkkrMTcIo63D7MykwkqysVI9TQUnI0Tl8hoLvibpNDRSMoYKNGGo7jzu-vORzEO75mtjbiOmvu75D9BDv3gVFzqHr6HQjprVD126EDWzz0pg84Cj95wAhPRE4JqT2HskwAU8"/>
+<button class="absolute top-4 right-4 bg-white/80 backdrop-blur-md p-2 rounded-full text-error">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+</div>
+<div class="p-5">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface">Persian Cat</h3>
+<span class="text-primary font-bold text-lg">₹18,000</span>
+</div>
+<p class="text-on-surface-variant font-label-lg mb-4">Female • 2 months • Vaccinated</p>
+<div class="flex items-center gap-2 mb-4 text-on-surface-variant text-label-sm">
+<span class="material-symbols-outlined text-sm">location_on</span>
+<span>Mumbai, Maharashtra</span>
+</div>
+<div class="flex items-center justify-between border-t border-outline-variant pt-4">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-tertiary-container flex items-center justify-center text-on-tertiary-container font-bold text-xs">SP</div>
+<span class="font-label-lg">Sneha P.</span>
+<span class="material-symbols-outlined text-secondary text-sm" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<span class="text-label-sm text-on-surface-variant">4 hours ago</span>
+</div>
+</div>
+</div>
+<!-- Pet Card 3 -->
+<div class="bg-white rounded-xl overflow-hidden card-elevation transition-all duration-300 group">
+<div class="relative aspect-square overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A pair of vibrant, colorful lovebirds perched on a natural wooden branch. The lighting is soft and diffused, highlighting their bright greens, yellows, and oranges. The background consists of lush tropical leaves, creating a lively and energetic atmosphere. The visual style is crisp and detailed, emphasizing animal welfare and vitality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC52zYZ_-wDNXjlqE-DgxqMxzvsNmdNdfeUpj_fZie82McoJZnJW2pmPXWLCh0M0IbD3mONyCIOFPCCTRqAWaruKAnkmYtuezvrBooxOgecpYCJ2Csd-glAlMUBStIJgeKDeb9OC4Aw8yF6eKBbMqbDDixjRV-mCRx4faQgc1yG4xGADTA5IeSQ71xtg2YRA_KzRpdvrFepIsehHJgfE2NMAAHPegt2SRYfEWsbyy5HHxyejIvS77wvA_Az2MgUL0hc9U7nIQAKctU"/>
+<button class="absolute top-4 right-4 bg-white/80 backdrop-blur-md p-2 rounded-full text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+<div class="p-5">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface">African Lovebirds</h3>
+<span class="text-primary font-bold text-lg">₹4,500</span>
+</div>
+<p class="text-on-surface-variant font-label-lg mb-4">Pair • 6 months • Healthy</p>
+<div class="flex items-center gap-2 mb-4 text-on-surface-variant text-label-sm">
+<span class="material-symbols-outlined text-sm">location_on</span>
+<span>Chennai, Tamil Nadu</span>
+</div>
+<div class="flex items-center justify-between border-t border-outline-variant pt-4">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center text-on-surface-variant font-bold text-xs">AV</div>
+<span class="font-label-lg">Avian World</span>
+<span class="material-symbols-outlined text-secondary text-sm" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<span class="text-label-sm text-on-surface-variant">1 day ago</span>
+</div>
+</div>
+</div>
+<!-- Row 2 -->
+<!-- More cards can go here -->
+</div>
+<!-- Pagination -->
+<div class="mt-12 flex items-center justify-center gap-2">
+<button class="p-2 rounded-lg border border-outline-variant hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 rounded-lg bg-primary text-on-primary font-bold">1</button>
+<button class="w-10 h-10 rounded-lg bg-white border border-outline-variant hover:bg-surface-variant font-bold transition-colors">2</button>
+<button class="w-10 h-10 rounded-lg bg-white border border-outline-variant hover:bg-surface-variant font-bold transition-colors">3</button>
+<span class="px-2">...</span>
+<button class="w-10 h-10 rounded-lg bg-white border border-outline-variant hover:bg-surface-variant font-bold transition-colors">42</button>
+<button class="p-2 rounded-lg border border-outline-variant hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-gutter bg-surface-container-highest dark:bg-inverse-surface border-t border-outline-variant">
+<div class="w-full py-margin-desktop px-margin-desktop flex flex-col md:flex-row justify-between items-start md:items-center max-w-container-max mx-auto gap-8">
+<div class="space-y-4">
+<div class="flex items-center gap-base">
+<img alt="PetZonic Logo" class="h-8 w-8 object-contain grayscale opacity-70" src="https://lh3.googleusercontent.com/aida/ADBb0uiH00EFTI1YsWaaPPhkmY1GiOSr2WGJybOUZMHgepIQNtsWuWBaQ6hsL5zVc2_8LF8PlGLUhnZihjrczni31XJ9VJ7ZLFGGiAzAisMTgseYywr3pjddxEV7u2qse7-qDMZVuCNaiaLFZcPh6lmn1HTkBBrqM8hXMyKX8gRC_C6OESS2uZK_CI0Uw-UrntymWtVjq8mHX8LdoaUsTVCKsfQC-4CibfYWv52l-F1_sX7m9850iVGYiEeE5lA"/>
+<span class="font-headline-md text-headline-md font-bold text-on-surface">PetZonic</span>
+</div>
+<p class="text-on-surface-variant max-w-xs font-label-sm">Your reliable companion for finding a new member of the family. Verified sellers, happy tails.</p>
+</div>
+<div class="flex flex-wrap gap-gutter">
+<a class="text-on-surface-variant hover:text-primary transition-all font-label-sm" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:text-primary transition-all font-label-sm" href="#">Terms of Service</a>
+<a class="text-on-surface-variant hover:text-primary transition-all font-label-sm" href="#">Safety Tips</a>
+<a class="text-on-surface-variant hover:text-primary transition-all font-label-sm" href="#">Contact Support</a>
+</div>
+<div class="text-on-surface-variant font-label-sm">
+                © 2024 PetZonic Marketplace. Joyful Reliability for Pet Parents.
+            </div>
+</div>
+</footer>
+<!-- FAB (Suppressed for Listings context but included as sample) -->
+<button class="fixed bottom-8 right-8 bg-primary-container text-white p-4 rounded-full shadow-xl hover:scale-110 active:scale-95 transition-all z-40 lg:hidden">
+<span class="material-symbols-outlined text-2xl">filter_list</span>
+</button>
+<script>
+        // Micro-interaction for filter range
+        const rangeInput = document.querySelector('input[type="range"]');
+        if (rangeInput) {
+            rangeInput.addEventListener('input', (e) => {
+                const val = e.target.value;
+                // Interaction logic could go here to update UI dynamically
+            });
+        }
+
+        // Heart icon toggle
+        document.querySelectorAll('.material-symbols-outlined').forEach(icon => {
+            if (icon.textContent === 'favorite') {
+                icon.parentElement.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const isFilled = icon.style.fontVariationSettings.includes("'FILL' 1");
+                    icon.style.fontVariationSettings = isFilled ? "'FILL' 0" : "'FILL' 1";
+                    if (!isFilled) {
+                        icon.classList.add('text-error');
+                    } else {
+                        icon.classList.remove('text-error');
+                    }
+                });
+            }
+        });
+    </script>
+</body></html>

@@ -1,0 +1,406 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Shopping Cart | PetZonic</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#1a1c1e",
+                        "on-secondary-fixed-variant": "#004f4f",
+                        "inverse-surface": "#2f3133",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#e8e8ea",
+                        "secondary": "#006a6a",
+                        "on-surface": "#1a1c1e",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "outline-variant": "#ddc1ae",
+                        "inverse-on-surface": "#f0f0f3",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed": "#201b13",
+                        "primary-fixed-dim": "#ffb77d",
+                        "on-secondary-container": "#006e6e",
+                        "primary-fixed": "#ffdcc3",
+                        "surface-tint": "#904d00",
+                        "on-primary-fixed": "#2f1500",
+                        "outline": "#897362",
+                        "secondary-container": "#90efef",
+                        "on-tertiary-container": "#443e34",
+                        "surface-container-highest": "#e2e2e5",
+                        "on-tertiary-fixed-variant": "#4c463c",
+                        "on-primary-fixed-variant": "#6e3900",
+                        "inverse-primary": "#ffb77d",
+                        "tertiary-container": "#b2a99c",
+                        "secondary-fixed": "#93f2f2",
+                        "primary": "#904d00",
+                        "secondary-fixed-dim": "#76d6d5",
+                        "on-secondary-fixed": "#002020",
+                        "on-primary-container": "#623200",
+                        "surface-bright": "#f9f9fc",
+                        "on-surface-variant": "#564334",
+                        "surface-container-low": "#f3f3f6",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#ff8c00",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#dadadc",
+                        "surface": "#f9f9fc",
+                        "tertiary-fixed-dim": "#cfc5b8",
+                        "on-error-container": "#93000a",
+                        "error-container": "#ffdad6",
+                        "background": "#f9f9fc",
+                        "surface-container": "#eeeef0",
+                        "tertiary": "#645d53",
+                        "surface-variant": "#e2e2e5",
+                        "tertiary-fixed": "#ece1d3"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "base": "8px",
+                        "container-max": "1280px",
+                        "gutter": "24px",
+                        "margin-desktop": "48px"
+                    },
+                    "fontFamily": {
+                        "label-lg": ["Plus Jakarta Sans"],
+                        "headline-xl-mobile": ["Montserrat"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-xl": ["Montserrat"],
+                        "headline-md": ["Montserrat"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Montserrat"]
+                    },
+                    "fontSize": {
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-xl-mobile": ["30px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .plump-shadow {
+            box-shadow: 0 4px 16px rgba(0, 128, 128, 0.12);
+        }
+        .lift-on-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 128, 128, 0.18);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- Top Navigation -->
+<nav class="w-full top-0 sticky z-50 bg-surface shadow-[0_4px_16px_rgba(0,128,128,0.12)]">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 max-w-container-max mx-auto">
+<div class="font-headline-lg text-headline-lg font-black text-primary">PetZonic</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant font-label-lg text-label-lg hover:text-secondary transition-colors" href="#">Marketplace</a>
+<a class="text-on-surface-variant font-label-lg text-label-lg hover:text-secondary transition-colors" href="#">Community</a>
+<a class="text-on-surface-variant font-label-lg text-label-lg hover:text-secondary transition-colors" href="#">Sellers</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant p-2 hover:bg-surface-container rounded-full transition-all">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant p-2 hover:bg-surface-container rounded-full transition-all">favorite</button>
+<div class="flex items-center gap-2 bg-primary-container text-on-primary-container font-bold border-b-2 border-primary px-4 py-2 rounded-lg">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">shopping_cart</span>
+<span class="font-label-lg text-label-lg">Cart (2)</span>
+</div>
+</div>
+</div>
+</nav>
+<main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-8 md:py-12">
+<div class="flex flex-col lg:flex-row gap-gutter">
+<!-- Left Column: Cart Content -->
+<div class="flex-1 space-y-8">
+<!-- Free Delivery Banner -->
+<div class="bg-secondary-container p-6 rounded-xl plump-shadow">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-secondary-container">local_shipping</span>
+<span class="font-headline-md text-headline-md text-on-secondary-container">Free Delivery Goal</span>
+</div>
+<span class="font-label-lg text-label-lg text-on-secondary-container">₹200 left to go</span>
+</div>
+<div class="w-full bg-surface-container-highest h-3 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full transition-all duration-1000" style="width: 75%;"></div>
+</div>
+<p class="mt-3 font-body-md text-body-md text-on-secondary-container opacity-80">Add one more toy to get free express shipping!</p>
+</div>
+<!-- Cart Header -->
+<h1 class="font-headline-xl text-headline-xl text-on-background">Your Shopping Cart</h1>
+<!-- Items Section -->
+<div class="space-y-6">
+<!-- Item 1 -->
+<div class="bg-surface rounded-xl p-6 plump-shadow flex flex-col md:flex-row gap-6 border border-outline-variant/30 lift-on-hover transition-all">
+<div class="w-full md:w-32 h-32 rounded-lg overflow-hidden bg-surface-container-low flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A premium orthopaedic memory foam dog bed in a soft charcoal gray velvet fabric, placed in a well-lit modern minimalist living room with warm wooden floors. The lighting is soft and natural, emphasizing the plump, tactile texture of the bolsters. The overall aesthetic is high-end, clean, and welcoming for a pampered pet parent in India." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAA4SjG7goJtEXcqQ9DBtm53GA63k-BW51msUDnz_Q_fbkTYBHbyEe9vZBiLZQKZUbh0UQA0hbKC18fVqf1VyJkSdlGSruLF_wTyvEWPi41qJ92Zz9kt_f81BJkAlgXxMrNRQYRRKoUX_gDCYqq_cy_vtn8iuapzswoTIMQklCZsY6nB2liBkAclGF_e2Lm_xAmhGOn75R5Sl_bCAq9ifvxnfOAJRcLLQB_YAvLSa31Wg4mRAJ5IIGEtwwuY3ZFRguQzg-59mKYp64">
+</div>
+<div class="flex-1 space-y-2">
+<div class="flex flex-col md:flex-row justify-between items-start gap-2">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Cloud-9 Memory Foam Bed</h3>
+<p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-secondary text-sm" style="font-variation-settings: 'FILL' 1;">verified</span>
+                                        Brand: PetZonic Pro
+                                    </p>
+</div>
+<span class="font-headline-md text-headline-md text-primary">₹3,499</span>
+</div>
+<div class="flex items-center gap-6 pt-4">
+<div class="flex items-center border-2 border-outline-variant rounded-lg overflow-hidden">
+<button class="p-2 hover:bg-surface-container transition-colors material-symbols-outlined text-sm">remove</button>
+<span class="px-4 font-label-lg text-label-lg">1</span>
+<button class="p-2 hover:bg-surface-container transition-colors material-symbols-outlined text-sm">add</button>
+</div>
+<div class="flex gap-4">
+<button class="flex items-center gap-1 text-label-lg font-label-lg text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined text-lg">delete</span>
+                                        Remove
+                                    </button>
+<button class="flex items-center gap-1 text-label-lg font-label-lg text-on-surface-variant hover:text-secondary transition-colors">
+<span class="material-symbols-outlined text-lg">favorite</span>
+                                        Wishlist
+                                    </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="bg-surface rounded-xl p-6 plump-shadow flex flex-col md:flex-row gap-6 border border-outline-variant/30 lift-on-hover transition-all">
+<div class="w-full md:w-32 h-32 rounded-lg overflow-hidden bg-surface-container-low flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A professional high-contrast studio shot of a vibrant, organic puppy food package featuring illustrations of fresh vegetables and proteins. The packaging is sleek with modern typography, sitting on a clean, light-mode background with soft teal accents. Bright, directional studio lighting creates professional depth and highlights the premium quality of the pet nutrition product." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAETa6VSIq9_BmAAZeoPtsLXRwGqjzzdTJOlq3gmUfeURLNCYDYbeVgV7O_xqzgcU1pyo0A5Mll17frZkso0uvO7kJY8eEj-mO7KFdpVDhk-n-OfVhxAKfVFsKiFAiLN3bK91Dd63jrpajxZk_a4U0jUfRirhuIxLdSNmeSLfubARZoGB06QPzsUPpzKJ8mG9X06wgxV4cMJx_azirw5d6vUKR3j9Q5uwTqlO1eznlXV1vkKg71Y8icmupa-nNCxjL71InySP8qVXQ">
+</div>
+<div class="flex-1 space-y-2">
+<div class="flex flex-col md:flex-row justify-between items-start gap-2">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Organic Wellness Puppy Kibble (5kg)</h3>
+<p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-secondary text-sm" style="font-variation-settings: 'FILL' 1;">verified</span>
+                                        Brand: NutriPaw India
+                                    </p>
+</div>
+<div class="text-right">
+<span class="font-headline-md text-headline-md text-primary block">₹1,250</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant line-through">₹1,450</span>
+</div>
+</div>
+<div class="flex items-center gap-6 pt-4">
+<div class="flex items-center border-2 border-outline-variant rounded-lg overflow-hidden">
+<button class="p-2 hover:bg-surface-container transition-colors material-symbols-outlined text-sm">remove</button>
+<span class="px-4 font-label-lg text-label-lg">1</span>
+<button class="p-2 hover:bg-surface-container transition-colors material-symbols-outlined text-sm">add</button>
+</div>
+<div class="flex gap-4">
+<button class="flex items-center gap-1 text-label-lg font-label-lg text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined text-lg">delete</span>
+                                        Remove
+                                    </button>
+<button class="flex items-center gap-1 text-label-lg font-label-lg text-on-surface-variant hover:text-secondary transition-colors">
+<span class="material-symbols-outlined text-lg">favorite</span>
+                                        Wishlist
+                                    </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Coupon Section -->
+<div class="bg-surface-container-low p-6 rounded-xl border-2 border-dashed border-outline-variant">
+<label class="block font-label-lg text-label-lg text-on-surface-variant mb-3">Have a discount code?</label>
+<div class="flex gap-3">
+<input class="flex-1 bg-surface rounded-lg border-outline px-4 py-3 font-body-md text-body-md focus:ring-2 focus:ring-secondary focus:border-transparent outline-none transition-all" placeholder="Enter Coupon Code" type="text">
+<button class="bg-secondary text-on-secondary px-8 py-3 rounded-lg font-label-lg text-label-lg hover:brightness-110 active:scale-95 transition-all">Apply</button>
+</div>
+<div class="mt-4 flex gap-2 overflow-x-auto pb-2">
+<div class="bg-primary-container text-on-primary-container px-3 py-1 rounded-full text-label-sm font-label-sm flex items-center gap-1 shrink-0">
+<span class="material-symbols-outlined text-sm">confirmation_number</span>
+                            PETLOVE20
+                        </div>
+<div class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-sm font-label-sm flex items-center gap-1 shrink-0">
+<span class="material-symbols-outlined text-sm">confirmation_number</span>
+                            FIRSTPAW
+                        </div>
+</div>
+</div>
+</div>
+<!-- Right Column: Order Summary -->
+<div class="lg:w-96">
+<div class="sticky top-28 bg-surface rounded-xl p-8 plump-shadow border border-outline-variant/30 space-y-6">
+<h2 class="font-headline-md text-headline-md text-on-surface">Order Summary</h2>
+<div class="space-y-4">
+<div class="flex justify-between font-body-md text-body-md text-on-surface-variant">
+<span>Subtotal (2 items)</span>
+<span>₹4,749</span>
+</div>
+<div class="flex justify-between font-body-md text-body-md text-on-surface-variant">
+<span>Platform Fee</span>
+<span>₹49</span>
+</div>
+<div class="flex justify-between font-body-md text-body-md text-on-surface-variant">
+<span>Estimated Delivery</span>
+<span class="text-secondary font-bold">₹99</span>
+</div>
+<div class="flex justify-between font-body-md text-body-md text-error">
+<span>Coupon Discount</span>
+<span>-₹0</span>
+</div>
+<div class="pt-4 border-t border-outline-variant">
+<div class="flex justify-between font-headline-md text-headline-md text-on-surface">
+<span>Total Price</span>
+<span class="text-primary">₹4,897</span>
+</div>
+<p class="text-label-sm font-label-sm text-on-surface-variant mt-1">Inclusive of all taxes (GST)</p>
+</div>
+</div>
+<div class="space-y-3 pt-4">
+<button class="w-full bg-primary-container text-on-primary-container font-headline-md text-headline-md py-4 rounded-xl shadow-lg hover:brightness-105 active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+                            Proceed to Checkout
+                            <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<p class="text-center text-label-sm font-label-sm text-on-surface-variant">
+                            Safe &amp; Secure Payments with Razorpay
+                        </p>
+</div>
+<div class="flex justify-center gap-4 pt-4 opacity-60">
+<span class="material-symbols-outlined text-3xl">credit_card</span>
+<span class="material-symbols-outlined text-3xl">account_balance_wallet</span>
+<span class="material-symbols-outlined text-3xl">shield_locked</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Similar Products / Upsell section -->
+<section class="mt-20">
+<h2 class="font-headline-lg text-headline-lg text-on-background mb-8">Frequently Bought Together</h2>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-gutter">
+<!-- Mini Card 1 -->
+<div class="bg-surface rounded-xl overflow-hidden plump-shadow group lift-on-hover transition-all">
+<div class="h-40 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A macro shot of a heavy-duty, colorful cotton braided rope dog toy. The lighting is warm and bright, focusing on the intricate textures of the fibers. The background is a soft-focus pet playroom with cheerful teal and orange colors, following the joyful and high-end aesthetic of the PetZonic brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUt1Ra0ngaYkpYCcVb6SOvLl4MDCYr-pZ5UF1mdY7U6j_FWY9Lk9R9UCzBmiRglmoRN-6JTHNr606YtI1eBArXdeC0jdvaAjw176CqdvbAYulsy9jPP4yqJ4FChptl-jykBWpNAMyl7KBe_OPKGiBx7KAxQe8k4JnJhYAVDQfkQTWPVAKVICe_UcL3CkRolX-AGCAnR_CCQOTbPoCgE3pWQw6DBch4nARAiooOo9Doizp-gNEhN0Jg_XX7uDN5kpr6Ql47o32q_p8">
+<button class="absolute top-2 right-2 bg-surface/80 p-1.5 rounded-full backdrop-blur-sm">
+<span class="material-symbols-outlined text-secondary text-sm">favorite</span>
+</button>
+</div>
+<div class="p-4">
+<h4 class="font-label-lg text-label-lg text-on-surface line-clamp-1">Heavy Duty Tugs Rope</h4>
+<p class="font-headline-md text-headline-md text-primary mt-1">₹499</p>
+<button class="w-full mt-3 border-2 border-secondary text-secondary py-2 rounded-lg font-label-sm text-label-sm hover:bg-secondary hover:text-on-secondary transition-all">Add to Cart</button>
+</div>
+</div>
+<!-- Mini Card 2 -->
+<div class="bg-surface rounded-xl overflow-hidden plump-shadow group lift-on-hover transition-all">
+<div class="h-40 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A premium bottle of organic dog shampoo with a minimalist label design featuring botanical illustrations. The bottle is placed on a damp stone surface with fresh lavender sprigs nearby. The lighting is ethereal and high-key, creating a clean, spa-like atmosphere that conveys luxury and animal wellness in a modern Indian pet market context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBG2kDRO7sMdoaLYBt_2JBYcdmzexcaunW5U-qrSBuDg6pBAB9petumKkBOhTtCgKtZh9R-lj4_anO8vNbfkr5Xwh9wbLjcEnxtdwJR4PpaZcTAc8HXBtU6AjyTxYAhFnPRuk0jE3zFFIeftcTXrjM0_tDBiPG3lgnNr27ehWUiDAf7FQWaWJV39iIprcui3d0zG1tyow5YI6qd5Qut5u5AUclG4xz103lP6E-vp5ecNl1iNz8aSm1w3Ch1VQ2kbhxnFW1YoG3Te64">
+<button class="absolute top-2 right-2 bg-surface/80 p-1.5 rounded-full backdrop-blur-sm">
+<span class="material-symbols-outlined text-secondary text-sm">favorite</span>
+</button>
+</div>
+<div class="p-4">
+<h4 class="font-label-lg text-label-lg text-on-surface line-clamp-1">Lavender Pet Spa Shampoo</h4>
+<p class="font-headline-md text-headline-md text-primary mt-1">₹850</p>
+<button class="w-full mt-3 border-2 border-secondary text-secondary py-2 rounded-lg font-label-sm text-label-sm hover:bg-secondary hover:text-on-secondary transition-all">Add to Cart</button>
+</div>
+</div>
+<!-- Mini Card 3 (Hide on mobile) -->
+<div class="hidden md:block bg-surface rounded-xl overflow-hidden plump-shadow group lift-on-hover transition-all">
+<div class="h-40 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A stylish, durable leather dog leash with brass hardware, presented on a rustic yet modern wooden table. The lighting is dramatic and warm, highlighting the high-quality stitching and the rich tan color of the leather. The environment suggests an active, premium lifestyle for pet owners who value reliability and design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA85PlDTJErq-uhDdxDTnJo8UiMVuJ1D_N9QLf5pm8oH-xM2rsOqM0flOqtURFKOned8aF7rLn1Ylw9Of7UmZMyVH_fNISDCix0pJPQho_3fLrwm_v341HXHFqoCnFNguf1Kv8ENKZeyfpCJEhGKkxx18A6yWPwGwiZouSv5gXQe8AKpSxSmYj7OQEwVxu-B-z3BQhy7v4le3HurYoCEDDt71Nl9MjIHimcDaXAo4aQgAuCxQ-GENqEt1rdAJnm-Be45UZvTosDfig">
+<button class="absolute top-2 right-2 bg-surface/80 p-1.5 rounded-full backdrop-blur-sm">
+<span class="material-symbols-outlined text-secondary text-sm">favorite</span>
+</button>
+</div>
+<div class="p-4">
+<h4 class="font-label-lg text-label-lg text-on-surface line-clamp-1">Braided Leather Lead</h4>
+<p class="font-headline-md text-headline-md text-primary mt-1">₹1,199</p>
+<button class="w-full mt-3 border-2 border-secondary text-secondary py-2 rounded-lg font-label-sm text-label-sm hover:bg-secondary hover:text-on-secondary transition-all">Add to Cart</button>
+</div>
+</div>
+<!-- Mini Card 4 (Hide on mobile) -->
+<div class="hidden md:block bg-surface rounded-xl overflow-hidden plump-shadow group lift-on-hover transition-all">
+<div class="h-40 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A ceramic, weighted dog bowl with a modern geometric pattern in teal and white. The bowl is filled with fresh water and sits on a clean, light gray tiled floor. Soft ambient lighting creates a peaceful, homey feel. The design is ergonomic and stylish, fitting perfectly into a contemporary Indian home." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6setPZZV9P6a0f95k0PfxBl1-OpTKv1mv8AHGiwqglsxHhffX991nxYZ-AfUoYhT86-UqGozlC-QUd4fvkde3UsPn3oF6ew3xtGOBAEUk9UdaA5UMytFN5v00ZDzM27EGB9W4uXnOxJFDyZdnf6nDBivmwD_nwUwOyuWWlpxtkp2y6fX6Kl16NJsC0YHqPvnZd96ofWYkJ4T-waXmtR2W3tgZl9n0N0rRZQQVYrFn_kdkZE0v4s_OhboZs7c6ngKJCGy_-7wF4Io">
+<button class="absolute top-2 right-2 bg-surface/80 p-1.5 rounded-full backdrop-blur-sm">
+<span class="material-symbols-outlined text-secondary text-sm">favorite</span>
+</button>
+</div>
+<div class="p-4">
+<h4 class="font-label-lg text-label-lg text-on-surface line-clamp-1">Geometric Ceramic Bowl</h4>
+<p class="font-headline-md text-headline-md text-primary mt-1">₹650</p>
+<button class="w-full mt-3 border-2 border-secondary text-secondary py-2 rounded-lg font-label-sm text-label-sm hover:bg-secondary hover:text-on-secondary transition-all">Add to Cart</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-12 bg-surface-container-highest">
+<div class="w-full py-12 px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-center max-w-container-max mx-auto gap-8">
+<div class="flex flex-col items-center md:items-start gap-4">
+<div class="text-primary font-bold font-headline-md text-headline-md">PetZonic</div>
+<p class="font-body-md text-body-md text-on-surface-variant text-center md:text-left">© 2024 PetZonic Marketplace. Joyful reliability for pet parents.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-6">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary underline transition-all" href="#">About Us</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary underline transition-all" href="#">Seller Terms</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary underline transition-all" href="#">Shipping Policy</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary underline transition-all" href="#">Privacy</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary underline transition-all" href="#">Contact</a>
+</div>
+</div>
+</footer>
+<!-- Mobile Navigation -->
+<div class="lg:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-3 pb-safe bg-surface shadow-[0_-4px_16px_rgba(0,128,128,0.12)] z-50">
+<div class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-sm text-label-sm">Community</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 scale-110 duration-150">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">shopping_cart</span>
+<span class="font-label-sm text-label-sm">Cart</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</div>
+</div>
+<script>
+        // Micro-interactions for quantity buttons
+        document.querySelectorAll('.material-symbols-outlined.text-sm').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const span = this.parentElement.querySelector('span');
+                let val = parseInt(span.innerText);
+                if(this.innerText === 'add') {
+                    span.innerText = val + 1;
+                } else if(this.innerText === 'remove' && val > 1) {
+                    span.innerText = val - 1;
+                }
+            });
+        });
+    </script>
+</body></html>

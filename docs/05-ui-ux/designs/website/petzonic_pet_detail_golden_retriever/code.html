@@ -1,0 +1,464 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>PetZonic - Simba the Golden Retriever</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#897362",
+                        "background": "#f9f9fc",
+                        "surface-tint": "#904d00",
+                        "inverse-surface": "#2f3133",
+                        "on-tertiary-container": "#443e34",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#ffdcc3",
+                        "primary-fixed-dim": "#ffb77d",
+                        "surface-variant": "#e2e2e5",
+                        "surface-dim": "#dadadc",
+                        "tertiary-fixed-dim": "#cfc5b8",
+                        "secondary": "#006a6a",
+                        "secondary-fixed": "#93f2f2",
+                        "tertiary-fixed": "#ece1d3",
+                        "outline-variant": "#ddc1ae",
+                        "on-primary-fixed-variant": "#6e3900",
+                        "on-background": "#1a1c1e",
+                        "surface-bright": "#f9f9fc",
+                        "inverse-on-surface": "#f0f0f3",
+                        "surface-container": "#eeeef0",
+                        "on-primary-fixed": "#2f1500",
+                        "on-primary": "#ffffff",
+                        "secondary-container": "#90efef",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#e8e8ea",
+                        "on-secondary-container": "#006e6e",
+                        "primary": "#904d00",
+                        "on-tertiary-fixed": "#201b13",
+                        "tertiary": "#645d53",
+                        "error": "#ba1a1a",
+                        "inverse-primary": "#ffb77d",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#564334",
+                        "on-secondary-fixed-variant": "#004f4f",
+                        "on-secondary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#b2a99c",
+                        "surface": "#f9f9fc",
+                        "secondary-fixed-dim": "#76d6d5",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#e2e2e5",
+                        "primary-container": "#ff8c00",
+                        "on-primary-container": "#623200",
+                        "on-tertiary-fixed-variant": "#4c463c",
+                        "on-surface": "#1a1c1e",
+                        "surface-container-low": "#f3f3f6",
+                        "on-secondary-fixed": "#002020"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "margin-desktop": "48px",
+                        "base": "8px",
+                        "gutter": "24px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "label-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-md": ["Montserrat"],
+                        "headline-lg": ["Montserrat"],
+                        "headline-xl-mobile": ["Montserrat"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "headline-xl": ["Montserrat"]
+                    },
+                    "fontSize": {
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-xl-mobile": ["30px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .plump-shadow {
+            box-shadow: 0 4px 16px -2px rgba(0, 128, 128, 0.12);
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #ffffff 0%, #f3f3f6 100%);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<nav class="bg-surface dark:bg-on-background shadow-md dark:shadow-none docked full-width top-0 z-50">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
+<div class="flex items-center gap-8">
+<span class="font-headline-lg text-headline-lg font-bold text-primary dark:text-inverse-primary cursor-pointer">PetZonic</span>
+<div class="hidden md:flex items-center gap-6">
+<a class="font-label-lg text-label-lg text-primary dark:text-inverse-primary border-b-2 border-primary" href="#">Marketplace</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant dark:text-surface-variant hover:text-primary-container transition-colors" href="#">Services</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant dark:text-surface-variant hover:text-primary-container transition-colors" href="#">Community</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer hover:scale-110 transition-transform" data-icon="favorite">favorite</span>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:scale-110 transition-transform" data-icon="shopping_cart">shopping_cart</span>
+<img alt="User profile" class="w-10 h-10 rounded-full border-2 border-primary-container object-cover" data-alt="A professional headshot profile picture of a young male user with a friendly expression, set against a clean studio background. The aesthetic is bright and modern, aligned with the warm PetZonic brand colors of orange and soft whites." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsQgX-3Zm_IIsTrLgxCfHdpeWsXA7URm3welNGWAFFs0S65laGfhObjispvRGoxy1ghe8ec_j-JmhEd1wKh1f9GJ99n6P17b_mSyo21RxEkGgrivVjO8DKbaI7TXN2FC4fi7xmnZleiYWjrOIxFDrvvVdSXFwrn18uYNRt4yumMIKWXImU2PJIDs0PFpw4mxdeO-29zuDgiXj6eHjYjhp0XSGGyWa0uVxHdYooV-nseJ2zS78hkKYFQNMdHn3v13HIMCpV2QszDQI">
+</div>
+</div>
+</nav>
+<main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-8">
+<!-- Breadcrumb -->
+<nav class="flex mb-6 text-on-surface-variant font-label-sm text-label-sm gap-2 items-center">
+<a class="hover:text-primary transition-colors" href="#">Home</a>
+<span class="material-symbols-outlined text-[16px]" data-icon="chevron_right">chevron_right</span>
+<a class="hover:text-primary transition-colors" href="#">Pets</a>
+<span class="material-symbols-outlined text-[16px]" data-icon="chevron_right">chevron_right</span>
+<span class="font-semibold text-primary">Golden Retriever Puppy in Bangalore</span>
+</nav>
+<!-- Hero Section -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-start">
+<!-- Left: Gallery -->
+<div class="md:col-span-7 space-y-4">
+<div class="relative aspect-[4/3] rounded-xl overflow-hidden plump-shadow group">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A heart-meltingly cute Golden Retriever puppy sitting on a soft white rug in a sun-drenched living room. The puppy has soulful dark eyes and a soft, golden coat, radiating a playful and energetic mood. The lighting is warm and golden, highlighting the premium quality and healthy nature of the pet in a vibrant PetZonic style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHNLKqSPNgDZQ0l6DHCMiF29OJDOfi8b7r5lmjzgXbOIRhw7RusxwDksJ3aoUZhICl2VeXzMaY2WFoWB9cGqNc_ZVTLjmrvaZjom_bsZccJPIR1iL8OAU9Y52rC8KBYQQEL2roEhqdSOBVxSB00D1Hhe3VHesfWsby5g81KXHgl3ZBAAUuqG0Iq6Y4u3uiwXGC94sNSEuA05FfZDLfNiZWF2QmYoIJlSQd1uY1fnDBOwB9PuGAD_TX5R0o0GPFwvwLcc9gxCJf5Es">
+<div class="absolute bottom-4 right-4 bg-on-background/60 backdrop-blur-md text-white px-3 py-1 rounded-full font-label-sm text-label-sm">
+                        1/7
+                    </div>
+</div>
+<div class="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+<img class="w-20 h-20 rounded-lg object-cover cursor-pointer hover:border-2 border-primary transition-all flex-shrink-0" data-alt="A close-up shot of a Golden Retriever puppy's face showing its friendly and curious expression. The lighting is soft and high-key, maintaining the premium brand aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAmOEKkDPFKxHBXV9Fsy09JoUbE0FcEHjMvCjpxUe8sa35iA7O0CV1Lq6SB0ZuoTX5iMkxzGxqyMy_VyzhIBPFDeyAPus_Ob8aEAxGc876pXnedLRmmmM6MmN8vgaFJ-IJ0lcrFzncV0CYXpFTx8bCSuKr6ukynEe4-8O1BRCV6yNWhuoEKTpnZxzqNeDxIzCXAKF-9I_YHGJP1vkcBFDg3V_fcBqjc51RrOvCdLTNjVpg86WQ9rtjcmkmdTdV7s0-KtddO9-hqmo">
+<img class="w-20 h-20 rounded-lg object-cover cursor-pointer hover:border-2 border-primary transition-all flex-shrink-0" data-alt="The Golden Retriever puppy standing on green grass in a playful pose, emphasizing its energetic and healthy personality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC57FOLGYXdlKLPSD8XXis4qLkMJ_BHDqBgbEnFGh4Z81xpJSNeM0lfm0ePulFaVew23YiK5FVh1b4UYTDDEz6rGuU1zOUX5jjlf9YjCttoj3BlJyWHD_lD_IRUwzj7NmaPTjCc_xd75oYLgHFt809ce0xRFbe63jTPIOJ1M2AmVOdYGQGRFvfKY7YmGLYiECCSYG36LRebW1nxsaGWwhskqdoUt3MEjBD-jFIoM9KMPurlBZ5MFuDN7l70AdUmsMAiQeOAHHDDvbs">
+<img class="w-20 h-20 rounded-lg object-cover cursor-pointer hover:border-2 border-primary transition-all flex-shrink-0" data-alt="Golden Retriever puppy being held gently by a person, illustrating its small size and suitability as a pet." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMlnArkAXYtGpX61TwQuALxL3iasmwdbEOFN6HJeEKLvpbTU9_BF1Vhu0R5lUV_ogqW8Ac_NJBK6iO40errJFbEIroAFGEIW13wDzhRM_jbvG_jcOaCZLVnfDkC6dzaysTr8FbqrptXSNjcV0SVFnExW9wB_59vA40OxhfCIRtl0_Pjqu1RyPNPvR0SHCbS0LiQiiHqhxaBTBM8LZ8pn8wzOTU3ClNzV8IiiC5p_78zsgfLYy5XhAHmHNURIqokx4Bh_sUJGkclVk">
+<img class="w-20 h-20 rounded-lg object-cover cursor-pointer hover:border-2 border-primary transition-all flex-shrink-0" data-alt="The puppy sleeping peacefully on a colorful blanket, showing its calm and friendly demeanor." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqLQc0C2Mx8PZJHtFmt5UYcp2QMjH6Ytj6SHNIigGcVG2cyH-0cNQYFNwZ0gD-265ZBLFZbf4-N8eXgZM0QmUQPMTRQWu7ZQNbHz-7epVEgdyfNp1FEQuJ_bGfdlbpryzp9Uj9gjET-xmJS0eowpsuhhPRaXVJ8CJQ7qCGrIqxU12rlvaoP8cYIXX7ORbQylZdUh5vewT4damO79ZlHjYoYdiFtb7IiH9PDAd-F-O4AHeK2Qwk0hsUqxt93GS8bHR1z34KZfTbRO0">
+<img class="w-20 h-20 rounded-lg object-cover cursor-pointer hover:border-2 border-primary transition-all flex-shrink-0" data-alt="A top-down view of the Golden Retriever puppy looking up at the camera with its tongue out." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwGt7cBY61RwLmOojKIw-GFNNI-Ejt47ojng-jbFTrulqHCGUwWhard7T60o17wtsv-GMeg7Z1GxX_P1DRON-YpRtc1Uvo6mVWS82bboIZ5idghLwqyisENIdMDjvMmZLocJf0ebqyFlsXerSplhyeYGXZ1cmGZnO4dJdtSm5V2O9kEHKSJRreWOmUqZ288xSf0HDMvdatrv0wyIvVZX0XI9JffODlVrxM0SrWO5J7B2Wesan21ZNY60VEqzX43j0Fpozfhp6suiQ">
+</div>
+</div>
+<!-- Right: Pet Info Card -->
+<div class="md:col-span-5 space-y-6">
+<div class="bg-surface p-6 rounded-xl shadow-md border border-surface-variant/30">
+<div class="flex justify-between items-start mb-2">
+<span class="text-primary font-bold tracking-widest uppercase font-label-sm text-label-sm">Golden Retriever</span>
+<div class="flex items-center gap-1 bg-secondary/10 text-secondary px-3 py-1 rounded-full">
+<span class="material-symbols-outlined text-[16px]" data-icon="verified" data-weight="fill" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-label-sm text-label-sm font-semibold">Verified Seller</span>
+</div>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-background mb-2">Healthy Male Puppy — 8 Weeks Old</h1>
+<div class="flex items-center gap-3 mb-6">
+<span class="text-primary font-bold text-[32px]">₹25,000</span>
+<span class="bg-surface-variant text-on-surface-variant px-2 py-0.5 rounded text-label-sm font-medium">Negotiable</span>
+</div>
+<!-- Info Grid -->
+<div class="grid grid-cols-2 gap-4 mb-8">
+<div class="flex items-center gap-3 p-3 bg-background rounded-lg">
+<span class="material-symbols-outlined text-secondary" data-icon="calendar_today">calendar_today</span>
+<div>
+<p class="text-on-surface-variant text-[12px]">Age</p>
+<p class="font-bold text-on-background">8 weeks</p>
+</div>
+</div>
+<div class="flex items-center gap-3 p-3 bg-background rounded-lg">
+<span class="material-symbols-outlined text-secondary" data-icon="male">male</span>
+<div>
+<p class="text-on-surface-variant text-[12px]">Gender</p>
+<p class="font-bold text-on-background">Male</p>
+</div>
+</div>
+<div class="flex items-center gap-3 p-3 bg-background rounded-lg">
+<span class="material-symbols-outlined text-secondary" data-icon="palette">palette</span>
+<div>
+<p class="text-on-surface-variant text-[12px]">Color</p>
+<p class="font-bold text-on-background">Golden</p>
+</div>
+</div>
+<div class="flex items-center gap-3 p-3 bg-background rounded-lg">
+<span class="material-symbols-outlined text-secondary" data-icon="weight">weight</span>
+<div>
+<p class="text-on-surface-variant text-[12px]">Weight</p>
+<p class="font-bold text-on-background">2.5 kg</p>
+</div>
+</div>
+<div class="flex items-center gap-3 p-3 bg-background rounded-lg">
+<span class="material-symbols-outlined text-secondary" data-icon="vaccines">vaccines</span>
+<div>
+<p class="text-on-surface-variant text-[12px]">Vaccinated</p>
+<p class="font-bold text-on-background">Yes</p>
+</div>
+</div>
+<div class="flex items-center gap-3 p-3 bg-background rounded-lg">
+<span class="material-symbols-outlined text-secondary" data-icon="verified_user">verified_user</span>
+<div>
+<p class="text-on-surface-variant text-[12px]">KCI Registered</p>
+<p class="font-bold text-on-background">Yes</p>
+</div>
+</div>
+</div>
+<!-- Actions -->
+<div class="space-y-4">
+<button class="w-full bg-primary-container text-on-primary-container h-14 rounded-xl font-bold text-headline-md shadow-lg active:scale-95 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="chat">chat</span>
+                            Chat with Seller
+                        </button>
+<button class="w-full border-2 border-secondary text-secondary h-14 rounded-xl font-bold text-headline-md hover:bg-secondary/5 transition-colors flex items-center justify-center gap-2">
+                            Buy Now — ₹25,000
+                        </button>
+<button class="w-full text-primary font-label-lg text-label-lg flex items-center justify-center gap-2 hover:underline">
+<span class="material-symbols-outlined text-[20px]" data-icon="favorite">favorite</span>
+                            Save to Wishlist
+                        </button>
+</div>
+</div>
+<!-- Seller Card -->
+<div class="bg-surface p-4 rounded-xl plump-shadow flex items-center justify-between border border-surface-variant/30">
+<div class="flex items-center gap-4">
+<img class="w-12 h-12 rounded-full object-cover" data-alt="A portrait of a male seller, Rahul K., with a friendly and professional appearance. The image is bright and clean, reinforcing trust and member longevity within the PetZonic community." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhw1Sv9dEZ3TTvFxP5FARabuUQtfhCeHQRWbG63jywhcmj6f6kgZRwiy7Eb9eNCbcXUASDNVINwTwiUd_PW6aHPa1eGNcgbzQYUhYbwihBVLlw6vTsK897u_bOCmLQeOBaH49Bk4jeNw0RejGSZ7im4GLXreIXKU4rqq7ZYPqtbjAlFN-P-6AMmOyTqaMlcAGPS4R-mjCDYRLNnipNwMY8HWYruiayECiSAzOMZOAzLMjxllhjJ-zJlZimWd9R-bTH6wjzQ7sRuOs">
+<div>
+<p class="font-bold text-on-background">Rahul K.</p>
+<div class="flex items-center gap-1 text-on-surface-variant text-label-sm">
+<span class="material-symbols-outlined text-primary-container text-[16px]" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span>4.8</span>
+<span class="mx-1">•</span>
+<span>Member since 2024</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<div class="flex items-center gap-1 text-on-surface-variant text-label-sm mb-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="location_on">location_on</span>
+<span>Indiranagar, Bangalore</span>
+</div>
+<a class="text-secondary font-semibold text-label-sm underline" href="#">View Profile</a>
+</div>
+</div>
+</div>
+</section>
+<!-- About This Pet -->
+<section class="mt-12">
+<h2 class="font-headline-lg text-headline-lg mb-4">About This Pet</h2>
+<div class="bg-surface p-8 rounded-xl border border-surface-variant/30 mb-12">
+<div class="flex flex-wrap gap-3 mb-6">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-4 py-2 rounded-full font-semibold text-label-lg">Playful</span>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-4 py-2 rounded-full font-semibold text-label-lg">Friendly</span>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-4 py-2 rounded-full font-semibold text-label-lg">Good with Kids</span>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-4 py-2 rounded-full font-semibold text-label-lg">Energetic</span>
+</div>
+<p class="text-body-lg text-on-surface-variant leading-relaxed max-w-3xl">
+                    Simba is a healthy, active Golden Retriever puppy looking for his forever home. He has been raised in a home environment and is very social. He loves to play fetch and is already showing great learning potential. Golden Retrievers are known for their gentle temperament, making them the perfect companion for families with children.
+                </p>
+</div>
+</section>
+<!-- Health & Vaccination -->
+<section class="mt-12">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline-lg text-headline-lg">Health &amp; Vaccination</h2>
+<button class="bg-secondary/10 text-secondary px-6 py-2 rounded-lg font-bold hover:bg-secondary/20 transition-colors">Request Health Records</button>
+</div>
+<div class="overflow-x-auto rounded-xl border border-surface-variant/30">
+<table class="w-full text-left bg-surface">
+<thead class="bg-surface-container">
+<tr>
+<th class="p-4 font-bold text-on-background">Vaccine Name</th>
+<th class="p-4 font-bold text-on-background">Date Administered</th>
+<th class="p-4 font-bold text-on-background">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-variant">
+<tr>
+<td class="p-4">Rabies</td>
+<td class="p-4">May 12, 2024</td>
+<td class="p-4">
+<div class="flex items-center gap-2 text-[#22c55e]">
+<span class="material-symbols-outlined" data-icon="check_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-semibold">Completed</span>
+</div>
+</td>
+</tr>
+<tr>
+<td class="p-4">Distemper</td>
+<td class="p-4">May 12, 2024</td>
+<td class="p-4">
+<div class="flex items-center gap-2 text-[#22c55e]">
+<span class="material-symbols-outlined" data-icon="check_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-semibold">Completed</span>
+</div>
+</td>
+</tr>
+<tr>
+<td class="p-4">Parvovirus</td>
+<td class="p-4">May 26, 2024</td>
+<td class="p-4">
+<div class="flex items-center gap-2 text-[#22c55e]">
+<span class="material-symbols-outlined" data-icon="check_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-semibold">Completed</span>
+</div>
+</td>
+</tr>
+<tr>
+<td class="p-4">Deworming</td>
+<td class="p-4">June 05, 2024</td>
+<td class="p-4">
+<div class="flex items-center gap-2 text-[#22c55e]">
+<span class="material-symbols-outlined" data-icon="check_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-semibold">Completed</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Similar Listings -->
+<section class="mt-20 mb-32">
+<h2 class="font-headline-lg text-headline-lg mb-8">You May Also Like</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Card 1 -->
+<div class="bg-surface rounded-xl plump-shadow overflow-hidden group cursor-pointer border border-surface-variant/30">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A luxurious Persian Cat with long, fluffy white fur and striking blue eyes, sitting elegantly on a velvet cushion. The mood is sophisticated and premium, aligned with the PetZonic marketplace aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGP01L0Gmd4bg3-ODpgO8w2QazLzAD7F3oos83GifVNM3ZqDYcb3vTV_RC8cU4lUWVAl-w0YJ-bi7oJPFJ6v0ifhYsX4DZXV_0DXLkrpB0jAaWRHn02rpaLtFPEyozWDjdGxIOx3OgK2LwWfW_zR7BfpECvZoT2jY56FxuCugsjZter4n1UMtrUYwRq9MTY2v5LTA-aMHVodjgrsxhC03KMpqnW3louC_0TRtDK4Pbw4WS69Zhx34DlpByi6HTV3iXyQ5zSo2rJoE">
+<div class="absolute top-2 right-2 bg-white/80 backdrop-blur p-1.5 rounded-full shadow">
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="favorite">favorite</span>
+</div>
+</div>
+<div class="p-4">
+<div class="flex items-center gap-1 mb-1">
+<span class="material-symbols-outlined text-secondary text-[14px]" data-icon="verified" data-weight="fill" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="text-secondary font-bold text-[10px] uppercase">Verified</span>
+</div>
+<h3 class="font-headline-md text-body-md mb-1 truncate">Persian Cat (Snow White)</h3>
+<p class="text-primary font-bold text-body-lg">₹18,000</p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface rounded-xl plump-shadow overflow-hidden group cursor-pointer border border-surface-variant/30">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A vibrant Blue and Gold Macaw parrot perched on a natural wooden branch. The feathers are brilliant and saturated, reflecting a healthy and well-cared-for pet in a high-quality studio setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXSY8XlEiELv2QpEqkHqjn-m6y9BEkywN-5H24tC_0pJ4a-q7Y3ojJjMcnKyfxqz5EskVqZn24ht92uV-cUvPAHtesLYt09ULR37srNcPygJmJLJ-IvOcz56fuUZH2MJ_AnSibP8ruB-ar-NU6aVpSgVUNyyb_70QDSsuxW7Nyv94sw4VQ7ZiNy3hZ0bIOiJbPm3MpHUt0_sE6E7H1PfbaAa9x4OGyYqM4Cokri6TkgdMiWaM3a0jKrCQb8VsJgOq338tYwfVBWxA">
+<div class="absolute top-2 right-2 bg-white/80 backdrop-blur p-1.5 rounded-full shadow">
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="favorite">favorite</span>
+</div>
+</div>
+<div class="p-4">
+<div class="flex items-center gap-1 mb-1">
+<span class="material-symbols-outlined text-secondary text-[14px]" data-icon="verified" data-weight="fill" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="text-secondary font-bold text-[10px] uppercase">Verified</span>
+</div>
+<h3 class="font-headline-md text-body-md mb-1 truncate">Scarlet Macaw - Hand Tamed</h3>
+<p class="text-primary font-bold text-body-lg">₹65,000</p>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface rounded-xl plump-shadow overflow-hidden group cursor-pointer border border-surface-variant/30">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A playful tabby kitten pouncing on a toy in a bright, modern apartment. The atmosphere is joyful and warm, characteristic of the PetZonic brand's inviting community feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUcaZhh7lAkD0B0HI7fPtDVIWpwlQGjkx9mAhM4bcSCuj4GdOpG5n46jMUcf6MN9zY1JbNPdmCqJ0k8HwEIzzOT3TrBj8Ut0PvQKH1AhhleUIibQQKstLGYTodEhilo2oHL1KWzaA2moHoxjNdi_3bWwWxFFrpQLgpDRZhHGedPdZKURYKzckiRa2YOHAODSmuoZi_zEh7v1dDn4GadRb_-WheoxXqPHBRsktEPSHRXUJ1UZtrXPfFHLTkCWQfRcPYwyKa_4zkttY">
+<div class="absolute top-2 right-2 bg-white/80 backdrop-blur p-1.5 rounded-full shadow">
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="favorite">favorite</span>
+</div>
+</div>
+<div class="p-4">
+<div class="flex items-center gap-1 mb-1">
+<span class="material-symbols-outlined text-secondary text-[14px]" data-icon="verified" data-weight="fill" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="text-secondary font-bold text-[10px] uppercase">Verified</span>
+</div>
+<h3 class="font-headline-md text-body-md mb-1 truncate">British Shorthair Kitten</h3>
+<p class="text-primary font-bold text-body-lg">₹42,000</p>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface rounded-xl plump-shadow overflow-hidden group cursor-pointer border border-surface-variant/30">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A majestic Beagle puppy running in a park, its floppy ears flying in the wind. The lighting is sunny and optimistic, showcasing the puppy's vitality and energetic spirit." src="https://lh3.googleusercontent.com/aida-public/AB6AXuASP-Sovnx9GOq5QU9wNI8XrrxXEQrxVjJcZL2N2lAUabSbN_0cwpSMLLXwOMhqIhSj3U2osC6P47d322ux66HalIfclVm8NKOwFSR3R_53dkOm3gdQNYKznCpIqipq91xSvvm6QdQOjJX1UwblOZdui_2x4_VngP0B7UaJn7W5qQMiD37x89HSXA0d76MfuMyGY0t9bZEOhjwd8Cc0xKgMl2vLy-KgDQtbK0lE147ZzEXw7vCybSxQ0pe-eC7qPqIc0yklGn0T4FA">
+<div class="absolute top-2 right-2 bg-white/80 backdrop-blur p-1.5 rounded-full shadow">
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="favorite">favorite</span>
+</div>
+</div>
+<div class="p-4">
+<div class="flex items-center gap-1 mb-1">
+<span class="material-symbols-outlined text-secondary text-[14px]" data-icon="verified" data-weight="fill" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="text-secondary font-bold text-[10px] uppercase">Verified</span>
+</div>
+<h3 class="font-headline-md text-body-md mb-1 truncate">Tri-color Beagle Puppy</h3>
+<p class="text-primary font-bold text-body-lg">₹22,000</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Sticky Bottom Bar -->
+<div class="fixed bottom-0 left-0 w-full bg-surface border-t border-surface-variant z-50 px-4 py-3 md:py-4 shadow-[0_-4px_20px_rgba(0,0,0,0.08)]">
+<div class="max-w-container-max mx-auto flex items-center justify-between">
+<div class="flex items-center gap-3">
+<img class="w-12 h-12 rounded-lg object-cover hidden sm:block" data-alt="Small thumbnail of Simba the Golden Retriever puppy." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfCGkNBW5ZZKBi7p9RTYj8-qbJ3F8m9mmEic8O8ogcoHHdZJ_QZfhfl2bQp3Yhr_m5luWTj6TC-ZDhGYpkENVTJOJ5xT1ICyN7jBKGcFuVP1Hr4z-Gz3NtrOdFvvhZTS9Zg3AhzCZc94XvRC1HRBH3ZNxn0zsHqMQLnBkaMF1QHV_zB-TIvLjKhvKIocLsSI-9N3QYmQZWlk-b4iFNGicRWq9MxatPnmlaeMV7NrvQebAAvuseyKnS0OkDSZ534qRU1C9_-DbY2hI">
+<div>
+<h4 class="font-bold text-on-background leading-tight">Golden Retriever</h4>
+<p class="text-primary font-bold text-body-md">₹25,000</p>
+</div>
+</div>
+<div class="flex gap-2 sm:gap-4">
+<button class="bg-secondary/10 text-secondary p-3 rounded-xl sm:hidden">
+<span class="material-symbols-outlined" data-icon="chat">chat</span>
+</button>
+<button class="bg-primary-container text-on-primary-container px-4 sm:px-8 py-3 rounded-xl font-bold hover:brightness-110 transition-all text-sm sm:text-base">
+                    Chat Now
+                </button>
+<button class="hidden md:block border-2 border-secondary text-secondary px-8 py-3 rounded-xl font-bold hover:bg-secondary/5 transition-colors">
+                    Buy Now
+                </button>
+</div>
+</div>
+</div>
+<!-- Bottom Navigation Bar (Mobile only shell) -->
+<div class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center bg-surface px-2 pb-4 pt-2 shadow-lg dark:shadow-none hidden">
+<div class="flex flex-col items-center justify-center text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span>Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+<span>Explore</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 font-label-sm text-label-sm">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+<span>Favorites</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span>Profile</span>
+</div>
+</div>
+<script>
+        // Simple micro-interaction for active gallery image
+        document.querySelectorAll('img.cursor-pointer').forEach(img => {
+            img.addEventListener('click', function() {
+                const mainImg = document.querySelector('.aspect-\\[4\\/3\\] img');
+                mainImg.src = this.src;
+                mainImg.dataset.alt = this.dataset.alt;
+                
+                // Active thumbnail styling
+                document.querySelectorAll('img.cursor-pointer').forEach(i => i.classList.remove('border-2', 'border-primary'));
+                this.classList.add('border-2', 'border-primary');
+            });
+        });
+    </script>
+</body></html>

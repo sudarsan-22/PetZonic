@@ -1,0 +1,399 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>PetZonic Messaging</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .chat-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .chat-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .chat-scrollbar::-webkit-scrollbar-thumb {
+            background: #e2e2e5;
+            border-radius: 10px;
+        }
+        .chat-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #ddc1ae;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-bright": "#f9f9fc",
+                      "on-tertiary-container": "#443e34",
+                      "surface-container-high": "#e8e8ea",
+                      "on-surface": "#1a1c1e",
+                      "on-primary-container": "#623200",
+                      "inverse-on-surface": "#f0f0f3",
+                      "secondary-container": "#90efef",
+                      "on-tertiary-fixed": "#201b13",
+                      "primary-fixed": "#ffdcc3",
+                      "surface-container-low": "#f3f3f6",
+                      "on-tertiary-fixed-variant": "#4c463c",
+                      "secondary-fixed-dim": "#76d6d5",
+                      "inverse-primary": "#ffb77d",
+                      "surface-container-highest": "#e2e2e5",
+                      "outline-variant": "#ddc1ae",
+                      "on-secondary-fixed-variant": "#004f4f",
+                      "primary-fixed-dim": "#ffb77d",
+                      "surface": "#f9f9fc",
+                      "on-secondary-container": "#006e6e",
+                      "secondary-fixed": "#93f2f2",
+                      "surface-tint": "#904d00",
+                      "error-container": "#ffdad6",
+                      "primary": "#904d00",
+                      "on-primary-fixed": "#2f1500",
+                      "error": "#ba1a1a",
+                      "tertiary-container": "#b2a99c",
+                      "on-primary": "#ffffff",
+                      "tertiary-fixed": "#ece1d3",
+                      "on-error": "#ffffff",
+                      "tertiary": "#645d53",
+                      "on-error-container": "#93000a",
+                      "surface-variant": "#e2e2e5",
+                      "surface-container": "#eeeef0",
+                      "on-primary-fixed-variant": "#6e3900",
+                      "secondary": "#006a6a",
+                      "on-tertiary": "#ffffff",
+                      "on-surface-variant": "#564334",
+                      "outline": "#897362",
+                      "tertiary-fixed-dim": "#cfc5b8",
+                      "primary-container": "#ff8c00",
+                      "on-secondary-fixed": "#002020",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-dim": "#dadadc",
+                      "on-background": "#1a1c1e",
+                      "inverse-surface": "#2f3133",
+                      "background": "#f9f9fc",
+                      "on-secondary": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-desktop": "48px",
+                      "margin-mobile": "16px",
+                      "gutter": "24px",
+                      "container-max": "1280px",
+                      "base": "8px"
+              },
+              "fontFamily": {
+                      "label-sm": ["Plus Jakarta Sans"],
+                      "headline-xl": ["Montserrat"],
+                      "headline-lg": ["Montserrat"],
+                      "body-lg": ["Plus Jakarta Sans"],
+                      "headline-xl-mobile": ["Montserrat"],
+                      "label-lg": ["Plus Jakarta Sans"],
+                      "body-md": ["Plus Jakarta Sans"],
+                      "headline-md": ["Montserrat"]
+              },
+              "fontSize": {
+                      "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                      "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "headline-xl-mobile": ["30px", {"lineHeight": "36px", "fontWeight": "700"}],
+                      "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface h-screen flex flex-col overflow-hidden">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 shadow-sm bg-surface dark:bg-surface-dim">
+<div class="flex items-center gap-4">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed cursor-pointer">PetZonic</span>
+</div>
+<div class="flex items-center gap-base">
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-primary">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border-2 border-primary-container ml-2">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A close-up portrait of a friendly professional Indian man in his late 20s, smiling warmly. He is in a brightly lit modern office with soft-focus indoor plants in the background. The lighting is high-key and natural, creating a trustworthy and approachable atmosphere suitable for a premium community platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_Q7eoZPwH_GLsQpidPtkJcx1KdV6HgHvnfMrSNy-RGRIlqntA4vUtVoODCtvT8n_eSTmJm_lJTMYFS-cccVUOcgC1n-lGYeApjyOhif8fmc32YJiFcsvRlRJtx3aiEuHBjTDWXWe5wC0nlV-a4fgSulaTJ-hOjmCXQ6fkYynY3EX57AmCaZJHBhw84GJgGDIZMTWkjVBt3CwC_ESeYZmoUgj_VfxzhvvEA2SyiG-2GtTnGNLs2OTfoDvT7vvnU-QEXq2dLru3vls">
+</div>
+</div>
+</header>
+<!-- Main Content Layout -->
+<main class="flex-1 mt-16 flex overflow-hidden">
+<!-- Left Panel: Conversation List -->
+<aside class="w-[320px] h-full bg-surface-container-low border-r border-outline-variant flex flex-col hidden md:flex">
+<!-- Search & Tabs -->
+<div class="p-4 space-y-4">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-highest border-none rounded-lg text-body-md focus:ring-2 focus:ring-secondary/30 transition-all placeholder:text-on-surface-variant/60" placeholder="Search conversations..." type="text">
+</div>
+<div class="flex gap-2 p-1 bg-surface-container-high rounded-xl">
+<button class="flex-1 py-1.5 text-label-lg rounded-lg bg-surface-container-lowest shadow-sm text-primary">All</button>
+<button class="flex-1 py-1.5 text-label-lg rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-colors">Buying</button>
+<button class="flex-1 py-1.5 text-label-lg rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-colors">Selling</button>
+</div>
+</div>
+<!-- Conversations -->
+<div class="flex-1 overflow-y-auto chat-scrollbar">
+<!-- Active Item -->
+<div class="flex items-center gap-3 p-4 bg-primary-container/10 border-r-4 border-primary cursor-pointer transition-all">
+<div class="relative">
+<img alt="Rajesh Kumar" class="w-12 h-12 rounded-full object-cover" data-alt="A cheerful Indian middle-aged man with short dark hair and a neat beard, wearing a casual polo shirt. He is looking directly at the camera with a kind expression. The background is a soft-focus warm residential interior with high-quality natural light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuByfsHbc4vccObEbUi-CdznG7YkNdhrUTKNyT9HX7sfczY98U2gdI2OKDWvuMm4aBFBoqhjq34V0y4kHWuy71c664QRdAISAbuqh3feGbk7ZW0RN2SrSqHblf9u79nMIght_Fs3Tq5JV2xik3QL94oB1G6W6Mt5CY3gFCHhBABOzcpYbKpkTK0kyJU9lKhI_Du2JirAPRGRpofvv3a9PoXv4pfa-6cahUNjvXq5lHexci4BkqCv3bGTDED-7TBTChvM98PZUvD4mfk">
+<div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline">
+<h4 class="font-label-lg text-on-surface truncate">Rajesh Kumar</h4>
+<span class="text-[10px] text-on-surface-variant">10:45 AM</span>
+</div>
+<p class="text-label-sm text-on-surface-variant truncate">Is this still available? I can come...</p>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="w-5 h-5 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center text-[10px] font-bold">2</span>
+</div>
+</div>
+<!-- Inactive Items -->
+<div class="flex items-center gap-3 p-4 hover:bg-surface-container-highest cursor-pointer transition-all border-b border-outline-variant/30">
+<div class="relative">
+<img alt="Ananya Sharma" class="w-12 h-12 rounded-full object-cover" data-alt="A professional young Indian woman with long dark hair tied back, smiling subtly. She is wearing a modern teal blouse. The lighting is soft and professional, with a minimalist neutral background that feels premium and clean." src="https://lh3.googleusercontent.com/aida-public/AB6AXuABnQY7mM6Yv1K8BuuqDRqLg3FZNLBx5bqa3DiuWdb3vheKurBhGTVYTpPf6Cg6iiZPJPc0ko93cTvWS01LeKpotBGlZfMh-xpdVh58OGLXdN0e8mnJPv3dqaYMxrqFydfxTNadwZ9_GYzL0zSU569VujXqhKZ1w1EidH4ou-T2dEu-CaOj48ZtEzJZ7vQ_L6kqh173yR5MhXJu7SloSNqSTOCHtFzp_Qcuzz0yxFzK4HLRc9bNg7SYn6Q7oFPUf04uKWzqJAsC0LQ">
+<div class="absolute bottom-0 right-0 w-3 h-3 bg-gray-300 border-2 border-white rounded-full"></div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline">
+<h4 class="font-label-lg text-on-surface truncate">Ananya Sharma</h4>
+<span class="text-[10px] text-on-surface-variant">Yesterday</span>
+</div>
+<p class="text-label-sm text-on-surface-variant truncate">Thank you for the records!</p>
+</div>
+</div>
+<div class="flex items-center gap-3 p-4 hover:bg-surface-container-highest cursor-pointer transition-all border-b border-outline-variant/30">
+<div class="relative">
+<img alt="Priya Gupta" class="w-12 h-12 rounded-full object-cover" data-alt="A friendly elderly Indian woman with graying hair in a traditional sari, smiling warmly. The setting is a cozy, brightly lit living room with vibrant decor. The mood is heartwarming and community-focused." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQTB_yMHp6KpruV0erRhYstZsgX66Q6Fo_3-upbx4C1T2VWQncyZ6W0EVFzmmjY6AmJ93RtofqbNaOuPWaX7tJN7lOOiw2pm2cRULcGjUI8Bjmf0eK8yuInbL5q_KGyUYlMngXPNkTbB2egCGuX4M9sAm7_QybCp46b6m4-Dr4eG5tty8RLMJJpvd6TxNkpEm1HnlIj12lJYrBnr9GqjEneIjZEDGHlEV0D5BZVTeJlpN4BCRbv3BWsCGAJmALPieMN8Dd_aiuMLk">
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline">
+<h4 class="font-label-lg text-on-surface truncate">Priya Gupta</h4>
+<span class="text-[10px] text-on-surface-variant">Mon</span>
+</div>
+<p class="text-label-sm text-on-surface-variant truncate font-bold text-on-surface">Shared a photo</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Right Panel: Active Chat -->
+<section class="flex-1 flex flex-col bg-surface relative h-full">
+<!-- Chat Header -->
+<header class="h-16 flex items-center justify-between px-4 border-b border-outline-variant bg-surface-container-lowest z-10">
+<div class="flex items-center gap-3">
+<button class="md:hidden p-2 -ml-2">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<div class="relative">
+<img alt="Rajesh Kumar" class="w-10 h-10 rounded-full object-cover" data-alt="A cheerful Indian middle-aged man with short dark hair and a neat beard, wearing a casual polo shirt. He is looking directly at the camera with a kind expression. The background is a soft-focus warm residential interior with high-quality natural light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEPYoQU9F_5Zv1OZ_3fQLhaJAjoVpLHJ5MUMmUK9vHX6nbPc9De4YT8Dg4xwl6q7WxhPohn8DreF3xIE-BBzOSGD6QWaSwmTt-xFTUwIZphUNQ975QAkKoN7pqEvdfVEygSepByANd-s4sBWArLwx3TWc40gZVVV_AjEJiqNF4NERPEXte481ZJuBMDLfFsCWMkZ4-Hlbs6RNv5JEO-E1iHGVnXGSnEJ2zsnpGHaxhJ-7dh82vP7kS9K2142YSzrWmrA5giVloVfo">
+</div>
+<div>
+<h3 class="font-label-lg text-on-surface leading-tight">Rajesh Kumar</h3>
+<span class="text-[11px] text-secondary flex items-center gap-1">
+<span class="w-1.5 h-1.5 bg-secondary rounded-full"></span> Online
+                        </span>
+</div>
+</div>
+<!-- Listing Context Card -->
+<div class="hidden lg:flex items-center gap-3 bg-surface-container-low p-2 rounded-xl border border-outline-variant/50 max-w-[280px]">
+<img alt="Golden Retriever" class="w-10 h-10 rounded-lg object-cover" data-alt="A beautiful, healthy Golden Retriever puppy sitting in a lush green garden during golden hour. The sunlight highlights its soft golden fur. Professional pet photography style, warm and emotional, evoking trust and quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvkeOtgT-DwHJOeKfFbC_Os2-mMA0VEegFbxW-g-T99GhL7zZv9ZfXFemXpmHUM451-acZbSXqQFyXSu9Clf4OSpGz2bGhuT7FDr-jIEz1CuF1fAbt3AkRNwriNkkwn7EXyEkc_EhQQtpfEwXYMbp3MVFpY8hHl9Mqe4178OmYcKm3grUyUxqIQ_cVi25GJz0jyKzOAZAhIUgr9qy0xYFWBjYcxDn3IM1nAkBRXqt-4597KX7zlDbk43PnKATcgyNxnwGVJMbf5hw">
+<div class="min-w-0">
+<h4 class="text-label-sm font-bold truncate">Golden Retriever</h4>
+<p class="text-[12px] text-primary font-bold">₹25,000</p>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-colors active:scale-90">
+<span class="material-symbols-outlined text-on-surface-variant">call</span>
+</button>
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-colors opacity-40 cursor-not-allowed">
+<span class="material-symbols-outlined text-on-surface-variant">videocam</span>
+</button>
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-colors active:scale-90">
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</button>
+</div>
+</header>
+<!-- Safety Banner -->
+<div class="flex items-center justify-between px-4 py-2 bg-secondary-container/30 text-on-secondary-container text-label-sm animate-fade-in" id="safetyBanner">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">gpp_maybe</span>
+<p>Stay safe: Use PetZonic's secure payment. Never pay outside the platform.</p>
+</div>
+<button class="p-1 hover:bg-secondary-container/50 rounded-full" onclick="document.getElementById('safetyBanner').remove()">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<!-- Message Area -->
+<div class="flex-1 overflow-y-auto p-4 md:p-6 space-y-6 chat-scrollbar bg-[#F9F9FC]">
+<div class="flex justify-center">
+<span class="px-3 py-1 bg-surface-container-high text-on-surface-variant text-[11px] font-bold rounded-full uppercase tracking-wider">Today</span>
+</div>
+<!-- Received Message -->
+<div class="flex items-end gap-2 max-w-[85%]">
+<img alt="Rajesh" class="w-8 h-8 rounded-full mb-1" data-alt="A cheerful Indian middle-aged man with short dark hair and a neat beard, wearing a casual polo shirt. He is looking directly at the camera with a kind expression. The background is a soft-focus warm residential interior with high-quality natural light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1AZE-sIcVhs0On6OFORtLyjwfbuZaJ9l3O_78S2i4LlCw1ucCtKKSeUjD10sSgZ_PCY8pBHc0y4NwyKBgfaPvEeR7ChzJrAADmYaw-KpsSMQ0Nzg9zYjO-fEy_BqHoISgerobd_u3u1zuhL_Ki9gk0TdXWJv_sbfZ6BQca-jM2SOj4jC5-r-2x27omaTNfXE6TwUuXAHt9LAqxr-fkDHsNnlso7v_4RYMuB7qBuvUJuQQI4xVh3ya3n-se64bG5fVNnI8WpW58aI">
+<div class="bg-surface-container-highest text-on-surface p-3.5 rounded-2xl rounded-bl-none shadow-sm">
+<p class="text-body-md">Hello! I saw your listing for the Golden Retriever puppy. Is he still available for adoption?</p>
+<span class="text-[10px] text-on-surface-variant block text-right mt-1">10:42 AM</span>
+</div>
+</div>
+<!-- Sent Message -->
+<div class="flex items-end justify-end gap-2 ml-auto max-w-[85%]">
+<div class="bg-primary-container text-white p-3.5 rounded-2xl rounded-br-none shadow-md">
+<p class="text-body-md">Hi Rajesh! Yes, he is still available. He is 8 weeks old and very playful.</p>
+<div class="flex items-center justify-end gap-1 mt-1">
+<span class="text-[10px] opacity-80">10:44 AM</span>
+<span class="material-symbols-outlined text-[14px]">done_all</span>
+</div>
+</div>
+</div>
+<!-- Received Message -->
+<div class="flex items-end gap-2 max-w-[85%]">
+<img alt="Rajesh" class="w-8 h-8 rounded-full mb-1" data-alt="A cheerful Indian middle-aged man with short dark hair and a neat beard, wearing a casual polo shirt. He is looking directly at the camera with a kind expression. The background is a soft-focus warm residential interior with high-quality natural light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvQaXiNWbwPAAil_plNfoHLowzk_JcNV9YMYqVYbbXGkZdb7DiANIypm6fHLacoG3ya-UG0mhk9SP9JaPfwmA9Laz-w8GmjrEyOMnUPZ73ju7bMqaghN6tqZwolm6ysH9QVcARgJij5-CAloOfEnF-Lj7aubt72FSiqjE7yRn9WDbtffD9eAOf1_N6lXtXzmb6JfhXvOfMKS0YyhUrq4urIiVMHqNjk5YAvXoz9YLz0EwyTRcFCbXkeebRPkcPtmp5NW8lRgUvL0I">
+<div class="bg-surface-container-highest text-on-surface p-3.5 rounded-2xl rounded-bl-none shadow-sm">
+<p class="text-body-md">That's great! Is this still available? I can come to visit this evening if that works for you?</p>
+<span class="text-[10px] text-on-surface-variant block text-right mt-1">10:45 AM</span>
+</div>
+</div>
+<!-- Typing Indicator -->
+<div class="flex items-center gap-2 opacity-60">
+<div class="flex gap-1 bg-surface-container-highest p-3 rounded-full">
+<span class="w-1.5 h-1.5 bg-on-surface-variant rounded-full animate-bounce"></span>
+<span class="w-1.5 h-1.5 bg-on-surface-variant rounded-full animate-bounce [animation-delay:0.2s]"></span>
+<span class="w-1.5 h-1.5 bg-on-surface-variant rounded-full animate-bounce [animation-delay:0.4s]"></span>
+</div>
+<span class="text-label-sm italic">Rajesh is typing...</span>
+</div>
+</div>
+<!-- Footer Area -->
+<footer class="p-4 bg-surface-container-lowest border-t border-outline-variant">
+<!-- Quick Actions Chips -->
+<div class="flex gap-2 overflow-x-auto pb-3 no-scrollbar">
+<button class="whitespace-nowrap px-4 py-1.5 rounded-full border border-outline text-label-lg hover:bg-surface-container-high transition-colors text-on-surface-variant">Is this still available?</button>
+<button class="whitespace-nowrap px-4 py-1.5 rounded-full border border-outline text-label-lg hover:bg-surface-container-high transition-colors text-on-surface-variant">Can I visit?</button>
+<button class="whitespace-nowrap px-4 py-1.5 rounded-full border border-outline text-label-lg hover:bg-surface-container-high transition-colors text-on-surface-variant">What's the lowest price?</button>
+<button class="whitespace-nowrap px-4 py-1.5 rounded-full border border-outline text-label-lg hover:bg-surface-container-high transition-colors text-on-surface-variant">Share health records</button>
+</div>
+<!-- Input Box -->
+<div class="flex items-center gap-3">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">attach_file</span>
+</button>
+<div class="flex-1 relative flex items-center">
+<input class="w-full bg-surface-container-low border-none rounded-full py-3 pl-4 pr-12 focus:ring-2 focus:ring-primary/20 text-body-md" placeholder="Type a message..." type="text">
+<button class="absolute right-3 p-1 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">sentiment_satisfied</span>
+</button>
+</div>
+<button class="w-12 h-12 bg-primary-container text-white rounded-full flex items-center justify-center shadow-lg active:scale-90 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+</footer>
+</section>
+</main>
+<!-- SideNavBar (Desktop Anchored) -->
+<nav class="fixed left-0 top-16 bottom-0 z-40 h-full w-20 xl:w-64 hidden md:flex flex-col bg-surface-container-low dark:bg-surface-container-lowest border-r border-outline-variant/30 transition-all duration-300">
+<div class="p-4 flex flex-col gap-2">
+<!-- Navigation Items -->
+<a class="flex items-center gap-4 p-3 rounded-xl text-on-surface-variant hover:bg-surface-container-highest transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">home</span>
+<span class="font-label-lg xl:block hidden">Home</span>
+</a>
+<a class="flex items-center gap-4 p-3 rounded-xl text-primary border-r-4 border-primary bg-primary-container/10 group" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
+<span class="font-label-lg xl:block hidden font-bold">Messages</span>
+</a>
+<a class="flex items-center gap-4 p-3 rounded-xl text-on-surface-variant hover:bg-surface-container-highest transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">storefront</span>
+<span class="font-label-lg xl:block hidden">Listings</span>
+</a>
+<a class="flex items-center gap-4 p-3 rounded-xl text-on-surface-variant hover:bg-surface-container-highest transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">person</span>
+<span class="font-label-lg xl:block hidden">Profile</span>
+</a>
+</div>
+<div class="mt-auto p-4 xl:block hidden">
+<button class="w-full py-3 bg-secondary text-white rounded-xl font-bold shadow-md hover:brightness-110 active:scale-[0.98] transition-all">
+                Post an Ad
+            </button>
+</div>
+</nav>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 md:hidden bg-surface dark:bg-surface-dim shadow-lg rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
+<span class="font-label-sm">Chat</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary" href="#">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="font-label-sm">Sell</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm">Profile</span>
+</a>
+</nav>
+<script>
+        // Micro-interactions and effects
+        const messageInput = document.querySelector('input[type="text"]');
+        const sendBtn = document.querySelector('.bg-primary-container');
+
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        function sendMessage() {
+            if (messageInput.value.trim() === '') return;
+            
+            // Interaction feedback
+            messageInput.style.transform = 'scale(0.99)';
+            setTimeout(() => messageInput.style.transform = 'scale(1)', 100);
+            
+            // Logic to append message could go here in a real app
+            console.log('Sending:', messageInput.value);
+            messageInput.value = '';
+        }
+
+        // Horizontal scroll with wheel for chips
+        const chipContainer = document.querySelector('.no-scrollbar');
+        chipContainer.addEventListener('wheel', (evt) => {
+            evt.preventDefault();
+            chipContainer.scrollLeft += evt.deltaY;
+        });
+
+        // Atmospheric fade-in for page load
+        document.body.style.opacity = '0';
+        document.body.style.transition = 'opacity 0.5s ease-in-out';
+        window.onload = () => {
+            document.body.style.opacity = '1';
+        };
+    </script>
+</body></html>

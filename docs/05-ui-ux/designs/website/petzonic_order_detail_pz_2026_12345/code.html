@@ -1,0 +1,408 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Order Details | PetZonic</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-background": "#1a1c1e",
+                    "on-secondary-fixed-variant": "#004f4f",
+                    "inverse-surface": "#2f3133",
+                    "on-secondary": "#ffffff",
+                    "surface-container-high": "#e8e8ea",
+                    "secondary": "#006a6a",
+                    "on-surface": "#1a1c1e",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "outline-variant": "#ddc1ae",
+                    "inverse-on-surface": "#f0f0f3",
+                    "error": "#ba1a1a",
+                    "on-tertiary-fixed": "#201b13",
+                    "primary-fixed-dim": "#ffb77d",
+                    "on-secondary-container": "#006e6e",
+                    "primary-fixed": "#ffdcc3",
+                    "surface-tint": "#904d00",
+                    "on-primary-fixed": "#2f1500",
+                    "outline": "#897362",
+                    "secondary-container": "#90efef",
+                    "on-tertiary-container": "#443e34",
+                    "surface-container-highest": "#e2e2e5",
+                    "on-tertiary-fixed-variant": "#4c463c",
+                    "on-primary-fixed-variant": "#6e3900",
+                    "inverse-primary": "#ffb77d",
+                    "tertiary-container": "#b2a99c",
+                    "secondary-fixed": "#93f2f2",
+                    "primary": "#904d00",
+                    "secondary-fixed-dim": "#76d6d5",
+                    "on-secondary-fixed": "#002020",
+                    "on-primary-container": "#623200",
+                    "surface-bright": "#f9f9fc",
+                    "on-surface-variant": "#564334",
+                    "surface-container-low": "#f3f3f6",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#ff8c00",
+                    "on-error": "#ffffff",
+                    "surface-dim": "#dadadc",
+                    "surface": "#f9f9fc",
+                    "tertiary-fixed-dim": "#cfc5b8",
+                    "on-error-container": "#93000a",
+                    "error-container": "#ffdad6",
+                    "background": "#f9f9fc",
+                    "surface-container": "#eeeef0",
+                    "tertiary": "#645d53",
+                    "surface-variant": "#e2e2e5",
+                    "tertiary-fixed": "#ece1d3"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-mobile": "16px",
+                    "base": "8px",
+                    "container-max": "1280px",
+                    "gutter": "24px",
+                    "margin-desktop": "48px"
+            },
+            "fontFamily": {
+                    "label-lg": ["Plus Jakarta Sans"],
+                    "headline-xl-mobile": ["Montserrat"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "headline-xl": ["Montserrat"],
+                    "headline-md": ["Montserrat"],
+                    "label-sm": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Montserrat"]
+            },
+            "fontSize": {
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-xl-mobile": ["30px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .order-step-active { font-variation-settings: 'FILL' 1; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #b2a99c; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Top Navigation Bar -->
+<header class="bg-surface dark:bg-on-background shadow-[0_4px_16px_rgba(0,128,128,0.12)] w-full top-0 sticky z-[60]">
+<div class="flex justify-between items-center px-margin-desktop h-20 max-w-container-max mx-auto">
+<div class="font-headline-lg text-headline-lg font-black text-primary dark:text-primary-container">PetZonic</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="font-headline-md text-headline-md text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors duration-200" href="#">Marketplace</a>
+<a class="font-headline-md text-headline-md text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors duration-200" href="#">Community</a>
+<a class="font-headline-md text-headline-md text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors duration-200" href="#">Sellers</a>
+</nav>
+<div class="flex items-center gap-6">
+<div class="hidden sm:flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">favorite</button>
+</div>
+<div class="flex items-center gap-3 bg-surface-container-low px-3 py-1.5 rounded-full">
+<img alt="User profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1LEOvcoDn0M8IMsi54CVD8VrwQTShC-ov6v7tQtfSJ8f2nXFwoc4V-kX16wbd2cUhGphGkoB3nCrGGOas-6H2RYsMdEnlHrFop_SN5_h7cTw5CxcXbUfadFTuw6XwBrTockSXhDhcLNCPn7RaA5QI0SFzhBxvyvZy_U_ErS6F28KE39I0hcrq7X-0uZwzD_r7oVeG835hJBmwx2quiJOO0yLC_uVsiVHzBg8zYA05sAMFJ1O_eaXqpfuoXwdpWU1ZBdtry60JuyM">
+<span class="font-label-lg text-label-lg text-on-surface hidden lg:block">My Account</span>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12">
+<!-- Header Info -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
+<div>
+<nav class="flex items-center gap-2 text-on-surface-variant mb-4">
+<a class="font-label-sm text-label-sm hover:text-primary" href="#">Orders</a>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="font-label-sm text-label-sm text-primary font-bold">#PZ-2026-12345</span>
+</nav>
+<h1 class="font-headline-xl text-headline-xl md:text-headline-xl mb-2">Order Details</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Placed on Oct 24, 2023 • 2 Items</p>
+</div>
+<div class="flex flex-wrap gap-4">
+<button class="flex items-center gap-2 px-6 py-3 border-2 border-secondary text-secondary rounded-lg font-label-lg text-label-lg hover:bg-secondary-container transition-all active:scale-95">
+<span class="material-symbols-outlined">download</span>
+                    Download Invoice
+                </button>
+<button class="flex items-center gap-2 px-8 py-3 bg-primary text-on-primary rounded-lg font-label-lg text-label-lg shadow-md hover:shadow-lg hover:bg-primary-container transition-all active:scale-95">
+<span class="material-symbols-outlined">local_shipping</span>
+                    Track Shipment
+                </button>
+</div>
+</div>
+<!-- Progress Stepper -->
+<section class="bg-surface-container-lowest rounded-xl p-8 mb-12 shadow-[0_4px_16px_rgba(0,128,128,0.12)] border border-surface-variant/30">
+<div class="relative flex justify-between items-center max-w-4xl mx-auto">
+<!-- Connector Line -->
+<div class="absolute top-6 left-0 w-full h-[2px] bg-surface-container-highest z-0">
+<div class="h-full bg-secondary w-2/3 transition-all duration-1000"></div>
+</div>
+<!-- Step 1 -->
+<div class="relative z-10 flex flex-col items-center gap-3">
+<div class="w-12 h-12 rounded-full bg-secondary text-on-secondary flex items-center justify-center shadow-md">
+<span class="material-symbols-outlined order-step-active">check_circle</span>
+</div>
+<div class="text-center">
+<p class="font-label-lg text-label-lg text-on-surface">Order Placed</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Oct 24, 10:30 AM</p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="relative z-10 flex flex-col items-center gap-3">
+<div class="w-12 h-12 rounded-full bg-secondary text-on-secondary flex items-center justify-center shadow-md">
+<span class="material-symbols-outlined order-step-active">inventory_2</span>
+</div>
+<div class="text-center">
+<p class="font-label-lg text-label-lg text-on-surface">Processed</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Oct 24, 02:15 PM</p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="relative z-10 flex flex-col items-center gap-3">
+<div class="w-12 h-12 rounded-full bg-secondary text-on-secondary flex items-center justify-center shadow-md animate-pulse">
+<span class="material-symbols-outlined order-step-active">local_shipping</span>
+</div>
+<div class="text-center">
+<p class="font-label-lg text-label-lg text-secondary font-bold">In Transit</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Expected Oct 26</p>
+</div>
+</div>
+<!-- Step 4 -->
+<div class="relative z-10 flex flex-col items-center gap-3">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined">home_pin</span>
+</div>
+<div class="text-center opacity-50">
+<p class="font-label-lg text-label-lg">Delivered</p>
+<p class="font-label-sm text-label-sm">Pending</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<!-- Left: Order Items & Delivery Info -->
+<div class="lg:col-span-8 space-y-gutter">
+<!-- Items List -->
+<div class="bg-surface rounded-xl overflow-hidden shadow-[0_4px_16px_rgba(0,128,128,0.08)]">
+<div class="px-8 py-6 border-b border-surface-variant/30 flex justify-between items-center">
+<h2 class="font-headline-md text-headline-md">Package Items</h2>
+<span class="font-label-lg text-label-lg text-on-secondary-container bg-secondary-container px-3 py-1 rounded-full">Standard Shipping</span>
+</div>
+<div class="divide-y divide-surface-variant/20">
+<!-- Item 1 -->
+<div class="p-8 flex gap-6 group hover:bg-surface-container-lowest transition-colors">
+<div class="w-24 h-24 rounded-lg overflow-hidden bg-surface-container flex-shrink-0">
+<img alt="Dog Food" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Premium organic dog food packaging with vibrant teal and orange branding, placed on a clean white minimalist background with soft cinematic lighting. The style is modern and high-end, emphasizing health and vitality for pets with professional product photography aesthetics." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB77kGWi0vc7b_Js_DFVpqolHMTNmsDUslLprv8XE7J5PE3uDgGmGlKPCB8IHoKvM2P0BxNtMu7gOHxDGNH-wn4tUPbWzjUx4MaSnfv957z3xKG9mSX-DcIgnELW132nJBGYRphCkeLE64UfGPz0IA4yKGsgfwqjCuRcdCoNtiMKAGDx8lbcsXVB_k_MMDKh_CaOnfWanly8lMH2mPlIWpL7XR7fHT6drGXe1FldilzrPQU8rbVb4dx7lXH-j80f72bL6dhEql_eUM">
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="font-headline-md text-[18px] mb-1">Premium Grain-Free Kibble</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Salmon &amp; Sweet Potato • 12kg</p>
+</div>
+<p class="font-headline-md text-[18px] text-primary">₹4,250</p>
+</div>
+<div class="flex items-center gap-4 mt-4">
+<span class="font-label-lg text-label-lg px-2 py-1 bg-surface-container-high rounded text-on-surface">Qty: 1</span>
+<div class="flex items-center gap-1 text-[#008080]">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+<span class="font-label-sm text-label-sm">Seller: Pawsome Store</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="p-8 flex gap-6 group hover:bg-surface-container-lowest transition-colors">
+<div class="w-24 h-24 rounded-lg overflow-hidden bg-surface-container flex-shrink-0">
+<img alt="Dog Toy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Durable chew toy for large dogs shaped like a friendly bone, featuring a bright orange and teal color scheme. The lighting is warm and joyful, captured in a clean domestic setting that feels approachable yet premium. The toy has a tactile texture that is highlighted by soft ambient shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGaEcQ5y6JGzvPaYSdNEwcOaGVX8w1Vjn_p77yeui_AtRgZeg-NLheYV4yMUBAfZYD4gy5N8NTAG7XogidRf73mOq4kuHbb4ajGEVo2_LFxTNoua3p1dRT73cJPYURPDY0ouMQrAY-XLh1x-gD4UlIg9f6ogbcHa5qxsBheX9WEdMtqyGLgx_kgtNypE_bXauRgO9nRQyG4h2KXjA8HNgN6cin4FCrXnDTP7Xedx9MgeDzyJm3y2SatqbLexUIci4OxgE0Y1EewWc">
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="font-headline-md text-[18px] mb-1">Indestructible Chew Bone</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Large • Orange/Teal</p>
+</div>
+<p class="font-headline-md text-[18px] text-primary">₹899</p>
+</div>
+<div class="flex items-center gap-4 mt-4">
+<span class="font-label-lg text-label-lg px-2 py-1 bg-surface-container-high rounded text-on-surface">Qty: 1</span>
+<div class="flex items-center gap-1 text-[#008080]">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+<span class="font-label-sm text-label-sm">Seller: PetZonic Official</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Delivery Details -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="bg-surface rounded-xl p-8 shadow-[0_4px_16px_rgba(0,128,128,0.08)]">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-secondary">location_on</span>
+<h2 class="font-headline-md text-[20px]">Delivery Address</h2>
+</div>
+<div class="space-y-1">
+<p class="font-label-lg text-label-lg text-on-surface">Aditya Sharma</p>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                                402, Green Meadows Apartment,<br>
+                                Indiranagar 2nd Stage, Bangalore - 560038<br>
+                                Karnataka, India
+                            </p>
+<p class="font-body-md text-body-md text-on-surface-variant pt-2">
+<span class="font-semibold text-on-surface">Phone:</span> +91 98765 43210
+                            </p>
+</div>
+</div>
+<div class="bg-surface rounded-xl p-8 shadow-[0_4px_16px_rgba(0,128,128,0.08)]">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-secondary">credit_card</span>
+<h2 class="font-headline-md text-[20px]">Payment Method</h2>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-12 h-8 bg-surface-container-highest rounded flex items-center justify-center overflow-hidden">
+<img alt="Visa" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDb3G3Iio6wfUaqLcItlCrA86FUCiUC7JcylcqR4l3979vWedZI3k6DFTMP3nsHkjDjhKkh_f238leHRJk5aOwJUI25Uw5SfuT0YtV76exgC0nurpesVU1KQ6jTfcFwYCeZTg3cF2s70d06K6sWTAtpqmKA7L387kCdDwf9LsUMtxwyMLfMHLdVR27nVDkqKpW7ckdHRke-VywjppOfOny-5_PNZ5_SiNVIu_2jiyqGc2DOWkzJ_1DV7HiFW9eJsrIdYWZfyJOWJLs">
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-on-surface">Visa ending in 4242</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Transaction ID: TXN_882910</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Order Summary Sticky Card -->
+<aside class="lg:col-span-4 lg:sticky lg:top-32">
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-xl border-2 border-primary/5">
+<h2 class="font-headline-md text-headline-md mb-8">Order Summary</h2>
+<div class="space-y-4 mb-8">
+<div class="flex justify-between items-center text-on-surface-variant">
+<span class="font-body-md text-body-md">Subtotal (2 Items)</span>
+<span class="font-body-md text-body-md font-semibold text-on-surface">₹5,149.00</span>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant">
+<span class="font-body-md text-body-md">Shipping Fee</span>
+<span class="font-body-md text-body-md text-secondary font-semibold">FREE</span>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant">
+<span class="font-body-md text-body-md">Tax (GST 18%)</span>
+<span class="font-body-md text-body-md font-semibold text-on-surface">₹926.82</span>
+</div>
+<div class="flex justify-between items-center text-[#008080] bg-secondary-container/20 p-2 rounded">
+<span class="font-label-lg text-label-lg">Discount (PETJOY10)</span>
+<span class="font-label-lg text-label-lg">-₹514.90</span>
+</div>
+</div>
+<div class="h-[1px] bg-surface-variant/30 mb-8"></div>
+<div class="flex justify-between items-end mb-8">
+<div>
+<p class="font-label-lg text-label-lg text-on-surface-variant">Grand Total</p>
+<p class="font-headline-xl text-headline-xl text-primary">₹5,560.92</p>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant text-right italic">Inclusive of all taxes</p>
+</div>
+<div class="space-y-4">
+<div class="flex items-start gap-3 p-4 bg-surface-container rounded-lg">
+<span class="material-symbols-outlined text-secondary">info</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant">
+                                Need help with this order? Visit our <a class="text-primary underline" href="#">Help Center</a> or contact support.
+                            </p>
+</div>
+<button class="w-full py-4 bg-surface-container-highest text-on-surface font-label-lg text-label-lg rounded-lg hover:bg-surface-variant transition-all">
+                            Need Help?
+                        </button>
+</div>
+</div>
+<!-- Ad Banner / Community Callout -->
+<div class="mt-8 bg-gradient-to-br from-primary to-primary-container rounded-xl p-6 text-on-primary shadow-lg overflow-hidden relative">
+<div class="relative z-10">
+<h3 class="font-headline-md text-[18px] mb-2">Join the Pawsome Community</h3>
+<p class="font-label-sm text-label-sm opacity-90 mb-4">Share a photo of your pet with their new toy and get 100 reward points!</p>
+<button class="px-4 py-2 bg-on-primary text-primary rounded-full font-label-lg text-label-lg hover:shadow-xl transition-all">Upload Photo</button>
+</div>
+<span class="material-symbols-outlined absolute -right-4 -bottom-4 text-[120px] opacity-10 rotate-12">pets</span>
+</div>
+</aside>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest dark:bg-inverse-surface w-full mt-24">
+<div class="w-full py-12 px-margin-desktop flex flex-col md:flex-row justify-between items-center max-w-container-max mx-auto">
+<div class="mb-8 md:mb-0 text-center md:text-left">
+<div class="text-primary font-bold font-headline-md text-headline-md mb-2">PetZonic</div>
+<p class="font-body-md text-body-md text-on-surface-variant">© 2024 PetZonic Marketplace. Joyful reliability for pet parents.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-x-8 gap-y-4">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary underline transition-all" href="#">About Us</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary underline transition-all" href="#">Seller Terms</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary underline transition-all" href="#">Shipping Policy</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary underline transition-all" href="#">Privacy</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary underline transition-all" href="#">Contact</a>
+</div>
+</div>
+</footer>
+<!-- Mobile Navigation Bar -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-3 pb-safe bg-surface dark:bg-on-background shadow-[0_-4px_16px_rgba(0,128,128,0.12)] z-50 rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-sm text-label-sm">Community</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-sm text-label-sm">Cart</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 scale-110" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</a>
+</nav>
+<script>
+        // Smooth hover lifted state for cards
+        document.querySelectorAll('.bg-surface').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.classList.add('shadow-xl', '-translate-y-1');
+                card.style.transition = 'all 0.3s ease';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.classList.remove('shadow-xl', '-translate-y-1');
+            });
+        });
+
+        // Micro-interaction for primary button
+        const trackBtn = document.querySelector('button:contains("Track Shipment")');
+        if(trackBtn) {
+            trackBtn.addEventListener('click', function() {
+                this.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Tracking...';
+                setTimeout(() => {
+                    this.innerHTML = '<span class="material-symbols-outlined">local_shipping</span> Track Shipment';
+                }, 2000);
+            });
+        }
+    </script>
+</body></html>

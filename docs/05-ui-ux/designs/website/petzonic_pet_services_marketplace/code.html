@@ -1,0 +1,653 @@
+<!DOCTYPE html><html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Pet Services Marketplace | PetPals India</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .service-card-active {
+            border-color: #006a6a;
+            background-color: #93f2f2;
+        }
+        .custom-shadow {
+            box-shadow: 0 4px 16px -4px rgba(0, 128, 128, 0.12);
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px -12px rgba(0, 128, 128, 0.18);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-variant": "#e2e2e5",
+                      "inverse-surface": "#2f3133",
+                      "tertiary-fixed": "#ece1d3",
+                      "secondary-fixed-dim": "#76d6d5",
+                      "primary-container": "#ff8c00",
+                      "on-secondary": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "background": "#f9f9fc",
+                      "on-tertiary-fixed": "#201b13",
+                      "surface-container-high": "#e8e8ea",
+                      "on-primary-fixed": "#2f1500",
+                      "error": "#ba1a1a",
+                      "secondary-container": "#90efef",
+                      "on-surface-variant": "#564334",
+                      "surface-container-highest": "#e2e2e5",
+                      "tertiary-container": "#b2a99c",
+                      "surface": "#f9f9fc",
+                      "on-secondary-container": "#006e6e",
+                      "surface-dim": "#dadadc",
+                      "tertiary-fixed-dim": "#cfc5b8",
+                      "on-error-container": "#93000a",
+                      "primary-fixed-dim": "#ffb77d",
+                      "primary-fixed": "#ffdcc3",
+                      "on-primary-fixed-variant": "#6e3900",
+                      "secondary-fixed": "#93f2f2",
+                      "on-tertiary-fixed-variant": "#4c463c",
+                      "surface-bright": "#f9f9fc",
+                      "on-primary": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-container": "#623200",
+                      "on-tertiary-container": "#443e34",
+                      "on-error": "#ffffff",
+                      "surface-tint": "#904d00",
+                      "on-secondary-fixed-variant": "#004f4f",
+                      "surface-container": "#eeeef0",
+                      "primary": "#904d00",
+                      "secondary": "#006a6a",
+                      "outline-variant": "#ddc1ae",
+                      "surface-container-low": "#f3f3f6",
+                      "on-tertiary": "#ffffff",
+                      "outline": "#897362",
+                      "on-background": "#1a1c1e",
+                      "on-surface": "#1a1c1e",
+                      "tertiary": "#645d53",
+                      "on-secondary-fixed": "#002020",
+                      "inverse-primary": "#ffb77d",
+                      "inverse-on-surface": "#f0f0f3"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "margin-desktop": "48px",
+                      "margin-mobile": "16px",
+                      "container-max": "1280px",
+                      "base": "8px"
+              },
+              "fontFamily": {
+                      "label-sm": ["Plus Jakarta Sans"],
+                      "headline-xl": ["Montserrat"],
+                      "label-lg": ["Plus Jakarta Sans"],
+                      "body-md": ["Plus Jakarta Sans"],
+                      "body-lg": ["Plus Jakarta Sans"],
+                      "headline-lg": ["Montserrat"],
+                      "headline-md": ["Montserrat"]
+              },
+              "fontSize": {
+                      "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                      "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface font-body-md antialiased">
+<!-- TopNavBar -->
+<nav class="sticky top-0 w-full z-50 shadow-md bg-surface dark:bg-background">
+<div class="max-w-container-max mx-auto px-margin-desktop flex justify-between items-center h-20">
+<div class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">PetPals India</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Dogs</a>
+<a class="font-label-lg text-label-lg text-primary font-bold border-b-2 border-primary" href="#">Services</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Cats</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Breeds</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Shop</a>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex items-center gap-4 text-on-surface-variant">
+<span class="material-symbols-outlined cursor-pointer hover:text-primary">notifications</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-primary">favorite</span>
+</div>
+<button class="bg-primary-container text-on-primary-container px-6 py-2 rounded-full font-label-lg transition-transform active:scale-95">
+                    List a Pet
+                </button>
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container border border-outline-variant">
+<img alt="User profile photo" data-alt="A professional and friendly headshot of a smiling young man with neat hair, set against a soft-focus indoor background. The lighting is warm and natural, creating an approachable and trustworthy appearance that aligns with a high-end service platform aesthetic. The overall color palette is warm and inviting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvY1O0pMA3GCLpwqNdJcno4YaCQ5Pd5eub7wuNm8HWImxHxe0a1l0nXrsdDb6AQQrW5Vt3ngfAM8JGu6UId7lvj93kJHy7PKtrP9POJGFprDTdIBvBJd2E2CAX6tSNiZzB2nYHkPc38D02I0Ij08_Lmxu8PBQVPay2G9QrMyXBuqSqbJ_n3lUNvRJsUaQuaZlU-n64vRHk4QJApjZr7Q3IVTKvAaIKslDdzNDxE3H6lwNqLa91Nym6L7uM6Dqmdi8pcud3WQuflms">
+</div>
+</div>
+</div>
+</nav>
+<main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-24">
+<!-- Breadcrumb -->
+<nav class="py-6 flex items-center gap-2 text-on-surface-variant font-label-sm">
+<a class="hover:text-primary transition-colors" href="#">Home</a>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-primary font-bold">Pet Services</span>
+</nav>
+<!-- Hero Section -->
+<section class="relative py-12 md:py-20 overflow-hidden rounded-3xl bg-secondary-container/20 px-8 flex flex-col md:flex-row items-center justify-between mb-12">
+<div class="z-10 text-center md:text-left max-w-2xl">
+<h1 class="font-headline-xl text-headline-xl text-on-background mb-4">Pet Services Near You</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-8">Find trusted vets, groomers, trainers &amp; more in your city</p>
+<div class="flex flex-col md:flex-row gap-4">
+<div class="relative flex-1 group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-primary">location_on</span>
+<select class="w-full pl-12 pr-10 py-4 bg-surface-container-lowest border-none rounded-xl font-body-md custom-shadow appearance-none focus:ring-2 focus:ring-secondary/30">
+<option>Bangalore</option>
+<option>Mumbai</option>
+<option>Delhi</option>
+<option>Pune</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">expand_more</span>
+</div>
+<button class="bg-primary text-on-primary px-10 py-4 rounded-xl font-label-lg text-lg flex items-center justify-center gap-2 shadow-lg hover:brightness-110 active:scale-95 transition-all">
+<span class="material-symbols-outlined">search</span>
+                        Search Services
+                    </button>
+</div>
+</div>
+<div class="hidden md:block relative w-1/3">
+<div class="absolute -top-12 -right-12 w-64 h-64 bg-primary/10 rounded-full blur-3xl"></div>
+<img alt="Pet services hero" class="relative z-10 rounded-2xl rotate-3 shadow-2xl" data-alt="A heartwarming scene of a professional female groomer gently bathing a happy golden retriever in a modern, clean pet spa. The lighting is bright and cheerful, with soft teal and warm orange accents in the decor. High-key lighting emphasizes a clean and trustworthy environment for pet care. The overall vibe is premium and professional." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9c7GhO8GFA2wptyrQNGKQmLYSQkPzIJl_VmIkoXJxDlUhPlQNXU0ISya85ArYCUD6FS1NP4N8Y1pQR1OSIl2PfFNr9hT08nb5jZQDwlPe5h4EMjVTkQVyvbR-jutlJSYoSytvDmdaFnfnpFi4mz9YvnXzrug8f6mPkUyPvSq0JL1wluVTyx4nBw00c1XItPLqF7fUS8oqv9bJ9lO2FAvHY-x4ACH3yKRuLIwqILkdgORQTWznAXeAoFl9K6e9QMVv__QK5o1D5kM">
+</div>
+</section>
+<!-- Service Category Row -->
+<section class="mb-12 overflow-x-auto no-scrollbar">
+<div class="flex gap-gutter min-w-max pb-4 px-2">
+<!-- Veterinary -->
+<button class="flex flex-col items-center gap-3 p-6 bg-surface-container-lowest rounded-2xl custom-shadow border-2 border-transparent hover:border-secondary transition-all group w-40 service-card-active">
+<div class="w-16 h-16 rounded-full bg-secondary-container flex items-center justify-center text-secondary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-4xl">medical_services</span>
+</div>
+<span class="font-label-lg">Veterinary</span>
+</button>
+<!-- Grooming -->
+<button class="flex flex-col items-center gap-3 p-6 bg-surface-container-lowest rounded-2xl custom-shadow border-2 border-transparent hover:border-secondary transition-all group w-40">
+<div class="w-16 h-16 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant group-hover:bg-secondary-container group-hover:text-secondary transition-all group-hover:scale-110">
+<span class="material-symbols-outlined text-4xl">content_cut</span>
+</div>
+<span class="font-label-lg">Grooming</span>
+</button>
+<!-- Training -->
+<button class="flex flex-col items-center gap-3 p-6 bg-surface-container-lowest rounded-2xl custom-shadow border-2 border-transparent hover:border-secondary transition-all group w-40">
+<div class="w-16 h-16 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant group-hover:bg-secondary-container group-hover:text-secondary transition-all group-hover:scale-110">
+<span class="material-symbols-outlined text-4xl">sports_and_outdoors</span>
+</div>
+<span class="font-label-lg">Training</span>
+</button>
+<!-- Pet Sitting -->
+<button class="flex flex-col items-center gap-3 p-6 bg-surface-container-lowest rounded-2xl custom-shadow border-2 border-transparent hover:border-secondary transition-all group w-40">
+<div class="w-16 h-16 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant group-hover:bg-secondary-container group-hover:text-secondary transition-all group-hover:scale-110">
+<span class="material-symbols-outlined text-4xl">night_shelter</span>
+</div>
+<span class="font-label-lg">Pet Sitting</span>
+</button>
+<!-- Dog Walking -->
+<button class="flex flex-col items-center gap-3 p-6 bg-surface-container-lowest rounded-2xl custom-shadow border-2 border-transparent hover:border-secondary transition-all group w-40">
+<div class="w-16 h-16 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant group-hover:bg-secondary-container group-hover:text-secondary transition-all group-hover:scale-110">
+<span class="material-symbols-outlined text-4xl">directions_walk</span>
+</div>
+<span class="font-label-lg">Dog Walking</span>
+</button>
+</div>
+</section>
+<!-- Filter Bar -->
+<section class="flex flex-col md:flex-row items-center justify-between gap-6 mb-12">
+<div class="flex flex-wrap items-center gap-4 w-full md:w-auto">
+<div class="relative w-full md:w-80">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-lg focus:ring-2 focus:ring-secondary/20 focus:border-secondary outline-none font-body-md transition-all" placeholder="Search by provider name..." type="text">
+</div>
+<div class="flex items-center gap-2">
+<button class="px-4 py-2 bg-secondary-container text-on-secondary-container rounded-full font-label-sm flex items-center gap-1 border border-secondary">
+                        Available Today <span class="material-symbols-outlined text-sm">close</span>
+</button>
+<button class="px-4 py-2 bg-surface-container-low text-on-surface-variant rounded-full font-label-sm border border-outline-variant hover:bg-secondary-container/50 transition-colors">
+                        Home Visit
+                    </button>
+</div>
+</div>
+<div class="flex items-center gap-4 w-full md:w-auto justify-between md:justify-end">
+<div class="flex items-center gap-2 font-label-lg">
+<span class="text-on-surface-variant">Sort by:</span>
+<select class="bg-transparent border-none font-bold text-secondary focus:ring-0 cursor-pointer">
+<option>Nearest</option>
+<option>Top Rated</option>
+<option>Price: Low to High</option>
+</select>
+</div>
+<button class="flex items-center gap-2 px-4 py-2 bg-inverse-surface text-surface rounded-lg font-label-lg hover:brightness-125 transition-all">
+<span class="material-symbols-outlined">map</span>
+                    Map View
+                </button>
+</div>
+</section>
+<!-- Provider Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter mb-16">
+<!-- Provider Card 1 -->
+<div class="bg-surface-container-lowest rounded-2xl overflow-hidden custom-shadow card-hover transition-all duration-300">
+<div class="relative h-56 overflow-hidden">
+<img alt="Dr. Priya Sharma" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110" data-alt="A portrait of Dr. Priya Sharma, a female veterinarian with a stethoscope around her neck, smiling warmly in a bright, modern veterinary clinic. She is gently holding a small beagle puppy. The background is clean and clinical yet inviting, with teal accents and warm lighting. The image conveys professionalism, trust, and compassion for animals." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtJiFlthQJHlDxtby3yNJUzTphCWOXJEkhviCIft1LYCawhjEgSIStVk9E95AjdMVV7YU1knXVJcS9Yl_WK3zxj6cJkxS2MVO0p35P8jKdQojazWBrSpNUO9b4ljM_34zRIMi8CkfuP6o_Ukq5T0j-Za-n7h14aKq8DBKox7AsY6ep7Jb9y-YApc7TJpzDnmztKR7JM1bR_B5L5gPW68Kd7jInJe-3_e1ITh7FCAlEEQdxGWZ0dTm-f6BPbg57f-qC6Q_DGaAir3I">
+<span class="absolute top-4 left-4 bg-secondary text-on-secondary px-3 py-1 rounded-full text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">verified</span> Veterinary
+                    </span>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface">Dr. Priya Sharma</h3>
+<div class="flex items-center gap-1 text-primary font-bold">
+<span class="material-symbols-outlined fill-1" style="font-variation-settings: 'FILL' 1;">star</span>
+                            4.9
+                        </div>
+</div>
+<p class="text-on-surface-variant mb-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">workspace_premium</span> Specialized in Orthopedics
+                    </p>
+<div class="flex items-center gap-4 text-label-sm text-on-surface-variant mb-6 pb-6 border-b border-surface-container">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">location_on</span> 2.3 km
+                        </div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">payments</span> ₹500 onwards
+                        </div>
+</div>
+<button class="w-full py-3 bg-secondary text-on-secondary rounded-xl font-label-lg hover:bg-on-secondary-container transition-colors active:scale-95">
+                        Book Now
+                    </button>
+</div>
+</div>
+<!-- Provider Card 2 -->
+<div class="bg-surface-container-lowest rounded-2xl overflow-hidden custom-shadow card-hover transition-all duration-300">
+<div class="relative h-56 overflow-hidden">
+<img alt="Rahul Varma" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110" data-alt="A portrait of Rahul Varma, a professional male pet groomer standing in a stylish pet grooming studio. He is wearing a clean grooming apron and holding specialized tools. The space behind him is brightly lit with warm, soft-box lighting, showcasing a minimalist and high-end aesthetic with teal and wood accents. He exudes confidence and friendliness." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA91Wn9oZ1FfB67dAjm_retwQ0P1199qNYxJinhVZpiw2JskRD6YM0Jy4GsCDvrmVawSEbiKOjuQcdFueqZwGujQvVkOq3qKZDfmPUdq1M38eRiglW8-CuxChVPF6bBXUOZ5qIQPK2wLmWcADVLKGclTO-BXjNCIcDoIlAT50TL-1qLJDhBYLWbbU5QEtMPIPV8lm3hgMXGQvjMsUXwsmsHvzM8l8DwWBc4whBYdHxgMTpVIlQ1zwXA-_wVswnvG_XnRd5dU9IQZOE">
+<span class="absolute top-4 left-4 bg-secondary text-on-secondary px-3 py-1 rounded-full text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">verified</span> Groomer
+                    </span>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface">Rahul Varma</h3>
+<div class="flex items-center gap-1 text-primary font-bold">
+<span class="material-symbols-outlined fill-1" style="font-variation-settings: 'FILL' 1;">star</span>
+                            4.8
+                        </div>
+</div>
+<p class="text-on-surface-variant mb-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">spa</span> Full Grooming &amp; Spa
+                    </p>
+<div class="flex items-center gap-4 text-label-sm text-on-surface-variant mb-6 pb-6 border-b border-surface-container">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">location_on</span> 1.5 km
+                        </div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">payments</span> ₹800 onwards
+                        </div>
+</div>
+<button class="w-full py-3 bg-secondary text-on-secondary rounded-xl font-label-lg hover:bg-on-secondary-container transition-colors active:scale-95">
+                        Book Now
+                    </button>
+</div>
+</div>
+<!-- Provider Card 3 -->
+<div class="bg-surface-container-lowest rounded-2xl overflow-hidden custom-shadow card-hover transition-all duration-300">
+<div class="relative h-56 overflow-hidden">
+<img alt="Anita Singh" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110" data-alt="Anita Singh, a professional female dog trainer, seen outdoors in a lush green park during golden hour. She is using positive reinforcement techniques with a focused German Shepherd. The lighting is warm and cinematic, highlighting the bond and professional skill. The overall aesthetic is vibrant and life-affirming, aligning with a premium pet services marketplace." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCpWEJw1HdJ-J5Q8iEbzulJhU_visDRfMBiGUyQ-ITAi5XsVEK54O-8K7buKue8ZoOQHw15sbug3hraICiUlYrAuRp2gXoZIObExjeEoSuzkR8hdH6Fmmq0TUM6AEqNIklA-9hG56GyCUp9RytrtQBTUr-PFthLzYfD719lG_2LF7puRCjunHIVrQjCFbiQ7gb4Z9el_ID0gXE9v36q4UMmBGU4mwcKPJLQqXjsWGS-7o3qrc-FkDVNT9qcPRPYdIcRL16JxlntJM">
+<span class="absolute top-4 left-4 bg-secondary text-on-secondary px-3 py-1 rounded-full text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">verified</span> Trainer
+                    </span>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface">Anita Singh</h3>
+<div class="flex items-center gap-1 text-primary font-bold">
+<span class="material-symbols-outlined fill-1" style="font-variation-settings: 'FILL' 1;">star</span>
+                            5.0
+                        </div>
+</div>
+<p class="text-on-surface-variant mb-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">pets</span> Puppy Basics &amp; Behavior
+                    </p>
+<div class="flex items-center gap-4 text-label-sm text-on-surface-variant mb-6 pb-6 border-b border-surface-container">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">location_on</span> 4.2 km
+                        </div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">payments</span> ₹1200 onwards
+                        </div>
+</div>
+<button class="w-full py-3 bg-secondary text-on-secondary rounded-xl font-label-lg hover:bg-on-secondary-container transition-colors active:scale-95">
+                        Book Now
+                    </button>
+</div>
+</div>
+<!-- Repeat for 9 cards total (Simplified for generation, showing variety) -->
+<!-- Card 4 -->
+<div class="bg-surface-container-lowest rounded-2xl overflow-hidden custom-shadow card-hover transition-all duration-300">
+<div class="relative h-56 overflow-hidden">
+<img alt="Service Provider" class="w-full h-full object-cover" data-alt="A high-quality portrait of a professional female pet service provider. She is smiling confidently in a modern home setting that is bright and airy. Soft morning light streams through the window, highlighting the pristine and welcoming environment. The scene is styled with warm wood and teal tones, reflecting a trustworthy and high-end service platform aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBb0Lu2EgwG-EroJS6Uk0FA3XeG80Y_KLo5SEpBgbKe2foyV9Hx81ACPw2JyRWZJ41de6UUszMem04rugDzN2hyu0UmdrA5db9PoJbO0zVLrMCHSCNos_0o76kYopLR1zIiJzSbvP9VItBogRtjVobwerMMs--drGYA7dHoR4sSEo457ocklHtkH4weCUlmkFcySPhjyJv-eDn32j56iVwFP3hcmzkFJs9X9SV6-GTFCIxIKsK7R8Mt0EB9r2q6ApGM8EijLcUgZQA">
+<span class="absolute top-4 left-4 bg-secondary text-on-secondary px-3 py-1 rounded-full text-label-sm font-bold">Pet Sitting</span>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface">Maya Iyer</h3>
+<div class="flex items-center gap-1 text-primary font-bold">
+<span class="material-symbols-outlined fill-1" style="font-variation-settings: 'FILL' 1;">star</span>
+                            4.7
+                        </div>
+</div>
+<p class="text-on-surface-variant mb-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">home</span> In-home overnight stays
+                    </p>
+<div class="flex items-center gap-4 text-label-sm text-on-surface-variant mb-6 pb-6 border-b border-surface-container">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">location_on</span> 0.8 km
+                        </div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">payments</span> ₹600 onwards
+                        </div>
+</div>
+<button class="w-full py-3 bg-secondary text-on-secondary rounded-xl font-label-lg hover:bg-on-secondary-container transition-colors active:scale-95">
+                        Book Now
+                    </button>
+</div>
+</div>
+<!-- Card 5 (Dr. Sameer) -->
+<div class="bg-surface-container-lowest rounded-2xl overflow-hidden custom-shadow card-hover transition-all duration-300">
+<div class="relative h-56 overflow-hidden">
+<img alt="Dr. Sameer" class="w-full h-full object-cover" data-alt="A professional male veterinarian, Dr. Sameer, in a high-tech pet clinic. He is reviewing digital charts on a tablet with a focused and competent expression. The clinic environment is futuristic and clean, with cool teal lighting and high-end medical equipment. The image communicates advanced care and reliability within the pet services industry." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOUpX33yq-2uJ2Uf-wZXvclaJdyZiqdwm6r-7KFrVctOZVaW_5L0Ck_IS0rLkk1Bju91Hy-VOslA-RuD7e6R53v6O5qbIU0VEviKEj2sJ5YDY8nRJSiZucXzSLsEYIZoHujwY0qhEfSuCzQ4Dm4Q38lPW32QRGHDEwIlC5WD_KpUv05MNKes4c3xEqPLLwaD31NeTWPI4atjtloxsGUqghflwtVkCqEV2RFHa1u8WpfgwRj15d1P2a1QVt8XsvrOg3QmhJ_9DOqQw">
+<span class="absolute top-4 left-4 bg-secondary text-on-secondary px-3 py-1 rounded-full text-label-sm font-bold">Veterinary</span>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface">Dr. Sameer Khan</h3>
+<div class="flex items-center gap-1 text-primary font-bold">
+<span class="material-symbols-outlined fill-1" style="font-variation-settings: 'FILL' 1;">star</span>
+                            4.9
+                        </div>
+</div>
+<p class="text-on-surface-variant mb-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">vaccines</span> Vaccinations &amp; General Checkup
+                    </p>
+<div class="flex items-center gap-4 text-label-sm text-on-surface-variant mb-6 pb-6 border-b border-surface-container">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">location_on</span> 3.1 km
+                        </div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">payments</span> ₹400 onwards
+                        </div>
+</div>
+<button class="w-full py-3 bg-secondary text-on-secondary rounded-xl font-label-lg hover:bg-on-secondary-container transition-colors active:scale-95">
+                        Book Now
+                    </button>
+</div>
+</div>
+<!-- Card 6 -->
+<div class="bg-surface-container-lowest rounded-2xl overflow-hidden custom-shadow card-hover transition-all duration-300">
+<div class="relative h-56 overflow-hidden">
+<img alt="Walker" class="w-full h-full object-cover" data-alt="A energetic male dog walker in a city park, holding several leashes of various small and large dogs. The sun is shining, creating a vibrant and active atmosphere. He looks happy and capable. The park is clean and modern, with well-maintained paths and vibrant greenery. The lighting is high-key and optimistic, promoting a healthy lifestyle for pets." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBx1CZw-sLwp--6tppvTVdYE6XFY6fIaJ4H9w-yIMBQNiEyUvo0Pmn84VVUWTmUPUyRj7h5uSuqQeno4Xl3k_SIxYsknOBokUI7yEU-h0mn4xnyYgAXpJhgg3I9KY-6BrDHjjD0AYdh1mOlg0sBK24jW2TcomVpNLyo7ho71ahrX0C4Xmzn5WTOBQUXn2bmT4-gYvX4cuk-ctHkYanxw6CpPT8Odmy8nsJvq_7YZ8vJaGpiS7Oqv3doWwJJKoILDwIG1jC94NdOP44">
+<span class="absolute top-4 left-4 bg-secondary text-on-secondary px-3 py-1 rounded-full text-label-sm font-bold">Dog Walking</span>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface">Vikram Roy</h3>
+<div class="flex items-center gap-1 text-primary font-bold">
+<span class="material-symbols-outlined fill-1" style="font-variation-settings: 'FILL' 1;">star</span>
+                            4.6
+                        </div>
+</div>
+<p class="text-on-surface-variant mb-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">timer</span> 45-min Structured Walks
+                    </p>
+<div class="flex items-center gap-4 text-label-sm text-on-surface-variant mb-6 pb-6 border-b border-surface-container">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">location_on</span> 1.2 km
+                        </div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">payments</span> ₹300 onwards
+                        </div>
+</div>
+<button class="w-full py-3 bg-secondary text-on-secondary rounded-xl font-label-lg hover:bg-on-secondary-container transition-colors active:scale-95">
+                        Book Now
+                    </button>
+</div>
+</div>
+<!-- More cards omitted for brevity, logic remains consistent -->
+<!-- Card 7 -->
+<div class="bg-surface-container-lowest rounded-2xl overflow-hidden custom-shadow card-hover transition-all duration-300">
+<div class="relative h-56 overflow-hidden">
+<img alt="Salon" class="w-full h-full object-cover" data-alt="A stylish pet salon interior with modern grooming equipment. A professional is visible in the background attending to a pet. The lighting is bright and clean, with a focus on hygiene and modern design. The palette is a mix of white, light wood, and teal accents, creating a calm and professional environment for high-end pet care." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeuUGandIyISQzLWxuu6czIaK86KTbScWuybYwVGBzBldiMjy1NGaiNoqOhqM0PephAEiWL-7fHw1HXQckjBUL8S96tPKIuTK8GjJkw3xPq3YFHa9v9-vl3iYjfr2tS7bFdikx5S88thPrsoB-YT6rnveJfC8iV5R4ZksnLd3EPA-kWe2jB_OtMuvtuLBOHfxSqBf3OYpDKdYSAMes0A-DuYRXuOdPk1TIreq52CzF2dlEyC8yW3DIQnLBUIGwrm-Kn5vx3TlBRBw">
+<span class="absolute top-4 left-4 bg-secondary text-on-secondary px-3 py-1 rounded-full text-label-sm font-bold">Grooming</span>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface">PetSpa Deluxe</h3>
+<div class="flex items-center gap-1 text-primary font-bold">
+<span class="material-symbols-outlined fill-1" style="font-variation-settings: 'FILL' 1;">star</span>
+                            4.8
+                        </div>
+</div>
+<p class="text-on-surface-variant mb-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">wash</span> Medicated Baths &amp; Styling
+                    </p>
+<div class="flex items-center gap-4 text-label-sm text-on-surface-variant mb-6 pb-6 border-b border-surface-container">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">location_on</span> 5.0 km
+                        </div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">payments</span> ₹1500 onwards
+                        </div>
+</div>
+<button class="w-full py-3 bg-secondary text-on-secondary rounded-xl font-label-lg hover:bg-on-secondary-container transition-colors active:scale-95">
+                        Book Now
+                    </button>
+</div>
+</div>
+<!-- Card 8 -->
+<div class="bg-surface-container-lowest rounded-2xl overflow-hidden custom-shadow card-hover transition-all duration-300">
+<div class="relative h-56 overflow-hidden">
+<img alt="Dr. Gupta" class="w-full h-full object-cover" data-alt="Dr. Gupta, an experienced male veterinarian, in a brightly lit consultation room. He is gently examining a tabby cat on a clean stainless steel table. The mood is calm and professional. High-key lighting emphasizes the clean, sterile yet welcoming clinic environment. The design reflects expertise and high-end pet medical services." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUn0mC6nYklOy-kdl16TNlcKuDXhNV91i8MaexCxP_6T7Ky97nIR5Q_1YgrSH-2xGMFzGRatGeUPa4QL-rTHdWmH6KVPcYV-iV17_TVtF3N4i9jqMsWEo4pI_hoDemiT2xiRPyTGC0LOwZWJbmztksQ8inEFgsg_tNHvXrTwwwPgBUZVjV5KJjmDBz1SwWEw3zgQQOGj3SCCPJV5yOStuSL5-_-KCMqmgWDzI5fVwiXgDRzQQ7U-mgqPB9Cnjd5Trk_KvhaESKmIQ">
+<span class="absolute top-4 left-4 bg-secondary text-on-secondary px-3 py-1 rounded-full text-label-sm font-bold">Veterinary</span>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface">Dr. Rahul Gupta</h3>
+<div class="flex items-center gap-1 text-primary font-bold">
+<span class="material-symbols-outlined fill-1" style="font-variation-settings: 'FILL' 1;">star</span>
+                            4.5
+                        </div>
+</div>
+<p class="text-on-surface-variant mb-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">magnification_small</span> Diagnostic Expert
+                    </p>
+<div class="flex items-center gap-4 text-label-sm text-on-surface-variant mb-6 pb-6 border-b border-surface-container">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">location_on</span> 6.2 km
+                        </div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">payments</span> ₹700 onwards
+                        </div>
+</div>
+<button class="w-full py-3 bg-secondary text-on-secondary rounded-xl font-label-lg hover:bg-on-secondary-container transition-colors active:scale-95">
+                        Book Now
+                    </button>
+</div>
+</div>
+<!-- Card 9 -->
+<div class="bg-surface-container-lowest rounded-2xl overflow-hidden custom-shadow card-hover transition-all duration-300">
+<div class="relative h-56 overflow-hidden">
+<img alt="Bark Park" class="w-full h-full object-cover" data-alt="A lush, high-end dog training facility featuring outdoor obstacle courses and clean synthetic grass. A professional trainer is visible in the background working with a happy pup. The lighting is sunny and bright, highlighting a premium and safe space for pet training. The color palette is vibrant and natural, dominated by greens and warm wood tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoug0M5efq5E-WGYIKalWUTfAvBTEVf-FYObeFm0nrPFd6EOq1OK-mSW4UMOjNyQUd72qHJ_phc4t-fTpoRGqg5buIQMt2vMFFWm421ondujB-q3pfc-YbcA3zc6_GDsFgsnnDy2rHea0jq4cJ6VHMLoyC1Dl-gh2FAuyMOgwLprdZxdtlkT5CVJaoyhu3oYOsBmFVdKaXmZWbZ1NO8k1ae_m0v1l3106xjYTYr2Aark4iFNcB9Exi9JldF-ij9PP-MVRDufm-_To">
+<span class="absolute top-4 left-4 bg-secondary text-on-secondary px-3 py-1 rounded-full text-label-sm font-bold">Training</span>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface">Bark Park Academy</h3>
+<div class="flex items-center gap-1 text-primary font-bold">
+<span class="material-symbols-outlined fill-1" style="font-variation-settings: 'FILL' 1;">star</span>
+                            4.9
+                        </div>
+</div>
+<p class="text-on-surface-variant mb-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">military_tech</span> Advanced Obedience
+                    </p>
+<div class="flex items-center gap-4 text-label-sm text-on-surface-variant mb-6 pb-6 border-b border-surface-container">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">location_on</span> 8.4 km
+                        </div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">payments</span> ₹2500 onwards
+                        </div>
+</div>
+<button class="w-full py-3 bg-secondary text-on-secondary rounded-xl font-label-lg hover:bg-on-secondary-container transition-colors active:scale-95">
+                        Book Now
+                    </button>
+</div>
+</div>
+</section>
+<!-- Pagination -->
+<nav class="flex justify-center items-center gap-2 mb-24">
+<button class="w-10 h-10 rounded-lg flex items-center justify-center border border-outline-variant hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center bg-primary text-on-primary font-bold">1</button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center border border-outline-variant hover:bg-surface-container transition-colors">2</button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center border border-outline-variant hover:bg-surface-container transition-colors">3</button>
+<span class="px-2 text-on-surface-variant">...</span>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center border border-outline-variant hover:bg-surface-container transition-colors">12</button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center border border-outline-variant hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</nav>
+<!-- How It Works -->
+<section class="py-16 bg-tertiary-fixed rounded-[40px] px-margin-mobile md:px-24">
+<h2 class="font-headline-lg text-headline-lg text-center mb-12">How It Works</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+<div class="flex flex-col items-center">
+<div class="w-20 h-20 bg-white rounded-full flex items-center justify-center mb-6 shadow-lg text-primary">
+<span class="material-symbols-outlined text-4xl">search_check</span>
+</div>
+<h4 class="font-headline-md text-headline-md mb-2">Find</h4>
+<p class="text-on-tertiary-fixed-variant">Search and compare trusted professionals in your area.</p>
+</div>
+<div class="flex flex-col items-center relative">
+<div class="hidden md:block absolute top-10 -right-6 w-12 border-t-2 border-dashed border-tertiary-container"></div>
+<div class="w-20 h-20 bg-white rounded-full flex items-center justify-center mb-6 shadow-lg text-primary">
+<span class="material-symbols-outlined text-4xl">calendar_month</span>
+</div>
+<h4 class="font-headline-md text-headline-md mb-2">Book</h4>
+<p class="text-on-tertiary-fixed-variant">Choose a slot and book instantly with secure payment.</p>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-20 h-20 bg-white rounded-full flex items-center justify-center mb-6 shadow-lg text-primary">
+<span class="material-symbols-outlined text-4xl">thumb_up</span>
+</div>
+<h4 class="font-headline-md text-headline-md mb-2">Get Service</h4>
+<p class="text-on-tertiary-fixed-variant">Enjoy premium care for your pet at your doorstep or clinic.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-inverse-surface dark:bg-surface-container-lowest w-full py-12">
+<div class="max-w-container-max mx-auto px-margin-desktop grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<div class="flex flex-col gap-4">
+<div class="font-headline-md text-headline-md font-bold text-secondary-fixed">PetPals India</div>
+<p class="text-surface-variant font-body-md">India's largest community for pet parents, providing everything your furry friend needs.</p>
+</div>
+<div>
+<h5 class="text-secondary-fixed font-bold mb-4">Quick Links</h5>
+<ul class="flex flex-col gap-2">
+<li><a class="text-surface-variant hover:text-on-secondary-fixed-variant transition-colors" href="#">About Us</a></li>
+<li><a class="text-secondary-fixed underline" href="#">Find a Vet</a></li>
+<li><a class="text-surface-variant hover:text-on-secondary-fixed-variant transition-colors" href="#">Breed Encyclopedia</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-secondary-fixed font-bold mb-4">Support</h5>
+<ul class="flex flex-col gap-2">
+<li><a class="text-surface-variant hover:text-on-secondary-fixed-variant transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="text-surface-variant hover:text-on-secondary-fixed-variant transition-colors" href="#">Terms of Service</a></li>
+<li><a class="text-surface-variant hover:text-on-secondary-fixed-variant transition-colors" href="#">Pet Adoption</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-secondary-fixed font-bold mb-4">Connect</h5>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-secondary-fixed cursor-pointer">social_leaderboard</span>
+<span class="material-symbols-outlined text-secondary-fixed cursor-pointer">camera</span>
+<span class="material-symbols-outlined text-secondary-fixed cursor-pointer">alternate_email</span>
+</div>
+<p class="text-surface-variant mt-6 text-label-sm">© 2024 PetPals India. All rights reserved.</p>
+</div>
+</div>
+</footer>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-4 pt-2 bg-surface-container dark:bg-inverse-surface shadow-lg md:hidden">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant font-label-sm active:scale-95 transition-all" href="#">
+<span class="material-symbols-outlined">home</span>
+            Home
+        </a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-2xl px-4 py-1 font-label-sm active:scale-95 transition-all" href="#">
+<span class="material-symbols-outlined">medical_services</span>
+            Services
+        </a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant font-label-sm active:scale-95 transition-all" href="#">
+<span class="material-symbols-outlined">pets</span>
+            Explore
+        </a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant font-label-sm active:scale-95 transition-all" href="#">
+<span class="material-symbols-outlined">person</span>
+            Profile
+        </a>
+</nav>
+<script>
+        // Micro-interactions
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('mousedown', () => {
+                button.classList.add('scale-95');
+            });
+            button.addEventListener('mouseup', () => {
+                button.classList.remove('scale-95');
+            });
+            button.addEventListener('mouseleave', () => {
+                button.classList.remove('scale-95');
+            });
+        });
+
+        // Category Selection
+        const categoryButtons = document.querySelectorAll('button.service-card-active, button.group.w-40');
+        categoryButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                categoryButtons.forEach(b => {
+                    b.classList.remove('service-card-active');
+                    b.querySelector('.w-16').classList.replace('bg-secondary-container', 'bg-surface-container');
+                    b.querySelector('.w-16').classList.replace('text-secondary', 'text-on-surface-variant');
+                });
+                btn.classList.add('service-card-active');
+                btn.querySelector('.w-16').classList.replace('bg-surface-container', 'bg-secondary-container');
+                btn.querySelector('.w-16').classList.replace('text-on-surface-variant', 'text-secondary');
+            });
+        });
+    </script>
+</body></html>

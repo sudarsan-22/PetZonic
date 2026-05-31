@@ -1,0 +1,501 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Seller Central | PetZonic Listings Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Montserrat:wght@600;700;800;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .card-shadow {
+            box-shadow: 0 4px 16px rgba(0, 128, 128, 0.12);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-background": "#1a1c1e",
+                      "on-secondary-fixed-variant": "#004f4f",
+                      "inverse-surface": "#2f3133",
+                      "on-secondary": "#ffffff",
+                      "surface-container-high": "#e8e8ea",
+                      "secondary": "#006a6a",
+                      "on-surface": "#1a1c1e",
+                      "on-tertiary": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "outline-variant": "#ddc1ae",
+                      "inverse-on-surface": "#f0f0f3",
+                      "error": "#ba1a1a",
+                      "on-tertiary-fixed": "#201b13",
+                      "primary-fixed-dim": "#ffb77d",
+                      "on-secondary-container": "#006e6e",
+                      "primary-fixed": "#ffdcc3",
+                      "surface-tint": "#904d00",
+                      "on-primary-fixed": "#2f1500",
+                      "outline": "#897362",
+                      "secondary-container": "#90efef",
+                      "on-tertiary-container": "#443e34",
+                      "surface-container-highest": "#e2e2e5",
+                      "on-tertiary-fixed-variant": "#4c463c",
+                      "on-primary-fixed-variant": "#6e3900",
+                      "inverse-primary": "#ffb77d",
+                      "tertiary-container": "#b2a99c",
+                      "secondary-fixed": "#93f2f2",
+                      "primary": "#904d00",
+                      "secondary-fixed-dim": "#76d6d5",
+                      "on-secondary-fixed": "#002020",
+                      "on-primary-container": "#623200",
+                      "surface-bright": "#f9f9fc",
+                      "on-surface-variant": "#564334",
+                      "surface-container-low": "#f3f3f6",
+                      "on-primary": "#ffffff",
+                      "primary-container": "#ff8c00",
+                      "on-error": "#ffffff",
+                      "surface-dim": "#dadadc",
+                      "surface": "#f9f9fc",
+                      "tertiary-fixed-dim": "#cfc5b8",
+                      "on-error-container": "#93000a",
+                      "error-container": "#ffdad6",
+                      "background": "#f9f9fc",
+                      "surface-container": "#eeeef0",
+                      "tertiary": "#645d53",
+                      "surface-variant": "#e2e2e5",
+                      "tertiary-fixed": "#ece1d3"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-mobile": "16px",
+                      "base": "8px",
+                      "container-max": "1280px",
+                      "gutter": "24px",
+                      "margin-desktop": "48px"
+              },
+              "fontFamily": {
+                      "label-lg": ["Plus Jakarta Sans"],
+                      "headline-xl-mobile": ["Montserrat"],
+                      "body-lg": ["Plus Jakarta Sans"],
+                      "body-md": ["Plus Jakarta Sans"],
+                      "headline-xl": ["Montserrat"],
+                      "headline-md": ["Montserrat"],
+                      "label-sm": ["Plus Jakarta Sans"],
+                      "headline-lg": ["Montserrat"]
+              },
+              "fontSize": {
+                      "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "headline-xl-mobile": ["30px", {"lineHeight": "36px", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen font-body-md text-body-md overflow-x-hidden flex">
+<!-- SideNavBar (Desktop Shell) -->
+<aside class="hidden lg:flex flex-col py-6 gap-2 h-screen w-64 sticky top-0 bg-surface-container-low dark:bg-inverse-surface border-r border-outline-variant z-50">
+<div class="px-6 mb-8">
+<h1 class="font-headline-md text-headline-md text-primary">PetZonic</h1>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant opacity-70">Seller Central</p>
+</div>
+<div class="flex items-center gap-3 px-6 mb-8">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined">storefront</span>
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-on-surface">Pawsome Emporium</p>
+<p class="text-[11px] text-secondary">Verified Partner</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 text-on-surface-variant dark:text-surface-variant p-3 mx-2 hover:bg-secondary-container hover:text-on-secondary-container rounded-lg transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-lg text-label-lg">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 bg-primary-container text-on-primary-container rounded-lg p-3 mx-2 transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">pets</span>
+<span class="font-label-lg text-label-lg">My Listings</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant dark:text-surface-variant p-3 mx-2 hover:bg-secondary-container hover:text-on-secondary-container rounded-lg transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">shopping_bag</span>
+<span class="font-label-lg text-label-lg">Orders</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant dark:text-surface-variant p-3 mx-2 hover:bg-secondary-container hover:text-on-secondary-container rounded-lg transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-lg text-label-lg">Earnings</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant dark:text-surface-variant p-3 mx-2 hover:bg-secondary-container hover:text-on-secondary-container rounded-lg transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">chat</span>
+<span class="font-label-lg text-label-lg">Messages</span>
+</a>
+</nav>
+<div class="px-4 mt-auto">
+<button class="w-full py-3 bg-primary text-on-primary rounded-xl font-label-lg text-label-lg shadow-md hover:scale-[1.02] active:scale-95 transition-all">
+                Add New Listing
+            </button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 min-h-screen pb-24 lg:pb-12">
+<!-- Top Navigation -->
+<header class="w-full top-0 sticky z-40 bg-surface dark:bg-on-background border-b border-outline-variant">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 max-w-container-max mx-auto">
+<div class="flex items-center gap-4">
+<button class="lg:hidden text-on-surface">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h2 class="font-headline-md text-headline-md text-on-surface">Listings Management</h2>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex items-center bg-surface-container-low px-4 py-2 rounded-lg border border-outline-variant focus-within:ring-2 focus-within:ring-secondary transition-all">
+<span class="material-symbols-outlined text-on-surface-variant mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-label-lg w-64 p-0" placeholder="Search your listings..." type="text">
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-surface-variant border-2 border-primary-fixed overflow-hidden ml-2">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="A professional headshot of a friendly business owner with a warm smile, set against a blurred indoor environment with soft, warm lighting. The image captures a sense of professional reliability and approachability, aligning with the PetZonic brand's vibrant yet trustworthy marketplace aesthetic for pet parents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0uqFoSXsCHSTnnYeHqL1MVt0uIlLIZ9l-GOMgPbaxToTYwOiLId8-vCxpStxO5_GHqIHd3jdVu_dxgZXDkV6QXw2B-qS7Vg3eH91zxaF_mafZcfLjLJCCSd7dnHnYipQsFrztn3Tj54RmVgKuHP0a0JvNoAPhdnMGq9y7Q2AJw9mjxW0fP9rPVNsRk5pRRNJVi-3ephaRxFkz-6plFE27qHQCRwqn0Xzt8tI76xMIshJkDty4PB8_LOXx6ilFY818npoleqSNHj4">
+</div>
+</div>
+</div>
+</div>
+</header>
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mt-8">
+<!-- Stats Grid -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-gutter mb-8">
+<div class="bg-surface p-6 rounded-xl card-shadow border-l-4 border-primary flex flex-col justify-center min-h-[120px]">
+<p class="text-label-sm text-on-surface-variant">Total Listings</p>
+<h3 class="font-headline-lg text-headline-lg text-on-surface mt-1">42</h3>
+</div>
+<div class="bg-surface p-6 rounded-xl card-shadow border-l-4 border-secondary flex flex-col justify-center min-h-[120px]">
+<p class="text-label-sm text-on-surface-variant">Active Now</p>
+<h3 class="font-headline-lg text-headline-lg text-on-surface mt-1">38</h3>
+</div>
+<div class="bg-surface p-6 rounded-xl card-shadow border-l-4 border-primary-container flex flex-col justify-center min-h-[120px]">
+<p class="text-label-sm text-on-surface-variant">Total Views</p>
+<h3 class="font-headline-lg text-headline-lg text-on-surface mt-1">1.2k</h3>
+</div>
+<div class="bg-surface p-6 rounded-xl card-shadow border-l-4 border-outline flex flex-col justify-center min-h-[120px]">
+<p class="text-label-sm text-on-surface-variant">Total Sales</p>
+<h3 class="font-headline-lg text-headline-lg text-on-surface mt-1">₹84k</h3>
+</div>
+</div>
+<!-- Filters Bar -->
+<div class="bg-surface p-4 rounded-xl card-shadow mb-6 flex flex-col lg:flex-row gap-4 items-center justify-between">
+<div class="flex items-center gap-2 overflow-x-auto hide-scrollbar w-full lg:w-auto">
+<button class="px-6 py-2 bg-primary text-on-primary rounded-full font-label-lg whitespace-nowrap">All Listings</button>
+<button class="px-6 py-2 bg-surface-container hover:bg-secondary-container transition-colors rounded-full font-label-lg whitespace-nowrap">Active</button>
+<button class="px-6 py-2 bg-surface-container hover:bg-secondary-container transition-colors rounded-full font-label-lg whitespace-nowrap">Pending</button>
+<button class="px-6 py-2 bg-surface-container hover:bg-secondary-container transition-colors rounded-full font-label-lg whitespace-nowrap">Sold Out</button>
+</div>
+<div class="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto">
+<div class="lg:hidden flex items-center bg-surface-container-low px-4 py-2 rounded-lg border border-outline-variant w-full sm:flex-1">
+<span class="material-symbols-outlined text-on-surface-variant mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-label-lg w-full p-0" placeholder="Search..." type="text">
+</div>
+<select class="w-full sm:w-40 bg-surface-container-low border-outline-variant rounded-lg text-label-lg py-2 focus:ring-secondary focus:border-secondary">
+<option>Type: All</option>
+<option>Pets</option>
+<option>Products</option>
+</select>
+<button class="flex items-center justify-center gap-2 bg-secondary text-on-secondary px-6 py-2 rounded-lg font-label-lg hover:bg-on-secondary-container transition-colors w-full sm:w-auto">
+<span class="material-symbols-outlined text-[20px]">file_download</span>
+<span>Export</span>
+</button>
+</div>
+</div>
+<!-- Table Section -->
+<div class="bg-surface rounded-xl card-shadow overflow-hidden">
+<!-- Bulk Actions -->
+<div class="px-6 py-4 bg-surface-container-low flex items-center gap-4 border-b border-surface-variant">
+<input class="rounded border-outline text-primary focus:ring-primary h-5 w-5" type="checkbox">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="font-label-lg">Select All</span>
+<div class="h-4 w-[1px] bg-outline-variant mx-2"></div>
+<button class="text-label-lg hover:text-error transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+                            Delete
+                        </button>
+<button class="text-label-lg hover:text-secondary transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">archive</span>
+                            Archive
+                        </button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse table-fixed min-w-[900px]">
+<thead>
+<tr class="bg-surface-container text-on-surface-variant">
+<th class="px-6 py-4 w-16"></th>
+<th class="px-6 py-4 font-label-lg uppercase tracking-wider text-[11px] w-[35%]">Listing Details</th>
+<th class="px-6 py-4 font-label-lg uppercase tracking-wider text-[11px] w-[12%]">Type</th>
+<th class="px-6 py-4 font-label-lg uppercase tracking-wider text-[11px] w-[13%]">Status</th>
+<th class="px-6 py-4 font-label-lg uppercase tracking-wider text-[11px] w-[15%]">Price</th>
+<th class="px-6 py-4 font-label-lg uppercase tracking-wider text-[11px] w-[15%]">Stats</th>
+<th class="px-6 py-4 font-label-lg uppercase tracking-wider text-[11px] text-right w-[10%]">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-variant">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-6 align-middle">
+<input class="rounded border-outline text-primary focus:ring-primary h-5 w-5" type="checkbox">
+</td>
+<td class="px-6 py-6 align-middle">
+<div class="flex items-center gap-4">
+<div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 card-shadow border border-outline-variant">
+<img alt="Golden Retriever" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A playful and healthy Golden Retriever puppy sitting in a sunny garden. The lighting is bright and warm, emphasizing the puppy's vibrant golden coat and cheerful expression. The background features lush green grass and soft-focus foliage, creating a premium and joyful atmosphere consistent with high-end pet marketplace photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqgc5YWAaEsDJ4TUetGkImpRUG23t1cX7WeQinsVg_1_yEvaFxplLN3BvntUUivUVUuetJGJ89sI2tYZZAtOTQpt3VIy7Eb6Vw0rzmwDjHmcSvP3nTCEiipvqStSr76LWnMNMbg_mO9e5u7X3MZgRfCdmRnIe5FLZGUAWHYMjOW6L_TknSkM1TXHUxGsfT8DuwEQ6TIpZCyy3QyvQGQS7jhoUBlu8v-D377MFpze5lkufoBbK0csvVr7SAz_DJS9CVxqjOg_iTkFw">
+</div>
+<div class="overflow-hidden">
+<p class="font-headline-md text-[16px] text-on-surface truncate">Purebred Golden Retriever</p>
+<p class="text-label-sm text-on-surface-variant">Added: 12 Oct 2023</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-6 align-middle">
+<span class="px-3 py-1 bg-tertiary-fixed text-on-tertiary-fixed rounded-full text-[11px] font-bold inline-block">PETS</span>
+</td>
+<td class="px-6 py-6 align-middle">
+<span class="flex items-center gap-1.5 text-secondary font-bold text-[13px]">
+<span class="w-2 h-2 rounded-full bg-secondary"></span> Active
+                                    </span>
+</td>
+<td class="px-6 py-6 align-middle">
+<span class="font-bold text-primary text-[16px]">₹45,000</span>
+</td>
+<td class="px-6 py-6 align-middle">
+<div class="flex gap-4">
+<div class="flex flex-col">
+<span class="text-[10px] text-on-surface-variant font-bold uppercase">Views</span>
+<span class="font-bold">412</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] text-on-surface-variant font-bold uppercase">Inq.</span>
+<span class="font-bold text-secondary">18</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-6 align-middle text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 hover:bg-secondary-container rounded-lg transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-2 hover:bg-error-container rounded-lg transition-colors text-error">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-6 align-middle">
+<input class="rounded border-outline text-primary focus:ring-primary h-5 w-5" type="checkbox">
+</td>
+<td class="px-6 py-6 align-middle">
+<div class="flex items-center gap-4">
+<div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 card-shadow border border-outline-variant">
+<img alt="Dog Food" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="High-quality organic dog food kibble being poured into a premium matte-finished ceramic bowl. The lighting is bright and high-key, highlighting the texture and richness of the food. The background is a clean, modern kitchen setting with soft teal accents, conveying a sense of health, reliability, and premium pet care." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0gHgoso3mg4BXAYeejzLWCIjH3X-hjjB8L_Y4e3t7jRtyCmPkKWWxdf2A_UoiQnE3jfBBDsiEEtF5Hixbq8cs_fm7k2yS_vnXMfcNHAmVp5hfFMMqZFwDAm-pz33pSdSThinzTP56GC5w_-T_1QeSDYGw7k6P1eehjwlJyiQiAM2LID_yeJ8MgFD0pxjWQYlSHeLe1LIKlKPm1kGwjr6j9l6hzDqBZNKHA0UMS9xvEqw3Pl6tu8d_hhQUpZ1JrKkYOjCSm5Jj2RA">
+</div>
+<div class="overflow-hidden">
+<p class="font-headline-md text-[16px] text-on-surface truncate">Organic Grain-Free Kibble</p>
+<p class="text-label-sm text-on-surface-variant">Added: 15 Oct 2023</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-6 align-middle">
+<span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-[11px] font-bold inline-block">PRODUCTS</span>
+</td>
+<td class="px-6 py-6 align-middle">
+<span class="flex items-center gap-1.5 text-primary-container font-bold text-[13px]">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span> Pending
+                                    </span>
+</td>
+<td class="px-6 py-6 align-middle">
+<span class="font-bold text-primary text-[16px]">₹2,499</span>
+</td>
+<td class="px-6 py-6 align-middle">
+<div class="flex gap-4">
+<div class="flex flex-col">
+<span class="text-[10px] text-on-surface-variant font-bold uppercase">Views</span>
+<span class="font-bold">89</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] text-on-surface-variant font-bold uppercase">Inq.</span>
+<span class="font-bold text-secondary">3</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-6 align-middle text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 hover:bg-secondary-container rounded-lg transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-2 hover:bg-error-container rounded-lg transition-colors text-error">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-6 align-middle">
+<input class="rounded border-outline text-primary focus:ring-primary h-5 w-5" type="checkbox">
+</td>
+<td class="px-6 py-6 align-middle">
+<div class="flex items-center gap-4">
+<div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 card-shadow bg-surface-variant border border-outline-variant">
+<img alt="Siamese Cat" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 grayscale opacity-60" data-alt="A graceful Siamese cat with striking blue eyes sitting elegantly on a designer cat tree. The lighting is soft and cinematic, casting gentle shadows that define the cat's sleek form. The environment is a contemporary living room with a neutral, high-end color palette, reflecting a sophisticated lifestyle for pet owners." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMSIaayOYGV-ZQ7L9JrTFjsUdasDb2MKn_sm-6tU8dCDNkbyDMQjV0qj2ODEB_0nvg-BzZ2iqOEtGf7wGMQ98xjU93YKN7WN83mcFz5uoO1rOz4_6e30v-JSrcqeUmZOGeHyYferpYg5gQTuiqJspuPW_VWkJK28upcODeMMJDEMn6DIedHQ1OouDfXbpEGIRu30_zQHjFrdQAMHL3wMroru8yWNaFZ17vz7ePDoSMMpCMlM4_q4ZlP97gSGSSJ-SoK6SVdun1N4U">
+</div>
+<div class="overflow-hidden">
+<p class="font-headline-md text-[16px] text-on-surface truncate">Exotic Siamese Kitten</p>
+<p class="text-label-sm text-on-surface-variant">Added: 05 Oct 2023</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-6 align-middle">
+<span class="px-3 py-1 bg-tertiary-fixed text-on-tertiary-fixed rounded-full text-[11px] font-bold inline-block">PETS</span>
+</td>
+<td class="px-6 py-6 align-middle">
+<span class="flex items-center gap-1.5 text-on-surface-variant font-bold text-[13px]">
+<span class="w-2 h-2 rounded-full bg-on-surface-variant"></span> Sold Out
+                                    </span>
+</td>
+<td class="px-6 py-6 align-middle">
+<span class="font-bold text-primary text-[16px]">₹32,000</span>
+</td>
+<td class="px-6 py-6 align-middle">
+<div class="flex gap-4">
+<div class="flex flex-col">
+<span class="text-[10px] text-on-surface-variant font-bold uppercase">Views</span>
+<span class="font-bold">1,820</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] text-on-surface-variant font-bold uppercase">Inq.</span>
+<span class="font-bold text-secondary">54</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-6 align-middle text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 hover:bg-secondary-container rounded-lg transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-2 hover:bg-error-container rounded-lg transition-colors text-error">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="px-6 py-4 bg-surface-container flex items-center justify-between border-t border-outline-variant">
+<p class="text-label-sm text-on-surface-variant">Showing 1 to 10 of 42 entries</p>
+<div class="flex gap-2">
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg bg-primary text-on-primary font-bold text-label-sm">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container-high transition-colors text-label-sm">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container-high transition-colors text-label-sm">3</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Shell -->
+<footer class="w-full py-12 px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-center max-w-container-max mx-auto mt-12 bg-surface-container-highest dark:bg-inverse-surface rounded-t-2xl">
+<div class="mb-8 md:mb-0 text-center md:text-left">
+<h2 class="text-primary font-bold text-headline-md mb-2">PetZonic Marketplace</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Joyful reliability for pet parents.</p>
+<p class="font-body-md text-body-md text-on-surface-variant mt-4 opacity-70">© 2024 PetZonic Marketplace. All rights reserved.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-6">
+<a class="text-on-surface-variant hover:text-secondary underline transition-all font-body-md text-body-md" href="#">About Us</a>
+<a class="text-on-surface-variant hover:text-secondary underline transition-all font-body-md text-body-md" href="#">Seller Terms</a>
+<a class="text-on-surface-variant hover:text-secondary underline transition-all font-body-md text-body-md" href="#">Shipping Policy</a>
+<a class="text-on-surface-variant hover:text-secondary underline transition-all font-body-md text-body-md" href="#">Privacy</a>
+<a class="text-on-surface-variant hover:text-secondary underline transition-all font-body-md text-body-md" href="#">Contact</a>
+</div>
+</footer>
+</main>
+<!-- BottomNavBar (Mobile Shell) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-3 pb-safe bg-surface dark:bg-on-background shadow-[0_-4px_16px_rgba(0,128,128,0.12)] z-50 rounded-t-xl border-t border-outline-variant">
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-sm text-label-sm">Community</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-sm text-label-sm">Cart</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 scale-110 duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</a>
+</nav>
+<script>
+        // Micro-interactions for buttons
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('mousedown', function() {
+                this.style.transform = 'scale(0.95)';
+            });
+            button.addEventListener('mouseup', function() {
+                this.style.transform = 'scale(1)';
+            });
+            button.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+
+        // Simple row selection toggle logic
+        const selectAll = document.querySelector('input[type="checkbox"][class*="rounded"]');
+        const checkboxes = document.querySelectorAll('tbody input[type="checkbox"]');
+        
+        if (selectAll) {
+            selectAll.addEventListener('change', (e) => {
+                checkboxes.forEach(cb => cb.checked = e.target.checked);
+            });
+        }
+    </script>
+</body></html>
