@@ -1,201 +1,217 @@
-# PetZonic — Task Dependencies & Critical Path
+# PetZonic — Full Product Dependency Map & Critical Path
 
-> **Version**: 1.0.0  
-> **Date**: May 28, 2026
+> **Version**: 2.0.0  
+> **Date**: August 23, 2026  
+> **Scope**: Full web + mobile product implementation including customer, seller, admin, and backend platform layers
 
 ---
 
-## 1. Dependency Graph
+## 1. Dependency Overview
 
 ```mermaid
 graph TD
-    %% Phase 0: Setup
-    P0A[Project Scaffolding] --> P0B[DB Schema & Migrations]
-    P0A --> P0C[CI/CD Pipeline]
-    P0A --> P0D[Docker Dev Environment]
-    
-    %% Phase 1: Foundation
-    P0B --> P1A[Auth Module]
-    P0D --> P1F[Flutter App Shell]
-    P0D --> P1G[Next.js Web Shell]
-    
-    P1A --> P1B[User Profiles & KYC]
-    P1A --> P1C[Pet Listings CRUD]
-    P1A --> P1D[Product Catalog]
-    P1C --> P1E[Search - Meilisearch]
-    
-    %% Phase 2: Transactions
-    P1D --> P2A[Shopping Cart]
-    P2A --> P2B[Order Management]
-    P2B --> P2C[Razorpay Integration]
-    P2C --> P2D[Escrow System]
-    P2C --> P2E[Seller Payouts]
-    P1C --> P2F[Real-time Chat]
-    
-    %% Phase 3: Services
-    P1B --> P3A[Breeder Profiles]
-    P2B --> P3B[Service Provider Module]
-    P3B --> P3C[Booking System]
-    P2B --> P3D[Delivery Integration]
-    
-    %% Phase 4: Engagement
-    P2B --> P4A[Reviews & Ratings]
-    P2C --> P4B[Notifications System]
-    P2B --> P4C[Admin Panel]
-    P4C --> P4D[Franchise Module]
-    
-    %% Phase 5: Launch
-    P4C --> P5A[Integration Testing]
-    P4B --> P5A
-    P5A --> P5B[Performance Testing]
-    P5B --> P5C[Security Audit]
-    P5C --> P5D[Launch]
-    
-    %% Critical path highlighting
-    style P1A fill:#ff6b6b,color:#fff
-    style P1D fill:#ff6b6b,color:#fff
-    style P2A fill:#ff6b6b,color:#fff
-    style P2B fill:#ff6b6b,color:#fff
-    style P2C fill:#ff6b6b,color:#fff
-    style P5D fill:#ff6b6b,color:#fff
+    A[Architecture & Repo Setup] --> B[Database Model & Migrations]
+    A --> C[Design System & Shared UI]
+    A --> D[Dev Environment & CI/CD]
+
+    B --> E[Auth & Identity]
+    B --> F[User Profiles & KYC]
+    E --> G[Customer Web App]
+    E --> H[Customer Mobile App]
+    F --> I[Seller Onboarding]
+
+    E --> J[Pet Marketplace Core]
+    E --> K[Product Catalog & Commerce]
+    J --> L[Search & Filters]
+    K --> M[Cart & Checkout]
+    M --> N[Payments & Payouts]
+    N --> O[Order Lifecycle]
+    J --> P[Chat & Messaging]
+    O --> Q[Reviews & Ratings]
+
+    I --> R[Seller Dashboard]
+    R --> S[Listing Management]
+    S --> T[Inventory & Fulfillment]
+    N --> U[Seller Earnings]
+
+    O --> V[Admin Dashboard]
+    V --> W[Moderation & User Management]
+    V --> X[Reports & Analytics]
+
+    R --> Y[Service Provider Module]
+    Y --> Z[Booking System]
+    W --> AA[Community & Education]
+    AA --> AB[Lost & Found & Alerts]
+    V --> AC[Security & Compliance]
+    AC --> AD[Production Launch]
+
+    style E fill:#ff6b6b,color:#fff
+    style M fill:#ff6b6b,color:#fff
+    style N fill:#ff6b6b,color:#fff
+    style V fill:#ff6b6b,color:#fff
+    style AD fill:#ff6b6b,color:#fff
 ```
 
 ---
 
 ## 2. Critical Path
 
-The **critical path** is the longest chain of dependent tasks that determines minimum project duration:
+The critical path for the full product is:
 
 ```
-Project Setup → DB Migrations → Auth Module → Product Catalog → Shopping Cart → 
-Order Management → Razorpay Integration → Admin Panel → Integration Testing → 
-Performance Testing → Security Audit → Launch
+Architecture Setup → Database Model → Auth & Identity → Pet Marketplace + Product Catalog →
+Cart & Checkout → Payments & Payouts → Order Management → Seller Dashboard → Admin Dashboard →
+Security & Launch Readiness → Production Launch
 ```
 
-**Estimated critical path duration**: ~14-16 weeks
-
-### Critical Path Tasks
-
-| # | Task | Duration | Depends On | Risk |
-|---|------|:--------:|-----------|------|
-| 1 | Project Scaffolding | 1 week | — | Low |
-| 2 | DB Schema & Migrations | 1 week | #1 | Low |
-| 3 | Auth Module | 1.5 weeks | #2 | Medium |
-| 4 | Product Catalog | 1.5 weeks | #3 | Low |
-| 5 | Shopping Cart | 1.5 weeks | #4 | Low |
-| 6 | Order Management | 1.5 weeks | #5 | Medium |
-| 7 | Razorpay Integration | 1.5 weeks | #6 | High |
-| 8 | Admin Panel | 2 weeks | #6 | Medium |
-| 9 | Integration Testing | 2 weeks | #8 | Medium |
-| 10 | Performance & Security | 2 weeks | #9 | Medium |
-| 11 | Launch Prep | 1 week | #10 | Low |
+This path controls the minimum time required to deliver a usable, launch-ready platform.
 
 ---
 
-## 3. Parallel Work Streams
+## 3. Key Dependencies by Team
 
-These can be developed simultaneously by different team members:
+### Backend dependencies
+- Auth and user model must be finalized before web/mobile can proceed
+- Product and pet schemas must be ready before catalog UI and search work
+- Payment flow depends on order and checkout APIs
+- Seller module depends on auth, KYC, and order flow
+- Admin workflows depend on user, order, listing, and moderation data
 
-### Stream A: Backend Core (Backend Dev 1)
-```
-Auth → Pets CRUD → Orders → Payments → Escrow → Payouts
-```
+### Web app dependencies
+- Shared design system must exist before page implementation
+- Auth API must be stable before profile, orders, and checkout pages
+- Search and listing APIs must be stable before catalog pages ship
+- Admin pages are blocked until moderation and reporting APIs exist
 
-### Stream B: Backend Features (Backend Dev 2)
-```
-Products → Cart → Search → Chat → Services → Bookings → Notifications
-```
+### Mobile app dependencies
+- Shared auth and user model are required for onboarding
+- Catalog APIs must be ready before browsing and detail screens
+- Checkout payment integration depends on backend payment services
+- Notification and chat flows depend on backend event infrastructure
 
-### Stream C: Mobile (Flutter Dev 1 - Customer App)
-```
-App Shell → Auth Screens → Home → Pet Browse → Product Browse → Cart → Checkout → Chat → Services
-```
-
-### Stream D: Mobile (Flutter Dev 2 - Seller App)
-```
-App Shell → Auth → Dashboard → Create Listing → Orders → Earnings → Chat
-```
-
-### Stream E: Web (Frontend Dev)
-```
-Web Shell → Homepage → Listings (SSR) → Products → Cart/Checkout → Account → Admin Panel
-```
+### Seller/admin dependencies
+- Seller dashboard requires same auth model, listing APIs, and order APIs
+- Admin dashboard requires product, order, user, and moderation pipelines
+- Payout and reporting depend on commerce and accounting layers
 
 ---
 
-## 4. Integration Points (Sync Required)
+## 4. Parallel Work Streams
 
-These moments require coordination between teams:
+### Stream A — Core backend
+- Auth
+- Users and KYC
+- Pets and products
+- Orders
+- Payments
 
-| Integration Point | Teams | Sync Needed |
-|-------------------|-------|-------------|
-| API contracts finalized | Backend + Mobile + Web | Before Phase 1 coding starts |
-| Auth flow complete | Backend + All clients | Mobile/web blocked until API ready |
-| Payment integration | Backend + Mobile + Web | Same Razorpay SDK version |
-| Real-time chat | Backend + Mobile + Web | WebSocket protocol agreement |
-| Push notifications | Backend + Mobile | FCM token flow |
-| Search integration | Backend + All clients | Query format, filter params |
-| Admin moderation → Listing status | Backend + Mobile | Status webhook/polling strategy |
-| Escrow flow | Backend + Mobile | Complete flow testing together |
+### Stream B — Seller + admin platform
+- Seller onboarding
+- Seller dashboard
+- Admin dashboard
+- Reports and moderation
 
----
+### Stream C — Web frontend
+- Home and marketing pages
+- Catalog and search
+- Cart and checkout
+- Profile and orders
+- Admin web dashboard
 
-## 5. External Dependencies
+### Stream D — Mobile frontend
+- Customer app onboarding
+- Pet and product browsing
+- Checkout and payment
+- Orders and profile
+- Seller mobile workflows
 
-| Dependency | Impact | Lead Time | Mitigation |
-|------------|--------|-----------|-----------|
-| Razorpay account activation | Cannot test payments | 3-5 business days | Apply in Phase 0 |
-| AWS account setup | Cannot deploy | 1-2 days | Setup Day 1 |
-| Apple Developer account | Cannot test iOS | 1-2 days (if existing org) | Apply immediately |
-| Google Play Console | Cannot test Android | 1 day | Apply immediately |
-| Firebase project | No push notifications | 1 hour | Setup in Phase 0 |
-| MSG91 account (SMS) | No OTP in production | 1-2 days | Use Firebase Auth in dev |
-| Domain (petzonic.com) | No website deploy | 1 hour | Purchase Day 1 |
-| SSL certificate | No HTTPS | Minutes (via Cloudflare) | Setup with domain |
-| Shiprocket account | No delivery tracking | 1-2 days | Setup in Phase 2 |
-| Meilisearch Cloud | No search | 1 hour | Self-host in Docker for dev |
-
----
-
-## 6. Risk-Adjusted Schedule
-
-| Task | Optimistic | Expected | Pessimistic | Buffer |
-|------|:----------:|:--------:|:-----------:|:------:|
-| Auth + User module | 1.5 wk | 2 wk | 3 wk | +0.5 wk |
-| Pet marketplace | 2 wk | 3 wk | 4 wk | +0.5 wk |
-| Payment integration | 1.5 wk | 2.5 wk | 4 wk | +1 wk |
-| Chat system | 1.5 wk | 2 wk | 3 wk | +0.5 wk |
-| Services + Booking | 2 wk | 2.5 wk | 3.5 wk | +0.5 wk |
-| Admin panel | 1.5 wk | 2 wk | 3 wk | +0.5 wk |
-| Testing & QA | 2 wk | 3 wk | 4 wk | +1 wk |
-| **Total** | **12 wk** | **17 wk** | **24.5 wk** | — |
-
-**Recommended plan**: 17 weeks expected + 2 weeks buffer = **19 weeks to launch**
+### Stream E — Growth and engagement
+- Services
+- Community and education
+- Notifications
+- Lost & Found and insurance
 
 ---
 
-## 7. Task Blockers & Unblocking Strategy
+## 5. Integration Points Requiring Sync
 
-| Blocker | Impact | Unblocking Strategy |
-|---------|--------|-------------------|
-| API not ready for mobile | Mobile team idle | Use mock API server (json-server or MSW) |
-| Design not ready | Frontend delayed | Build with placeholder UI, skin later |
-| Third-party API down | Feature blocked | Circuit breakers + fallback behavior |
-| Key developer unavailable | Critical path delayed | Cross-train, document architecture |
-| Payment gateway issues | Orders blocked | Sandbox testing early, escalation contacts |
-| App store rejection | Launch delayed | Follow guidelines strictly, submit early |
+| Integration | Teams Involved | Why It Matters |
+|------------|----------------|----------------|
+| Auth contract | Backend + Web + Mobile + Seller/Admin | Blocks onboarding and protected screens |
+| Catalog and search schema | Backend + Web + Mobile | Required for listing screens |
+| Cart and checkout flow | Web + Mobile + Backend | Critical for transaction completion |
+| Payment gateway | Backend + Web + Mobile | Needed for order processing |
+| Seller payouts | Backend + Seller app + Admin | Business operations and compliance |
+| Chat and notifications | Backend + Web + Mobile | Engagement and support |
+| Admin moderation | Backend + Admin UI | Required for governance |
+| Production deployment | Infra + Backend + Frontend | Final launch readiness |
 
 ---
 
-## 8. Definition of Done (Per Task)
+## 6. External Dependencies
 
-A task is "Done" when:
-- [ ] Code written and self-reviewed
-- [ ] Unit tests passing (>80% coverage)
-- [ ] API endpoint tested with Postman/Insomnia
-- [ ] Code reviewed by at least one peer
-- [ ] No lint errors or type errors
-- [ ] Documentation updated (API docs, comments)
-- [ ] Works in Docker dev environment
-- [ ] Edge cases handled (empty states, errors, loading)
-- [ ] Merged to development branch
+| Dependency | Impact | Lead Time |
+|------------|--------|-----------|
+| Razorpay setup | Payment testing | 3-5 business days |
+| AWS / infra setup | Deployment and storage | 2-5 days |
+| Firebase / FCM | Notification delivery | 1 day |
+| Domain and SSL | Production access | 1 day |
+| App store accounts | Mobile release | 2-5 days |
+| SMS / OTP provider | Login and verification | 2-5 days |
+| Analytics tools | Product metrics | 1-3 days |
+| Cloud storage | Media uploads | 1 day |
+
+---
+
+## 7. Risk Areas
+
+| Risk | Impact | Mitigation |
+|------|--------|------------|
+| Auth API delay | Blocks all app flows | Finalize API contract early |
+| Payment integration issues | Blocks orders | Test in sandbox before production |
+| Incomplete seller/admin flows | Reduces launch readiness | Prioritize with commerce module |
+| Search or listing instability | Hurts buyer discovery | Build API contract and sample data early |
+| Notification errors | Weak user engagement | Validate push and in-app delivery in staging |
+| Security gaps | Launch blocker | Require audit before production |
+
+---
+
+## 8. Recommended Release Strategy
+
+### Release 1 — Core commerce launch
+- Customer website
+- Customer mobile app
+- Basic seller dashboard
+- Product and pet listings
+- Cart, checkout, and payments
+
+### Release 2 — Seller and admin maturity
+- Advanced seller operations
+- Admin moderation and dashboards
+- Reports and payouts
+
+### Release 3 — Community and services growth
+- Services and bookings
+- Community and education features
+- Lost & Found and insurance expansion
+
+### Release 4 — Scale and hardening
+- Performance tuning
+- Security review
+- Production stabilization
+- Full public launch
+
+---
+
+## 9. Definition of Done for a Phase
+
+A phase is done only when:
+- Core feature set is live in dev
+- Web and mobile flows are validated together
+- API contracts are stable
+- QA and regression are completed
+- Edge cases and failure states are handled
+- Business and technical owners sign off
+
+This keeps the project aligned with the actual full-platform scope rather than a temporary MVP shortcut.
+

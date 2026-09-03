@@ -1,263 +1,264 @@
-# PetZonic — Project Roadmap & Milestones
+# PetZonic — Full Product Roadmap & Milestones
 
-> **Version**: 1.0.0  
-> **Date**: May 28, 2026
+> **Version**: 2.0.0  
+> **Date**: August 23, 2026  
+> **Scope**: Full platform implementation across website, mobile apps, seller portal, admin panel, and backend services
 
 ---
 
-## 1. Development Phases
+## 1. Product Scope Summary
+
+PetZonic is a complete pet ecosystem with the following product surfaces:
+
+- Customer website
+- Customer mobile app
+- Seller app / dashboard
+- Admin panel
+- Backend APIs and services
+- Integrations for payments, notifications, chat, search, and delivery
+
+This roadmap is designed for the real business requirement, not a minimal MVP. It treats PetZonic as a full multi-role marketplace and services platform.
+
+---
+
+## 2. Delivery Phases
 
 ```mermaid
 gantt
-    title PetZonic Development Roadmap
+    title PetZonic Full Product Delivery Roadmap
     dateFormat  YYYY-MM-DD
-    
-    section Phase 0: Setup
-    Project scaffolding          :p0a, 2026-06-01, 7d
-    DB design & migrations       :p0b, after p0a, 5d
-    CI/CD pipeline              :p0c, after p0a, 3d
-    Dev environment (Docker)     :p0d, after p0a, 3d
 
-    section Phase 1: Foundation
-    Auth module (backend)        :p1a, after p0b, 10d
-    User profiles & KYC          :p1b, after p1a, 7d
-    Pet listings CRUD            :p1c, after p1a, 12d
-    Product catalog              :p1d, after p1a, 10d
-    Search integration           :p1e, after p1c, 7d
-    Flutter app shell            :p1f, after p0d, 14d
-    Web app shell                :p1g, after p0d, 10d
+    section Phase 0: Foundation
+    Architecture and repo setup      :p0a, 2026-08-23, 10d
+    DB schema and migrations         :p0b, after p0a, 8d
+    Dev environment and CI/CD        :p0c, after p0a, 7d
+    Shared design system             :p0d, after p0a, 10d
 
-    section Phase 2: Transactions
-    Shopping cart & checkout      :p2a, after p1d, 10d
-    Razorpay integration         :p2b, after p2a, 10d
-    Order management             :p2c, after p2b, 10d
-    Escrow for pets              :p2d, after p2b, 7d
-    Chat (WebSocket)             :p2e, after p1c, 14d
+    section Phase 1: Core Customer Product
+    Auth and onboarding              :p1a, after p0b, 12d
+    User profiles and KYC            :p1b, after p1a, 10d
+    Pet marketplace core             :p1c, after p1a, 18d
+    Product catalog and commerce     :p1d, after p1a, 15d
+    Search and filtering             :p1e, after p1c, 10d
+    Web customer experience          :p1f, after p0d, 20d
+    Mobile customer experience       :p1g, after p0d, 22d
 
-    section Phase 3: Services
-    Service provider module      :p3a, after p2c, 10d
-    Booking system               :p3b, after p3a, 7d
-    Breeder profiles             :p3c, after p1b, 10d
-    Delivery integration         :p3d, after p2c, 7d
+    section Phase 2: Commerce & Trust
+    Cart and checkout                :p2a, after p1d, 12d
+    Payments and payouts             :p2b, after p2a, 12d
+    Order management                 :p2c, after p2b, 10d
+    Reviews and ratings              :p2d, after p2c, 7d
+    Chat and messaging               :p2e, after p1c, 14d
 
-    section Phase 4: Engagement
-    Reviews & ratings            :p4a, after p2c, 7d
-    Notifications system         :p4b, after p2b, 10d
-    Admin panel                  :p4c, after p2c, 14d
-    Franchise module             :p4d, after p4c, 7d
+    section Phase 3: Seller Platform
+    Seller onboarding                :p3a, after p1b, 10d
+    Seller dashboard                 :p3b, after p3a, 16d
+    Listing management               :p3c, after p3b, 12d
+    Inventory and fulfillment        :p3d, after p3c, 10d
+    Seller earnings and payouts      :p3e, after p2b, 10d
 
-    section Phase 5: Community & Education
-    Community forums API         :p5a, after p4c, 10d
-    Lost & Found module          :p5b, after p5a, 5d
-    Educational content API      :p5c, after p4c, 10d
-    Video courses module         :p5d, after p5c, 7d
-    Vet telemedicine (WebRTC)    :p5e, after p5c, 14d
-    Feeding calculator           :p5f, after p5c, 3d
+    section Phase 4: Admin Platform
+    Admin dashboard                  :p4a, after p2c, 14d
+    User and moderation tools        :p4b, after p4a, 10d
+    Reports and analytics            :p4c, after p4a, 12d
+    Policies and settings            :p4d, after p4a, 8d
 
-    section Phase 6: Insurance & Polish
-    Insurance partner API        :p6a, after p5a, 10d
-    Policy & claims system       :p6b, after p6a, 10d
-    Community/Edu/Ins mobile UI  :p6c, after p5e, 14d
-    Testing & QA                 :p6d, after p6c, 14d
-    Performance optimization     :p6e, after p6d, 7d
-    Bug fixes                    :p6f, after p6d, 10d
-    Launch preparation           :p6g, after p6e, 7d
+    section Phase 5: Services & Community
+    Service provider module          :p5a, after p3b, 12d
+    Booking and appointments        :p5b, after p5a, 10d
+    Community and forums             :p5c, after p4b, 12d
+    Education and content            :p5d, after p4b, 12d
+    Lost & Found and alerts          :p5e, after p5c, 8d
+
+    section Phase 6: Mobile + Web Expansion
+    Seller mobile flows              :p6a, after p3b, 12d
+    Admin web portal                 :p6b, after p4a, 12d
+    Notifications and alerts         :p6c, after p2b, 10d
+    Performance and QA               :p6d, after p5e, 18d
+
+    section Phase 7: Launch & Hardening
+    Security and compliance          :p7a, after p6d, 12d
+    Production deployment           :p7b, after p7a, 7d
+    Launch readiness and beta        :p7c, after p7b, 10d
+    Final optimization               :p7d, after p7c, 7d
 ```
 
 ---
 
-## 2. Phase Details
+## 3. Phase Details
 
-### Phase 0: Project Setup (Week 1-2)
+### Phase 0 — Foundation and Architecture
 
-| Deliverable | Description | Owner |
-|-------------|-------------|-------|
-| Repo setup | Create all repos (api, customer-app, seller-app, web, admin, infra) | Tech Lead |
-| NestJS boilerplate | Base API with auth guards, validation, error handling | Backend |
-| Flutter boilerplate | Base app with navigation, state management, API client | Mobile |
-| Next.js boilerplate | Base web with layout, routing, API integration | Frontend |
-| Database setup | Prisma schema, initial migration, seed data | Backend |
-| Docker Compose | Local dev environment (Postgres, Redis, Meilisearch) | DevOps |
-| CI pipeline | GitHub Actions: lint, test, build on PR | DevOps |
-| AWS foundation | VPC, ECR, S3 bucket (Terraform) | DevOps |
+| Deliverable | Scope | Priority |
+|-------------|-------|----------|
+| Monorepo setup | Web, mobile, admin, backend, infra repos structure | P0 |
+| Architecture baseline | System design, service boundaries, API contracts | P0 |
+| Database model | Users, pets, products, orders, services, reviews, chat, admin | P0 |
+| Dev environment | Local setup, Docker, env configuration, CI pipelines | P0 |
+| Design system | Shared tokens, components, typography, spacing, states | P0 |
 
-**Exit Criteria**: All developers can clone, install, and run locally.
-
----
-
-### Phase 1: Foundation (Week 3-6)
-
-| Deliverable | Description | Priority |
-|-------------|-------------|----------|
-| **Backend** | | |
-| Auth API | OTP, email/password, Google, Apple, JWT, refresh | P0 |
-| User management | Profile CRUD, roles, KYC submission | P0 |
-| Pet listings API | Full CRUD, status management, moderation queue | P0 |
-| Product catalog API | Products, variants, categories, inventory | P0 |
-| Media upload | S3 pre-signed URLs, image processing | P0 |
-| Search API | Meilisearch indexing, search, filters | P0 |
-| Taxonomy API | Species, breeds, categories CRUD | P0 |
-| **Mobile** | | |
-| Auth screens | Login, OTP, profile setup | P0 |
-| Home screen | Categories, featured listings | P0 |
-| Pet browse & detail | Listings grid, filters, detail page | P0 |
-| Product browse | Product listing, detail | P0 |
-| Navigation | Bottom tabs, drawer, routing | P0 |
-| **Web** | | |
-| Homepage | Hero, categories, featured content | P0 |
-| Pet listing pages | SSR, filters, pagination | P0 |
-| Product pages | Categories, detail, SEO | P0 |
-| Auth flow | Login/register pages | P0 |
-
-**Exit Criteria**: Users can register, browse pets, browse products, and search.
+Exit criteria:
+- All teams can work locally without blockers
+- API contracts are agreed by web/mobile/backend
+- Core architecture is documented and approved
 
 ---
 
-### Phase 2: Transactions (Week 7-10)
+### Phase 1 — Core Customer Product
 
-| Deliverable | Description | Priority |
-|-------------|-------------|----------|
-| **Backend** | | |
-| Cart API | Add/remove/update items, cart persistence | P0 |
-| Order API | Checkout, order creation, status management | P0 |
-| Razorpay integration | Payment creation, verification, webhooks | P0 |
-| Escrow system | Hold/release/refund for pet purchases | P0 |
-| Chat API | WebSocket server, rooms, message persistence | P0 |
-| Coupon system | Validation, discount calculation | P1 |
-| **Mobile** | | |
-| Cart & checkout | Full purchase flow | P0 |
-| Payment screens | Razorpay SDK integration | P0 |
-| Order tracking | Status timeline, history | P0 |
-| Chat UI | Chat list, room, messaging | P0 |
-| Pet purchase flow | Escrow-specific UI, confirm receipt | P0 |
-| **Web** | | |
-| Cart & checkout | Web checkout flow | P0 |
-| My orders | Order history and tracking | P0 |
-| Account pages | Profile, addresses | P1 |
+This phase builds the customer-facing web and mobile product.
 
-**Exit Criteria**: Complete purchase flow works end-to-end (product + pet with escrow).
+| Area | Deliverables | Priority |
+|------|--------------|----------|
+| Web app | Home, listings, filters, pet details, products, cart, auth, profile, orders | P0 |
+| Mobile app | Home, categories, pet browsing, product browsing, auth, cart, checkout, account | P0 |
+| Backend | Auth, roles, profile management, pet CRUD, product catalog, search indexing | P0 |
+
+Key outcomes:
+- Users can sign up and sign in
+- Buyers can browse pets and products
+- Buyers can filter and search listings
+- Users can manage profiles and order history
 
 ---
 
-### Phase 3: Services & Trust (Week 8-12)
+### Phase 2 — Commerce, Payments, and Trust
 
-| Deliverable | Description | Priority |
-|-------------|-------------|----------|
-| **Backend** | | |
-| Service provider API | CRUD, availability, search | P1 |
-| Booking API | Slot management, booking lifecycle | P1 |
-| Breeder profile API | Enhanced profiles, parents, litters | P1 |
-| Delivery integration | Shiprocket API, tracking webhooks | P1 |
-| Seller payout system | Weekly settlement, commission calculation | P0 |
-| **Mobile** | | |
-| Services tab | Provider listing, booking flow | P1 |
-| Breeder features (seller app) | Profile, parents, litter management | P1 |
-| KYC flow (seller app) | Document upload, status tracking | P0 |
-| Delivery tracking | Shipment status in orders | P1 |
-| **Web** | | |
-| Services section | Provider discovery, booking | P1 |
-| Seller onboarding | Become a seller flow | P1 |
+| Area | Deliverables | Priority |
+|------|--------------|----------|
+| Checkout | Add-to-cart, quantity updates, address validation, order summary | P0 |
+| Payments | Razorpay integration, order payment verification, webhooks | P0 |
+| Order lifecycle | Pending, confirmed, shipped, delivered, refunded | P0 |
+| Trust features | Ratings, reviews, dispute states | P1 |
+| Chat | Buyer-seller messaging, conversation threads, notifications | P1 |
 
-**Exit Criteria**: Services bookable, delivery tracking works, sellers receive payouts.
+Key outcomes:
+- Buyers can complete purchases on web and mobile
+- Sellers receive orders and manage flow
+- Reviews and chat increase trust and confidence
 
 ---
 
-### Phase 4: Engagement & Admin (Week 10-14)
+### Phase 3 — Seller Platform
 
-| Deliverable | Description | Priority |
-|-------------|-------------|----------|
-| **Backend** | | |
-| Reviews API | Create, edit, respond, aggregate | P1 |
-| Notifications API | FCM, SMS, email triggers | P0 |
-| Admin API | Dashboard, moderation, user mgmt | P0 |
-| Franchise API | Application, onboarding, revenue share | P2 |
-| Wishlist & saved searches | Alert system | P1 |
-| **Mobile** | | |
-| Reviews UI | Write, view, seller response | P1 |
-| Push notifications | FCM integration, deep links | P0 |
-| Notification center | In-app notification feed | P1 |
-| Wishlist | Save/unsave, alert for new matches | P1 |
-| **Web** | | |
-| Reviews on web | Display and write reviews | P1 |
-| **Admin Panel** | | |
-| Dashboard | KPI metrics, charts | P0 |
-| User management | Search, view, suspend/ban | P0 |
-| Listing moderation | Queue, approve/reject | P0 |
-| Order management | View, refund, cancel | P0 |
-| Product management | CRUD, bulk upload | P0 |
-| Revenue reports | Daily/weekly/monthly | P1 |
-| Franchise management | Applications, onboarding | P2 |
+| Area | Deliverables | Priority |
+|------|--------------|----------|
+| Seller onboarding | Registration, verification, profile setup, KYC | P0 |
+| Seller dashboard | Overview, sold items, orders, revenue, inventory | P0 |
+| Listing management | Add/edit/delete pet and product listings | P0 |
+| Inventory and fulfillment | Stock tracking, fulfillment status, shipping updates | P1 |
+| Payouts | Commissions, payouts, settlement reports | P1 |
 
-**Exit Criteria**: Admin can moderate the platform, notifications work, reviews functional.
+Key outcomes:
+- Sellers can manage their business from the platform
+- Orders are handled end-to-end by sellers
+- Revenue and payouts are trackable
 
 ---
 
-### Phase 5: Community, Education & Insurance (Week 14-19)
+### Phase 4 — Admin Platform
 
-| Deliverable | Description | Priority |
-|-------------|-------------|----------|
-| **Backend** | | |
-| Community forums API | Posts, replies, voting, following, search | P1 |
-| Lost & Found API | Geo-based posts, notifications to nearby users | P1 |
-| Educational content API | Articles, videos, courses CRUD | P1 |
-| Video course system | Enrollment, progress tracking, premium payments | P1 |
-| Vet telemedicine | WebRTC video rooms, scheduling, prescriptions | P2 |
-| Vet Q&A | Public Q&A, vet answers, moderation | P2 |
-| Feeding calculator | Breed/age/weight based recommendations | P2 |
-| Insurance partner integration | Plan sync, premium calculator, policy issuance | P2 |
-| Claims system | File claim, track status, partner webhook | P2 |
-| **Mobile** | | |
-| Community tab | Forums, posts, replies, voting UI | P1 |
-| Lost & Found screens | Create/browse lost pets, map view | P1 |
-| Education/Learn tab | Videos, articles, courses, progress | P1 |
-| Vet consultation screens | Book, video call, prescription view | P2 |
-| Insurance screens | Browse plans, compare, buy, claims | P2 |
-| **Web** | | |
-| Community pages | Forums, posts (SSR for SEO) | P1 |
-| Education pages | Content library, courses (SSR for SEO) | P1 |
-| Insurance pages | Plans, comparison, purchase flow | P2 |
-| **Admin Panel** | | |
-| Forum moderation | Reported posts, ban users, manage categories | P1 |
-| Content management | Review queue, approve/reject, analytics | P1 |
-| Insurance partner management | Onboard partners, manage plans, claims oversight | P2 |
+| Area | Deliverables | Priority |
+|------|--------------|----------|
+| Admin dashboard | KPIs, sales overview, user count, activity summary | P0 |
+| Moderation | Listing approval/rejection, user review, compliance actions | P0 |
+| Reports | Sales, traffic, order analytics, payout analytics | P1 |
+| Settings | Policies, roles, categories, app configuration | P1 |
 
-**Exit Criteria**: Community forums active, educational content browsable, insurance purchasable.
+Key outcomes:
+- Platform administrators can govern the marketplace
+- Moderation and risk controls are active
+- Business reporting is available for operations
 
 ---
 
-### Phase 6: Polish & Launch (Week 19-22)
+### Phase 5 — Services, Community, and Engagement
 
-| Deliverable | Description | Priority |
-|-------------|-------------|----------|
-| Integration testing | E2E flows across all apps | P0 |
-| Performance testing | Load test API (1000 concurrent) | P0 |
-| Security audit | OWASP scan, penetration testing | P0 |
-| Bug fixes | Address all P0/P1 bugs | P0 |
-| App store preparation | Screenshots, descriptions, listings | P0 |
-| SEO optimization | Meta tags, sitemap, structured data | P1 |
-| Content seeding | Sample products, breed data, FAQs | P0 |
-| Breeder onboarding | Onboard 50+ breeders pre-launch | P0 |
-| Monitoring setup | Sentry, CloudWatch alarms, alerting | P0 |
-| Documentation | API docs (Swagger), user guides | P1 |
-| Soft launch | Invite-only beta (Bangalore) | P0 |
-| Public launch | App Store + Play Store + Website | P0 |
+| Area | Deliverables | Priority |
+|------|--------------|----------|
+| Services | Vet, grooming, pet care listings and booking flow | P1 |
+| Community | Forums, posts, threads, categories, comments | P1 |
+| Education | Guides, articles, videos, learning resources | P1 |
+| Lost & Found | Pet alerts, search, local notifications | P2 |
+| Insurance | Plan discovery and claims workflow | P2 |
 
-**Exit Criteria**: All critical bugs fixed, performance targets met, 50+ breeders onboarded.
+Key outcomes:
+- Platform becomes a full pet ecosystem, not only a marketplace
+- Users stay engaged beyond buying and selling
+- Trust and retention increase through services and community
 
 ---
 
-## 3. Priority Definitions
+### Phase 6 — Mobile + Web Expansion and Quality
+
+| Area | Deliverables | Priority |
+|------|--------------|----------|
+| Seller mobile flows | Seller order management, listing updates, reports | P1 |
+| Admin web experience | Full admin portal for platform operations | P1 |
+| Notifications | Push notifications, email, SMS flows | P0 |
+| QA and regression | Cross-platform validation, fixes, accessibility | P0 |
+| Performance | Optimization, caching, load testing, mobile speed tuning | P0 |
+
+Key outcomes:
+- Every major app surface is production-ready
+- The full ecosystem works consistently across environments
+- Quality is hardened before launch
+
+---
+
+### Phase 7 — Launch, Hardening, and Production Readiness
+
+| Area | Deliverables | Priority |
+|------|--------------|----------|
+| Security review | Auth, audit logs, access control, data protection | P0 |
+| Compliance | Privacy, KYC, payment compliance, disclosures | P0 |
+| Production deployment | Infra, domain, containers, CDN, monitoring | P0 |
+| Beta launch | Controlled release and user feedback loop | P0 |
+| Public launch | Full web + mobile rollout | P0 |
+
+Exit criteria:
+- All critical flows pass in production-like environment
+- Security review is approved
+- Launch checklist is signed off by product, engineering, and operations
+
+---
+
+## 4. Full Product Milestone Summary
+
+| Milestone | Goal | Target |
+|-----------|------|--------|
+| M1 — Architecture & foundation | Shared structure and backend foundations | Weeks 1-2 |
+| M2 — Customer web + mobile core | Core marketplace browsing, auth, and profiles | Weeks 3-7 |
+| M3 — Commerce & payment | Cart, checkout, order lifecycle, payments | Weeks 8-11 |
+| M4 — Seller platform | Seller onboarding, dashboard, management tools | Weeks 12-16 |
+| M5 — Admin and moderation | Admin operations and governance | Weeks 15-18 |
+| M6 — Services & engagement | Community, services, education, retention features | Weeks 18-22 |
+| M7 — Launch hardening | QA, security, production readiness, beta, launch | Weeks 23-26 |
+
+---
+
+## 5. Priority Definitions
 
 | Priority | Meaning | Action |
 |----------|---------|--------|
-| **P0** | Must have for launch | Cannot launch without it |
-| **P1** | Should have for launch | Strong preference, launch degraded without it |
-| **P2** | Nice to have | Can launch without, add post-launch |
-| **P3** | Future | Planned for v2.0 |
+| P0 | Must have before launch | Mandatory |
+| P1 | Important for product maturity | Ship in planned release |
+| P2 | Valuable, but not launch-blocking | Post-launch or later phase |
 
 ---
 
-## 4. Dependencies & Critical Path
+## 6. Recommended Execution Order
+
+1. Foundation and architecture
+2. Customer web + mobile core
+3. Commerce and payments
+4. Seller platform
+5. Admin platform
+6. Services and community
+7. Hardening and launch
+
+This sequence reduces risk and keeps the product build aligned to the real business need.
+
 
 ```mermaid
 graph LR
