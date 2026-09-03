@@ -91,6 +91,11 @@ PetZonic is a multi-platform pet ecosystem combining:
 | [Testing Strategy](07-development-guide/testing-strategy.md) | Unit, integration, E2E testing approach |
 | [Deployment Runbook](07-development-guide/deployment-runbook.md) | Production deployment, rollback, incident response |
 
+### 08 — Application Visual Diagrams
+| Document | Description |
+|----------|-------------|
+| [Application Interconnection](08-appication-visual%20diagram/application-interconnection.md) | Mermaid diagrams: role relationships, nav/dashboard separation, core marketplace flow, actual system architecture, admin scope |
+
 ---
 
 ## Quick Reference
