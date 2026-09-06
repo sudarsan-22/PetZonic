@@ -319,3 +319,42 @@ Report a suspicious listing.
 ```
 
 Reasons: `SCAM`, `WRONG_INFO`, `INAPPROPRIATE`, `ANIMAL_CRUELTY`, `DUPLICATE`, `OTHER`
+
+---
+
+## POST /pets/ai-assist
+
+Analyze a pet photograph using Google Gemini AI to auto-populate listing metadata and run welfare checks.
+
+**Auth**: Required (`BUYER`, `SELLER`, `BREEDER`, `ADMIN`)  
+**Rate Limit**: 10 requests / minute
+
+### Request
+```json
+{
+  "imageUrl": "https://api.petzonic.com/uploads/photo-123.jpg"
+}
+```
+
+### Response (200 OK)
+```json
+{
+  "success": true,
+  "data": {
+    "detectedSpecies": "DOG",
+    "suggestedBreed": "Golden Retriever",
+    "suggestedTitle": "Friendly Golden Retriever Puppy",
+    "suggestedDescription": "Healthy, playful young Golden Retriever with good coat condition and clear eyes.",
+    "estimatedAgeMonths": 3,
+    "welfareCheck": {
+      "passesWelfareCheck": true,
+      "concerns": []
+    }
+  }
+}
+```
+
+### Error Responses
+- **401 Unauthorized**: Missing or invalid Bearer token.
+- **400 Bad Request**: Missing or invalid `imageUrl` (must be a valid `http(s)` URL).
+- **503 Service Unavailable**: `AI_PROVIDER_UNAVAILABLE` returned when `GEMINI_API_KEY` is unconfigured.

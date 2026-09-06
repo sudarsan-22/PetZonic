@@ -29,117 +29,77 @@
 
 | Level | What to Test | Tools | Speed |
 |-------|-------------|-------|:-----:|
-| Unit | Business logic, utils, pure functions | Jest, flutter_test | Fast |
-| Integration | API endpoints, DB queries, services together | Supertest, Prisma test DB | Medium |
-| E2E | Critical user journeys across the full stack | Detox (mobile), Playwright (web) | Slow |
+| Unit | Business logic, utils, validation schemas | Vitest, React Testing Library | Fast |
+| Integration | API routes, Controllers, Services, DB Repos | Vitest, Supertest, PostgreSQL test DB | Fast/Medium |
+| E2E | Critical user journeys across web & backend | Playwright | High Confidence |
 
 ---
 
-## 3. Coverage Targets
+## 3. Active Coverage & Test Metrics
 
-| Area | Target | Enforced |
-|------|:------:|:--------:|
-| Backend services | ≥ 80% | CI gate |
-| Backend controllers | ≥ 70% | CI gate |
-| Flutter business logic | ≥ 75% | CI gate |
-| Flutter widgets | ≥ 50% | Advisory |
-| Next.js utilities | ≥ 80% | CI gate |
-| Next.js components | ≥ 50% | Advisory |
-| E2E critical paths | 100% of P0 flows | Manual check |
+| Repository | Test Framework | Test Files | Total Tests | Status |
+| :--- | :--- | :---: | :---: | :---: |
+| **`petzonic-api`** | Vitest v4 + Supertest | 28 | 445 | **100% Passed** |
+| **`petzonic-web`** | Vitest v4 + RTL (JSDOM) | 114 | 531 | **100% Passed** |
+| **Total Automated** | Full Stack | **142 files** | **976 tests** | **100% GREEN** |
 
 ---
 
-## 4. Backend Testing (NestJS + Jest)
+## 4. Backend Testing (Express 5 + Vitest + Supertest)
 
-### 4.1 Unit Tests
+### 4.1 Integration & Route Tests
 
-Test services and utilities in isolation with mocked dependencies.
+Test complete module request-response lifecycles, auth guards, input validation, and Prisma repository operations against the dedicated test database (`petzonic_test`).
 
 ```typescript
-// pets.service.spec.ts
-describe('PetsService', () => {
-  let service: PetsService;
-  let prisma: DeepMockProxy<PrismaClient>;
+// pets.router.test.ts
+import { describe, it, expect } from "vitest";
+import request from "supertest";
+import { app } from "../../app.js";
+import { createTestUser, createTestPetListing } from "../../test/helpers.js";
 
-  beforeEach(async () => {
-    const module = await Test.createTestingModule({
-      providers: [
-        PetsService,
-        { provide: PrismaService, useValue: mockDeep<PrismaClient>() },
-        { provide: SearchService, useValue: { indexPet: jest.fn() } },
-      ],
-    }).compile();
+describe("Pets API Integration Tests", () => {
+  it("finds a listing despite a typo in the search term (pg_trgm fuzzy match)", async () => {
+    const seller = await createTestUser({ roles: ["SELLER"] });
+    const listing = await createTestPetListing({
+      sellerId: seller.user.id,
+      title: "Zephyrine Puppy",
+    });
 
-    service = module.get(PetsService);
-    prisma = module.get(PrismaService);
+    const res = await request(app).get("/api/v1/pets?search=Zephrine");
+    expect(res.status).toBe(200);
+    expect(res.body.data.some((p: { id: string }) => p.id === listing.id)).toBe(true);
   });
 
-  describe('findOne', () => {
-    it('should return pet when found', async () => {
-      const mockPet = { id: '1', breed: 'Golden Retriever', price: 25000 };
-      prisma.pet.findUnique.mockResolvedValue(mockPet);
-
-      const result = await service.findOne('1');
-      expect(result).toEqual(mockPet);
-    });
-
-    it('should throw NotFoundException when pet not found', async () => {
-      prisma.pet.findUnique.mockResolvedValue(null);
-
-      await expect(service.findOne('999')).rejects.toThrow(NotFoundException);
-    });
+  it("requires authentication for AI photo analysis", async () => {
+    const res = await request(app)
+      .post("/api/v1/pets/ai-assist")
+      .send({ imageUrl: "http://localhost:4000/uploads/photo.jpg" });
+    expect(res.status).toBe(401);
   });
+### 4.2 Test Database & Global Setup
 
-  describe('create', () => {
-    it('should create pet and index in search', async () => {
-      // ...
-    });
+Integration tests run against the dedicated PostgreSQL test database (`petzonic_test`). A global setup hook (`src/test/global-setup.ts`) ensures the database is automatically truncated and seeded once before test execution.
 
-    it('should validate minimum 3 images', async () => {
-      // ...
-    });
-  });
-});
+```typescript
+// global-setup.ts
+import { prisma } from "../lib/prisma.js";
+
+export default async function globalSetup() {
+  // Truncates non-seed tables and reseeds taxonomy & demo accounts
+  await truncateAllTables(prisma);
+  await seedDatabase(prisma);
+}
 ```
 
-### 4.2 Integration Tests (E2E with real DB)
-
-Test full request → response cycle with a test database.
-
 ```typescript
-// pets.e2e-spec.ts
-describe('PetsController (e2e)', () => {
-  let app: INestApplication;
-  let prisma: PrismaService;
+// Example: Testing endpoints with Supertest
+describe('POST /api/v1/pets', () => {
+  it('should create pet listing with valid data', async () => {
+    const { token } = await createTestUser({ roles: ['SELLER'] });
 
-  beforeAll(async () => {
-    const module = await Test.createTestingModule({
-      imports: [AppModule],
-    }).compile();
-
-    app = module.createNestApplication();
-    app.useGlobalPipes(new ValidationPipe());
-    await app.init();
-
-    prisma = app.get(PrismaService);
-  });
-
-  beforeEach(async () => {
-    // Clean test DB between tests
-    await prisma.pet.deleteMany();
-    await prisma.user.deleteMany();
-  });
-
-  afterAll(async () => {
-    await app.close();
-  });
-
-  describe('POST /api/v1/pets', () => {
-    it('should create pet listing with valid data', async () => {
-      const token = await getAuthToken(app, 'seller');
-
-      const response = await request(app.getHttpServer())
-        .post('/api/v1/pets')
+    const response = await request(app)
+      .post('/api/v1/pets')
         .set('Authorization', `Bearer ${token}`)
         .send({
           species: 'dog',

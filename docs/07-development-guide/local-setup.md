@@ -10,7 +10,7 @@
 | Tool | Version | Install |
 |------|---------|---------|
 | Node.js | 22.x LTS | [nodejs.org](https://nodejs.org/) or `nvm install 22` |
-| pnpm | 9.x | `npm install -g pnpm` |
+| npm | 10.x | Included with Node.js 22 |
 | Flutter | 3.x | [flutter.dev](https://flutter.dev/docs/get-started/install) |
 | Docker Desktop | Latest | [docker.com](https://www.docker.com/products/docker-desktop/) |
 | Git | Latest | [git-scm.com](https://git-scm.com/) |
@@ -41,10 +41,10 @@ git clone git@github.com:petzonic/petzonic-infra.git
 ### 3.1 Start Infrastructure (Docker)
 
 ```bash
-cd petzonic-api
+cd petzonic-infra/"Deployment container"
 
-# Start PostgreSQL, Redis, Meilisearch via Docker Compose
-docker compose up -d
+# Start PostgreSQL and Redis
+docker compose up -d postgres redis
 
 # Verify services are running
 docker compose ps
@@ -54,104 +54,88 @@ docker compose ps
 
 | Service | Port | Purpose |
 |---------|:----:|---------|
-| PostgreSQL 16 | 5432 | Primary database |
-| Redis 7 | 6379 | Cache, sessions, queues |
-| Meilisearch | 7700 | Full-text search |
-| MailHog | 8025 | Email testing (catches all outbound email) |
+| PostgreSQL 16 | 5432 | Primary database with `pg_trgm` fuzzy search |
+| Redis 7 | 6379 | Rate limiting, distributed lock & cache store |
 
 ### 3.2 Install Dependencies & Configure
 
 ```bash
+cd ../../petzonic-api
+
 # Install Node packages
-pnpm install
+npm install
 
 # Copy environment file
 cp .env.example .env
-
-# Edit .env with your local values (defaults work for Docker services)
 ```
 
-### 3.3 Environment Variables (.env)
+### 3.3 Environment Variables (`.env`)
 
 ```env
 # Database
-DATABASE_URL="postgresql://petzonic:petzonic@localhost:5432/petzonic_dev"
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/petzonic?schema=public"
 
 # Redis
-REDIS_HOST=localhost
-REDIS_PORT=6379
+REDIS_URL="redis://localhost:6379"
 
 # JWT
-JWT_SECRET=local-dev-secret-change-in-production
-JWT_EXPIRY=15m
-JWT_REFRESH_EXPIRY=7d
+JWT_SECRET=dev-secret-change-in-production-long-random-string
+JWT_REFRESH_SECRET=dev-refresh-secret-change-in-production-long-random-string
 
-# Meilisearch
-MEILISEARCH_HOST=http://localhost:7700
-MEILISEARCH_KEY=local-master-key
-
-# Razorpay (sandbox)
-RAZORPAY_KEY_ID=rzp_test_xxxxx
-RAZORPAY_KEY_SECRET=xxxxx
-
-# AWS S3 (use LocalStack or MinIO for local)
-AWS_REGION=ap-south-1
-AWS_ACCESS_KEY_ID=localdev
-AWS_SECRET_ACCESS_KEY=localdev
-S3_BUCKET=petzonic-dev
-S3_ENDPOINT=http://localhost:9000  # MinIO
-
-# Firebase (for push notifications - skip in local dev)
-# FIREBASE_PROJECT_ID=
-# FIREBASE_PRIVATE_KEY=
-
-# App
-PORT=3000
+# App & CORS
+PORT=4000
 NODE_ENV=development
-API_PREFIX=api/v1
+CLIENT_URL=http://localhost:3001
+
+# Cloud Storage (Optional - falls back to local /uploads if omitted)
+# AWS_ACCESS_KEY_ID=
+# AWS_SECRET_ACCESS_KEY=
+# AWS_REGION=ap-south-1
+# AWS_S3_BUCKET=petzonic-media
+
+# Razorpay (Optional in development)
+# RAZORPAY_KEY_ID=rzp_test_xxxxx
+# RAZORPAY_KEY_SECRET=xxxxx
+
+# Gemini AI (Optional - returns honest 503 fallback if omitted)
+# GEMINI_API_KEY=
 ```
 
 ### 3.4 Database Setup
 
 ```bash
 # Generate Prisma client
-pnpm prisma generate
+npm run db:generate
 
-# Run migrations
-pnpm prisma migrate dev
+# Push schema to database
+npm run db:push
 
 # Seed database with sample data
-pnpm prisma db seed
-
-# (Optional) Open Prisma Studio to browse data
-pnpm prisma studio
-# Opens at http://localhost:5555
+npm run db:seed
 ```
 
 ### 3.5 Run API Server
 
 ```bash
-# Development mode (hot reload)
-pnpm run start:dev
+# Development mode (with live watch)
+npm run dev
 
-# API running at http://localhost:3000
-# Swagger docs at http://localhost:3000/api/docs
+# API running at http://localhost:4000
+# Health check at http://localhost:4000/api/health
+# Interactive Swagger docs at http://localhost:4000/api/docs
 ```
 
 ### 3.6 Run Tests
 
 ```bash
-# Unit tests
-pnpm test
+# Static type safety check
+npm run typecheck
 
-# Unit tests (watch mode)
-pnpm test:watch
+# Run full Vitest integration suite (28 test files, 445 tests)
+npm run test:run
 
-# E2E tests
-pnpm test:e2e
-
-# Test coverage
-pnpm test:cov
+# Run tests with code coverage report
+npm run test:coverage
 ```
 
 ---
@@ -234,15 +218,15 @@ cp .env.local.example .env.local
 ### Environment (.env.local)
 
 ```env
-NEXT_PUBLIC_API_URL=http://localhost:3000/api/v1
-NEXT_PUBLIC_WS_URL=ws://localhost:3000
+NEXT_PUBLIC_API_URL=http://localhost:4000/api/v1
+NEXT_PUBLIC_WS_URL=ws://localhost:4000
 NEXT_PUBLIC_RAZORPAY_KEY=rzp_test_xxxxx
 NEXT_PUBLIC_SITE_URL=http://localhost:3001
 ```
 
 ```bash
 # Run development server
-pnpm dev
+npm run dev
 
 # Website at http://localhost:3001
 # Admin panel at http://localhost:3001/admin
@@ -252,30 +236,18 @@ pnpm dev
 
 ## 7. VS Code Extensions (Recommended)
 
-### Backend (NestJS/TypeScript)
+### Backend & Frontend (TypeScript / React)
 - ESLint
 - Prettier
 - Prisma
-- REST Client (or Thunder Client)
+- Tailwind CSS IntelliSense
 - GitLens
-- Error Lens
 - Docker
 
 ### Flutter
 - Flutter
 - Dart
 - Flutter Riverpod Snippets
-- Awesome Flutter Snippets
-
-### Frontend (Next.js)
-- Tailwind CSS IntelliSense
-- ES7+ React Snippets
-- Auto Rename Tag
-
-### General
-- GitHub Copilot
-- Material Icon Theme
-- Todo Tree
 
 ---
 
@@ -291,13 +263,7 @@ Create `.vscode/settings.json` in each repo:
     "source.fixAll.eslint": "explicit",
     "source.organizeImports": "explicit"
   },
-  "typescript.preferences.importModuleSpecifier": "non-relative",
-  "[dart]": {
-    "editor.defaultFormatter": "Dart-Code.dart-code",
-    "editor.formatOnSave": true,
-    "editor.selectionHighlight": false,
-    "editor.rulers": [80]
-  }
+  "typescript.preferences.importModuleSpecifier": "non-relative"
 }
 ```
 
@@ -305,65 +271,45 @@ Create `.vscode/settings.json` in each repo:
 
 ## 9. Useful Commands Quick Reference
 
-### Backend
+### Backend (`petzonic-api`)
 
 | Command | Purpose |
 |---------|---------|
-| `pnpm start:dev` | Start API (dev mode) |
-| `pnpm test` | Run unit tests |
-| `pnpm test:e2e` | Run E2E tests |
-| `pnpm prisma studio` | Browse database |
-| `pnpm prisma migrate dev` | Create/apply migration |
-| `pnpm prisma db seed` | Seed sample data |
-| `pnpm lint` | Run ESLint |
-| `pnpm format` | Run Prettier |
-| `docker compose up -d` | Start infra services |
-| `docker compose down` | Stop infra services |
-| `docker compose logs -f postgres` | View Postgres logs |
+| `npm run dev` | Start API in dev mode with live watch |
+| `npm run typecheck` | Static TypeScript type safety check |
+| `npm run test:run` | Run full Vitest integration suite (445 tests) |
+| `npm run test:coverage` | Run tests with V8 coverage report |
+| `npm run build` | Compile TypeScript into `dist/` |
+| `npm run db:push` | Sync Prisma schema with database |
+| `npm run db:seed` | Seed test users, listings, products, & services |
 
-### Flutter
+### Frontend (`petzonic-web`)
 
 | Command | Purpose |
 |---------|---------|
-| `flutter run` | Run app on device |
-| `flutter test` | Run tests |
-| `flutter analyze` | Static analysis |
-| `dart run build_runner build` | Code generation |
-| `flutter clean` | Clean build cache |
-| `flutter pub upgrade` | Upgrade packages |
-| `flutter build apk` | Build Android APK |
-| `flutter build ios` | Build iOS |
-
-### Next.js
-
-| Command | Purpose |
-|---------|---------|
-| `pnpm dev` | Start dev server |
-| `pnpm build` | Production build |
-| `pnpm start` | Start production server |
-| `pnpm lint` | Run ESLint |
-| `pnpm test` | Run tests |
+| `npm run dev` | Start Next.js dev server on port 3001 |
+| `npm run test:run` | Run Vitest component tests (531 tests) |
+| `npm run lint` | Run ESLint code quality check |
+| `npm run build` | Next.js production build (79 routes) |
 
 ---
 
 ## 10. Seed Data
 
-After running `pnpm prisma db seed`, these test accounts are available:
+After running `npm run db:seed`, these test accounts are seeded in the database:
 
-| Role | Email/Phone | Password/OTP |
-|------|------------|--------------|
-| Admin | admin@petzonic.com | admin123 |
-| Buyer | +91-9876543210 | 123456 (fixed in dev) |
-| Seller | +91-9876543211 | 123456 |
-| Breeder | +91-9876543212 | 123456 |
-| Vet | +91-9876543213 | 123456 |
+| Role | Email | Password |
+|------|-------|----------|
+| Admin | admin@example.com | admin123 |
+| Buyer | buyer@example.com | buyer123 |
+| Seller | seller@example.com | seller123 |
 
 **Sample data created**:
-- 20 pet listings (various species, cities)
-- 50 products (food, accessories, health)
-- 5 service providers (vets, groomers)
-- 3 categories with subcategories
-- Sample orders, reviews, chats
+- 4 Species (Dogs, Cats, Birds, Fish) & 14 Breeds
+- 8 Product Categories & Seed Products
+- Pet Listings with images and pricing
+- Service Providers & Bookable Services
+- Insurance Partners & Coverage Plans
 
 ---
 

@@ -7,22 +7,21 @@
 
 ## 1. Stack Summary
 
-| Layer | Technology | Version |
-|-------|-----------|---------|
-| **Mobile** | Flutter (Dart) | 3.x (latest stable) |
-| **Web (Customer)** | React.js (React 19) | 15.x |
-| **Web (Admin)** | React.js (React 19) | 15.x |
+| Layer | Technology | Version / Details |
+|-------|-----------|-------------------|
+| **Web (Customer & Admin)** | Next.js (React 19) | 16.x (Turbopack, App Router) |
+| **Mobile (Customer & Seller)** | Flutter (Dart) | 3.x (Clean Architecture, Riverpod) |
 | **Backend** | Node.js + Express | 22.x (Node) / 5.x (Express) |
-| **Language** | TypeScript | 5.x |
-| **ORM** | Prisma | 6.x |
-| **Database** | MongoDB + PostgreSQL | 8.x (Mongo) / 16 (PG) |
-| **Cache** | Redis | 7.x |
-| **Search** | Meilisearch | 1.x |
-| **Queue** | BullMQ (Redis-backed) | 5.x |
-| **Real-time** | Socket.io | 4.x |
-| **Cloud** | AWS | - |
-| **CI/CD** | GitHub Actions | - |
-| **Containerization** | Docker | - |
+| **Language** | TypeScript | 5.x / 6.x |
+| **ORM** | Prisma | 7.x |
+| **Database** | PostgreSQL | 16 (Single unified DB with JSONB & pg_trgm) |
+| **Cache & Rate Limit** | Redis | 7.x (ioredis + rate-limit-redis, memory fallback) |
+| **Search** | PostgreSQL pg_trgm | Native trigram fuzzy matching & full-text search |
+| **AI Assist** | Google Gemini AI | @google/genai (Multimodal photo analysis) |
+| **Object Storage** | AWS S3 / Cloudflare R2 | @aws-sdk/client-s3 with local /uploads fallback |
+| **Real-time** | Socket.io | 4.x (WebSockets with polling fallback) |
+| **Load Balancer** | Nginx | Multi-replica failover & reverse proxy |
+| **Containerization** | Docker & Docker Compose | Multi-container dev & prod topologies |
 
 ---
 
@@ -126,83 +125,55 @@
 
 ### Backend Key Libraries
 
-| Purpose | Library |
-|---------|---------|
-| ORM | Prisma 6 |
-| Validation | Zod |
-| Auth | jsonwebtoken + bcryptjs |
-| WebSocket | socket.io |
-| Queue | BullMQ |
-| Cache | ioredis |
-| File Upload | multer |
-| Swagger | swagger-ui-express |
-| Config | dotenv |
-| Throttle | express-rate-limit |
-| Health Check | express-actuator / custom middleware |
-| Testing | Jest + Supertest |
-| Logging | pino (structured JSON logs) |
-| Scheduling | node-cron |
+| Purpose | Library | Version / Notes |
+|---------|---------|-----------------|
+| ORM | Prisma | 7.x (Client + PG Adapter + Engine) |
+| Validation | Zod | 4.x (Strict type schemas) |
+| Auth & Security | jsonwebtoken + bcryptjs + helmet | Token rotation & password hashing |
+| WebSocket | socket.io | 4.x (Real-time in-app chat) |
+| Cache & Limits | ioredis + rate-limit-redis | Shared Redis rate limiter with fallback |
+| AI Photo Assist | @google/genai | Gemini AI photo analysis & welfare check |
+| Cloud Storage | @aws-sdk/client-s3 | AWS S3 / Cloudflare R2 with local disk fallback |
+| File Upload | multer | Multi-part upload handler |
+| Swagger Docs | swagger-ui-express | Interactive OpenAPI 3.0 UI (/api/docs) |
+| Logging | pino + pino-pretty | Structured JSON production logs |
+| Testing | Vitest + Supertest | Unit & Controller/Service integration tests |
 
 ### Backend Architecture Pattern
-- **Modular Monolith** (each feature is a separate module/folder)
-- **Router → Controller → Service → Repository** pattern
-- **Zod schemas** for request/response validation
-- **Middleware** for authentication, logging, rate limiting
-- **Error handlers** for centralized exception handling
-- **Feature-first** folder structure
-- **Dependency injection** via factory functions
+- **Modular Monolith** (19 cohesive domain modules in `src/modules/`)
+- **Router → Controller → Service → Repository** 4-tier layer pattern
+- **Thin Routers**: Pure route-to-controller mapping with auth & rate limit guards
+- **Controllers**: Request validation, status code assignment, response formatting
+- **Services**: Business logic, domain rules, third-party integrations
+- **Repositories**: Isolated Prisma database queries and transactions
+- **Zod schemas**: Schema-first input validation
+- **Centralized Error Handling**: Standardized `{ success, data, error, meta }` envelope
 
 ---
 
-## 5. Database — MongoDB + PostgreSQL
+## 5. Database — Single Unified PostgreSQL 16
 
-### Why Both?
-- **MongoDB**: Flexible schema for pets catalog, chat messages, notifications, activity logs
-- **PostgreSQL**: Strict relational data for orders, payments, users, inventory, financial transactions
+### Why Unified PostgreSQL over MongoDB + PostgreSQL?
+- **Relational Integrity & ACID**: E-commerce, escrow payments, user roles, orders, and pet listings require strict foreign keys, transactional atomicity, and consistent reads across all domains.
+- **Native JSONB Flexibility**: PostgreSQL 16's binary JSON (`JSONB`) provides all the document-store benefits previously desired from MongoDB (e.g. flexible health info, specifications, user preferences) without running a second database cluster.
+- **Zero Dual-Write Latency**: Operating a single unified database eliminates the need for distributed transactions, two-phase commits, or eventual consistency synchronization between Mongo and Postgres.
+- **Reduced Infrastructure & Operational Overhead**: One database engine to backup, monitor, replicate, and scale in production.
 
-### Why PostgreSQL (for transactional data)?
-| Criteria | PostgreSQL | MongoDB | MySQL |
-|----------|-----------|---------|-------|
-| ACID Compliance | ⭐⭐⭐⭐⭐ Full | ⭐⭐⭐ Eventually consistent | ⭐⭐⭐⭐⭐ Full |
-| JSON Support | ⭐⭐⭐⭐⭐ JSONB, indexable | ⭐⭐⭐⭐⭐ Native | ⭐⭐⭐ Basic |
-| Complex Queries | ⭐⭐⭐⭐⭐ Advanced SQL, CTEs | ⭐⭐⭐ Aggregation pipeline | ⭐⭐⭐⭐ Good |
-| Relationships | ⭐⭐⭐⭐⭐ Foreign keys, joins | ⭐⭐ Manual references | ⭐⭐⭐⭐⭐ Good |
-| Full-text Search | ⭐⭐⭐⭐ Built-in (basic) | ⭐⭐⭐ Atlas Search | ⭐⭐⭐ Basic |
-| Scalability | ⭐⭐⭐⭐ Read replicas, partitioning | ⭐⭐⭐⭐⭐ Horizontal | ⭐⭐⭐⭐ Good |
-| E-commerce fit | ⭐⭐⭐⭐⭐ Stripe, Shopify use it | ⭐⭐⭐ Flexible but risky | ⭐⭐⭐⭐ |
-
-**Decision**: PostgreSQL — Relational integrity critical for e-commerce (orders, payments, inventory), ACID compliance for financial transactions, JSONB for flexible fields, proven at scale.
-
-### Why Prisma (ORM for PostgreSQL)?
-- **Type-safe**: Auto-generated TypeScript types from schema
-- **Migration system**: Version-controlled schema changes
-- **Query performance**: Optimized SQL generation
-- **Developer experience**: Auto-complete, intuitive API
-- **Schema-first**: Single source of truth for database structure
-
-### Why Mongoose (ODM for MongoDB)?
-- **Schema validation**: Define structure for flexible documents
-- **Middleware hooks**: Pre/post save, validate, remove
-- **Population**: Reference-based joins across collections
-- **TypeScript support**: Strong typing with interfaces
-- **Mature ecosystem**: Most popular MongoDB ODM for Node.js
+### Why Prisma ORM?
+- **Type Safety**: Automatically generates TypeScript definitions directly from the 58 Prisma models.
+- **Declarative Migrations**: Version-controlled, reproducible SQL migration files.
+- **Connection Pooling**: Native integration with PostgreSQL connection pools.
+- **Single Source of Truth**: `prisma/schema.prisma` is the definitive data contract for the entire backend.
 
 ---
 
-## 6. Search — Meilisearch
+## 6. Search — PostgreSQL pg_trgm (Trigram Fuzzy Search)
 
-### Why Meilisearch over Elasticsearch?
-| Criteria | Meilisearch | Elasticsearch |
-|----------|-------------|--------------|
-| Setup complexity | ⭐⭐⭐⭐⭐ Single binary | ⭐⭐ JVM, cluster setup |
-| Resource usage | ⭐⭐⭐⭐⭐ ~256MB RAM | ⭐⭐ 2-4GB minimum |
-| Typo tolerance | ⭐⭐⭐⭐⭐ Out of box | ⭐⭐⭐ Configurable |
-| Speed | ⭐⭐⭐⭐⭐ <50ms queries | ⭐⭐⭐⭐ Fast |
-| Cost | ⭐⭐⭐⭐⭐ Open source, low resources | ⭐⭐ Expensive at scale |
-| Faceted search | ⭐⭐⭐⭐⭐ Built-in filters | ⭐⭐⭐⭐⭐ Advanced |
-| For our scale | ✅ Perfect for <1M documents | Overkill |
-
-**Decision**: Meilisearch — Lightweight, fast, excellent typo tolerance (critical for breed names), perfect for our scale, cost-effective.
+### Why Native PostgreSQL pg_trgm over Meilisearch?
+- **Out-of-the-Box Typo Tolerance**: `pg_trgm` provides similarity-based fuzzy matching (e.g. finding "Golden Retriever" even when queried as "Goldn Retrever").
+- **Zero Additional Infrastructure**: Runs directly inside PostgreSQL without provisioning, maintaining, or paying for an external Meilisearch server.
+- **Instant Real-Time Consistency**: When a pet or product is created or updated, it is immediately searchable with zero indexing lag or webhook sync delay.
+- **GIN Indexing**: Trigram GIN indexes (`gin_trgm_ops`) provide fast sub-10ms query times for catalogs well beyond 100,000 listings.
 
 ---
 

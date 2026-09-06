@@ -123,9 +123,9 @@ graph LR
 
 ---
 
-## 5. Docker Configuration
+## 5. Docker & Container Topologies
 
-### API Dockerfile (Production)
+### API Dockerfile (`petzonic-api/Dockerfile`)
 ```dockerfile
 FROM node:22-alpine AS builder
 WORKDIR /app
@@ -141,44 +141,86 @@ COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/package.json ./
-EXPOSE 3000
-CMD ["node", "dist/main.js"]
+EXPOSE 4000
+CMD ["node", "dist/src/server.js"]
 ```
 
-### Docker Compose (Local Development)
+### Local Development Topology (`petzonic-infra/Deployment container/docker-compose.yml`)
 ```yaml
 services:
-  api:
-    build: ./backend
-    ports: ["3000:3000"]
-    environment:
-      DATABASE_URL: postgresql://postgres:postgres@db:5432/petzonic
-      REDIS_URL: redis://redis:6379
-      MEILISEARCH_URL: http://meilisearch:7700
-    depends_on: [db, redis, meilisearch]
-
-  db:
+  postgres:
     image: postgres:16-alpine
     ports: ["5432:5432"]
     environment:
       POSTGRES_DB: petzonic
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-    volumes: [pgdata:/var/lib/postgresql/data]
+    volumes: [petzonic_db:/var/lib/postgresql/data]
 
   redis:
     image: redis:7-alpine
     ports: ["6379:6379"]
+    volumes: [petzonic_redis:/data]
 
-  meilisearch:
-    image: getmeili/meilisearch:v1
-    ports: ["7700:7700"]
+  backend:
+    image: petzonic-api:1.0
+    ports: ["4000:4000"]
     environment:
-      MEILI_MASTER_KEY: devMasterKey123
-    volumes: [msdata:/meili_data]
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/petzonic?schema=public
+      REDIS_URL: redis://redis:6379
+      PORT: 4000
+    depends_on: [postgres, redis]
+
+  frontend:
+    image: petzonic-web:1.0
+    ports: ["3001:3000"]
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:4000/api/v1
+    depends_on: [backend]
 
 volumes:
-  pgdata:
-  msdata:
+  petzonic_db:
+  petzonic_redis:
+```
+
+### Multi-Replica Production Topology (`docker-compose.prod.yml`)
+```yaml
+services:
+  nginx:
+    image: nginx:alpine
+    ports: ["80:80"]
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on: [backend-1, backend-2, frontend]
+
+  backend-1:
+    image: petzonic-api:1.0
+    expose: ["4000"]
+    environment:
+      PORT: 4000
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/petzonic?schema=public
+      REDIS_URL: redis://redis:6379
+    depends_on: [postgres, redis]
+
+  backend-2:
+    image: petzonic-api:1.0
+    expose: ["4000"]
+    environment:
+      PORT: 4000
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/petzonic?schema=public
+      REDIS_URL: redis://redis:6379
+    depends_on: [postgres, redis]
+
+  postgres:
+    image: postgres:16-alpine
+    volumes: [pg_data:/var/lib/postgresql/data]
+
+  redis:
+    image: redis:7-alpine
+
+  frontend:
+    image: petzonic-web:1.0
+    expose: ["3000"]
 ```
 
 ---

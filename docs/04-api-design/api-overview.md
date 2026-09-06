@@ -13,7 +13,7 @@
 |-------------|-----|
 | Production | `https://api.petzonic.com/api/v1` |
 | Staging | `https://staging-api.petzonic.com/api/v1` |
-| Local | `http://localhost:3000/api/v1` |
+| Local | `http://localhost:4000/api/v1` |
 
 ### Versioning
 - URL-based: `/api/v1/...`
@@ -391,13 +391,55 @@ ws://api.petzonic.com/chat?token=<access_token>
 | POST | /wishlist | Add to wishlist (pet or product) |
 | DELETE | /wishlist/:id | Remove from wishlist |
 
+### Community (`/community`)
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | /community/posts | List discussion posts with filters |
+| POST | /community/posts | Create discussion thread |
+| GET | /community/posts/:id | Get post details and replies |
+| POST | /community/posts/:id/replies | Reply to thread |
+| POST | /community/posts/:id/vote | Upvote/downvote post |
+| GET | /community/lost-found | List lost & found pet notices |
+| POST | /community/lost-found | Report lost or found pet |
+
+### Education (`/education`)
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | /education/courses | List training courses |
+| GET | /education/courses/:id | Course curriculum and lesson details |
+| POST | /education/courses/:id/enroll | Enroll in course |
+| POST | /education/vet-consultations | Book vet telemedicine session |
+| GET | /education/vet-qa | Browse community vet questions |
+| POST | /education/vet-qa | Ask vet medical question |
+
+### Insurance (`/insurance`)
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | /insurance/plans | List partner insurance policies |
+| GET | /insurance/plans/:id | Plan details and coverage terms |
+| POST | /insurance/policies | Buy insurance policy for pet |
+| GET | /insurance/my-policies | View active user policies |
+| POST | /insurance/claims | File medical reimbursement claim |
+
+### Promotions & Banners (`/promotions`, `/banners`)
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | /banners | Get active homepage slider banners |
+| POST | /promotions/validate | Validate discount coupon code |
+
+### Media & AI Assist (`/media`, `/pets/ai-assist`)
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | /media/upload | Upload image/document to S3 / R2 (or local fallback) |
+| POST | /pets/ai-assist | Gemini AI pet photo analysis & welfare check |
+
 ---
 
 ## 9. API Documentation (Swagger)
 
-Auto-generated Swagger UI available at:
-- Production: `https://api.petzonic.com/docs`
-- Staging: `https://staging-api.petzonic.com/docs`
-- Local: `http://localhost:3000/docs`
+Interactive OpenAPI 3.0 Swagger UI is available at:
+- Production: `https://api.petzonic.com/api/docs`
+- Staging: `https://staging-api.petzonic.com/api/docs`
+- Local: `http://localhost:4000/api/docs`
 
-Generated from NestJS decorators using `@nestjs/swagger`.
+Direct JSON Specification: `http://localhost:4000/api/docs/json`

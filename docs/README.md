@@ -1,8 +1,8 @@
 # PetZonic — Project Documentation
 
-> **Status**: Feature Freeze | Documentation Phase  
-> **Last Updated**: May 28, 2026  
-> **Version**: 1.0.0
+> **Status**: Production Ready & Fully Tested (976/976 tests passing)  
+> **Last Updated**: September 2026  
+> **Version**: 1.2.0
 
 ---
 
@@ -99,9 +99,10 @@ PetZonic is a multi-platform pet ecosystem combining:
 ---
 
 ## Quick Reference
-
-- **Tech Stack**: Flutter (mobile) · Next.js (web) · NestJS (backend) · PostgreSQL · Redis · AWS
-- **Apps**: Customer App · Seller App · Website · Admin Panel
+ 
+- **Tech Stack**: Next.js 16 (React 19) web & admin · Node.js 22 + Express 5 (TypeScript) backend · Unified PostgreSQL 16 (Prisma ORM, 58 models) · Redis 7 · AWS S3 / Cloudflare R2 · Nginx Load Balancer · Flutter (mobile apps)
+- **Apps**: Full-Stack Website & Admin (`petzonic-web`) · API Gateway & Services (`petzonic-api`) · Infrastructure (`petzonic-infra`) · Customer & Seller Mobile Apps (`petzonic-customer-app`, `petzonic-seller-app`)
 - **User Roles**: Buyer · Seller · Breeder · Broker · Franchise · Vet · Pet Caretaker · Admin
-- **Payments**: Razorpay (UPI, Cards, Wallets)
+- **Payments**: Razorpay (UPI, Cards, Wallets, Escrow, COD)
 - **Target**: India (Hindi + English)
+- **Automated Tests**: 976 passing automated tests (100% green across backend and frontend)

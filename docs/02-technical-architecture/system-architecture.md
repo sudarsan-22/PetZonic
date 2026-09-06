@@ -7,7 +7,7 @@
 
 ## 1. Architecture Overview
 
-PetZonic follows a **client-server architecture** with multiple frontend clients communicating with a single unified backend API. The system uses a **modular monolith** approach initially (NestJS modules), designed to evolve into microservices if scale demands it.
+PetZonic follows a **client-server architecture** with web and mobile frontend clients communicating with a single unified backend API. The backend is structured as an **Express 5 Modular Monolith** in TypeScript, adopting a strict **Router → Controller → Service → Repository** 4-tier architecture across 19 domain modules.
 
 ---
 
@@ -16,62 +16,48 @@ PetZonic follows a **client-server architecture** with multiple frontend clients
 ```mermaid
 graph TB
     subgraph Clients
+        WEB[Website & Admin Portal<br/>Next.js 16 / React 19]
         CA[Customer App<br/>Flutter iOS/Android]
         SA[Seller App<br/>Flutter iOS/Android]
-        WEB[Website<br/>Next.js]
-        ADM[Admin Panel<br/>Next.js]
     end
 
-    subgraph CDN & Load Balancer
-        CF[CloudFront CDN]
-        ALB[Application Load Balancer]
+    subgraph Load Balancer & Reverse Proxy
+        NGINX[Nginx Load Balancer<br/>Failover & SSL Termination]
     end
 
-    subgraph API Layer
-        API[NestJS API Server<br/>REST + WebSocket]
+    subgraph API Cluster
+        API1[petzonic-api: Replica 1<br/>Node 22 + Express 5]
+        API2[petzonic-api: Replica 2<br/>Node 22 + Express 5]
     end
 
     subgraph Data Layer
-        PG[(PostgreSQL<br/>Primary DB)]
-        RD[(Redis<br/>Cache & Sessions)]
-        MS[(Meilisearch<br/>Search Engine)]
-        S3[(AWS S3<br/>File Storage)]
+        PG[(PostgreSQL 16 Primary DB<br/>ACID Relational + JSONB + pg_trgm)]
+        RD[(Redis 7<br/>Shared Rate Limiter & Cache)]
+        S3[(AWS S3 / Cloudflare R2<br/>Object Media Storage)]
     end
 
     subgraph External Services
-        RP[Razorpay<br/>Payments]
-        FCM[Firebase<br/>Push Notifications]
-        SMS[MSG91/Twilio<br/>SMS & OTP]
-        SR[Shiprocket<br/>Delivery]
-        EM[AWS SES<br/>Email]
+        RP[Razorpay<br/>Payments & Webhooks]
+        GEMINI[Google Gemini AI<br/>Pet Photo Analysis]
+        FCM[Firebase FCM<br/>Push Notifications]
+        SMS[SMS Gateway<br/>Phone OTP Delivery]
     end
 
-    subgraph Background Processing
-        BQ[Bull Queue<br/>Job Processing]
-        CRON[Cron Jobs<br/>Scheduled Tasks]
-    end
-
-    CA --> CF
-    SA --> CF
-    WEB --> CF
-    ADM --> CF
-    CF --> ALB
-    ALB --> API
-    API --> PG
-    API --> RD
-    API --> MS
-    API --> S3
-    API --> BQ
-    API --> RP
-    API --> FCM
-    API --> SMS
-    API --> SR
-    API --> EM
-    BQ --> PG
-    BQ --> FCM
-    BQ --> SMS
-    BQ --> EM
-    CRON --> API
+    WEB --> NGINX
+    CA --> NGINX
+    SA --> NGINX
+    NGINX --> API1
+    NGINX --> API2
+    API1 --> PG
+    API2 --> PG
+    API1 --> RD
+    API2 --> RD
+    API1 --> S3
+    API2 --> S3
+    API1 --> RP
+    API1 --> GEMINI
+    API1 --> FCM
+    API1 --> SMS
 ```
 
 ---
@@ -82,101 +68,58 @@ graph TB
 
 | Client | Technology | Purpose | Communication |
 |--------|-----------|---------|---------------|
-| Customer App | Flutter (Dart) | iOS + Android buyer experience | REST API + WebSocket |
-| Seller App | Flutter (Dart) | iOS + Android seller experience | REST API + WebSocket |
-| Website | Next.js (React) | Customer web + SEO | REST API (SSR + CSR) |
-| Admin Panel | Next.js (React) | Platform management | REST API |
+| Website & Admin | Next.js 16 (React 19) | Customer e-commerce, listings, chat, & admin panel | REST API (Axios) + Socket.io |
+| Customer App | Flutter (Dart) | iOS + Android mobile buyer experience | REST API + Socket.io |
+| Seller App | Flutter (Dart) | iOS + Android mobile seller experience | REST API + Socket.io |
 
-**Key Design Decisions:**
-- Flutter chosen for single codebase → iOS + Android with near-native performance
-- Next.js for web: SSR for SEO-critical pages (product listings, pet pages), CSR for interactive sections
-- Separate apps for buyer and seller (like Amazon) for focused UX and smaller app size
-- Admin panel is web-only (no mobile app for admin)
-
-### 3.2 API Gateway Layer
+### 3.2 Reverse Proxy & Load Balancer
 
 | Component | Technology | Purpose |
 |-----------|-----------|---------|
-| CDN | AWS CloudFront | Static asset delivery, SSL termination, DDoS protection |
-| Load Balancer | AWS ALB | Request routing, health checks, SSL offloading |
-| API Server | NestJS on ECS | Request handling, business logic, response |
+| Reverse Proxy | Nginx | SSL termination, static gzip caching, path-based routing |
+| Load Balancer | Nginx Upstream | Round-robin load balancing across replicas with health failover (`max_fails=3`) |
+| WebSockets | Nginx `/socket.io/` | Sticky connection upgrade for live real-time chat |
 
-**API Design:**
-- RESTful API (OpenAPI/Swagger documented)
-- WebSocket server for real-time chat
-- API versioning: `/api/v1/...`
-- Rate limiting: 100 req/min (public), 1000 req/min (authenticated)
-- Request timeout: 30 seconds
+### 3.3 Application Layer (Express 5 Modular Monolith)
 
-### 3.3 Application Layer (NestJS Modular Monolith)
+The backend organizes all platform capabilities into 19 cohesive domain modules, each following the 4-layer design:
+- **Router**: Thin route definitions, middleware chains, auth & rate-limit guards
+- **Controller**: HTTP request parsing, Zod validation, status codes, response envelope
+- **Service**: Domain business rules, transactions, external provider integration
+- **Repository**: Prisma ORM database interactions
 
-```mermaid
-graph LR
-    subgraph NestJS Application
-        AUTH[Auth Module]
-        USR[Users Module]
-        PET[Pets Module]
-        PRD[Products Module]
-        ORD[Orders Module]
-        PAY[Payments Module]
-        CHT[Chat Module]
-        SVC[Services Module]
-        REV[Reviews Module]
-        NTF[Notifications Module]
-        ADM[Admin Module]
-        FRN[Franchise Module]
-        SCH[Search Module]
-        DEL[Delivery Module]
-        MED[Media Module]
-    end
+**Active Modules:**
 
-    subgraph Shared
-        GRD[Guards<br/>Auth, Roles, Throttle]
-        INT[Interceptors<br/>Transform, Cache, Logging]
-        PIP[Pipes<br/>Validation, Sanitization]
-        FLT[Filters<br/>Exception Handling]
-    end
-```
-
-**Module Responsibility:**
-
-| Module | Responsibility |
-|--------|---------------|
-| **Auth** | Registration, login, OTP, JWT, session management |
-| **Users** | Profile management, KYC, role management |
-| **Pets** | Pet CRUD, listing lifecycle, moderation |
-| **Products** | Product catalog, variants, inventory |
-| **Orders** | Cart, checkout, order lifecycle, returns |
-| **Payments** | Razorpay integration, escrow, payouts, refunds |
-| **Chat** | WebSocket messaging, chat rooms, message persistence |
-| **Services** | Vet/groomer/sitter listings, bookings, scheduling |
-| **Reviews** | Ratings, reviews, moderation |
-| **Notifications** | Push (FCM), SMS, email, in-app notifications |
-| **Admin** | Dashboard, moderation queues, platform config |
-| **Franchise** | Franchise management, onboarding, revenue sharing |
-| **Search** | Meilisearch integration, indexing, filters |
-| **Delivery** | Shiprocket integration, tracking, logistics |
-| **Media** | Image/video upload, S3 management, compression |
+| Module | Scope / Responsibility |
+|--------|------------------------|
+| **Auth** | Registration, login, phone OTP lockout, JWT refresh rotation, Google OAuth |
+| **Users** | Profile management, KYC verification, address book, roles |
+| **Pets** | Pet listings, breed taxonomy, negotiable pricing, boosts, Gemini AI assist |
+| **Products** | E-commerce catalog, categories, variants, inventory management |
+| **Cart & Orders** | Shopping cart, checkout, multi-item orders, order status lifecycle, returns |
+| **Payments** | Razorpay order creation, HMAC webhook verification, COD, escrow holds, payouts |
+| **Chat** | Socket.io real-time WebSocket chat gateway, rooms, message history |
+| **Services** | Vet, grooming, sitting, training provider listings and slot bookings |
+| **Reviews** | Star ratings, text reviews, helpfulness upvoting, seller/admin replies |
+| **Notifications** | In-app notifications, device tokens, transactional outbox queue |
+| **Community** | Discussion forums, categories, post voting, replies, lost & found board |
+| **Education** | Training courses, chapters, enrollments, vet Q&A, feeding calculator |
+| **Insurance** | Partner plans, coverage comparison, policy issuance, claim filing |
+| **Promotions** | Discount coupons, flat/percentage rules, checkout code validation |
+| **Banners** | Homepage carousel banners, schedules, link targets |
+| **Media** | S3 / Cloudflare R2 upload with local disk `/uploads` fallback |
+| **Newsletter** | Email subscription capture and verification |
+| **Admin** | Unified admin dashboard, metrics, user moderation, dispute resolution, audit logs |
+| **Docs** | Interactive OpenAPI 3.0 Swagger UI mounted at `/api/docs` |
 
 ### 3.4 Data Layer
 
-| Store | Technology | Purpose | Data |
-|-------|-----------|---------|------|
-| **Primary DB** | PostgreSQL 15 | Transactional data | Users, orders, listings, payments, reviews |
-| **Cache** | Redis 7 | Performance + real-time | Sessions, API cache, rate limits, online status, pub/sub for chat |
-| **Search** | Meilisearch | Full-text search | Pet listings index, product index, service provider index |
-| **File Storage** | AWS S3 | Binary assets | Pet photos/videos, documents, product images, user avatars |
-| **Queue** | Redis (Bull) | Async job processing | Email sending, SMS, push notifications, image processing |
-
-### 3.5 Background Processing
-
-| Job Type | Examples | Queue |
-|----------|---------|-------|
-| **Notifications** | Send push, SMS, email after events | notifications-queue |
-| **Media Processing** | Image resize, video thumbnail, watermark | media-queue |
-| **Scheduled Tasks** | Listing expiry check, payout processing, analytics aggregation | cron |
-| **Search Indexing** | Update Meilisearch when listings change | search-queue |
-| **Payment Settlement** | Weekly seller payouts | payments-queue |
+| Store | Technology | Purpose |
+|-------|-----------|---------|
+| **Primary Database** | PostgreSQL 16 | 58 tables: transactional ACID data, user accounts, listings, orders, JSONB |
+| **Search Engine** | PostgreSQL `pg_trgm` | Zero-latency full-text and fuzzy trigram matching directly in DB |
+| **Cache & Limiter** | Redis 7 | Distributed sliding-window rate limiting (`rate-limit-redis`) with memory fallback |
+| **Object Storage** | AWS S3 / Cloudflare R2 | Media images & documents with automated local disk fallback |
 
 ---
 
@@ -185,9 +128,9 @@ graph LR
 ### 4.1 Synchronous (REST API)
 
 ```
-Client → ALB → NestJS Controller → Service → Repository → PostgreSQL
-                                                        → Redis (cache)
-                                                        → S3 (files)
+Client ➔ Nginx ➔ Express Thin Router ➔ Controller ➔ Service ➔ Repository ➔ PostgreSQL 16
+                                                            ➔ Redis 7 (rate limiting)
+                                                            ➔ S3 / Cloudflare R2 (files)
 ```
 
 ### 4.2 Real-time (WebSocket)

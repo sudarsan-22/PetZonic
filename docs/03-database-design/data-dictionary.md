@@ -265,3 +265,31 @@
 | pet_breeds | ~200 popular breeds across species |
 | product_categories | Food, Accessories, Toys, Grooming, Health, Housing (+ subcategories) |
 | Admin user | Super admin account for initial access |
+
+---
+
+## 9. Extended Domains Dictionary
+
+### 9.1 Community Domain
+- **posts**: Community forum discussions (`id`, `authorId`, `category`, `title`, `content`, `speciesId`, `breedId`, `likesCount`, `replyCount`).
+- **replies**: Nested comments on forum posts (`id`, `postId`, `authorId`, `parentId`, `content`, `likesCount`).
+- **lost_found_posts**: Lost and found pet bulletins with location coordinates, pet description, last seen date, contact details, and resolution status (`OPEN`, `REUNITED`).
+
+### 9.2 Education Domain
+- **courses**: Video and curriculum courses authored by pet experts (`id`, `title`, `slug`, `description`, `thumbnailUrl`, `difficultyLevel`, `durationMinutes`, `isPublished`).
+- **course_contents**: Individual chapters and lessons with media streaming links.
+- **vet_consultations**: Telemedicine appointments booked with verified veterinary doctors (`id`, `userId`, `vetId`, `scheduledAt`, `status`, `notes`, `prescriptionUrl`).
+- **vet_qa**: Community vet question and answers answered by verified medical professionals.
+
+### 9.3 Insurance Domain
+- **insurance_partners**: Licensed Indian pet insurance providers (e.g., Bajaj Allianz, Digit).
+- **insurance_plans**: Available coverage tiers (`id`, `partnerId`, `name`, `annualMaxCoverage`, `deductible`, `monthlyPremium`, `coverageDetails`).
+- **insurance_policies**: User policies purchased through the platform (`id`, `userId`, `planId`, `petListingId`, `policyNumber`, `status`, `expiresAt`).
+- **insurance_claims**: Claims submitted by pet owners with medical invoices and diagnostic reports (`id`, `policyId`, `claimNumber`, `amountClaimed`, `status`, `reviewerNotes`).
+
+### 9.4 Promotions & Marketing
+- **coupons**: Checkout discount codes with percentage or flat amount discounts, minimum order thresholds, usage limits, and expiration timestamps.
+- **banners**: Dynamic homepage slider hero banners with desktop/mobile image URLs, display order, target links, and scheduled active date ranges.
+
+### 9.5 Notifications & Outbox Pattern
+- **notification_outbox**: Reliable event-driven notification queue implementing the Transactional Outbox Pattern to guarantee zero dropped SMS, Push, or Email alerts during server restarts.
