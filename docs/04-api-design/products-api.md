@@ -32,7 +32,7 @@ GET /api/v1/products
 | brand | string | — | Brand filter |
 | sort | string | relevance | `relevance`, `price_asc`, `price_desc`, `newest`, `rating`, `popular` |
 | inStock | boolean | true | Only show in-stock items |
-| q | string | — | Search query (routed to Meilisearch) |
+| q | string | — | Search query (fuzzy matched via pg_trgm) |
 
 **Response** `200 OK`:
 
@@ -188,7 +188,7 @@ GET /api/v1/products/:slug
 
 ---
 
-### 2.3 Search Products (via Meilisearch)
+### 2.3 Search Products (via PostgreSQL `pg_trgm`)
 
 ```
 GET /api/v1/products/search
@@ -402,7 +402,7 @@ POST /api/v1/admin/products/bulk-import
 
 | Event | Trigger | Consumer |
 |-------|---------|----------|
-| `product.created` | New product added | Meilisearch indexer |
-| `product.updated` | Product modified | Meilisearch re-index |
+| `product.created` | New product added | Outbox event log |
+| `product.updated` | Product modified | Outbox event log |
 | `product.stock_low` | Stock < threshold | Admin notification |
 | `product.out_of_stock` | Stock = 0 | Remove from active listings |

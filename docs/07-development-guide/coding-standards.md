@@ -88,157 +88,168 @@ const message = `Welcome, ${user.name}!`;
 import { join } from 'path';
 
 // 2. Third-party packages
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from '@prisma/client';
+import express, { Request, Response, NextFunction } from 'express';
+import { z } from 'zod';
+import { prisma } from '../../lib/prisma.js';
 
-// 3. Internal modules (absolute paths)
-import { UserService } from '@/modules/user/user.service';
-import { PaginationDto } from '@/common/dto/pagination.dto';
+// 3. Internal shared modules
+import { AppError } from '../../lib/errors.js';
+import { sendSuccess } from '../../lib/response.js';
 
-// 4. Relative imports (same module)
-import { CreatePetDto } from './dto/create-pet.dto';
+// 4. Feature module relative imports
+import { petsService } from './pets.service.js';
+import { createPetListingSchema } from './pets.schema.js';
 ```
 
 ---
 
-## 3. NestJS (Backend) Conventions
+## 3. Express 5 (Backend) Conventions
 
-### 3.1 Module Structure
+### 3.1 4-Tier Module Structure
+
+Every domain module in `src/modules/` follows a strict 4-tier layer pattern:
 
 ```
 src/
-├── main.ts
-├── app.module.ts
-├── common/                     # Shared utilities
-│   ├── decorators/
-│   ├── dto/
-│   ├── exceptions/
-│   ├── filters/
-│   ├── guards/
-│   ├── interceptors/
-│   ├── pipes/
-│   └── utils/
-├── config/                     # Configuration
-│   ├── app.config.ts
-│   ├── database.config.ts
-│   └── redis.config.ts
-├── modules/                    # Feature modules
-│   ├── auth/
-│   │   ├── auth.module.ts
-│   │   ├── auth.controller.ts
-│   │   ├── auth.service.ts
-│   │   ├── auth.guard.ts
-│   │   ├── dto/
-│   │   │   ├── login.dto.ts
-│   │   │   └── register.dto.ts
-│   │   ├── entities/
-│   │   └── tests/
-│   │       ├── auth.service.spec.ts
-│   │       └── auth.controller.spec.ts
+├── app.ts                        # Express 5 app setup, middleware, root router
+├── server.ts                     # HTTP listener, Socket.io initialization
+├── config/                       # Typed environment configuration
+│   └── env.ts
+├── lib/                          # Core shared infrastructure
+│   ├── prisma.ts                 # Prisma ORM singleton client
+│   ├── redis.ts                  # Redis connection & caching helpers
+│   ├── errors.ts                 # AppError and custom error hierarchy
+│   ├── response.ts               # Standardized sendSuccess, sendError helpers
+│   ├── logger.ts                 # Structured Pino logger
+│   └── validation.ts             # Reusable Zod schema primitives
+├── middleware/                   # Express middleware
+│   ├── auth.ts                   # JWT authentication & requireRole guards
+│   ├── error-handler.ts          # Centralized error formatting middleware
+│   ├── rate-limit.ts             # Redis-backed rate limiters
+│   └── request-logger.ts         # HTTP request logging
+├── modules/                      # 19 self-contained domain modules
 │   ├── pets/
-│   ├── products/
+│   │   ├── pets.router.ts        # HTTP route definitions & route middleware
+│   │   ├── pets.controller.ts    # Request parsing, DTO validation, HTTP response
+│   │   ├── pets.service.ts       # Core business logic & cross-module orchestration
+│   │   ├── pets.repository.ts    # Prisma database access layer
+│   │   ├── pets.schema.ts        # Zod request/response validation schemas
+│   │   ├── pet-ai.provider.ts    # Domain-specific integrations (e.g. Gemini AI)
+│   │   └── pets.router.test.ts   # Vitest + Supertest integration tests
+│   ├── auth/
 │   ├── orders/
+│   ├── products/
 │   └── ...
 └── prisma/
-    ├── schema.prisma
+    ├── schema.prisma             # Unified PostgreSQL schema (58 models)
     ├── migrations/
     └── seed.ts
 ```
 
-### 3.2 Controller Rules
+### 3.2 Router Rules (`*.router.ts`)
 
 ```typescript
-@Controller('pets')
-@ApiTags('Pets')
-export class PetsController {
-  constructor(private readonly petsService: PetsService) {}
+import { Router } from "express";
+import { authenticate, requireRole } from "../../middleware/auth.js";
+import { petsController } from "./pets.controller.js";
 
-  // ✅ Use HTTP decorators explicitly
-  @Get()
-  @ApiOperation({ summary: 'List pet listings' })
-  async findAll(@Query() query: ListPetsDto): Promise<PaginatedResponse<Pet>> {
-    return this.petsService.findAll(query);
-  }
+export const petsRouter = Router();
 
-  // ✅ Use ParseUUIDPipe for ID params
-  @Get(':id')
-  async findOne(@Param('id', ParseUUIDPipe) id: string): Promise<Pet> {
-    return this.petsService.findOne(id);
-  }
+// Public routes
+petsRouter.get("/", petsController.listPets);
+petsRouter.get("/:id", petsController.getPetById);
 
-  // ✅ Use DTOs for request validation
-  @Post()
-  @UseGuards(JwtAuthGuard)
-  async create(
-    @Body() dto: CreatePetDto,
-    @CurrentUser() user: User,
-  ): Promise<Pet> {
-    return this.petsService.create(dto, user.id);
-  }
-}
+// Protected routes
+petsRouter.post("/", authenticate, requireRole(["SELLER", "BREEDER", "ADMIN"]), petsController.createPetListing);
+petsRouter.patch("/:id", authenticate, petsController.updatePetListing);
+petsRouter.delete("/:id", authenticate, petsController.deletePetListing);
 ```
 
-### 3.3 Service Rules
+### 3.3 Controller Rules (`*.controller.ts`)
 
 ```typescript
-@Injectable()
-export class PetsService {
-  constructor(
-    private readonly prisma: PrismaService,
-    private readonly searchService: SearchService,
-  ) {}
+import { Request, Response, NextFunction } from "express";
+import { sendSuccess } from "../../lib/response.js";
+import { createPetListingSchema, listPetsQuerySchema } from "./pets.schema.js";
+import { petsService } from "./pets.service.js";
 
-  // ✅ Business logic lives in services, not controllers
-  // ✅ Throw specific HTTP exceptions
-  async findOne(id: string): Promise<Pet> {
-    const pet = await this.prisma.pet.findUnique({ where: { id } });
+export class PetsController {
+  // ✅ Parse and validate query/body with Zod
+  // ✅ Delegate business logic entirely to the service layer
+  // ✅ Format response with sendSuccess
+  async createPetListing(req: Request, res: Response, next: NextFunction) {
+    try {
+      const input = createPetListingSchema.parse(req.body);
+      const pet = await petsService.createPet(req.user!.id, input);
+      return sendSuccess(res, pet, 201);
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  async listPets(req: Request, res: Response, next: NextFunction) {
+    try {
+      const query = listPetsQuerySchema.parse(req.query);
+      const result = await petsService.listPets(query);
+      return sendSuccess(res, result.items, 200, result.pagination);
+    } catch (err) {
+      next(err);
+    }
+  }
+}
+
+export const petsController = new PetsController();
+```
+
+### 3.4 Service Rules (`*.service.ts`)
+
+```typescript
+import { AppError } from "../../lib/errors.js";
+import { petsRepository } from "./pets.repository.js";
+import type { CreatePetListingInput, ListPetsQuery } from "./pets.schema.js";
+
+export class PetsService {
+  // ✅ Business logic and authorization checks live here
+  async getPetById(id: string) {
+    const pet = await petsRepository.findById(id);
     if (!pet) {
-      throw new NotFoundException(`Pet with ID ${id} not found`);
+      throw new AppError("Pet listing not found", 404);
     }
     return pet;
   }
 
-  // ✅ Use transactions for multi-table operations
-  async createOrder(dto: CreateOrderDto, userId: string): Promise<Order> {
-    return this.prisma.$transaction(async (tx) => {
-      const order = await tx.order.create({ ... });
-      await tx.orderItem.createMany({ ... });
-      await tx.inventory.update({ ... });
-      return order;
-    });
+  // ✅ Multi-table atomic operations use prisma.$transaction
+  async createPet(sellerId: string, input: CreatePetListingInput) {
+    return petsRepository.create(sellerId, input);
   }
 }
+
+export const petsService = new PetsService();
 ```
 
-### 3.4 DTO Validation
+### 3.5 Schema Validation with Zod (`*.schema.ts`)
 
 ```typescript
-// ✅ Use class-validator decorators
-export class CreatePetDto {
-  @IsEnum(Species)
-  species: Species;
+import { z } from "zod";
+import { httpUrlSchema } from "../../lib/validation.js";
 
-  @IsString()
-  @MinLength(2)
-  @MaxLength(100)
-  breed: string;
+export const createPetListingSchema = z.object({
+  speciesId: z.string().uuid(),
+  breedId: z.string().uuid(),
+  title: z.string().min(5).max(200),
+  description: z.string().min(20),
+  gender: z.enum(["MALE", "FEMALE"]),
+  ageMonths: z.number().min(0).max(300),
+  price: z.number().min(0).max(10_000_000),
+  priceType: z.enum(["FIXED", "NEGOTIABLE"]).default("FIXED"),
+  city: z.string().min(1),
+  state: z.string().min(1),
+  isVaccinated: z.boolean().default(false),
+  isNeutered: z.boolean().default(false),
+  images: z.array(httpUrlSchema).min(1).max(10),
+});
 
-  @IsNumber()
-  @Min(0)
-  @Max(10000000) // ₹1 Crore max
-  price: number;
-
-  @IsOptional()
-  @IsString()
-  @MaxLength(2000)
-  description?: string;
-
-  @IsArray()
-  @ArrayMinSize(3)
-  @ArrayMaxSize(10)
-  @IsUrl({}, { each: true })
-  images: string[];
-}
+export type CreatePetListingInput = z.infer<typeof createPetListingSchema>;
 ```
 
 ---

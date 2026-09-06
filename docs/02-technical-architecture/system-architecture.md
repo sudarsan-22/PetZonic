@@ -235,7 +235,7 @@ sequenceDiagram
 - Auto-scaling API servers (2-4 instances behind ALB)
 - PostgreSQL read replica for read-heavy queries
 - Redis cluster for sessions + cache
-- Meilisearch dedicated instance
+- Dedicated background worker container for outbox events
 
 ### Phase 3 (Scale — 500K+ users)
 - Consider splitting into microservices (Chat, Payments, Notifications)
@@ -304,19 +304,17 @@ graph TB
         end
 
         subgraph Private Subnet - Data
-            RDS[(RDS PostgreSQL<br/>Multi-AZ)]
+            RDS[(RDS PostgreSQL 16<br/>Multi-AZ + pg_trgm)]
             EC[(ElastiCache Redis<br/>Cluster)]
-            MS2[(Meilisearch<br/>EC2)]
         end
 
-        S3B[(S3 Bucket<br/>Media Files)]
+        S3B[(S3 / R2 Storage<br/>Media Files)]
     end
 
     CF2 --> ALB2
     ALB2 --> ECS
     ECS --> RDS
     ECS --> EC
-    ECS --> MS2
     ECS --> S3B
     WORKER --> RDS
     WORKER --> EC

@@ -40,7 +40,7 @@
 
 ### 2. Create 5 Service Repositories — FREE
 **Repos to create:**
-- `petzonic-api` (Backend, NestJS)
+- `petzonic-api` (Backend, Node.js / Express 5)
 - `petzonic-web` (Web + Admin, Next.js)
 - `petzonic-customer-app` (Mobile, Flutter)
 - `petzonic-seller-app` (Mobile, Flutter)
@@ -171,7 +171,7 @@ As a [role], I want [goal] so that [benefit]
 Organization → **Teams** → **New team**
 
 Create these teams (repeat for each):
-1. **backend-team** → Description: "Backend developers (NestJS)" → Create
+1. **backend-team** → Description: "Backend developers (Node.js / Express 5)" → Create
 2. **frontend-team** → Description: "Frontend developers (Next.js)" → Create
 3. **flutter-team** → Description: "Mobile developers (Flutter)" → Create
 4. **devops-team** → Description: "DevOps & Infrastructure" → Create
@@ -227,7 +227,7 @@ Add each secret (used by all repos' CI/CD workflows):
 DATABASE_URL          (PostgreSQL staging)
 DATABASE_URL_PROD     (PostgreSQL production)
 REDIS_URL             (Redis endpoint)
-MEILISEARCH_KEY       (Search engine key)
+GEMINI_API_KEY        (Google AI Studio key)
 AWS_ACCESS_KEY_ID     (AWS credentials)
 AWS_SECRET_ACCESS_KEY (AWS credentials)
 AWS_REGION            (ap-south-1)
@@ -351,8 +351,8 @@ Repeat for each repo.
 ### 14. Start Local Infrastructure
 ```bash
 cd petzonic-infra
-docker-compose -f docker-compose.dev.yml up -d
-# Brings up: PostgreSQL, Redis, Meilisearch
+docker compose up -d
+# Brings up: PostgreSQL 16, Redis, API, Web
 ```
 
 ---

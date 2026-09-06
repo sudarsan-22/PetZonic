@@ -89,13 +89,16 @@ gantt
 
 ### Phase 0 — Foundation and Architecture
 
-| Deliverable | Scope | Priority |
-|-------------|-------|----------|
-| Monorepo setup | Web, mobile, admin, backend, infra repos structure | P0 |
-| Architecture baseline | System design, service boundaries, API contracts | P0 |
-| Database model | Users, pets, products, orders, services, reviews, chat, admin | P0 |
-| Dev environment | Local setup, Docker, env configuration, CI pipelines | P0 |
-| Design system | Shared tokens, components, typography, spacing, states | P0 |
+| Deliverable | Description | Owner |
+|-------------|-------------|-------|
+| Repo setup | Create all repos (api, customer-app, seller-app, web, infra) | Tech Lead |
+| Express 5 API setup | Modular monolith API with auth middleware, Zod validation, error handling | Backend |
+| Flutter boilerplate | Base app with navigation, state management, API client | Mobile |
+| Next.js boilerplate | Base web with layout, routing, API integration | Frontend |
+| Database setup | Prisma schema, initial migration, seed data | Backend |
+| Docker Compose | Local dev environment (Postgres 16, Redis, API, Web) | DevOps |
+| CI pipeline | GitHub Actions: lint, test, build on PR | DevOps |
+| AWS foundation | VPC, ECR, S3 bucket (Terraform) | DevOps |
 
 Exit criteria:
 - All teams can work locally without blockers
@@ -106,7 +109,28 @@ Exit criteria:
 
 ### Phase 1 — Core Customer Product
 
-This phase builds the customer-facing web and mobile product.
+| Deliverable | Description | Priority |
+|-------------|-------------|----------|
+| **Backend** | | |
+| Auth API | OTP, email/password, Google, Apple, JWT, refresh | P0 |
+| User management | Profile CRUD, roles, KYC submission | P0 |
+| Pet listings API | Full CRUD, status management, moderation queue | P0 |
+| Product catalog API | Products, variants, categories, inventory | P0 |
+| Media upload | S3 / Cloudflare R2 pre-signed URLs, image processing | P0 |
+| Search API | PostgreSQL pg_trgm trigram indexing, search, filters | P0 |
+| Gemini AI assist | Pet photo multimodal analysis & welfare checks | P0 |
+| Taxonomy API | Species, breeds, categories CRUD | P0 |
+| **Mobile** | | |
+| Auth screens | Login, OTP, profile setup | P0 |
+| Home screen | Categories, featured listings | P0 |
+| Pet browse & detail | Listings grid, filters, detail page | P0 |
+| Product browse | Product listing, detail | P0 |
+| Navigation | Bottom tabs, drawer, routing | P0 |
+| **Web** | | |
+| Homepage | Hero, categories, featured content | P0 |
+| Pet listing pages | SSR, filters, pagination | P0 |
+| Product pages | Categories, detail, SEO | P0 |
+| Auth flow | Login/register pages | P0 |
 
 | Area | Deliverables | Priority |
 |------|--------------|----------|
@@ -311,7 +335,7 @@ If payments are delayed, entire launch is blocked.
 | Role | Count | Responsibility |
 |------|:-----:|---------------|
 | Tech Lead / Architect | 1 | Architecture decisions, code review, unblocking |
-| Backend Developer (NestJS) | 2 | API development, database, integrations |
+| Backend Developer (Node.js / Express 5) | 2 | API development, database, integrations |
 | Flutter Developer | 2 | Customer app + Seller app |
 | Frontend Developer (React/Next.js) | 1 | Website + Admin panel |
 | UI/UX Designer | 1 | App & web design, prototypes |

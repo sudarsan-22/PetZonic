@@ -20,7 +20,6 @@ Chosen for lowest latency to Indian users and data residency compliance.
 |---------|----------|---------------|---------|
 | ECS Fargate | API containers | 2 tasks × (1 vCPU, 2GB RAM) | Backend API |
 | ECS Fargate | Worker containers | 1 task × (0.5 vCPU, 1GB RAM) | Background job processing |
-| EC2 | t3.small | 1 instance | Meilisearch server |
 
 ### 2.2 Database
 
@@ -78,9 +77,8 @@ VPC: 10.0.0.0/16
 │   └── ECS Tasks (API - failover)
 │
 ├── Private Subnet - Data (10.0.20.0/24) - AZ-a
-│   ├── RDS Primary
-│   ├── ElastiCache
-│   └── Meilisearch EC2
+│   ├── RDS Primary (PostgreSQL 16 + pg_trgm)
+│   └── ElastiCache Redis
 │
 └── Private Subnet - Data (10.0.21.0/24) - AZ-b
     └── RDS Standby (Multi-AZ)
@@ -246,7 +244,6 @@ All domains: ACM-managed SSL certificates (auto-renewal).
 | PostgreSQL (RDS) | Automated daily snapshots + continuous backup (PITR) | Restore to any point within 7 days |
 | Redis | No backup (cache-only, rebuilds from DB) | Restart and rebuild |
 | S3 (Media) | Versioning enabled + cross-region replication (future) | Restore previous version |
-| Meilisearch | Daily data dump to S3 | Rebuild index from PostgreSQL |
 | Application Code | GitHub (source of truth) | Redeploy from Git |
 | Secrets | AWS Secrets Manager (auto-rotation) | Managed by AWS |
 
@@ -265,13 +262,12 @@ All domains: ACM-managed SSL certificates (auto-renewal).
 | ECS Fargate (Worker) | 1 task × 0.5vCPU/1GB | ₹1,500 |
 | RDS PostgreSQL | db.t3.medium, 50GB | ₹5,000 |
 | ElastiCache Redis | cache.t3.micro | ₹1,500 |
-| EC2 (Meilisearch) | t3.small | ₹1,500 |
 | S3 + CloudFront | 50GB storage, 100GB transfer | ₹1,000 |
 | ALB | Per hour + LCU | ₹2,000 |
 | Route 53 | Hosted zone + queries | ₹200 |
-| NAT Gateway | Per hour + data | ₹3,000 |
+| NAT Gateway | Single AZ | ₹3,000 |
 | Secrets Manager | 10 secrets | ₹500 |
-| **Total** | | **~₹20,000/month** |
+| **Total** | | **~₹18,700/month** |
 
 ### Growth Phase (5K-50K users) — add:
 - ECS auto-scaling (2-6 tasks): +₹8,000

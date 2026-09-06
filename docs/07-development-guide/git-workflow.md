@@ -72,7 +72,7 @@ git checkout -b feature/pet-listing-search
 
 # 3. Work on feature (commit often)
 git add .
-git commit -m "feat(pets): add Meilisearch indexing on listing create"
+git commit -m "feat(pets): add pg_trgm search indexing on pet listings"
 git commit -m "feat(pets): implement search endpoint with filters"
 git commit -m "test(pets): add search service unit tests"
 
@@ -181,7 +181,7 @@ fix(orders): prevent double payment submission
 docs(api): add WebSocket event documentation
 refactor(auth): extract token refresh to middleware
 test(payments): add Razorpay webhook integration tests
-chore(deps): upgrade NestJS to 11.1.0
+chore(deps): upgrade Express to 5.1.0
 perf(search): add Redis cache for popular breed queries
 ```
 
@@ -291,7 +291,7 @@ Closes #___
 
 | Repository | Contents | Language |
 |-----------|----------|----------|
-| `petzonic-api` | NestJS backend API | TypeScript |
+| `petzonic-api` | Node.js / Express 5 backend API | TypeScript |
 | `petzonic-customer-app` | Flutter customer app | Dart |
 | `petzonic-seller-app` | Flutter seller app | Dart |
 | `petzonic-web` | Next.js website + admin | TypeScript |

@@ -62,7 +62,7 @@ graph TD
 | Aspect | Details |
 |--------|---------|
 | **Focus** | Technical decisions, architecture, team enablement, code quality |
-| **Key Skills** | NestJS, system design, PostgreSQL, AWS, code review, mentoring |
+| **Key Skills** | Node.js, Express 5, TypeScript, PostgreSQL, AWS, code review, mentoring |
 | **Responsibilities** | |
 | | Define system architecture and tech stack decisions |
 | | Set up project boilerplate and coding standards |
@@ -82,7 +82,7 @@ graph TD
 | Aspect | Details |
 |--------|---------|
 | **Focus** | Core business logic — Auth, Users, Pets, Orders, Payments |
-| **Key Skills** | NestJS, TypeScript, PostgreSQL, Prisma, Redis, REST API design |
+| **Key Skills** | Express 5, TypeScript, PostgreSQL, Prisma, Redis, REST API design |
 | **Responsibilities** | |
 | | Implement auth module (OTP, OAuth, JWT) |
 | | User management and KYC verification flow |
@@ -91,8 +91,8 @@ graph TD
 | | Razorpay payment integration |
 | | Escrow system implementation |
 | | Seller payout system |
-| | Write unit + integration tests |
-| **Tools** | NestJS, Prisma, Jest, Postman, Redis CLI |
+| | Write unit + integration tests (Vitest) |
+| **Tools** | Express 5, Prisma, Vitest, Postman, Redis CLI |
 | **Allocation** | 100% |
 
 ---
@@ -102,17 +102,18 @@ graph TD
 | Aspect | Details |
 |--------|---------|
 | **Focus** | Supporting features — Products, Search, Chat, Services, Notifications |
-| **Key Skills** | NestJS, TypeScript, Socket.io, Meilisearch, Bull queues, FCM |
+| **Key Skills** | Express 5, TypeScript, Socket.io, PostgreSQL pg_trgm, Gemini AI, Redis |
 | **Responsibilities** | |
 | | Product catalog and inventory management |
 | | Shopping cart implementation |
-| | Meilisearch integration (indexing, search) |
+| | Native PostgreSQL pg_trgm search indexing & queries |
+| | Gemini AI pet photo assistance |
 | | Real-time chat with Socket.io |
 | | Service provider and booking module |
 | | Notification system (push, SMS, email) |
-| | Background jobs (Bull queues) |
-| | File upload (S3 pre-signed URLs) |
-| **Tools** | NestJS, Socket.io, Meilisearch, Bull Dashboard, AWS S3 |
+| | Background jobs & outbox event dispatch |
+| | File upload (S3 / Cloudflare R2 pre-signed URLs) |
+| **Tools** | Express 5, Socket.io, Prisma Studio, Vitest, AWS S3 / R2 |
 | **Allocation** | 100% |
 
 ---
@@ -250,7 +251,7 @@ graph TD
 | Skill | Required By | Priority |
 |-------|-------------|:--------:|
 | TypeScript | All devs | P0 |
-| NestJS | Backend devs, Tech Lead | P0 |
+| Node.js / Express 5 | Backend devs, Tech Lead | P0 |
 | Flutter/Dart | Mobile devs | P0 |
 | Next.js/React | Frontend dev | P0 |
 | PostgreSQL | Backend devs | P0 |
@@ -305,7 +306,7 @@ graph TD
 | Role | Range (per month) | Notes |
 |------|:-----------------:|-------|
 | Tech Lead | ₹1,50,000 - ₹2,50,000 | 5+ years experience |
-| Backend Dev | ₹80,000 - ₹1,50,000 | 3+ years NestJS/Node |
+| Backend Dev | ₹80,000 - ₹1,50,000 | 3+ years Node.js / Express / TS |
 | Flutter Dev | ₹80,000 - ₹1,50,000 | 2+ years Flutter |
 | Frontend Dev | ₹80,000 - ₹1,50,000 | 3+ years React/Next.js |
 | UI/UX Designer | ₹60,000 - ₹1,20,000 | 3+ years product design |

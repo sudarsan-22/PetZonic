@@ -22,10 +22,10 @@ graph TD
 
     E --> J[Pet Marketplace Core]
     E --> K[Product Catalog & Commerce]
-    J --> L[Search & Filters]
+    J --> L[Search & Filters - pg_trgm]
     K --> M[Cart & Checkout]
-    M --> N[Payments & Payouts]
-    N --> O[Order Lifecycle]
+    M --> N[Payments & Payouts - Razorpay]
+    N --> O[Order Lifecycle & Shiprocket]
     J --> P[Chat & Messaging]
     O --> Q[Reviews & Ratings]
 
@@ -39,7 +39,7 @@ graph TD
     V --> X[Reports & Analytics]
 
     R --> Y[Service Provider Module]
-    Y --> Z[Booking System]
+    Y --> Z[Booking System & WebRTC Consultation]
     W --> AA[Community & Education]
     AA --> AB[Lost & Found & Alerts]
     V --> AC[Security & Compliance]
@@ -145,6 +145,23 @@ This path controls the minimum time required to deliver a usable, launch-ready p
 | Chat and notifications | Backend + Web + Mobile | Engagement and support |
 | Admin moderation | Backend + Admin UI | Required for governance |
 | Production deployment | Infra + Backend + Frontend | Final launch readiness |
+
+---
+
+## 6. External Dependencies & Lead Times
+
+| Dependency | Impact | Lead Time | Mitigation |
+|------------|--------|-----------|-----------|
+| Razorpay account activation | Cannot test payments | 3-5 business days | Apply in Phase 0 |
+| AWS account setup | Cannot deploy | 1-2 days | Setup Day 1 |
+| Apple Developer account | Cannot test iOS | 1-2 days (if existing org) | Apply immediately |
+| Google Play Console | Cannot test Android | 1 day | Apply immediately |
+| Firebase project | No push notifications | 1 hour | Setup in Phase 0 |
+| MSG91 account (SMS) | No OTP in production | 1-2 days | Use Firebase Auth in dev |
+| Domain (petzonic.com) | No website deploy | 1 hour | Purchase Day 1 |
+| SSL certificate | No HTTPS | Minutes (via Cloudflare) | Setup with domain |
+| Shiprocket account | No delivery tracking | 1-2 days | Setup in Phase 2 |
+| PostgreSQL pg_trgm | Native database extension | Instant | Enabled in PostgreSQL 16 |
 
 ---
 

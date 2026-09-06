@@ -79,7 +79,7 @@ ETA: 15 minutes (zero-downtime)
 
 ## 4. Deployment Procedures
 
-### 4.1 Backend API (NestJS → AWS ECS)
+### 4.1 Backend API (Express 5 → Docker / AWS ECS)
 
 #### Automated (Standard Deploy)
 

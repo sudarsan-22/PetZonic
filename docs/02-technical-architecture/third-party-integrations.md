@@ -12,12 +12,13 @@ graph TB
     API[PetZonic API]
 
     API --> RP[Razorpay<br/>Payments]
-    API --> SMS[MSG91<br/>SMS & OTP]
+    API --> SMS[MSG91 / Twilio<br/>SMS & OTP]
     API --> FCM[Firebase<br/>Push Notifications]
     API --> SES[AWS SES<br/>Email]
-    API --> SR[Shiprocket<br/>Delivery]
-    API --> S3[AWS S3<br/>File Storage]
-    API --> MS[Meilisearch<br/>Search]
+    API --> SR[Shiprocket / Delhivery<br/>Delivery]
+    API --> S3[AWS S3 / Cloudflare R2<br/>File Storage]
+    API --> PG[PostgreSQL 16 pg_trgm<br/>Native Trigram Search]
+    API --> GEM[Google Gemini AI<br/>Pet Photo Assist]
     API --> GM[Google Maps<br/>Location]
     API --> GA[Google Analytics<br/>Tracking]
     API --> SN[Sentry<br/>Error Monitoring]
@@ -302,41 +303,59 @@ petzonic-media-{env}/
 
 ---
 
-## 9. Search — Meilisearch
+## 9. Search — PostgreSQL 16 `pg_trgm` (Native Trigram Search)
 
 ### Purpose
-Fast full-text search with typo tolerance, filters, and faceted navigation for pets and products.
+High-performance, typo-tolerant full-text and substring search without maintaining external search infrastructure. Uses GIN (`gin_trgm_ops`) indexes directly in PostgreSQL 16.
 
-### Indexes
+### Search Capabilities & Targets
 
-| Index | Documents | Key Fields | Filterable | Sortable |
-|-------|-----------|-----------|-----------|----------|
-| `pets` | Pet listings | title, breed, species, description, location | species, breed, gender, age, price, city, vaccinated | price, createdAt, distance |
-| `products` | Store products | name, description, brand, category | category, brand, price, rating, inStock | price, rating, createdAt |
-| `services` | Service providers | name, specialization, city | type, city, rating, available | rating, distance |
+| Target | Indexed Fields | Capabilities |
+|--------|----------------|--------------|
+| `PetListing` | `title`, `description`, `city`, `state` | Typo tolerance, partial prefix, species & breed filtering |
+| `Product` | `name`, `description`, `brand` | Fuzzy name matching, category filtering, price sorting |
+| `ServiceProvider` | `businessName`, `description`, `city` | Keyword match, service type filtering, rating sort |
+
+### Configuration
+```sql
+CREATE EXTENSION IF NOT EXISTS pg_trgm;
+
+CREATE INDEX IF NOT EXISTS "idx_pet_listings_search" 
+ON "PetListing" USING gin (title gin_trgm_ops, description gin_trgm_ops);
+
+CREATE INDEX IF NOT EXISTS "idx_products_search" 
+ON "Product" USING gin (name gin_trgm_ops, description gin_trgm_ops);
+```
+
+### Scale-out Option
+For enterprise multi-region scale (> 5M listings), an external search cluster (e.g. Meilisearch Cloud or Elasticsearch) can be plugged in via the outbox event worker without any breaking changes to the API contract.
+
+---
+
+## 10. AI Vision Assistance — Google Gemini
+
+### Purpose
+Multimodal AI analysis of pet photos during listing creation to detect breed, species, estimated age, coat color, and check animal welfare violations.
+
+### Integration
+- **Model**: `gemini-2.5-flash`
+- **SDK**: `@google/genai`
+- **Endpoint**: `POST /api/v1/pets/ai-assist`
+- **Rate Limit**: 10 requests per 15 minutes per authenticated user
 
 ### Configuration
 ```
 Environment Variables:
-- MEILISEARCH_HOST: http://meilisearch:7700
-- MEILISEARCH_MASTER_KEY: (production key)
-
-Settings per Index:
-- searchableAttributes: ordered by relevance
-- filterableAttributes: for faceted search
-- sortableAttributes: for result ordering
-- typoTolerance: enabled (1 typo for 5+ chars, 2 for 9+ chars)
-- pagination: maxTotalHits: 1000
+- GEMINI_API_KEY: (Google AI Studio / Vertex AI API key)
 ```
 
-### Sync Strategy
-- On listing create/update → update Meilisearch index (via Bull queue)
-- On listing delete/expire → remove from index
-- Full reindex: nightly cron job (safety net)
+### Safety & Welfare Guardrails
+- Automatically flags prohibited species (wildlife, endangered, restricted exotic animals).
+- Validates minimum legal age guidelines before allowing listing publication.
 
 ---
 
-## 10. Error Monitoring — Sentry
+## 11. Error Monitoring — Sentry
 
 ### Purpose
 Capture, track, and alert on application errors across all platforms.
@@ -345,7 +364,7 @@ Capture, track, and alert on application errors across all platforms.
 
 | Platform | SDK |
 |----------|-----|
-| NestJS backend | @sentry/node |
+| Express 5 backend | @sentry/node |
 | Next.js web | @sentry/nextjs |
 | Flutter apps | sentry_flutter |
 
@@ -371,7 +390,7 @@ Features:
 
 ---
 
-## 11. Analytics — Google Analytics 4 + Mixpanel
+## 12. Analytics — Google Analytics 4 + Mixpanel
 
 ### Purpose
 Track user behavior, conversion funnels, and engagement metrics.
@@ -396,13 +415,13 @@ Track user behavior, conversion funnels, and engagement metrics.
 
 ---
 
-## 12. Integration Security Best Practices
+## 13. Integration Security Best Practices
 
 | Practice | Implementation |
 |----------|---------------|
 | API keys in Secrets Manager | Never in code or environment files in Git |
 | Webhook signature verification | HMAC verification for Razorpay, Shiprocket webhooks |
-| IP allowlisting | Restrict server-side API keys to ECS IPs |
+| IP allowlisting | Restrict server-side API keys to backend IPs |
 | Key rotation | Quarterly rotation schedule for all keys |
 | Least privilege | Each service key has minimum required permissions |
 | Fallback handling | Graceful degradation if third-party is down |
@@ -411,21 +430,22 @@ Track user behavior, conversion funnels, and engagement metrics.
 
 ---
 
-## 13. Integration Dependency Matrix
+## 14. Integration Dependency Matrix
 
 | Feature | Critical (blocks user) | Degraded (feature reduced) | Nice-to-have |
 |---------|:-----:|:-----:|:-----:|
 | Razorpay (payments) | ✅ | | |
-| MSG91 (OTP) | ✅ | | |
+| MSG91 / Twilio (OTP) | ✅ | | |
 | FCM (push) | | ✅ | |
 | AWS SES (email) | | ✅ | |
 | Shiprocket (delivery) | | ✅ | |
+| Google Gemini AI | | ✅ (manual form entry) | |
 | Google Maps | | | ✅ |
-| Meilisearch | | ✅ (fallback to DB search) | |
+| PostgreSQL pg_trgm | ✅ (core database) | | |
 | Sentry | | | ✅ |
 
 **Fallback Strategy:**
 - Razorpay down → Show "payment temporarily unavailable" + retry
 - MSG91 down → Fallback to Twilio (secondary provider)
 - Shiprocket down → Manual order processing, notify admin
-- Meilisearch down → Fallback to PostgreSQL full-text search (slower)
+- Gemini AI down → Fallback to manual listing entry (form fields editable by seller)

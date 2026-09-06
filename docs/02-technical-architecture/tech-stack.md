@@ -245,7 +245,6 @@ Required installations:
 - Docker Desktop
 - PostgreSQL 16 (via Docker)
 - Redis 7 (via Docker)
-- Meilisearch (via Docker)
 - VS Code (with recommended extensions)
 - Android Studio (for Android emulator)
 - Xcode (for iOS simulator — Mac only)

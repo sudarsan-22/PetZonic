@@ -97,11 +97,13 @@ Super Admin → Admin → Franchise Owner
 
 ### 3.3 Implementation
 ```typescript
-// NestJS Guard Example
-@UseGuards(JwtAuthGuard, RolesGuard)
-@Roles('seller', 'breeder')
-@Post('pets')
-createPetListing(@Body() dto: CreatePetDto) { ... }
+// Express 5 Authentication & Role Authorization Middleware Example
+petsRouter.post(
+  '/',
+  authenticate,
+  requireRole(['SELLER', 'BREEDER', 'ADMIN']),
+  petsController.createPetListing
+);
 ```
 
 ---
@@ -112,27 +114,30 @@ createPetListing(@Body() dto: CreatePetDto) { ... }
 
 | Layer | Tool | Purpose |
 |-------|------|---------|
-| API Input | class-validator (NestJS) | Type checking, constraints, format |
-| File Upload | multer + custom pipes | File type, size, magic bytes |
-| Database | Prisma schema constraints | NOT NULL, unique, relations |
-| Frontend | Zod (web) / flutter_form_builder | Client-side validation (UX) |
+| API Input | Zod schemas | Strict schema validation, type parsing, min/max checks |
+| File Upload | multer + magic bytes validation | MIME validation, extension check, file size caps |
+| Database | Prisma schema constraints & triggers | Foreign keys, unique constraints, NOT NULL |
+| Frontend | Zod (web / React Hook Form) | Immediate client-side validation UX |
 
 ### 4.2 Validation Rules
 
 ```typescript
-// Example: Create Pet Listing DTO
-class CreatePetDto {
-  @IsString() @Length(3, 100) title: string;
-  @IsEnum(Species) species: Species;
-  @IsUUID() breedId: string;
-  @IsInt() @Min(0) @Max(30) ageMonths: number;
-  @IsEnum(Gender) gender: Gender;
-  @IsNumber() @Min(100) @Max(10000000) price: number;
-  @IsString() @Length(20, 2000) description: string;
-  @IsArray() @ArrayMinSize(3) @ArrayMaxSize(10) photoUrls: string[];
-  @IsEnum(PriceType) priceType: PriceType;
-  @IsOptional() @IsString() @MaxLength(500) healthInfo?: string;
-}
+// Example: Create Pet Listing Schema (Zod)
+export const createPetListingSchema = z.object({
+  speciesId: z.string().uuid(),
+  breedId: z.string().uuid(),
+  title: z.string().min(5).max(200),
+  description: z.string().min(20),
+  gender: z.enum(["MALE", "FEMALE"]),
+  ageMonths: z.number().min(0).max(300),
+  price: z.number().min(0).max(10_000_000),
+  priceType: z.enum(["FIXED", "NEGOTIABLE"]).default("FIXED"),
+  city: z.string().min(1),
+  state: z.string().min(1),
+  isVaccinated: z.boolean().default(false),
+  isNeutered: z.boolean().default(false),
+  images: z.array(httpUrlSchema).min(1).max(10),
+});
 ```
 
 ### 4.3 Sanitization

@@ -318,11 +318,11 @@ After running `npm run db:seed`, these test accounts are seeded in the database:
 | Issue | Solution |
 |-------|---------|
 | Port 5432 already in use | Stop local Postgres: `sudo service postgresql stop` |
-| Port 3000 already in use | Kill process: `lsof -ti:3000 \| xargs kill` or change PORT in .env |
-| Prisma migration fails | `pnpm prisma migrate reset` (drops DB, re-runs all) |
+| Port 4000 already in use | Kill process: `lsof -ti:4000 \| xargs kill` or change PORT in .env |
+| Prisma migration fails | `npx prisma migrate reset` (drops DB, re-runs all) |
 | Flutter build fails | `flutter clean && flutter pub get` |
 | Docker OOM | Increase Docker Desktop memory (≥4GB recommended) |
 | iOS pod install fails | `cd ios && pod deintegrate && pod install` |
 | Android Gradle sync fails | `cd android && ./gradlew clean` |
-| Meilisearch not indexing | Check master key matches in .env |
+| pg_trgm extension missing | Connect to Postgres and run `CREATE EXTENSION IF NOT EXISTS pg_trgm;` |
 | Redis connection refused | `docker compose restart redis` |
