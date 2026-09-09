@@ -32,13 +32,14 @@ graph TB
 
     subgraph Data Layer
         PG[(PostgreSQL 16 Primary DB<br/>ACID Relational + JSONB + pg_trgm)]
-        RD[(Redis 7<br/>Shared Rate Limiter & Cache)]
+        RD[(Redis 7<br/>Rate Limiting, Token Invalidation & AI Session Store)]
         S3[(AWS S3 / Cloudflare R2<br/>Object Media Storage)]
     end
 
-    subgraph External Services
+    subgraph External & Local AI Services
+        OLLAMA[Ollama Container<br/>Local Qwen 2.5 / Llama 3.2 LLM]
+        GEMINI[Google Gemini AI<br/>Multimodal Pet Photo Analysis]
         RP[Razorpay<br/>Payments & Webhooks]
-        GEMINI[Google Gemini AI<br/>Pet Photo Analysis]
         FCM[Firebase FCM<br/>Push Notifications]
         SMS[SMS Gateway<br/>Phone OTP Delivery]
     end
@@ -54,8 +55,10 @@ graph TB
     API2 --> RD
     API1 --> S3
     API2 --> S3
-    API1 --> RP
+    API1 --> OLLAMA
+    API2 --> OLLAMA
     API1 --> GEMINI
+    API1 --> RP
     API1 --> FCM
     API1 --> SMS
 ```
@@ -110,6 +113,7 @@ The backend organizes all platform capabilities into 19 cohesive domain modules,
 | **Media** | S3 / Cloudflare R2 upload with local disk `/uploads` fallback |
 | **Newsletter** | Email subscription capture and verification |
 | **Admin** | Unified admin dashboard, metrics, user moderation, dispute resolution, audit logs |
+| **AI Discovery** | Conversational shopping chatbot, hybrid rule-based & Ollama/Gemini intent extraction, sliding-window Redis session persistence, product discovery carousel |
 | **Docs** | Interactive OpenAPI 3.0 Swagger UI mounted at `/api/docs` |
 
 ### 3.4 Data Layer
@@ -118,7 +122,7 @@ The backend organizes all platform capabilities into 19 cohesive domain modules,
 |-------|-----------|---------|
 | **Primary Database** | PostgreSQL 16 | 58 tables: transactional ACID data, user accounts, listings, orders, JSONB |
 | **Search Engine** | PostgreSQL `pg_trgm` | Zero-latency full-text and fuzzy trigram matching directly in DB |
-| **Cache & Limiter** | Redis 7 | Distributed sliding-window rate limiting (`rate-limit-redis`) with memory fallback |
+| **Cache, Limiter & Session** | Redis 7 | Distributed sliding-window rate limiting (`rate-limit-redis`), AI multi-turn session cache, and token family invalidation with memory fallback |
 | **Object Storage** | AWS S3 / Cloudflare R2 | Media images & documents with automated local disk fallback |
 
 ---
@@ -219,6 +223,60 @@ sequenceDiagram
     API->>Queue: Order confirmation notification
     Shiprocket->>API: Webhook: status updates
     API->>Queue: Status update notification to buyer
+```
+
+### 5.3 Database-Atomic Authentication & Session Lifecycle
+
+```mermaid
+sequenceDiagram
+    participant C as Browser Client
+    participant API as petzonic-api
+    participant DB as PostgreSQL 16
+    participant RD as Redis 7
+
+    C->>API: POST /api/v1/auth/login {email, password}
+    API->>DB: Fetch user + roles (constant-time dummy fallback on missing)
+    API->>API: Verify bcrypt password hash
+    API->>DB: INSERT INTO refresh_tokens (family_id, token_hash, expires_at)
+    API-->>C: 200 OK + HttpOnly Cookie (refreshToken) + JSON (accessToken)
+
+    Note over C,API: Silent Token Refresh (Concurrent Collision Resilience)
+    C->>API: POST /api/v1/auth/refresh (Cookie + X-Requested-With header)
+    API->>DB: Atomic Lock & Revoke: UPDATE refresh_tokens SET revoked_at=NOW() WHERE id=$1 AND revoked_at IS NULL
+    alt Exactly 1 Request Wins Atomic Update
+        API->>DB: INSERT INTO refresh_tokens (family_id, parent_id, token_hash)
+        API-->>C: 200 OK + New HttpOnly Cookie + New Access Token
+    else Concurrent Race / Stale Replay Loser
+        API->>DB: Replay Detected: UPDATE refresh_tokens SET revoked_at=NOW() WHERE family_id=$fam
+        API-->>C: 401 Unauthorized (TOKEN_ALREADY_ROTATED / REPLAY_DETECTED)
+    end
+```
+
+### 5.4 Conversational Shopping & Product Discovery Flow
+
+```mermaid
+sequenceDiagram
+    participant User as Customer (Web / Mobile)
+    participant Chat as AI Chat Drawer UI
+    participant API as petzonic-api (/ai-discovery)
+    participant RD as Redis 7 (Session Store)
+    participant LLM as Ollama / Gemini Provider
+    participant DB as PostgreSQL (Prisma Catalog)
+
+    User->>Chat: "I need healthy dog food under ₹1500"
+    Chat->>API: POST /api/v1/ai-discovery/chat {message, sessionId}
+    API->>RD: GET session:ai-discovery:{sessionId} (context & active filters)
+    API->>API: Fast-Path Rule Evaluation (species: DOG, price: <=1500, cat: dog-food)
+    alt Fast-Path Matches
+        API->>DB: Query products WHERE species='DOG' AND price <= 1500 AND category='dog-food'
+    else Ambiguous or Complex Conversational Turn
+        API->>LLM: Prompt extraction with conversation history & available categories
+        LLM-->>API: JSON Structured Intent {species, category, minPrice, maxPrice, sort}
+        API->>DB: Execute Prisma product query with extracted filters
+    end
+    API->>RD: SET session:ai-discovery:{sessionId} (sliding TTL 30m)
+    API-->>Chat: 200 OK {message: "Here are the best dog foods under ₹1500", products: [...]}
+    Chat-->>User: Render conversational reply + interactive ProductCard carousel
 ```
 
 ---

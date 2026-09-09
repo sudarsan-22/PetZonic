@@ -29,6 +29,10 @@
 | status | ENUM | NN, Default: ACTIVE | ACTIVE, SUSPENDED, BANNED, DEACTIVATED |
 | email_verified | BOOLEAN | NN, Default: false | Whether email is verified |
 | phone_verified | BOOLEAN | NN, Default: false | Whether phone OTP was completed |
+| token_version | INT | NN, Default: 1 | Incremented on password reset/change for instant JWT revocation |
+| suspended_until | TIMESTAMP | Nullable | Temporary moderation suspension expiry |
+| suspension_reason | VARCHAR(500) | Nullable | Moderation reason for account suspension |
+| ban_reason | VARCHAR(500) | Nullable | Administrative reason for permanent account ban |
 | last_login_at | TIMESTAMP | Nullable | Last successful login time |
 | created_at | TIMESTAMP | NN, Auto | Account creation time |
 | updated_at | TIMESTAMP | NN, Auto | Last profile update |
@@ -293,3 +297,33 @@
 
 ### 9.5 Notifications & Outbox Pattern
 - **notification_outbox**: Reliable event-driven notification queue implementing the Transactional Outbox Pattern to guarantee zero dropped SMS, Push, or Email alerts during server restarts.
+
+---
+
+## 10. Auth & Session Security Domain
+
+### 10.1 Refresh Tokens Table (`refresh_tokens`)
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| id | UUID | PK | Unique refresh token session identifier |
+| user_id | UUID | FK→users, NN | Associated user account |
+| family_id | UUID | Indexed, NN | Cryptographic token family UUID for replay/theft containment |
+| parent_token_id | UUID | Nullable | Direct lineage parent token ID |
+| replaced_by_token_id | UUID | Nullable | Direct lineage replacement token ID |
+| token_hash | VARCHAR(255) | UK, NN | SHA-256 hash of the cryptographically random opaque token |
+| expires_at | TIMESTAMP | NN | Expiration timestamp (7 days) |
+| revoked_at | TIMESTAMP | Nullable | Timestamp when consumed, rotated, or revoked |
+| created_at | TIMESTAMP | NN, Auto | Issuance timestamp |
+
+**Security Constraints:**
+- Raw tokens are NEVER persisted; only `token_hash` is stored.
+- Database atomicity: `UPDATE refresh_tokens SET revoked_at = NOW() WHERE id = $1 AND revoked_at IS NULL` guarantees exactly one rotation winner.
+- Replay trigger: Attempting to rotate a row where `revoked_at IS NOT NULL` revokes all tokens sharing `family_id`.
+
+### 10.2 OTP Codes Table (`otp_codes`)
+- **otp_codes**: `id`, `phone`, `code_hash` (bcrypt hash), `expires_at` (5 min), `attempts` (max 5), `created_at`. Atomic verification and deletion.
+
+### 10.3 Password Reset Tokens Table (`password_reset_tokens`)
+- **password_reset_tokens**: `id`, `user_id`, `token_hash` (SHA-256), `expires_at` (30 min), `used_at`, `created_at`. Single-use token.
+

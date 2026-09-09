@@ -145,6 +145,7 @@ model User {
   suspendedUntil   DateTime?  @map("suspended_until")
   suspensionReason String?    @map("suspension_reason") @db.VarChar(500)
   banReason        String?    @map("ban_reason") @db.VarChar(500)
+  tokenVersion     Int        @default(1) @map("token_version")
   createdAt        DateTime   @default(now()) @map("created_at")
   updatedAt        DateTime   @updatedAt @map("updated_at")
 
@@ -222,16 +223,20 @@ model OtpCode {
 }
 
 model RefreshToken {
-  id        String    @id @default(uuid()) @db.Uuid
-  userId    String    @map("user_id") @db.Uuid
-  tokenHash String    @unique @map("token_hash") @db.VarChar(255)
-  expiresAt DateTime  @map("expires_at")
-  revokedAt DateTime? @map("revoked_at")
-  createdAt DateTime  @default(now()) @map("created_at")
+  id                String    @id @default(uuid()) @db.Uuid
+  userId            String    @map("user_id") @db.Uuid
+  familyId          String?   @default(uuid()) @map("family_id") @db.Uuid
+  parentTokenId     String?   @map("parent_token_id") @db.Uuid
+  replacedByTokenId String?   @map("replaced_by_token_id") @db.Uuid
+  tokenHash         String    @unique @map("token_hash") @db.VarChar(255)
+  expiresAt         DateTime  @map("expires_at")
+  revokedAt         DateTime? @map("revoked_at")
+  createdAt         DateTime  @default(now()) @map("created_at")
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
+  @@index([familyId])
   @@map("refresh_tokens")
 }
 

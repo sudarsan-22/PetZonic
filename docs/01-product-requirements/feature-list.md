@@ -40,10 +40,13 @@ Each feature has a unique ID: `[MODULE]-[NUMBER]`
 | AUTH-06 | Role Selection | User chooses role (Buyer/Seller/Breeder/Service Provider) | Can have multiple roles, switch between them |
 | AUTH-07 | KYC Verification (Seller) | Identity verification for sellers | Aadhaar/PAN upload, selfie verification, 24-48hr approval |
 | AUTH-08 | Breeder Verification | Enhanced verification for breeders | License upload, breeding history, facility photos |
-| AUTH-09 | Session Management | JWT tokens with refresh rotation | Access token: 15min, Refresh token: 7 days, revoke on logout |
-| AUTH-10 | Password Reset | Forgot password via email/phone | Reset link valid 30min, invalidates previous sessions |
-| AUTH-11 | Account Deactivation | User can deactivate/delete account | 30-day grace period before permanent deletion |
-| AUTH-12 | Multi-device Login | User can be logged in on multiple devices | Max 5 devices, can view/revoke sessions |
+| AUTH-09 | Session Management & Rotation | JWT tokens with database-level atomic refresh rotation (RFC 6749/8725) | Access token: 15min in memory, Refresh token: 7 days in HttpOnly cookie; DB-level atomic rotation with replay/theft family revocation |
+| AUTH-10 | Password Reset | Forgot password via email/phone | Reset link valid 30min, invalidates previous sessions & increments tokenVersion |
+| AUTH-11 | Account Deactivation & Ban | User deactivation / Admin moderation ban | 30-day grace period for deactivation; Banned/Suspended accounts immediately blocked on all endpoints |
+| AUTH-12 | Multi-device Session Isolation | Independent session token families per device | Max 5 devices, can view/revoke single session or logout-all without cross-device leakage |
+| AUTH-13 | Dual-Defense CSRF Protection | Cookie-authenticated state change verification | Mandatory whitelisted CORS Origin/Referer AND custom headers (`X-Requested-With` or `X-PetZonic-CSRF`) |
+| AUTH-14 | Admin Storefront Isolation | Segregation of admin and customer authentication | Dedicated admin portal credentials; ADMIN role strictly barred from customer storefront endpoints |
+| AUTH-15 | Anti-Enumeration Protections | Constant-time resistance across auth endpoints | Constant-time dummy password hashing and unified responses prevent email/phone existence enumeration |
 
 ---
 
@@ -218,6 +221,7 @@ Each feature has a unique ID: `[MODULE]-[NUMBER]`
 | SCH-08 | Category Browsing | Browse via category tree | Visual category cards on homepage, drill-down navigation |
 | SCH-09 | Homepage Recommendations | Personalized homepage | Recently viewed, trending in your city, seasonal picks |
 | SCH-10 | Nearby Discovery | Location-based feed | "Pets near you" section, auto-detect location, manual override |
+| SCH-11 | AI Conversational Shopping Discovery | Natural language conversational search & recommendation engine | Multi-turn dialog, hybrid rule + Ollama/Gemini intent extraction, sliding-window Redis session persistence, instant ProductCard carousel |
 
 ---
 

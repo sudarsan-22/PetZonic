@@ -477,4 +477,36 @@ jobs:
       - run: pnpm lint
       - run: pnpm test
       - run: pnpm build  # Ensure it builds
+
+---
+
+## 12. Production Security Gate Black-Box Attack Suite
+
+Executed directly against live containerized environments (`scripts/security-gate-blackbox-suite.ts`):
+
+```bash
+docker exec deploymentcontainer-backend-1 npx tsx scripts/security-gate-blackbox-suite.ts
+```
+
+| Security Domain | Attack Vector / Assertion | Target Invariant | Result |
+|:---|:---|:---|:---:|
+| **Concurrent Rotation** | 100 concurrent refresh requests with same token | Database atomic lock: exactly 1 winner, 99 losers | **PASSED (1/100)** |
+| **Token Replay Attack** | 100 replay attempts of consumed/revoked token | Replay detection revokes entire token family | **PASSED (100/100)** |
+| **Dual-Defense CSRF** | Foreign origin / missing anti-CSRF headers | Rejection of unauthorized cross-origin requests | **PASSED** |
+| **Live Role Revocation** | Revoke ADMIN/SELLER role in PostgreSQL | Immediate access denial without waiting for JWT expiry | **PASSED** |
+| **Account Lifecycle** | Transition user to SUSPENDED / BANNED | Instant rejection of refresh and privileged actions | **PASSED** |
+| **Multi-Device Isolation** | Revoke Family A session | Family B session on separate device remains active | **PASSED** |
+| **Anti-Enumeration** | Non-existent user login & OTP verification | Constant-time response and uniform error payload | **PASSED** |
+| **Client Storage Audit** | Inspect localStorage, sessionStorage, Redux | Zero client-side storage of refresh tokens | **PASSED** |
+
+---
+
+## 13. AI Discovery & Conversational Intent Test Suite
+
+Located at `modules/ai-discovery/tests/golden-intent.suite.ts`:
+
+- **100+ Golden Intent Test Cases**: Comprehensive test suite covering single-attribute searches, multi-filter queries, natural language price thresholds ("under 1500", "between 500 and 2000"), brand specifications, species/category matching, typo tolerance, and negative filtering.
+- **Provider Resilience**: Validates fallback chains between fast-path rule engine, local containerized Ollama (`qwen2.5:3b`), and Google Gemini (`gemini-2.5-flash`).
+- **Multi-Turn Session Continuity**: Tests context retention, category switching ("Actually..."), filter accumulation, and session resets across conversational turns in Redis.
+
 ```

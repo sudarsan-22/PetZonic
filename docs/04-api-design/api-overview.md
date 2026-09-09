@@ -227,11 +227,14 @@ ws://api.petzonic.com/chat?token=<access_token>
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | POST | /auth/otp/send | Send OTP to phone |
-| POST | /auth/otp/verify | Verify OTP and login |
+| POST | /auth/otp/verify | Verify OTP and login (HttpOnly cookie refresh) |
 | POST | /auth/register | Register with email/password |
-| POST | /auth/login | Login with email/password |
-| POST | /auth/refresh | Refresh access token |
-| POST | /auth/logout | Logout (revoke tokens) |
+| POST | /auth/login | Login with email/password (rejects ADMIN) |
+| POST | /admin/auth/login | Dedicated admin portal login (requires ADMIN) |
+| POST | /auth/refresh | Database-atomic token rotation |
+| POST | /auth/logout | Logout single session & clear cookie |
+| POST | /auth/logout-all | Revoke all sessions & increment tokenVersion |
+| POST | /auth/change-password | Update password & invalidate all sessions |
 | POST | /auth/forgot-password | Send password reset email |
 | POST | /auth/reset-password | Reset password with token |
 | POST | /auth/google | Google OAuth login |
@@ -432,6 +435,14 @@ ws://api.petzonic.com/chat?token=<access_token>
 |--------|----------|-------------|
 | POST | /media/upload | Upload image/document to S3 / R2 (or local fallback) |
 | POST | /pets/ai-assist | Gemini AI pet photo analysis & welfare check |
+
+### AI Shopping Discovery (`/ai-discovery`)
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | /ai-discovery/chat | Conversational AI natural language product search and recommendations |
+| POST | /ai-discovery/reset | Reset active conversational shopping context & filters |
+| GET | /ai-discovery/session | Inspect active session state, filters, and conversation history |
+| GET | /ai-discovery/health | Check AI provider latency and operational health |
 
 ---
 

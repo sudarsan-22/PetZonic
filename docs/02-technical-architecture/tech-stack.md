@@ -15,9 +15,9 @@
 | **Language** | TypeScript | 5.x / 6.x |
 | **ORM** | Prisma | 7.x |
 | **Database** | PostgreSQL | 16 (Single unified DB with JSONB & pg_trgm) |
-| **Cache & Rate Limit** | Redis | 7.x (ioredis + rate-limit-redis, memory fallback) |
+| **Cache, Limiter & Sessions** | Redis | 7.x (ioredis + rate-limit-redis, AI multi-turn session cache) |
 | **Search** | PostgreSQL pg_trgm | Native trigram fuzzy matching & full-text search |
-| **AI Assist** | Google Gemini AI | @google/genai (Multimodal photo analysis) |
+| **AI Assist & Discovery** | Ollama (Local Qwen2.5) + Google Gemini | Hybrid rule-based & LLM extraction for conversational shopping discovery |
 | **Object Storage** | AWS S3 / Cloudflare R2 | @aws-sdk/client-s3 with local /uploads fallback |
 | **Real-time** | Socket.io | 4.x (WebSockets with polling fallback) |
 | **Load Balancer** | Nginx | Multi-replica failover & reverse proxy |
@@ -245,6 +245,7 @@ Required installations:
 - Docker Desktop
 - PostgreSQL 16 (via Docker)
 - Redis 7 (via Docker)
+- Ollama (via Docker / local binary for AI discovery)
 - VS Code (with recommended extensions)
 - Android Studio (for Android emulator)
 - Xcode (for iOS simulator — Mac only)

@@ -55,7 +55,11 @@ docker compose ps
 | Service | Port | Purpose |
 |---------|:----:|---------|
 | PostgreSQL 16 | 5432 | Primary database with `pg_trgm` fuzzy search |
-| Redis 7 | 6379 | Rate limiting, distributed lock & cache store |
+| Redis 7 | 6379 | Rate limiting, distributed lock & AI session store |
+| Ollama | 11434 | Local LLM inference engine (`qwen2.5:3b`) |
+| Backend API | 4000 | Express 5 REST API + WebSockets |
+| Frontend Web | 3001 | Customer Next.js storefront |
+| Admin Panel | 3002 | Administrative management panel |
 
 ### 3.2 Install Dependencies & Configure
 
@@ -99,6 +103,13 @@ CLIENT_URL=http://localhost:3001
 
 # Gemini AI (Optional - returns honest 503 fallback if omitted)
 # GEMINI_API_KEY=
+
+# AI Shopping Discovery Chatbot
+AI_DISCOVERY_ENABLED=true
+AI_DISCOVERY_ROLLOUT_PERCENTAGE=15
+AI_DISCOVERY_PROVIDER=ollama
+OLLAMA_BASE_URL=http://localhost:11434
+OLLAMA_MODEL=qwen2.5:3b
 ```
 
 ### 3.4 Database Setup
