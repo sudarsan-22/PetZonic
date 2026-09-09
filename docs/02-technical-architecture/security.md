@@ -58,16 +58,23 @@ sequenceDiagram
 }
 ```
 
-**Refresh Token Rotation:**
-- Each refresh issues a new refresh token
-- Old refresh token invalidated immediately
-- If reused old token detected → revoke all user sessions (compromised)
+**Refresh Token Rotation & Database Atomicity (RFC 6749 §10.4 & RFC 8725):**
+- Atomic test-and-set at the PostgreSQL level: `UPDATE refresh_tokens SET revoked_at = NOW() WHERE id = $1 AND revoked_at IS NULL` guarantees exactly ONE winner across clustered processes.
+- Each refresh issues a new cryptographically secure opaque refresh token (CSPRNG 256-bit).
+- Database persists only SHA-256 hashes (`token_hash`), never raw refresh tokens.
+- Parent/child lineage is tracked via `family_id`, `parent_token_id`, and `replaced_by_token_id`.
+- Replay/theft detection: If an already-revoked or previously-consumed token is replayed, the entire token family (`family_id`) is instantly revoked.
+- Multi-device isolation: Compromising Family A revokes Family A only, leaving independent Family B sessions alive.
+- Browser storage eradication: Refresh tokens are NEVER placed in `localStorage`, `sessionStorage`, or Redux state; maintained strictly in `HttpOnly; Secure; SameSite=Lax; Path=/api/v1/auth` cookies.
 
-### 2.3 Session Security
-- Max 5 concurrent sessions per user
-- Session revocation on password change
-- Device fingerprinting for suspicious login detection
-- Forced re-auth for sensitive operations (payment, account deletion)
+### 2.3 Session Security & CSRF Dual-Defense
+- **CSRF Dual Verification**: State-changing cookie requests strictly require BOTH:
+  1. CORS Origin / Referer whitelisted to production domains (`https://*.petzonic.com`).
+  2. Custom anti-CSRF header (`X-Requested-With: XMLHttpRequest` or `X-PetZonic-CSRF: 1`) which standard HTML cross-origin forms cannot generate.
+- Session revocation on password change, password reset, account suspension, or ban.
+- Token versioning (`tokenVersion` increment) to instantly invalidate in-flight JWTs.
+- Real-time RBAC revalidation on every privileged request (zero role-revocation lag).
+- Dedicated admin portal isolation: Administrative accounts cannot authenticate through customer storefront endpoints.
 
 ---
 
