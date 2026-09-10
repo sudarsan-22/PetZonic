@@ -48,6 +48,12 @@ Environment Variables:
 - RAZORPAY_KEY_ID
 - RAZORPAY_KEY_SECRET
 - RAZORPAY_WEBHOOK_SECRET
+- RAZORPAY_MOCK_ENABLED (true in test/CI for offline sandbox testing)
+
+Security & Verification:
+- Cryptographic HMAC-SHA256 signature verification for order capture and webhook payloads
+- Fail-fast production startup validation: throws immediately if keys are omitted in production
+- Mock payment mode bypasses remote gateway calls only when RAZORPAY_MOCK_ENABLED=true in non-production
 
 Webhook Events to Handle:
 - payment.authorized
@@ -146,19 +152,25 @@ Implementation:
 
 ---
 
-## 5. Email — AWS SES
+## 5. Email — AWS SES / SMTP Subsystem
 
 ### Purpose
-Send transactional and notification emails (order confirmations, weekly summaries, password reset).
+Send transactional and notification emails (order confirmations, weekly summaries, password reset, email verification) via SMTP or AWS SES.
+
+### Architecture & Providers
+- **`NodemailerSmtpEmailProvider`**: Production SMTP transport compatible with AWS SES, SendGrid, Mailgun, Postmark, and custom SMTP servers.
+- **`ConsoleEmailProvider`**: Fallback development provider logging sanitized emails to terminal and test environments.
+- **Templates**: Responsive, branded HTML templates with plaintext fallbacks (`renderPasswordResetTemplate`, `renderVerificationTemplate`).
+- **Asynchronous Execution**: Dispatched through BullMQ (`petzonic-email-queue`) to prevent latency on HTTP request handlers.
 
 ### Integration Points
 
-| Email Type | Trigger | Template |
-|-----------|---------|----------|
-| Welcome | User registration | Welcome + getting started guide |
+| Email Type | Trigger | Template Engine |
+|-----------|---------|-----------------|
+| Welcome / Verification | User registration | Responsive HTML + Token link (24h expiry) |
+| Password reset | Forgot password request | Responsive HTML + Reset link (30min expiry) |
 | Order confirmation | Order placed | Order details, items, amount |
 | Shipping update | Status change | Tracking info |
-| Password reset | Forgot password request | Reset link (30min expiry) |
 | Seller weekly summary | Every Monday | Sales, earnings, pending actions |
 | Admin alerts | System events | Critical system notifications |
 | Invoice | Order delivered | GST invoice PDF attachment |
@@ -166,15 +178,19 @@ Send transactional and notification emails (order confirmations, weekly summarie
 ### Configuration
 ```
 Environment Variables:
+- SMTP_HOST (e.g. email-smtp.ap-south-1.amazonaws.com)
+- SMTP_PORT (587 or 465)
+- SMTP_SECURE (false for 587 STARTTLS, true for 465)
+- SMTP_USER
+- SMTP_PASS
+- SMTP_FROM (e.g. PetZonic <no-reply@petzonic.com>)
 - AWS_SES_REGION: ap-south-1
-- SES_FROM_EMAIL: no-reply@petzonic.com
-- SES_REPLY_TO: support@petzonic.com
 
 Setup:
 - Domain verification (petzonic.com)
 - DKIM + SPF + DMARC configuration
 - Request production access (move out of sandbox)
-- Bounce/complaint handling
+- Bounce/complaint handling via SES SNS topics
 ```
 
 ### Pricing

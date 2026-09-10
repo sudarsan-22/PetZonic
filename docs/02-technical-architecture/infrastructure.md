@@ -191,35 +191,99 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on: [backend-1, backend-2, frontend]
 
+  pgbouncer:
+    image: edoburu/pgbouncer:v1.22.1
+    restart: unless-stopped
+    ports: ["6432:6432"]
+    environment:
+      DB_USER: ${POSTGRES_USER:-postgres}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: ${POSTGRES_DB:-petzonic}
+      POOL_MODE: transaction
+      MAX_CLIENT_CONN: 200
+      DEFAULT_POOL_SIZE: 25
+      RESERVE_POOL_SIZE: 5
+    depends_on:
+      postgres:
+        condition: service_healthy
+
   backend-1:
     image: petzonic-api:1.0
+    restart: unless-stopped
     expose: ["4000"]
     environment:
+      NODE_ENV: production
       PORT: 4000
-      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/petzonic?schema=public
+      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD}@pgbouncer:6432/${POSTGRES_DB:-petzonic}?schema=public
       REDIS_URL: redis://redis:6379
-    depends_on: [postgres, redis]
+      JWT_SECRET: ${JWT_SECRET}
+      REFRESH_TOKEN_SECRET: ${REFRESH_TOKEN_SECRET}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY}
+    depends_on:
+      pgbouncer:
+        condition: service_started
+      redis:
+        condition: service_started
 
   backend-2:
     image: petzonic-api:1.0
+    restart: unless-stopped
     expose: ["4000"]
     environment:
+      NODE_ENV: production
       PORT: 4000
-      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/petzonic?schema=public
+      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD}@pgbouncer:6432/${POSTGRES_DB:-petzonic}?schema=public
       REDIS_URL: redis://redis:6379
-    depends_on: [postgres, redis]
+      JWT_SECRET: ${JWT_SECRET}
+      REFRESH_TOKEN_SECRET: ${REFRESH_TOKEN_SECRET}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY}
+    depends_on:
+      pgbouncer:
+        condition: service_started
+      redis:
+        condition: service_started
 
   postgres:
     image: postgres:16-alpine
+    restart: unless-stopped
     volumes: [pg_data:/var/lib/postgresql/data]
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-petzonic}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-petzonic}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   redis:
     image: redis:7-alpine
+    restart: unless-stopped
+    volumes: [redis_data:/data]
+    command: redis-server --appendonly yes
 
   frontend:
     image: petzonic-web:1.0
+    restart: unless-stopped
     expose: ["3000"]
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_API_URL: http://api.petzonic.com/api/v1
 ```
+
+### 5.1 Real-Time WebSocket Horizontal Clustering
+All WebSocket gateways (`/chat`, `/consultations`) leverage `@socket.io/redis-adapter` through Redis Pub/Sub:
+- Real-time chat messages, typing events, and consultation signals emit seamlessly across all backend replicas (`backend-1`, `backend-2`, etc.).
+- Dedicated Redis subscriber and publisher clients are established on server startup with automatic reconnection resilience.
+
+### 5.2 Background Job Queue Topology (BullMQ)
+Asynchronous workloads are decoupled from HTTP request lifecycles via BullMQ:
+- **`petzonic-email-queue`**: Handles transactional emails (password reset, account verification, welcome sequences) with exponential backoff (3 attempts).
+- **`petzonic-broadcast-queue`**: Processes administrative broadcast notifications to multi-user segments without blocking API event loops.
+- Workers run within API containers or dedicated worker containers, gracefully closing on `SIGTERM` / `SIGINT`.
 
 ---
 
@@ -237,15 +301,15 @@ All domains: ACM-managed SSL certificates (auto-renewal).
 
 ---
 
-## 7. Backup & Disaster Recovery
+## 7. Backup, Disaster Recovery & Key Generation
 
 | Component | Backup Strategy | Recovery |
 |-----------|----------------|----------|
-| PostgreSQL (RDS) | Automated daily snapshots + continuous backup (PITR) | Restore to any point within 7 days |
-| Redis | No backup (cache-only, rebuilds from DB) | Restart and rebuild |
-| S3 (Media) | Versioning enabled + cross-region replication (future) | Restore previous version |
+| PostgreSQL (RDS / Docker) | Automated script (`scripts/backup-database.sh`) with gzip, SHA-256 checksums, and optional GPG encryption | Restore script (`scripts/restore-database.sh`) with pre-restore validation |
+| Redis | AOF (Append Only File) persistence enabled | Restart and load from persistent volume |
+| S3 / R2 (Media) | Versioning enabled + cross-region replication | Restore previous object version |
 | Application Code | GitHub (source of truth) | Redeploy from Git |
-| Secrets | AWS Secrets Manager (auto-rotation) | Managed by AWS |
+| Production Secrets | `scripts/generate-secrets.sh` (generates 256-bit secure keys) stored in AWS Secrets Manager | Managed rotation |
 
 **RTO (Recovery Time Objective)**: < 1 hour  
 **RPO (Recovery Point Objective)**: < 5 minutes (database PITR)
