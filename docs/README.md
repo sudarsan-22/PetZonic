@@ -96,6 +96,13 @@ PetZonic is a multi-platform pet ecosystem combining:
 |----------|-------------|
 | [Application Interconnection](08-appication-visual%20diagram/application-interconnection.md) | Mermaid diagrams: role relationships, nav/dashboard separation, core marketplace flow, actual system architecture, admin scope |
 
+### 09 — Audit Reports
+| Document | Description |
+|----------|-------------|
+| [Database & Redis Security Audit](09-audit-reports/database-redis-security-audit.md) | DB/Redis security, privacy, and data-integrity audit (2026-09-10). Carries an accuracy notice — several claims (model inventory, password hashing) don't match the codebase; see the notice at the top of the file. |
+| [End-to-End Audit Report](09-audit-reports/end-to-end-audit-report.md) | Application-wide functional + security audit (2026-09-10). Mostly consistent with the codebase; see accuracy notice for the specific exceptions. |
+| [Final Production Hardening Report](09-audit-reports/final-production-hardening-report.md) | Claimed production-hardening changes (2026-09-10). Least reliable of the three — claims a migration and CHECK constraints that don't exist in the repo; see accuracy notice. |
+
 ---
 
 ## Quick Reference
