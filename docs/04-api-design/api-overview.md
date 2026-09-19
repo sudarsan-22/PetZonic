@@ -1,8 +1,51 @@
 # PetZonic — API Overview
 
 > **Version**: 1.0.0  
-> **Date**: May 28, 2026  
-> **Base URL**: `https://api.petzonic.com/api/v1`
+> **Date**: May 28, 2026 · **Accuracy-checked**: 2026-09-20  
+> **Base URL (local)**: `http://localhost:4000/api/v1`
+
+> ## ⚠️ Endpoint paths in this document are unreliable
+>
+> This overview was written on 2026-05-28, before implementation, and the API diverged from
+> it. A check on 2026-09-20 found entire route groups documented here **that are not mounted
+> at all**, and many individual paths that differ from what shipped.
+>
+> **Authoritative sources, in order**: the live Swagger UI at `/api/docs` on a running API,
+> then `petzonic-api/src/app.ts` (router mounts), then each
+> `petzonic-api/src/modules/*/[*.]router.ts`.
+>
+> ### Route groups documented here that DO NOT EXIST
+> `/search`, `/search/suggestions`, `/search/trending` · `/wishlist` (all) ·
+> `/seller/dashboard`, `/seller/orders`, `/seller/orders/:id/accept` · `/breeds/popular`
+>
+> ### Paths documented here that differ from reality
+> | Documented | Actual |
+> |---|---|
+> | `/species`, `/species/:id/breeds` | `/pets/species`, `/pets/species/:speciesId/breeds` |
+> | `/addresses/*` | `/users/addresses/*` (no `PATCH /:id/default`) |
+> | `/users/me`, `/me/avatar`, `/me/roles`, `/me/devices`, `/me/kyc/status` | `GET\|PUT /users/profile`, `DELETE /users/me`, `GET\|POST /users/kyc`, `GET /users/me/payouts` |
+> | `/admin/auth/login` | `POST /auth/admin/login` |
+> | `/auth/apple` | Not implemented (Google + sync only) |
+> | `/products/categories` | `/products/categories/list` |
+> | `/products/deals`, `/products/:id/reviews` | Not implemented |
+> | `POST /chat/rooms/:id/messages` | Not implemented |
+> | `/services/providers/:id/slots` | `GET /services/:id/availability` |
+> | `POST /services/bookings`, `PATCH /services/bookings/:id` | `POST /services/:id/book`, `POST /services/bookings/:id/cancel\|reschedule` |
+> | `PATCH /notifications/:id/read`, `/notifications/read-all` | `POST /notifications/mark-read` |
+> | `/admin/revenue` | `/admin/reports/revenue` |
+> | `PATCH /admin/users/:id/status` | `/admin/users/:id/suspend\|ban\|reinstate` |
+> | `/education/vet-consultations` | `/education/vet-consultation` (singular) |
+> | `/insurance/my-policies` | `/insurance/policies` |
+> | `/ai-discovery/*` | `/discovery/*` and `/chat/discovery` |
+>
+> ### Modules mounted but missing from this document
+> **36 routers** are mounted under `/api/v1` as of 2026-09-20. This overview covers roughly
+> twenty. Undocumented here: **`/pharmacy` and `/admin/pharmacy`**
+> (see [Pharmacy API](pharmacy-api.md)), **`/breeders`**
+> (see [Breeders API](breeders-api.md)), `/support`, `/admin/support`, `/promotions`,
+> `/admin/promotions`, `/banners`, `/admin/banners`, `/brands`, `/newsletter`, `/media`,
+> `/metrics`, `/docs`, `/admin/reviews`, `/admin/services`, `/admin/insurance`,
+> `/admin/notifications`, `/admin/categories`.
 
 ---
 
@@ -11,7 +54,8 @@
 ### Base URLs
 | Environment | URL |
 |-------------|-----|
-| Production | `https://api.petzonic.com/api/v1` |
+| Local development | `http://localhost:4000/api/v1` |
+| Production | ⛔ None — the API has never been deployed. `api.petzonic.com` does not resolve to a PetZonic service. |
 | Staging | `https://staging-api.petzonic.com/api/v1` |
 | Local | `http://localhost:4000/api/v1` |
 

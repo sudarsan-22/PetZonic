@@ -254,7 +254,11 @@ export type CreatePetListingInput = z.infer<typeof createPetListingSchema>;
 
 ---
 
-## 4. Flutter (Mobile) Conventions
+## 4. Flutter (Mobile) Conventions — 📋 PLANNED, NO CODE EXISTS
+
+> These conventions apply to mobile code that has **not been written**. Both mobile repos are
+> empty stubs with zero Dart files. Nothing enforces or follows this section today; it is a
+> forward-looking standard for when mobile work starts.
 
 ### 4.1 Project Structure
 

@@ -1,7 +1,18 @@
-# PetZonic — Seller App Screens (Flutter)
+# PetZonic — Seller App Screens (Flutter) — 📋 PLANNED, NOT BUILT
 
 > **Version**: 1.0.0  
-> **Platform**: iOS & Android (Flutter)
+> **Platform**: iOS & Android (Flutter) — *intended*  
+> **Status checked**: 2026-09-20
+
+> ## ⚠️ None of these screens exist
+>
+> The `petzonic-seller-app` repository contains a README and 3 CI workflow files. There are
+> **zero Dart files**.
+>
+> **The seller experience that actually exists is in `petzonic-web` at `/seller/*`** —
+> dashboard, listings, products, orders, payouts, and bank-account pages. The existence of a
+> `petzonic-seller-app` repo regularly misleads people into looking for seller features in the
+> wrong place. This document is a design specification for future mobile work only.
 
 ---
 

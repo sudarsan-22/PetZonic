@@ -1,8 +1,11 @@
 # PetZonic — Project Documentation
 
-> **Status**: Production Ready & Fully Tested (976/976 tests passing)  
-> **Last Updated**: September 2026  
+> **Status**: Pre-launch — feature-complete in development, not yet deployed to production  
+> **Last Updated**: 2026-09-20  
 > **Version**: 1.2.0
+>
+> **Verified against source on 2026-09-20.** Counts in this index are measured from the
+> working tree, not estimated. See [Current State](#current-state) for the authoritative numbers.
 
 ---
 
@@ -14,7 +17,9 @@ PetZonic is a multi-platform pet ecosystem combining:
 - **Services platform** (veterinary, pet care, grooming)
 - **Franchise network** (brand outlets under PetZonic)
 
-**Platforms**: iOS App, Android App, Website, Admin Panel  
+**Platforms (built)**: Website (customer + seller + provider portals), Admin Panel  
+**Platforms (planned, not started)**: iOS App, Android App — the `petzonic-customer-app` and
+`petzonic-seller-app` repos are empty stubs containing no application code  
 **Target Market**: India (initially)
 
 ---
@@ -61,6 +66,8 @@ PetZonic is a multi-platform pet ecosystem combining:
 | [Payments API](04-api-design/payments-api.md) | Payment processing & refunds |
 | [Chat API](04-api-design/chat-api.md) | Messaging & WebSocket events |
 | [Services API](04-api-design/services-api.md) | Vet & pet care bookings |
+| [Pharmacy API](04-api-design/pharmacy-api.md) | 🆕 Medicine catalog, prescriptions, admin verification |
+| [Breeders API](04-api-design/breeders-api.md) | 🆕 District-scoped breeder profiles (backend only, no UI yet) |
 | [Reviews API](04-api-design/reviews-api.md) | Ratings & reviews |
 | [Admin API](04-api-design/admin-api.md) | Administration endpoints |
 | [Notifications API](04-api-design/notifications-api.md) | Push, in-app, SMS triggers |
@@ -106,10 +113,42 @@ PetZonic is a multi-platform pet ecosystem combining:
 ---
 
 ## Quick Reference
- 
-- **Tech Stack**: Next.js 16 (React 19) web & admin · Node.js 22 + Express 5 (TypeScript) backend · Unified PostgreSQL 16 (Prisma ORM, 58 models) · Redis 7 · AWS S3 / Cloudflare R2 · Nginx Load Balancer · Flutter (mobile apps)
-- **Apps**: Full-Stack Website & Admin (`petzonic-web`) · API Gateway & Services (`petzonic-api`) · Infrastructure (`petzonic-infra`) · Customer & Seller Mobile Apps (`petzonic-customer-app`, `petzonic-seller-app`)
-- **User Roles**: Buyer · Seller · Breeder · Broker · Franchise · Vet · Pet Caretaker · Admin
-- **Payments**: Razorpay (UPI, Cards, Wallets, Escrow, COD)
-- **Target**: India (Hindi + English)
-- **Automated Tests**: 976 passing automated tests (100% green across backend and frontend)
+
+- **Tech Stack**: Next.js 16 (React 19) web & admin · Node.js 22 + Express 5 (TypeScript) backend · PostgreSQL 16 (Prisma 7, 68 models) · Redis 7 · BullMQ · Socket.IO 4 · AWS S3 / local disk fallback
+- **Apps (built)**: `petzonic-web` (customer + seller + provider portals) · `petzonic-admin` (admin console) · `petzonic-api` (REST + WebSocket backend) · `petzonic-infra` (Docker, Terraform, monitoring)
+- **Apps (stubs, no code)**: `petzonic-customer-app`, `petzonic-seller-app`
+- **User Roles**: the `Role` enum has exactly four values — `BUYER`, `SELLER`, `BREEDER`, `ADMIN`. Vet and pet-caretaker are modelled as `ServiceProvider` records, not roles. Broker and franchise are not implemented.
+- **Payments**: Razorpay (UPI, Cards, Wallets, escrow hold/release, COD) — runs in mock mode when unconfigured
+- **Target**: India (English; Hindi not yet implemented)
+
+---
+
+## Current State
+
+Measured directly from the working tree on **2026-09-20**:
+
+| Metric | Actual |
+|---|---|
+| Backend modules (`petzonic-api/src/modules/`) | 26 |
+| Prisma models | 68 |
+| Prisma enums | 47 |
+| Migrations | 28 |
+| Routers mounted under `/api/v1` | 36 |
+| Web pages (`petzonic-web`) | 86 |
+| Admin pages (`petzonic-admin`) | 29 |
+| Backend test files | 46 |
+| Web test files | 99 (+ 7 Playwright e2e specs) |
+| Admin test files | 0 |
+
+**Deployment status**: never deployed. Terraform has not been applied, no TLS is
+configured, and no Razorpay/AWS production accounts are set up (see
+[dependencies](06-project-roadmap/dependencies.md)).
+
+**Most recent features** (added 2026-09-19/20):
+- **Pharmacy** — fully wired end to end: `PharmacyProduct`, `Prescription`, `PrescriptionItem`,
+  `OrderPrescription`, `PharmacySellerProfile`, `UserPetProfile` models; `/api/v1/pharmacy` and
+  `/api/v1/admin/pharmacy` routes; customer pages at `/pharmacy` and `/pharmacy/products/[slug]`.
+- **Breeders & district discovery** — full stack: `BreederProfile` model, a `district` column on
+  `pet_listings`, the `/api/v1/breeders` routes, and a `/breeders` directory page with
+  district browse and per-district counts. This is the feature that lets buyers find breeders
+  directly instead of defaulting to shops.

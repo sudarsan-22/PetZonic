@@ -38,18 +38,23 @@
   - Assign role: **"Owner"** (they can manage everything)
   - Send invite
 
-### 2. Create 5 Service Repositories — FREE
-**Repos to create:**
-- `petzonic-api` (Backend, Node.js / Express 5)
-- `petzonic-web` (Web + Admin, Next.js)
-- `petzonic-customer-app` (Mobile, Flutter)
-- `petzonic-seller-app` (Mobile, Flutter)
-- `petzonic-infra` (Infrastructure, Docker, Terraform)
+### 2. Service Repositories — FREE
+
+**Repos that actually exist** (verified 2026-09-20):
+- `petzonic-api` (Backend, Node.js / Express 5) — active
+- `petzonic-web` (Customer + Seller + Provider portals, Next.js) — active
+- `petzonic-admin` (Admin console, Next.js — **a separate app, not part of `petzonic-web`**) — active
+- `petzonic-infra` (Infrastructure, Docker, Terraform) — active
+- `petzonic-customer-app` (Mobile, Flutter) — ⛔ empty stub, no code
+- `petzonic-seller-app` (Mobile, Flutter) — ⛔ empty stub, no code
+
+Documentation lives in the `PetZonic` repo (owner `sudarsan-22`). There is **no**
+`petzonic-docs` repository.
 
 **For each repo in GitHub UI:**
 1. Organization → New → Repository
 2. Repository name: (e.g., `petzonic-api`)
-3. Description: Brief description (link to docs: https://github.com/petzonic/petzonic-docs)
+3. Description: Brief description (link to the `PetZonic` docs repo)
 4. Private: ✅ (select this — private repo)
 5. Initialize: ☐ DO NOT check "Add README"
 6. Click **"Create repository"**
@@ -264,13 +269,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v4
         with:
           node-version: 22.x
-          cache: 'pnpm'
-      - run: pnpm install
-      - run: pnpm lint
+          cache: 'npm'
+      - run: npm install
+      - run: npm run lint
 ```
 
 **Example: `test.yml`**
@@ -286,13 +290,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v4
         with:
           node-version: 22.x
-          cache: 'pnpm'
-      - run: pnpm install
-      - run: pnpm test
+          cache: 'npm'
+      - run: npm install
+      - run: npm test
 ```
 
 **Note (Free Tier)**: Each workflow run counts against 2,000 min/month. A typical lint + test takes 2-3 minutes per PR. 100 PRs/month = ~300 minutes (well within free tier).
@@ -341,9 +344,9 @@ git config --global pull.rebase true  # Rebase by default
 cd petzonic-api
 cp .env.example .env
 # Edit .env with staging credentials (DB, Redis, API keys)
-pnpm install
-pnpm test
-pnpm dev  # Verify it starts on localhost
+npm install
+npm test
+npm run dev  # Verify it starts on localhost
 ```
 
 Repeat for each repo.
@@ -380,8 +383,8 @@ docker compose up -d
 6. After approval, maintainer merges & deletes branch
 
 ## Code Standards
-- Run `pnpm lint` before pushing
-- All tests must pass: `pnpm test`
+- Run `npm run lint` before pushing
+- All tests must pass: `npm test`
 - No console.logs in production code
 - Follow [coding standards](../coding-standards.md)
 

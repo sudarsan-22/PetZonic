@@ -37,11 +37,22 @@
 
 ## 3. Active Coverage & Test Metrics
 
-| Repository | Test Framework | Test Files | Total Tests | Status |
-| :--- | :--- | :---: | :---: | :---: |
-| **`petzonic-api`** | Vitest v4 + Supertest | 28 | 445 | **100% Passed** |
-| **`petzonic-web`** | Vitest v4 + RTL (JSDOM) | 114 | 531 | **100% Passed** |
-| **Total Automated** | Full Stack | **142 files** | **976 tests** | **100% GREEN** |
+> **Test-file counts below were measured from the working tree on 2026-09-20.** Assertion
+> counts are deliberately omitted: they change with every run and no current, reproducible
+> figure exists. Do not quote a total test count — including the "976 tests / 100% GREEN"
+> figure that appeared in earlier revisions of this document — unless you have just produced
+> it from a real run.
+
+| Repository | Test Framework | Test Files | Status |
+| :--- | :--- | :---: | :--- |
+| **`petzonic-api`** | Vitest v4 + Supertest | 46 | Run `npm test` for current results |
+| **`petzonic-web`** | Vitest v4 + RTL (JSDOM) | 99 | Run `npm test` for current results |
+| **`petzonic-web`** (e2e) | Playwright | 7 specs | Requires a running stack |
+| **`petzonic-admin`** | — | **0** | ⚠️ No test coverage of any kind |
+
+**Known coverage gap**: `petzonic-admin` has zero tests across all 29 of its pages. Every
+admin surface — KYC approval, payouts, dispute resolution, moderation — is currently
+unverified by automated tests.
 
 ---
 
@@ -148,12 +159,16 @@ describe('POST /api/v1/pets', () => {
 # DATABASE_URL for tests: postgresql://petzonic:petzonic@localhost:5433/petzonic_test
 
 # Run migrations on test DB before tests
-DATABASE_URL="postgresql://..." pnpm prisma migrate deploy
+DATABASE_URL="postgresql://..." npx prisma migrate deploy
 ```
 
 ---
 
-## 5. Mobile Testing (Flutter)
+## 5. Mobile Testing (Flutter) — 📋 PLANNED, NOT APPLICABLE TODAY
+
+> **No Flutter code exists in this project.** `petzonic-customer-app` and
+> `petzonic-seller-app` contain only a README and CI workflow files. Nothing in this section
+> runs against anything today; it is retained as a reference for when mobile work begins.
 
 ### 5.1 Unit Tests
 
@@ -452,10 +467,10 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: { node-version: 22 }
-      - run: pnpm install
-      - run: pnpm prisma migrate deploy
-      - run: pnpm test --coverage
-      - run: pnpm test:e2e
+      - run: npm install
+      - run: npx prisma migrate deploy
+      - run: npm test --coverage
+      - run: npm test:e2e
 
   flutter-test:
     runs-on: ubuntu-latest
@@ -473,10 +488,10 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: { node-version: 22 }
-      - run: pnpm install
-      - run: pnpm lint
-      - run: pnpm test
-      - run: pnpm build  # Ensure it builds
+      - run: npm install
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build  # Ensure it builds
 
 ---
 

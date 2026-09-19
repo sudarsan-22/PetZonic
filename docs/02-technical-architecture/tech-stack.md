@@ -1,31 +1,52 @@
 # PetZonic — Tech Stack
 
 > **Version**: 1.1.0 (FROZEN)  
-> **Date**: May 31, 2026
+> **Date**: May 31, 2026 · **Accuracy-checked against source**: 2026-09-20
+>
+> **What is actually in use:** every row marked ✅ below is verified present in the working
+> tree. Rows marked 📋 are *planned decisions that have not been implemented* — no code for
+> them exists in any repo. The Flutter mobile stack (§2) is entirely in the 📋 category: the
+> `petzonic-customer-app` and `petzonic-seller-app` repos contain a README and CI workflows
+> only, with zero Dart files. Treat §2 as a forward-looking decision record, not a description
+> of the system.
 
 ---
 
 ## 1. Stack Summary
 
-| Layer | Technology | Version / Details |
-|-------|-----------|-------------------|
-| **Web (Customer & Admin)** | Next.js (React 19) | 16.x (Turbopack, App Router) |
-| **Mobile (Customer & Seller)** | Flutter (Dart) | 3.x (Clean Architecture, Riverpod) |
-| **Backend** | Node.js + Express | 22.x (Node) / 5.x (Express) |
-| **Language** | TypeScript | 5.x / 6.x |
-| **ORM** | Prisma | 7.x |
-| **Database** | PostgreSQL | 16 (Single unified DB with JSONB & pg_trgm) |
-| **Cache, Limiter & Sessions** | Redis | 7.x (ioredis + rate-limit-redis, AI multi-turn session cache) |
-| **Search** | PostgreSQL pg_trgm | Native trigram fuzzy matching & full-text search |
-| **AI Assist & Discovery** | Ollama (Local Qwen2.5) + Google Gemini | Hybrid rule-based & LLM extraction for conversational shopping discovery |
-| **Object Storage** | AWS S3 / Cloudflare R2 | @aws-sdk/client-s3 with local /uploads fallback |
-| **Real-time** | Socket.io | 4.x (WebSockets with polling fallback) |
-| **Load Balancer** | Nginx | Multi-replica failover & reverse proxy |
-| **Containerization** | Docker & Docker Compose | Multi-container dev & prod topologies |
+| | Layer | Technology | Version / Details |
+|---|-------|-----------|-------------------|
+| ✅ | **Web (Customer, Seller, Provider)** | Next.js (React 19) | 16.x (Turbopack, App Router) — `petzonic-web`, 85 pages |
+| ✅ | **Web (Admin)** | Next.js (React 19) | 16.x — `petzonic-admin`, 29 pages |
+| 📋 | **Mobile (Customer & Seller)** | Flutter (Dart) | 3.x — **planned, not started; no code exists** |
+| ✅ | **Backend** | Node.js + Express | 22.x (Node) / 5.x (Express) — 25 modules, 35 mounted routers |
+| ✅ | **Language** | TypeScript | 5.x / 6.x |
+| ✅ | **ORM** | Prisma | 7.x (`prisma-client` generator, output `src/generated/prisma`) |
+| ✅ | **Database** | PostgreSQL | 16 — 68 models, 47 enums, 28 migrations, pg_trgm |
+| ✅ | **Cache, Limiter & Sessions** | Redis | 7.x (ioredis + rate-limit-redis) — degrades to in-memory when absent |
+| ✅ | **Queues** | BullMQ | 2 queues: `petzonic-email-queue`, `petzonic-broadcast-queue`. No scheduler/cron exists. |
+| ✅ | **Search** | PostgreSQL pg_trgm | Native trigram fuzzy matching |
+| ✅ | **AI Assist & Discovery** | Ollama (local) + Google Gemini | Falls back to rule-based extraction when no LLM is reachable |
+| ✅ | **Object Storage** | AWS S3 | `@aws-sdk/client-s3` with local `/uploads` fallback. Cloudflare R2 is not configured. |
+| ✅ | **Real-time** | Socket.io | 4.x — two gateways: `/chat` and `/consultation` (WebRTC signalling) |
+| ✅ | **Containerization** | Docker & Docker Compose | Multi-container dev & prod topologies in `petzonic-infra` |
+| 📋 | **Load Balancer** | Nginx | Compose config exists in `petzonic-infra`; never deployed |
+
+**Package manager**: npm everywhere (`package-lock.json` is the committed lockfile).
+Do not introduce pnpm or yarn — earlier CI workflows wrongly assumed pnpm and had to be fixed.
+
+**Explicitly NOT in the stack**, despite appearing in older drafts of these docs: Flutter (no
+code), NestJS, Meilisearch, MongoDB, Sentry, CloudWatch agent, FCM, Argon2 (passwords use
+bcryptjs cost 12), PostGIS, and a `petzonic-shared` package.
 
 ---
 
-## 2. Frontend — Mobile (Flutter)
+## 2. Frontend — Mobile (Flutter) 📋 PLANNED — NOT IMPLEMENTED
+
+> **Nothing in this section is built.** `petzonic-customer-app` and `petzonic-seller-app`
+> contain only a README and 3 CI workflow files each; there are zero Dart files, and the CI
+> workflows would fail if run. This section records the *intended* mobile approach for when
+> mobile work begins. Do not cite it as a description of the current system.
 
 ### Why Flutter?
 | Criteria | Flutter | React Native | Native (Kotlin/Swift) |
@@ -266,14 +287,25 @@ Required installations:
 
 **Decision: Multi-repo** (initially)
 
-| Repo | Contents |
-|------|----------|
-| `petzonic-api` | Node.js + Express backend |
-| `petzonic-customer-app` | Flutter customer app |
-| `petzonic-seller-app` | Flutter seller app |
-| `petzonic-web` | React.js + Next.js website |
-| `petzonic-admin` | React.js + Next.js admin panel |
-| `petzonic-infra` | Terraform, Docker configs |
-| `petzonic-shared` | Shared types/constants (npm package) |
+| Repo | Contents | Status |
+|------|----------|--------|
+| `petzonic-api` | Node.js + Express backend, Prisma schema | ✅ Active (`develop`) |
+| `petzonic-web` | Next.js website — customer **+ seller + provider** portals | ✅ Active (`develop`) |
+| `petzonic-admin` | Next.js admin panel | ✅ Active (`develop`) |
+| `petzonic-infra` | Docker, Terraform, monitoring, QA harness | ✅ Active (`develop`) |
+| `PetZonic` | This documentation (no code) | ✅ Active (`main`) |
+| `.github` | Org profile, CODEOWNERS, issue/PR templates | ✅ Active (`main`) |
+| `petzonic-customer-app` | Intended Flutter customer app | ⛔ Empty stub — README + CI only |
+| `petzonic-seller-app` | Intended Flutter seller app | ⛔ Empty stub — README + CI only |
+| `petzonic-shared` | Shared types/constants (npm package) | ⛔ **Does not exist** — never created |
+
+There are **8 repositories**, each with its own remote and no monorepo tooling, submodules,
+or workspace linking. A change spanning API + web is two commits in two repos.
+`petzonic-infra` builds the others through relative paths (`../../petzonic-api`), so its
+compose files assume all repos are checked out side by side in one parent directory.
+
+> **Common trap**: the existence of `petzonic-seller-app` suggests seller features live
+> elsewhere. They do not — the **seller portal is in `petzonic-web` at `/seller/*`**, and the
+> provider portal at `/provider/*`.
 
 **Rationale**: Simpler CI/CD, independent deployment cycles, smaller team can focus on one repo at a time. Can migrate to monorepo (Turborepo/Nx) later if needed.

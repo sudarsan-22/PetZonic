@@ -1,8 +1,21 @@
 # PetZonic — AI Shopping & Discovery API
 
-> **Base URL**: `/api/v1/ai-discovery`  
+> **Base URL**: `/api/v1/discovery` — also reachable at `/api/v1/chat/discovery`  
 > **Version**: 1.0.0  
-> **Status**: Production Ready  
+> **Status**: Implemented and working in development. Never deployed to production.  
+> **Verified against source**: 2026-09-20 (`petzonic-api/src/app.ts`, `src/modules/ai-discovery/`)
+
+> ⚠️ **Path corrections.** This document was written against a `/api/v1/ai-discovery` base
+> that was never used. Corrections verified 2026-09-20:
+>
+> | Documented | Actual |
+> |---|---|
+> | Base `/api/v1/ai-discovery` | `/api/v1/discovery` (and `/api/v1/chat/discovery`) |
+> | `POST /ai-discovery/reset` | `DELETE /session/:id` |
+> | `GET /ai-discovery/session` | `GET /session/:id` |
+> | `GET /ai-discovery/health` | Does not exist — use `GET /metrics` |
+>
+> Only `POST /chat` matches as documented.
 
 ---
 

@@ -77,12 +77,20 @@ PetZonic provides a unified platform that:
 
 ### 5.1 Applications
 
-| App | Platform | Primary Users | Purpose |
-|-----|----------|---------------|---------|
-| **PetZonic Customer App** | iOS, Android (Flutter) | Buyers, Pet Owners | Browse, buy pets/products, book services |
-| **PetZonic Seller App** | iOS, Android (Flutter) | Sellers, Breeders, Brokers | List pets, manage orders, analytics |
-| **PetZonic Website** | Web (Next.js) | All customers | Full shopping experience + SEO traffic |
-| **PetZonic Admin Panel** | Web (Next.js) | PetZonic team | Platform management & operations |
+Build status verified 2026-09-20.
+
+| App | Platform | Primary Users | Purpose | Status |
+|-----|----------|---------------|---------|---|
+| **PetZonic Website** | Web (Next.js) | All customers | Full shopping experience + SEO traffic | ✅ Built — 85 pages |
+| **Seller portal** | Web — `petzonic-web` at `/seller/*` | Sellers, Breeders | List pets, manage orders, payouts | ✅ Built |
+| **Provider portal** | Web — `petzonic-web` at `/provider/*` | Vets, groomers, caretakers | Manage bookings, schedule, consultations | ✅ Built |
+| **PetZonic Admin Panel** | Web (Next.js) — separate `petzonic-admin` app | PetZonic team | Platform management & operations | ✅ Built — 29 pages |
+| **PetZonic Customer App** | iOS, Android (Flutter) | Buyers, Pet Owners | Browse, buy pets/products, book services | 📋 Not started — empty repo |
+| **PetZonic Seller App** | iOS, Android (Flutter) | Sellers, Breeders, Brokers | List pets, manage orders, analytics | 📋 Not started — empty repo |
+
+> The seller and provider experiences are **inside `petzonic-web`**, not separate apps. The
+> mobile app repos contain no code; seller functionality has never lived in
+> `petzonic-seller-app`.
 
 ### 5.2 Business Model (Hybrid)
 
@@ -244,17 +252,36 @@ PetZonic provides a unified platform that:
 
 ## 10. Out of Scope (v1.0)
 
-The following are explicitly **NOT** included in the first release:
-- Pet insurance integration
-- AI-based breed identification from photos
-- Video calling for vet consultations
-- Multi-language support (beyond English + Hindi)
+> ⚠️ **This list is out of date — several items were built anyway.** Reconciled against the
+> codebase on 2026-09-20. Do not cite it as the current scope.
+
+**Listed as out of scope, but actually BUILT:**
+- ~~Pet insurance integration~~ → **built**: `InsurancePartner` / `InsurancePlan` /
+  `InsurancePolicy` / `InsuranceClaim` models with a full `/insurance/*` route suite
+- ~~AI-based breed identification from photos~~ → **built**: Gemini-backed photo analysis via
+  `POST /api/v1/pets/ai-assist`
+- ~~Video calling for vet consultations~~ → **built**: live WebRTC consultation rooms with a
+  dedicated `/consultation` Socket.IO signalling gateway
+
+**Also built, though never in the original scope at all:**
+- Pet pharmacy with prescription upload and admin verification
+  (see [Pharmacy API](../04-api-design/pharmacy-api.md))
+- District-scoped breeder profiles (backend only — see
+  [Breeders API](../04-api-design/breeders-api.md))
+- Pre-owned peer-to-peer product marketplace with its own moderation workflow
+- Education/LMS: courses, lessons, vet Q&A, feeding calculator
+- AI shopping concierge (conversational product discovery)
+- Support ticketing with an SLA engine
+
+**Genuinely still out of scope** (verified absent from the codebase):
+- Multi-language support — **English only today**; Hindi is not implemented
 - International shipping/marketplace
 - Pet DNA testing
 - Social media features (pet profiles, feeds, followers)
 - Loyalty/rewards program
 - Subscription boxes
 - Live streaming for pet showcase
+- Franchise management — referenced in older docs, but no `franchises` table or module exists
 
 ---
 

@@ -1,13 +1,43 @@
 # PetZonic — Screen Inventory
 
 > **Version**: 1.0.0  
-> **Date**: May 28, 2026
+> **Date**: May 28, 2026 · **Accuracy-checked**: 2026-09-20
+
+> ## ⚠️ Counts and routes below are a pre-implementation plan
+>
+> Measured from the actual route trees on **2026-09-20**:
+>
+> | Surface | This doc claims | Actually exists |
+> |---|---|---|
+> | Customer mobile app | ~66 screens | **0** — repo is an empty stub, no Dart code |
+> | Seller mobile app | ~30 screens | **0** — repo is an empty stub, no Dart code |
+> | Website (`petzonic-web`) | ~36 pages | **85 pages** |
+> | Admin (`petzonic-admin`) | ~23 pages | **29 pages** |
+> | **Total** | **~155 screens** | **114 real pages**, all web |
+>
+> **Website routes listed below that do not exist**: `/products/[category]`,
+> `/community/[category]`, `/community/posts/[id]` (actual: `/community/[id]`),
+> `/community/lost-found`, `/learn/courses/[slug]` (actual: `[id]`),
+> `/services/online-vet` (actual: `/education/vet-consultation`), `/404` (implemented as
+> `not-found.tsx`).
+>
+> **Admin routes listed below that do not exist**: `/users/[id]`, `/orders/[id]`,
+> `/products/new`, `/franchises`, `/analytics`. Note also that admin URLs are written here
+> with an `/admin/*` prefix; `petzonic-admin` serves them at the **root** (e.g. `/users`).
+>
+> **Missing from this inventory**: the pharmacy pages (`/pharmacy`,
+> `/pharmacy/products/[slug]`, admin `/pharmacy`), plus roughly 50 further real web routes
+> including the insurance suite, provider portal, chat, brands, search, pre-owned,
+> `/sellers/[id]`, and most `/account/*` sub-pages.
+>
+> Regenerate counts with:
+> `find petzonic-web/src/app -name page.tsx | wc -l` and the equivalent for `petzonic-admin`.
 
 ---
 
-## 1. Customer App (Flutter — iOS & Android)
+## 1. Customer App (Flutter — iOS & Android) — 📋 NOT BUILT
 
-### Total Screens: ~66
+### Planned Screens: ~66 · **Actually built: 0**
 
 | # | Screen | Section | Description |
 |---|--------|---------|-------------|

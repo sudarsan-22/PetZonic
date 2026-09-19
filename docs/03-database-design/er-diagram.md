@@ -1,11 +1,46 @@
 # PetZonic — Entity Relationship Diagram
 
 > **Version**: 1.0.0  
-> **Date**: May 28, 2026
+> **Date**: May 28, 2026 · **Accuracy-checked**: 2026-09-20
+
+> ## ⚠️ This diagram is an early design draft, not the implemented schema
+>
+> It was drawn on 2026-05-28, before implementation, and was never reconciled with the
+> database that actually got built. A check on 2026-09-20 found **13 tables in this diagram
+> that do not exist** in `petzonic-api/prisma/schema.prisma`, plus their relationships:
+>
+> | Diagrammed table | Reality |
+> |---|---|
+> | `user_profiles` | Does not exist — profile fields live on `users` |
+> | `user_devices` | Actual table is `device_tokens` |
+> | `kyc_verifications` | Actual table is `kyc_submissions` |
+> | `pet_media` | Does not exist |
+> | `pet_vaccinations` | Does not exist |
+> | `breeder_parents` | Does not exist |
+> | `litters` | Does not exist |
+> | `product_variants` | Does not exist — there is no variant system |
+> | `product_images` | Does not exist |
+> | `escrow_holds` | Does not exist — escrow state is `EscrowStatus` on `orders` |
+> | `seller_payouts` | Actual table is `payouts` |
+> | `chat_rooms` | Actual table is `conversations` |
+> | `franchises` | Does not exist — franchise is unimplemented |
+>
+> The "Indexes Strategy" section further below claims GiST/geospatial indexes; **none exist**,
+> and PostGIS is not installed. Geographic filtering is done with plain `city` and `district`
+> string columns.
+>
+> Also **entirely missing** from this diagram: the whole pharmacy domain (`pharmacy_products`,
+> `prescriptions`, `prescription_items`, `order_prescriptions`, `pharmacy_seller_profiles`,
+> `user_pet_profiles`), the real `breeder_profiles` table, support tickets, and pre-owned
+> products.
+>
+> **Use [schema.md](schema.md) for the model list, and `petzonic-api/prisma/schema.prisma`
+> for authoritative structure.** This file is retained only as a record of the original design
+> intent.
 
 ---
 
-## 1. Core ER Diagram
+## 1. Core ER Diagram (design draft — see warning above)
 
 ```mermaid
 erDiagram

@@ -289,23 +289,27 @@ Closes #___
 
 ## 8. Repository Structure (Multi-Repo)
 
-| Repository | Contents | Language |
-|-----------|----------|----------|
-| `petzonic-api` | Node.js / Express 5 backend API | TypeScript |
-| `petzonic-customer-app` | Flutter customer app | Dart |
-| `petzonic-seller-app` | Flutter seller app | Dart |
-| `petzonic-web` | Next.js website + admin | TypeScript |
-| `petzonic-infra` | Terraform + Docker configs | HCL/YAML |
-| `petzonic-docs` | This documentation | Markdown |
+Verified 2026-09-20. There are **8 repositories**, each with its own remote and default branch.
+
+| Repository | Contents | Language | Default branch |
+|-----------|----------|----------|---|
+| `petzonic-api` | Node.js / Express 5 backend API, Prisma schema | TypeScript | `develop` |
+| `petzonic-web` | Next.js website — customer **+ seller + provider** portals | TypeScript | `develop` |
+| `petzonic-admin` | Next.js admin console (**separate app**) | TypeScript | `develop` |
+| `petzonic-infra` | Terraform + Docker configs, monitoring, QA harness | HCL/YAML | `develop` |
+| `PetZonic` | This documentation | Markdown | `main` |
+| `.github` | Org profile, CODEOWNERS, issue/PR templates | Markdown/YAML | `main` |
+| `petzonic-customer-app` | ⛔ Empty stub — README + CI only, no Dart | — | `develop` |
+| `petzonic-seller-app` | ⛔ Empty stub — README + CI only, no Dart | — | `develop` |
 
 ### Shared Code
 
-```
-petzonic-shared/          # Shared packages (NPM private)
-├── @petzonic/types       # TypeScript types shared between API & web
-├── @petzonic/validators  # Validation schemas (Zod) shared
-└── @petzonic/constants   # Enums, error codes
-```
+**There is none.** A `petzonic-shared` package was planned but **never created** — no such
+repository or npm package exists. Types, Zod validators and constants are duplicated
+independently in `petzonic-api`, `petzonic-web` and `petzonic-admin`. A change to a shared
+contract must be made separately in each repo.
+
+There is also no `petzonic-docs` repository; documentation lives in the `PetZonic` repo.
 
 ---
 

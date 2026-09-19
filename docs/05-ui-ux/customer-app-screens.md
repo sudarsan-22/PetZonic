@@ -1,7 +1,18 @@
-# PetZonic — Customer App Screens (Flutter)
+# PetZonic — Customer App Screens (Flutter) — 📋 PLANNED, NOT BUILT
 
 > **Version**: 1.0.0  
-> **Platform**: iOS & Android (Flutter)
+> **Platform**: iOS & Android (Flutter) — *intended*  
+> **Status checked**: 2026-09-20
+
+> ## ⚠️ None of these screens exist
+>
+> The `petzonic-customer-app` repository contains a README and 3 CI workflow files. There are
+> **zero Dart files** and no Flutter project scaffold; the CI workflows would fail if run.
+>
+> This document describes screens in the present tense, but it is a **design specification for
+> future work**, not a description of anything built. The only customer-facing UI that exists
+> today is the web app (`petzonic-web`, 85 pages) — see
+> [website-pages.md](website-pages.md).
 
 ---
 

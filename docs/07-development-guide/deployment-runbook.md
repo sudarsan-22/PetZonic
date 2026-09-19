@@ -1,12 +1,30 @@
 # PetZonic — Deployment Runbook
 
 > **Version**: 1.0.0  
-> **Date**: May 28, 2026  
+> **Date**: May 28, 2026 · **Accuracy-checked**: 2026-09-20  
 > **On-Call Escalation**: Tech Lead → CTO
+
+> ## ⚠️ Target architecture — nothing here has been provisioned
+>
+> **PetZonic has never been deployed.** As of 2026-09-20:
+>
+> - Terraform definitions exist in `petzonic-infra/terraform` (ALB, ECS, VPC, WAF), but
+>   **`terraform apply` has never been run**. No AWS resources exist.
+> - **No TLS is configured anywhere.**
+> - `api.petzonic.com`, `staging.petzonic.com` and `status.petzonic.com` are referenced
+>   throughout this document as if live. **None of them serve a PetZonic service.**
+> - Razorpay, AWS and App Store production accounts are not set up — see
+>   [dependencies.md](../06-project-roadmap/dependencies.md), which states the project
+>   currently *cannot* deploy.
+> - Section 4.3 (mobile app store release, Shorebird code push) and section 5.4 (mobile
+>   rollback) apply to Flutter apps that **do not exist**.
+>
+> Treat this document as the **intended** deployment design. Before following any procedure
+> here, confirm the corresponding infrastructure actually exists.
 
 ---
 
-## 1. Deployment Architecture
+## 1. Deployment Architecture (target — not provisioned)
 
 ```mermaid
 flowchart LR

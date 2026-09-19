@@ -1,13 +1,21 @@
 # PetZonic — System Architecture
 
 > **Version**: 1.0.0  
-> **Date**: May 28, 2026
+> **Date**: May 28, 2026 · **Accuracy-checked against source**: 2026-09-20
 
 ---
 
 ## 1. Architecture Overview
 
-PetZonic follows a **client-server architecture** with web and mobile frontend clients communicating with a single unified backend API. The backend is structured as an **Express 5 Modular Monolith** in TypeScript, adopting a strict **Router → Controller → Service → Repository** 4-tier architecture across 19 domain modules.
+PetZonic follows a **client-server architecture** in which web clients communicate with a
+single unified backend API. The backend is an **Express 5 modular monolith** in TypeScript,
+using a strict **Router → Controller → Service → Repository** 4-tier architecture across
+**25 domain modules** (verified 2026-09-20). It is not a microservice system.
+
+**Built clients**: `petzonic-web` (customer, seller and provider portals in one Next.js app)
+and `petzonic-admin` (separate Next.js admin console).
+**Not built**: the Flutter mobile apps shown dashed in the diagram below. Their repos contain
+no application code. They are included only to show intended future topology.
 
 ---
 
@@ -16,9 +24,10 @@ PetZonic follows a **client-server architecture** with web and mobile frontend c
 ```mermaid
 graph TB
     subgraph Clients
-        WEB[Website & Admin Portal<br/>Next.js 16 / React 19]
-        CA[Customer App<br/>Flutter iOS/Android]
-        SA[Seller App<br/>Flutter iOS/Android]
+        WEB[petzonic-web<br/>Customer + Seller + Provider<br/>Next.js 16 / React 19]
+        ADM[petzonic-admin<br/>Admin Console<br/>Next.js 16 / React 19]
+        CA[Customer App — NOT BUILT<br/>Flutter iOS/Android]
+        SA[Seller App — NOT BUILT<br/>Flutter iOS/Android]
     end
 
     subgraph Load Balancer & Reverse Proxy
@@ -39,14 +48,14 @@ graph TB
     subgraph External & Local AI Services
         OLLAMA[Ollama Container<br/>Local Qwen 2.5 / Llama 3.2 LLM]
         GEMINI[Google Gemini AI<br/>Multimodal Pet Photo Analysis]
-        RP[Razorpay<br/>Payments & Webhooks]
-        FCM[Firebase FCM<br/>Push Notifications]
+        RP[Razorpay<br/>Payments & Webhooks — mock mode if unconfigured]
         SMS[SMS Gateway<br/>Phone OTP Delivery]
     end
 
     WEB --> NGINX
-    CA --> NGINX
-    SA --> NGINX
+    ADM --> NGINX
+    CA -.not built.-> NGINX
+    SA -.not built.-> NGINX
     NGINX --> API1
     NGINX --> API2
     API1 --> PG
@@ -59,9 +68,16 @@ graph TB
     API2 --> OLLAMA
     API1 --> GEMINI
     API1 --> RP
-    API1 --> FCM
     API1 --> SMS
 ```
+
+> **Push notifications**: Firebase FCM is *not* wired up. The push provider in
+> `petzonic-api/src/modules/notifications/providers.ts` is a permanent stub that reports
+> itself unconfigured, so the notification outbox marks push sends as `SKIPPED` rather than
+> pretending they were delivered.
+>
+> **Nginx & multi-replica**: the compose topology for this exists in `petzonic-infra`, but it
+> has never been deployed. There is no TLS termination configured anywhere today.
 
 ---
 

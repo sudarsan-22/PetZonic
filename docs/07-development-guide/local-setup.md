@@ -11,12 +11,12 @@
 |------|---------|---------|
 | Node.js | 22.x LTS | [nodejs.org](https://nodejs.org/) or `nvm install 22` |
 | npm | 10.x | Included with Node.js 22 |
-| Flutter | 3.x | [flutter.dev](https://flutter.dev/docs/get-started/install) |
 | Docker Desktop | Latest | [docker.com](https://www.docker.com/products/docker-desktop/) |
 | Git | Latest | [git-scm.com](https://git-scm.com/) |
 | VS Code | Latest | [code.visualstudio.com](https://code.visualstudio.com/) |
-| Android Studio | Latest | For Android emulator + SDK |
-| Xcode | 15+ (macOS) | For iOS simulator |
+
+> Flutter, Android Studio and Xcode are **not** required. The mobile apps do not exist —
+> `petzonic-customer-app` and `petzonic-seller-app` contain no application code.
 
 ---
 
@@ -26,13 +26,25 @@
 # Create project directory
 mkdir petzonic && cd petzonic
 
-# Clone all repos
-git clone git@github.com:petzonic/petzonic-api.git
-git clone git@github.com:petzonic/petzonic-customer-app.git
-git clone git@github.com:petzonic/petzonic-seller-app.git
-git clone git@github.com:petzonic/petzonic-web.git
-git clone git@github.com:petzonic/petzonic-infra.git
+# Clone the repos that contain code
+git clone git@github.com:petZonic/petzonic-api.git
+git clone git@github.com:petZonic/petzonic-web.git
+git clone git@github.com:petZonic/petzonic-admin.git
+git clone git@github.com:petZonic/petzonic-infra.git
+
+# Documentation (this repo)
+git clone git@github.com:sudarsan-22/PetZonic.git
+
+# NOTE: petzonic-customer-app and petzonic-seller-app are empty stubs containing no
+# application code. You do not need them for local development.
 ```
+
+> **All repos must be cloned as siblings inside one parent directory.** `petzonic-infra`
+> builds the others through relative paths (`../../petzonic-api`), so its Docker Compose files
+> assume this exact layout.
+>
+> **Package manager: npm.** Every repo commits a `package-lock.json`. Do not use pnpm or
+> yarn — earlier CI workflows wrongly assumed pnpm and had to be corrected.
 
 ---
 
@@ -142,7 +154,7 @@ npm run dev
 # Static type safety check
 npm run typecheck
 
-# Run full Vitest integration suite (28 test files, 445 tests)
+# Run full Vitest integration suite (46 test files as of 2026-09-20)
 npm run test:run
 
 # Run tests with code coverage report
@@ -151,7 +163,11 @@ npm run test:coverage
 
 ---
 
-## 4. Customer App Setup (Flutter)
+## 4. Customer App Setup (Flutter) — 📋 NOT APPLICABLE
+
+> **Skip this section.** `petzonic-customer-app` is an empty stub with no Flutter project,
+> no `pubspec.yaml` and no Dart code. Every command below will fail. Retained for when mobile
+> work actually begins.
 
 ```bash
 cd petzonic-customer-app
@@ -200,7 +216,10 @@ flutter run
 
 ---
 
-## 5. Seller App Setup (Flutter)
+## 5. Seller App Setup (Flutter) — 📋 NOT APPLICABLE
+
+> **Skip this section.** `petzonic-seller-app` is an empty stub. The seller experience that
+> exists today is in `petzonic-web` at `/seller/*` and needs no separate setup.
 
 ```bash
 cd petzonic-seller-app
@@ -220,10 +239,23 @@ flutter run
 cd petzonic-web
 
 # Install dependencies
-pnpm install
+npm install
 
 # Configure environment
 cp .env.local.example .env.local
+```
+
+> **Read `petzonic-web/AGENTS.md` before editing this app.** It warns that its Next.js 16
+> setup diverges from widely-known Next.js patterns and points to the bundled docs under
+> `node_modules/next/dist/docs/`.
+
+### Admin Panel Setup
+
+```bash
+cd petzonic-admin
+npm install
+cp .env.local.example .env.local
+npm run dev   # serves on port 3002
 ```
 
 ### Environment (.env.local)
@@ -239,8 +271,8 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3001
 # Run development server
 npm run dev
 
-# Website at http://localhost:3001
-# Admin panel at http://localhost:3001/admin
+# Website at http://localhost:3001 (customer + /seller/* + /provider/* portals)
+# Admin panel is a SEPARATE app: http://localhost:3002 (see Admin Panel Setup above)
 ```
 
 ---
@@ -288,7 +320,7 @@ Create `.vscode/settings.json` in each repo:
 |---------|---------|
 | `npm run dev` | Start API in dev mode with live watch |
 | `npm run typecheck` | Static TypeScript type safety check |
-| `npm run test:run` | Run full Vitest integration suite (445 tests) |
+| `npm run test:run` | Run full Vitest integration suite (46 test files) |
 | `npm run test:coverage` | Run tests with V8 coverage report |
 | `npm run build` | Compile TypeScript into `dist/` |
 | `npm run db:push` | Sync Prisma schema with database |
@@ -299,9 +331,9 @@ Create `.vscode/settings.json` in each repo:
 | Command | Purpose |
 |---------|---------|
 | `npm run dev` | Start Next.js dev server on port 3001 |
-| `npm run test:run` | Run Vitest component tests (531 tests) |
+| `npm run test:run` | Run Vitest component tests (99 test files) |
 | `npm run lint` | Run ESLint code quality check |
-| `npm run build` | Next.js production build (79 routes) |
+| `npm run build` | Next.js production build (85 page routes as of 2026-09-20) |
 
 ---
 

@@ -1,9 +1,59 @@
 # PetZonic — Database Schema
 
-> **Version**: 1.2.0 (Synchronized with Production Prisma Schema)  
-> **Date**: September 2026  
-> **Database Engine**: PostgreSQL 16 (Prisma ORM)  
-> **Total Models**: 58 Production Models
+> **Version**: 1.2.0  
+> **Database Engine**: PostgreSQL 16 (Prisma 7)  
+> **Measured against `petzonic-api/prisma/schema.prisma` on 2026-09-20**:
+> **68 models · 47 enums · 28 migrations · 79 `@@index` directives**
+>
+> ⚠️ **This document is a partial copy and drifts.** The schema file itself is the only
+> authoritative source, and it carries extensive prose comments explaining *why* certain gaps
+> and constraints exist. Read `petzonic-api/prisma/schema.prisma` before trusting anything
+> here. The copy below was last reconciled on 2026-09-20 and omits some models — the list in
+> the next section is complete as of that date.
+
+---
+
+## Complete Model List (68)
+
+Measured 2026-09-20. Models added most recently are marked.
+
+`Address` · `AuditLog` · `Banner` · `Booking` · **`BreederProfile`** ⬅ new ·
+`Cart` · `CartItem` · `ContentLike` · `Conversation` · `Coupon` · `Course` ·
+`CourseContent` · `CourseEnrollment` · `CourseProgress` · `DeviceToken` · `Dispute` ·
+`EducationContent` · `InsuranceClaim` · `InsurancePartner` · `InsurancePlan` ·
+`InsurancePolicy` · `KycSubmission` · `LostFoundPost` · `Message` ·
+`NewsletterSubscriber` · `Notification` · `NotificationOutbox` ·
+`NotificationPreference` · `Order` · `OrderItem` · **`OrderPrescription`** ⬅ new ·
+`OtpCode` · `PasswordResetToken` · `Payment` · `Payout` · `PetBreed` · `PetListing` ·
+`PetReport` · `PetSpecies` · **`PharmacyProduct`** ⬅ new ·
+**`PharmacySellerProfile`** ⬅ new · `PlatformSettings` · `Post` · `PostFollow` ·
+`PostVote` · **`Prescription`** ⬅ new · **`PrescriptionItem`** ⬅ new · `Product` ·
+`ProductBrand` · `ProductCategory` · `ProviderSchedule` · `ProviderService` ·
+`RefreshToken` · `Reply` · `ReplyVote` · `ReturnRequest` · `Review` ·
+`ReviewHelpfulVote` · `ReviewReport` · `SellerBankAccount` · `ServiceProvider` ·
+`SupportTicket` · `SupportTicketMessage` · `User` · **`UserPetProfile`** ⬅ new ·
+`UserRole` · `VetConsultation` · `VetQA`
+
+The seven models marked new arrived with the pharmacy module
+(`20260919195000_pet_pharmacy_models`) and the breeder/district feature
+(`20260920011500_breeder_profile_and_district`). See
+[Pharmacy API](../04-api-design/pharmacy-api.md) and
+[Breeders API](../04-api-design/breeders-api.md).
+
+## Key Constraints
+
+Verified 2026-09-20:
+
+- `Booking` has `@@unique([providerId, startTime])` — database-level double-booking
+  prevention. **Do not remove it.**
+- `Payment.razorpayPaymentId` is `@unique` — payment-capture idempotency.
+- Exactly **one** CHECK constraint exists: `products_stock_non_negative_check CHECK (stock >= 0)`,
+  added in `20260918150000_schema_sync`. Older audit reports claim five CHECK constraints from
+  a migration `20260910143000_production_hardening_invariants`; **that migration does not exist
+  in this repository.**
+- `EscrowStatus` lives on `Order`, not on `Payment`.
+- `Role` has exactly four values: `BUYER`, `SELLER`, `BREEDER`, `ADMIN`.
+- `PetListingStatus` has no `PENDING_SALE` value.
 
 ---
 
