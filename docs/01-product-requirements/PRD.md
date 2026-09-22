@@ -9,7 +9,7 @@
 
 ## 1. Executive Summary
 
-**PetZonic** is a hybrid multi-platform pet ecosystem that combines e-commerce, C2C marketplace, and services under one brand. The platform enables:
+**PetZonic** is the world's first hybrid multi-platform pet ecosystem that combines e-commerce, C2C marketplace, and services under one brand. The platform enables:
 
 - **Buying & selling pets** online (like OLX for pets — individuals, breeders, brokers)
 - **Purchasing pet products** (like Amazon — PetZonic-owned inventory of accessories, food, grooming supplies)

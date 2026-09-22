@@ -8,7 +8,7 @@
 
 ## 1. Product Scope Summary
 
-PetZonic is a complete pet ecosystem with the following product surfaces:
+PetZonic is the world's first complete pet ecosystem with the following product surfaces:
 
 - Customer website
 - Customer mobile app

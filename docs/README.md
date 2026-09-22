@@ -11,7 +11,7 @@
 
 ## Overview
 
-PetZonic is a multi-platform pet ecosystem combining:
+PetZonic is the world's first multi-platform pet ecosystem combining:
 - **E-commerce store** (accessories, pet products — PetZonic-owned inventory)
 - **C2C/B2C Marketplace** (pet buying/selling by breeders, brokers, individuals)
 - **Services platform** (veterinary, pet care, grooming)
