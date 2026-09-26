@@ -2,7 +2,7 @@
 
 > **Base URL**: `/api/v1/breeders`  
 > **Source of truth**: `petzonic-api/src/modules/breeders/`  
-> **Verified against source**: 2026-09-20
+> **Verified against source**: 2026-09-26
 
 This module exists to close PetZonic's founding gap: a buyer who does not already know the
 local pet trade has no way to find the breeder down the street, and defaults to a shop at a
@@ -39,13 +39,13 @@ One profile per user (`userId` is `@unique`, cascade-deleted with the user).
 | `registrationNumber` | `VarChar(100)?` | Optional breeder registration id |
 | `establishedYear` | `Int?` | Optional |
 | `avatarUrl` / `coverImageUrl` | `VarChar(500)?` | Optional imagery |
-| `isVerified` | `Boolean` | ⚠️ Defaults to **`true`** |
+| `isVerified` | `Boolean` | Defaults to **`false`** — admin-granted (since 2026-09-22) |
 
-> **Trust caveat — read before pitching this as a verification feature.** `isVerified`
-> defaults to `true`, so a profile is marked verified on creation with no review step. There
-> is no admin breeder-verification workflow in this module today. Either the default should
-> change to `false` and gain an approval route, or the field should not be presented to buyers
-> as a trust signal. Track this before launch.
+> **Verification (updated 2026-09-22, api `c3bfaeb`).** `isVerified` now defaults to `false`,
+> and migration `20260922010000_breeder_verification_admin_granted` reset every existing
+> profile to unverified, so the badge can no longer be self-assigned at signup.
+> **Remaining gap:** there is still no admin endpoint or admin screen that grants it — it can
+> only be set directly in the database today.
 
 ### `PetListing.district`
 
@@ -74,7 +74,9 @@ Mounted at `petzonic-api/src/app.ts` → `app.use("/api/v1/breeders", breedersRo
 
 | App | Route | Purpose |
 |---|---|---|
-| `petzonic-web` | `/breeders` | Breeder directory with district browse, counts per district, and `?district=` filtering |
+| `petzonic-web` | `/breeders` | Breeder directory with district browse, counts per district, and `?district=` filtering (SEO metadata via `breeders/layout.tsx`) |
+| `petzonic-web` | `/pets?sellerType=BREEDER` | Seller-type filter (`ALL`/`BREEDER`/`SHOP`/`INDIVIDUAL`), breeder badge on pet cards, breeder trust card |
+| AI concierge | `targetTab: /breeders?state=…` | Breeder intent routes the chat to the breeder hub (since 2026-09-23) |
 
 Client: `petzonic-web/src/lib/breedersApi.ts`.
 
@@ -84,7 +86,7 @@ Client: `petzonic-web/src/lib/breedersApi.ts`.
 
 | Gap | Impact |
 |---|---|
-| `isVerified` defaults to `true` with no approval flow | "Verified breeder" currently means nothing |
+| No admin action to grant `isVerified` | Every breeder shows as unverified until an admin tool exists |
 | No individual breeder detail page | `GET /breeders/:id` exists but no `/breeders/[id]` route consumes it |
 | No breeder profile self-service page | `PUT /breeders/me` exists but no seller-facing form uses it |
 | `PetListing.district` is nullable and not backfilled | Existing listings have no district, so district filtering silently excludes them |

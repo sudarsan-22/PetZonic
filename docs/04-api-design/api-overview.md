@@ -1,7 +1,7 @@
 # PetZonic — API Overview
 
 > **Version**: 1.0.0  
-> **Date**: May 28, 2026 · **Accuracy-checked**: 2026-09-20  
+> **Date**: May 28, 2026 · **Accuracy-checked**: 2026-09-26  
 > **Base URL (local)**: `http://localhost:4000/api/v1`
 
 > ## ⚠️ Endpoint paths in this document are unreliable
@@ -10,7 +10,8 @@
 > it. A check on 2026-09-20 found entire route groups documented here **that are not mounted
 > at all**, and many individual paths that differ from what shipped.
 >
-> **Authoritative sources, in order**: the live Swagger UI at `/api/docs` on a running API,
+> **Authoritative sources, in order**: the live Swagger UI at `/api/docs` on a running API
+> (OpenAPI 3.0.3, **274 endpoints across 36 modules**, synchronised 2026-09-22 — api `0b0a5ae`),
 > then `petzonic-api/src/app.ts` (router mounts), then each
 > `petzonic-api/src/modules/*/[*.]router.ts`.
 >
@@ -39,13 +40,19 @@
 > | `/ai-discovery/*` | `/discovery/*` and `/chat/discovery` |
 >
 > ### Modules mounted but missing from this document
-> **36 routers** are mounted under `/api/v1` as of 2026-09-20. This overview covers roughly
+> **36 routers** are mounted under `/api/v1` as of 2026-09-26. This overview covers roughly
 > twenty. Undocumented here: **`/pharmacy` and `/admin/pharmacy`**
 > (see [Pharmacy API](pharmacy-api.md)), **`/breeders`**
 > (see [Breeders API](breeders-api.md)), `/support`, `/admin/support`, `/promotions`,
 > `/admin/promotions`, `/banners`, `/admin/banners`, `/brands`, `/newsletter`, `/media`,
 > `/metrics`, `/docs`, `/admin/reviews`, `/admin/services`, `/admin/insurance`,
-> `/admin/notifications`, `/admin/categories`.
+> `/admin/notifications`, `/admin/categories`. Also undocumented here: pre-owned product routes
+> (see [Products API §3A](products-api.md#3a-pre-owned-pet-gear-added-2026-09-17)) and
+> `GET /orders/:id/invoice` (see [Orders API](orders-api.md)).
+>
+> ### Health and metrics (outside `/api/v1`)
+> `/health`, `/api/health`, `/api/v1/health`, `/health/liveness`, `/health/readiness`,
+> `/metrics` (Prometheus). `/api/v1/discovery/metrics` is admin-only.
 
 ---
 

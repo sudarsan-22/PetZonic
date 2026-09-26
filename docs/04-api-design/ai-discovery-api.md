@@ -3,7 +3,7 @@
 > **Base URL**: `/api/v1/discovery` — also reachable at `/api/v1/chat/discovery`  
 > **Version**: 1.0.0  
 > **Status**: Implemented and working in development. Never deployed to production.  
-> **Verified against source**: 2026-09-20 (`petzonic-api/src/app.ts`, `src/modules/ai-discovery/`)
+> **Verified against source**: 2026-09-26 (`petzonic-api/src/app.ts`, `src/modules/ai-discovery/`)
 
 > ⚠️ **Path corrections.** This document was written against a `/api/v1/ai-discovery` base
 > that was never used. Corrections verified 2026-09-20:
@@ -13,7 +13,7 @@
 > | Base `/api/v1/ai-discovery` | `/api/v1/discovery` (and `/api/v1/chat/discovery`) |
 > | `POST /ai-discovery/reset` | `DELETE /session/:id` |
 > | `GET /ai-discovery/session` | `GET /session/:id` |
-> | `GET /ai-discovery/health` | Does not exist — use `GET /metrics` |
+> | `GET /ai-discovery/health` | Does not exist — use `GET /metrics` (**admin only**) |
 >
 > Only `POST /chat` matches as documented.
 
@@ -21,13 +21,37 @@
 
 ## 1. Overview
 
-The AI Shopping & Product Discovery Engine provides a conversational, natural-language interface for discovering pet supplies, food, grooming items, toys, and healthcare products across the PetZonic e-commerce catalog.
+The AI concierge provides a conversational, natural-language interface across **the whole platform** — products, pets, breeders, services, pre-owned gear, pharmacy, brands, insurance and lost-and-found — not just the product catalog (multi-domain since 2026-09-23, api `1328b48`).
+
+### Multi-tab intent routing (added 2026-09-23)
+
+Every reply carries an `intentType` and a `targetTab` the web client can navigate to:
+
+| `intentType` | `targetTab` | Extra result bundle |
+|---|---|---|
+| `PRODUCT` (default) | `/products` | `products` |
+| `PET` | `/pets` | `pets` |
+| `BREEDER` | `/breeders` (+ `?state=` when known) | `breeders` |
+| `SERVICE` | `/services` | `services` |
+| `PRE_OWNED` | `/pre-owned` | `preOwned` |
+| `PHARMACY` | `/pharmacy` | `pharmacy` |
+| `BRAND` | `/brands` | `brands` |
+| `INSURANCE` | `/insurance` | `insurancePlans` |
+| `LOST_FOUND` | — | `lostFound` |
+| `PET_CARE_ADVICE`, `MIXED` | `/products` | any of the above |
+| `EMERGENCY` | — | Bypasses search; returns `emergencyGuidance` and routes to vet consultation |
+
+- **Domain-isolated relaxation**: when a search returns 0 results, filters are relaxed only within
+  that domain (e.g. drop the city for pets), never by jumping to another domain.
+- **Domain transitions** clear filters that do not apply to the new domain (e.g. a product
+  category when the user switches to breeders).
+- Response also includes `suggestedPrompts`, `isEmergency` and `safetyDisclaimer`.
 
 ### Core Architecture
 - **Hybrid Intent Extraction**:
   - **Fast-Path Rule Engine**: Sub-millisecond regex & heuristic matching for common high-confidence patterns (e.g., "dog food under 1500", "cat toys", "shampoo").
   - **LLM Provider Fallback**: Deploys local Ollama container (`qwen2.5:3b` / `llama3.2:3b`) or Google Gemini (`gemini-2.5-flash`) for multi-turn disambiguation, Hindi/English (Hinglish) queries, negation ("actually no treats"), and conversational shifts.
-- **Canary Rollout Mechanism**: Controlled by `AI_DISCOVERY_ROLLOUT_PERCENTAGE` (default 15%), hashing user/session IDs to ensure deterministic cohort assignment.
+- **Canary Rollout Mechanism**: Controlled by `AI_DISCOVERY_ROLLOUT_PERCENTAGE` (code default **100%** since 2026-09-18; compose also sets 100), hashing user/session IDs to ensure deterministic cohort assignment.
 - **Session Persistence**: Stored in Redis with sliding-window TTL (30 minutes), maintaining conversation turns, active category/species filters, price constraints, and sort preferences.
 
 ---

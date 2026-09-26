@@ -2,8 +2,8 @@
 
 > **Version**: 1.2.0  
 > **Database Engine**: PostgreSQL 16 (Prisma 7)  
-> **Measured against `petzonic-api/prisma/schema.prisma` on 2026-09-20**:
-> **68 models · 47 enums · 28 migrations · 79 `@@index` directives**
+> **Measured against `petzonic-api/prisma/schema.prisma` on 2026-09-26**:
+> **68 models · 47 enums · 29 migrations · 79 `@@index` directives**
 >
 > ⚠️ **This document is a partial copy and drifts.** The schema file itself is the only
 > authoritative source, and it carries extensive prose comments explaining *why* certain gaps
@@ -36,7 +36,10 @@ Measured 2026-09-20. Models added most recently are marked.
 
 The seven models marked new arrived with the pharmacy module
 (`20260919195000_pet_pharmacy_models`) and the breeder/district feature
-(`20260920011500_breeder_profile_and_district`). See
+(`20260920011500_breeder_profile_and_district`). Migration
+`20260922010000_breeder_verification_admin_granted` (2026-09-22) changed
+`BreederProfile.is_verified` to **default `false`** and reset every existing profile to
+unverified — verification is now an admin decision. See
 [Pharmacy API](../04-api-design/pharmacy-api.md) and
 [Breeders API](../04-api-design/breeders-api.md).
 

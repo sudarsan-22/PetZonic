@@ -133,8 +133,10 @@ npm run db:generate
 # Push schema to database
 npm run db:push
 
-# Seed database with sample data
-npm run db:seed
+# Seed database with sample data (choose one)
+npm run db:seed            # = db:seed:mock — full developer mock data
+# npm run db:seed:demo     # end-to-end demo: buyer, seller, admin, orders, telehealth, insurance
+# npm run db:seed:baseline # production baseline only (no mock data)
 ```
 
 ### 3.5 Run API Server
@@ -154,7 +156,7 @@ npm run dev
 # Static type safety check
 npm run typecheck
 
-# Run full Vitest integration suite (46 test files as of 2026-09-20)
+# Run full Vitest integration suite (47 test files as of 2026-09-26)
 npm run test:run
 
 # Run tests with code coverage report
@@ -320,11 +322,13 @@ Create `.vscode/settings.json` in each repo:
 |---------|---------|
 | `npm run dev` | Start API in dev mode with live watch |
 | `npm run typecheck` | Static TypeScript type safety check |
-| `npm run test:run` | Run full Vitest integration suite (46 test files) |
+| `npm run test:run` | Run full Vitest integration suite (47 test files) |
 | `npm run test:coverage` | Run tests with V8 coverage report |
 | `npm run build` | Compile TypeScript into `dist/` |
 | `npm run db:push` | Sync Prisma schema with database |
-| `npm run db:seed` | Seed test users, listings, products, & services |
+| `npm run db:seed` / `db:seed:mock` | Seed full developer mock data |
+| `npm run db:seed:demo` | Seed an end-to-end demo (buyer, seller, admin, orders, telehealth, insurance) |
+| `npm run db:seed:baseline` | Seed production baseline only (no mock data) |
 
 ### Frontend (`petzonic-web`)
 

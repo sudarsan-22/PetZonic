@@ -1,19 +1,19 @@
 # PetZonic — Screen Inventory
 
 > **Version**: 1.0.0  
-> **Date**: May 28, 2026 · **Accuracy-checked**: 2026-09-20
+> **Date**: May 28, 2026 · **Accuracy-checked**: 2026-09-26
 
 > ## ⚠️ Counts and routes below are a pre-implementation plan
 >
-> Measured from the actual route trees on **2026-09-20**:
+> Measured from the actual route trees on **2026-09-26**:
 >
 > | Surface | This doc claims | Actually exists |
 > |---|---|---|
 > | Customer mobile app | ~66 screens | **0** — repo is an empty stub, no Dart code |
 > | Seller mobile app | ~30 screens | **0** — repo is an empty stub, no Dart code |
-> | Website (`petzonic-web`) | ~36 pages | **85 pages** |
+> | Website (`petzonic-web`) | ~36 pages | **86 pages** |
 > | Admin (`petzonic-admin`) | ~23 pages | **29 pages** |
-> | **Total** | **~155 screens** | **114 real pages**, all web |
+> | **Total** | **~155 screens** | **115 real pages**, all web |
 >
 > **Website routes listed below that do not exist**: `/products/[category]`,
 > `/community/[category]`, `/community/posts/[id]` (actual: `/community/[id]`),
@@ -26,7 +26,9 @@
 > with an `/admin/*` prefix; `petzonic-admin` serves them at the **root** (e.g. `/users`).
 >
 > **Missing from this inventory**: the pharmacy pages (`/pharmacy`,
-> `/pharmacy/products/[slug]`, admin `/pharmacy`), plus roughly 50 further real web routes
+> `/pharmacy/products/[slug]`, `/account/prescriptions`; admin `/pharmacy/prescriptions` and
+> `/pharmacy/prescriptions/[id]`), the breeder hub `/breeders`, the breed hub index `/breeds`,
+> seller pre-owned pages `/seller/products` and `/seller/products/new`, plus roughly 45 further real web routes
 > including the insurance suite, provider portal, chat, brands, search, pre-owned,
 > `/sellers/[id]`, and most `/account/*` sub-pages.
 >

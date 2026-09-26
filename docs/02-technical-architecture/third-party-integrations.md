@@ -1,7 +1,15 @@
 # PetZonic — Third-Party Integrations
 
-> **Version**: 1.0.0  
-> **Date**: May 28, 2026
+> **Version**: 1.1.0  
+> **Date**: May 28, 2026 · **Updated**: 2026-09-26
+
+> **Implementation status (2026-09-26).** Integrated in code, each degrading gracefully when
+> unconfigured: Razorpay (production boot now requires the webhook secret and forbids mock mode),
+> Google OAuth, MSG91 / Twilio SMS, SMTP email, Shiprocket / Delhivery logistics, AWS S3 (local
+> disk fallback), Ollama / Google Gemini (AI concierge and pet AI-assist). **Not integrated**:
+> Sentry (monitoring is Prometheus + Grafana + Loki instead), FCM push (provider is a stub that
+> reports itself unconfigured), Cloudflare R2, Meilisearch. The actual env variable names are in
+> `petzonic-api/src/config/index.ts`; template-ID variables below are the original design.
 
 ---
 
@@ -371,7 +379,7 @@ Environment Variables:
 
 ---
 
-## 11. Error Monitoring — Sentry
+## 11. Error Monitoring — Sentry (planned, not integrated)
 
 ### Purpose
 Capture, track, and alert on application errors across all platforms.

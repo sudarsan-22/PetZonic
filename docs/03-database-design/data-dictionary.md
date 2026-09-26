@@ -1,7 +1,7 @@
 # PetZonic — Data Dictionary
 
-> **Version**: 1.0.0  
-> **Date**: May 28, 2026
+> **Version**: 1.1.0  
+> **Date**: May 28, 2026 · **Updated**: 2026-09-26 (sections 9.6–9.8 added from `schema.prisma`)
 
 ---
 
@@ -297,6 +297,43 @@
 
 ### 9.5 Notifications & Outbox Pattern
 - **notification_outbox**: Reliable event-driven notification queue implementing the Transactional Outbox Pattern to guarantee zero dropped SMS, Push, or Email alerts during server restarts.
+
+### 9.6 Pre-Owned Products (on `products`, added 2026-09-17)
+
+| Column | Type | Rule |
+|---|---|---|
+| `condition` | `ProductCondition` (`NEW`, `PRE_OWNED`) | Default `NEW`; indexed |
+| `seller_id` | UUID? | Set for peer listings; PetZonic catalog items have none |
+| `pre_owned_condition` | `PreOwnedCondition` (`LIKE_NEW`, `GOOD`, `FAIR`) | `GOOD`/`FAIR` require a defects description |
+| `pre_owned_status` | `PreOwnedStatus` (`PENDING_REVIEW`, `ACTIVE`, `PENDING_SALE`, `SOLD`, `REJECTED`) | Starts `PENDING_REVIEW`; admin approves/rejects; indexed |
+| `pre_owned_details` | JSON | `itemAge`, `material`, `dimensions`, `defects`, `includedAccessories`, `reasonForSelling` |
+| `moderation_notes`, `rejection_reason`, `moderated_at`, `moderated_by_id` | — | Admin moderation trail |
+| `product_categories.supports_pre_owned` | Boolean, default `true` | Set `false` for consumables and health products |
+
+### 9.7 Pharmacy (added 2026-09-20)
+
+- **pharmacy_products** (1:1 with `products`): `generic_name`, `strength`, `dosage_form`
+  (`TABLET`, `CAPSULE`, `SYRUP`, `SUSPENSION`, `INJECTION`, `SPOT_ON`, `OINTMENT`, `DROPS`,
+  `POWDER`, `CHEWABLE`, `SPRAY`), `drug_schedule` (`OTC`, `SCHEDULE_H`, `SCHEDULE_H1`,
+  `SCHEDULE_X`, `GENERAL_HEALTH`), `requires_prescription`, `target_species[]`, clinical text
+  fields, `is_cold_chain`, pack size, manufacturer, batch, expiry, country of origin.
+- **prescriptions**: per user and optional pet profile; `source` (`USER_UPLOAD`,
+  `VET_CONSULTATION`), doctor and clinic details, issue/expiry dates, `status` (`PENDING`,
+  `APPROVED`, `REJECTED`, `EXPIRED`, `EXHAUSTED`), `max_refills` / `used_refills`, reviewer and
+  verification fields. Items in **prescription_items**; order links in **order_prescriptions**.
+- **pharmacy_seller_profiles**: drug licence number, document and expiry, pharmacist name and
+  registration, GSTIN, `is_verified` (admin-set with `verified_by_id`, `verified_at`).
+- **user_pet_profiles**: customer's pets for prescriptions — name, species, breed, gender, DOB,
+  weight, allergies, medical notes. Medical fields are covered by log redaction.
+
+### 9.8 Breeders (added 2026-09-20, changed 2026-09-22)
+
+- **breeder_profiles** (1 per user): `farm_name`, `tagline`, `district` and `state` (both
+  indexed), `experience_years`, `specialization_breeds[]`, `is_farm_visit_allowed`,
+  `farm_address`, `about_farm`, `registration_number`, `established_year`, avatar/cover images,
+  `is_verified` — **default `false`, admin-granted** (all profiles reset to unverified on
+  2026-09-22).
+- **pet_listings.district**: nullable, indexed with `status`; drives district filtering.
 
 ---
 

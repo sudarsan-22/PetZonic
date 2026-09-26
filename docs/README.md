@@ -1,10 +1,11 @@
 # PetZonic — Project Documentation
 
 > **Status**: Pre-launch — feature-complete in development, not yet deployed to production  
-> **Last Updated**: 2026-09-20  
-> **Version**: 1.2.0
+> **Last Updated**: 2026-09-26  
+> **Version**: 1.3.0
 >
-> **Verified against source on 2026-09-20.** Counts in this index are measured from the
+> **Verified against source on 2026-09-26.** What changed recently: see the
+> [Implementation Changelog](CHANGELOG.md). Counts in this index are measured from the
 > working tree, not estimated. See [Current State](#current-state) for the authoritative numbers.
 
 ---
@@ -67,7 +68,7 @@ PetZonic is the world's first multi-platform pet ecosystem combining:
 | [Chat API](04-api-design/chat-api.md) | Messaging & WebSocket events |
 | [Services API](04-api-design/services-api.md) | Vet & pet care bookings |
 | [Pharmacy API](04-api-design/pharmacy-api.md) | 🆕 Medicine catalog, prescriptions, admin verification |
-| [Breeders API](04-api-design/breeders-api.md) | 🆕 District-scoped breeder profiles (backend only, no UI yet) |
+| [Breeders API](04-api-design/breeders-api.md) | 🆕 District-scoped breeder profiles; web `/breeders` hub; verification is admin-granted (default unverified) |
 | [Reviews API](04-api-design/reviews-api.md) | Ratings & reviews |
 | [Admin API](04-api-design/admin-api.md) | Administration endpoints |
 | [Notifications API](04-api-design/notifications-api.md) | Push, in-app, SMS triggers |
@@ -110,6 +111,11 @@ PetZonic is the world's first multi-platform pet ecosystem combining:
 | [End-to-End Audit Report](09-audit-reports/end-to-end-audit-report.md) | Application-wide functional + security audit (2026-09-10). Mostly consistent with the codebase; see accuracy notice for the specific exceptions. |
 | [Final Production Hardening Report](09-audit-reports/final-production-hardening-report.md) | Claimed production-hardening changes (2026-09-10). Least reliable of the three — claims a migration and CHECK constraints that don't exist in the repo; see accuracy notice. |
 
+### 10 — Feature Designs (proposed, not implemented)
+| Document | Description |
+|----------|-------------|
+| [Pet Registry, Verified Network & Pet Data Insights](10-feature-designs/pet-registry-and-verified-network/README.md) | 🆕 Lifelong PetZonic Pet ID tied to leg rings / microchips, lineage and ownership transfer, PetZonic Verified shops/breeders/shelters + near-me search, health passport with vaccination reminders, lost/stolen alerts + QR tag, breeder onboarding and score, 7-day health guarantee, city licence helper, adoption, consented pet data insights for brands (2026-09-26) |
+
 ---
 
 ## Quick Reference
@@ -118,25 +124,28 @@ PetZonic is the world's first multi-platform pet ecosystem combining:
 - **Apps (built)**: `petzonic-web` (customer + seller + provider portals) · `petzonic-admin` (admin console) · `petzonic-api` (REST + WebSocket backend) · `petzonic-infra` (Docker, Terraform, monitoring)
 - **Apps (stubs, no code)**: `petzonic-customer-app`, `petzonic-seller-app`
 - **User Roles**: the `Role` enum has exactly four values — `BUYER`, `SELLER`, `BREEDER`, `ADMIN`. Vet and pet-caretaker are modelled as `ServiceProvider` records, not roles. Broker and franchise are not implemented.
-- **Payments**: Razorpay (UPI, Cards, Wallets, escrow hold/release, COD) — runs in mock mode when unconfigured
+- **Payments**: Razorpay (UPI, Cards, Wallets, escrow hold/release, COD) — mock mode for development only; production boot refuses `RAZORPAY_MOCK_ENABLED=true`
+- **Scheduled jobs**: BullMQ maintenance queue — escrow auto-release hourly, abandoned unpaid orders expired every 15 minutes (added 2026-09-22)
 - **Target**: India (English; Hindi not yet implemented)
 
 ---
 
 ## Current State
 
-Measured directly from the working tree on **2026-09-20**:
+Measured directly from the working tree on **2026-09-26**:
 
 | Metric | Actual |
 |---|---|
 | Backend modules (`petzonic-api/src/modules/`) | 26 |
 | Prisma models | 68 |
 | Prisma enums | 47 |
-| Migrations | 28 |
+| Migrations | 29 |
 | Routers mounted under `/api/v1` | 36 |
 | Web pages (`petzonic-web`) | 86 |
 | Admin pages (`petzonic-admin`) | 29 |
-| Backend test files | 46 |
+| Documented API endpoints (OpenAPI) | 274 |
+| BullMQ queues | 3 (email, broadcast, maintenance) |
+| Backend test files | 47 |
 | Web test files | 99 (+ 7 Playwright e2e specs) |
 | Admin test files | 0 |
 
@@ -144,10 +153,18 @@ Measured directly from the working tree on **2026-09-20**:
 configured, and no Razorpay/AWS production accounts are set up (see
 [dependencies](06-project-roadmap/dependencies.md)).
 
-**Most recent features** (added 2026-09-19/20):
+**Most recent changes** — full list with commits in the [Implementation Changelog](CHANGELOG.md):
+- **Production safety (2026-09-22)** — scheduler for escrow auto-release and abandoned-order
+  expiry; boot refuses placeholder `JWT_SECRET`, missing webhook secret or mock payments in
+  production; payouts only for released escrow; breeder verification reset to admin-granted.
+- **AI concierge tabs (2026-09-23)** — routes answers to the right tab (pets, breeders, pre-owned,
+  pharmacy, brands, insurance, services, products) with cross-domain results.
+- **Removed (2026-09-18/22)** — fake homepage testimonials, the mobile-app download banner, and
+  Breed Guides / Vet Care from navbar row 2 (both kept in the All-services drawer).
 - **Pharmacy** — fully wired end to end: `PharmacyProduct`, `Prescription`, `PrescriptionItem`,
   `OrderPrescription`, `PharmacySellerProfile`, `UserPetProfile` models; `/api/v1/pharmacy` and
-  `/api/v1/admin/pharmacy` routes; customer pages at `/pharmacy` and `/pharmacy/products/[slug]`.
+  `/api/v1/admin/pharmacy` routes; customer pages at `/pharmacy`, `/pharmacy/products/[slug]` and `/account/prescriptions`; admin
+  review at `/pharmacy/prescriptions`.
 - **Breeders & district discovery** — full stack: `BreederProfile` model, a `district` column on
   `pet_listings`, the `/api/v1/breeders` routes, and a `/breeders` directory page with
   district browse and per-district counts. This is the feature that lets buyers find breeders

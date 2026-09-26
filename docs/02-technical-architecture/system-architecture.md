@@ -1,7 +1,7 @@
 # PetZonic — System Architecture
 
 > **Version**: 1.0.0  
-> **Date**: May 28, 2026 · **Accuracy-checked against source**: 2026-09-20
+> **Date**: May 28, 2026 · **Accuracy-checked against source**: 2026-09-26
 
 ---
 
@@ -101,7 +101,7 @@ graph TB
 
 ### 3.3 Application Layer (Express 5 Modular Monolith)
 
-The backend organizes all platform capabilities into 19 cohesive domain modules, each following the 4-layer design:
+The backend organizes all platform capabilities into **26 domain modules** (`petzonic-api/src/modules/`, measured 2026-09-26), each following the 4-layer design:
 - **Router**: Thin route definitions, middleware chains, auth & rate-limit guards
 - **Controller**: HTTP request parsing, Zod validation, status codes, response envelope
 - **Service**: Domain business rules, transactions, external provider integration
@@ -114,8 +114,13 @@ The backend organizes all platform capabilities into 19 cohesive domain modules,
 | **Auth** | Registration, login, phone OTP lockout, JWT refresh rotation, Google OAuth |
 | **Users** | Profile management, KYC verification, address book, roles |
 | **Pets** | Pet listings, breed taxonomy, negotiable pricing, boosts, Gemini AI assist |
-| **Products** | E-commerce catalog, categories, variants, inventory management |
-| **Cart & Orders** | Shopping cart, checkout, multi-item orders, order status lifecycle, returns |
+| **Products** | E-commerce catalog, categories, inventory, brands, **pre-owned peer listings with admin moderation** (2026-09-17) |
+| **Pharmacy** | Pet medicine catalog, prescription vault and upload, customer pet profiles, admin prescription verification, Rx gating at checkout (2026-09-20) |
+| **Breeders** | District-scoped breeder profiles and district browse; verification admin-granted (2026-09-20/22) |
+| **Brands** | Brand directory and brand pages |
+| **Support** | Customer support tickets and admin replies |
+| **Metrics** | Prometheus `/metrics`, HTTP latency, subsystem probes (2026-09-17) |
+| **Cart & Orders** | Server-backed cart, checkout, multi-item orders, status lifecycle, returns, **tax invoice (JSON/HTML)**, abandoned-order expiry |
 | **Payments** | Razorpay order creation, HMAC webhook verification, COD, escrow holds, payouts |
 | **Chat** | Socket.io real-time WebSocket chat gateway, rooms, message history |
 | **Services** | Vet, grooming, sitting, training provider listings and slot bookings |
@@ -129,7 +134,7 @@ The backend organizes all platform capabilities into 19 cohesive domain modules,
 | **Media** | S3 / Cloudflare R2 upload with local disk `/uploads` fallback |
 | **Newsletter** | Email subscription capture and verification |
 | **Admin** | Unified admin dashboard, metrics, user moderation, dispute resolution, audit logs |
-| **AI Discovery** | Conversational shopping chatbot, hybrid rule-based & Ollama/Gemini intent extraction, sliding-window Redis session persistence, product discovery carousel |
+| **AI Discovery** | Conversational concierge across products, pets, breeders, services, pre-owned, pharmacy, brands, insurance and lost-and-found; multi-tab routing via `targetTab` (2026-09-23); hybrid rule-based & Ollama/Gemini intent extraction; Redis sessions |
 | **Docs** | Interactive OpenAPI 3.0 Swagger UI mounted at `/api/docs` |
 
 ### 3.4 Data Layer
@@ -185,6 +190,11 @@ sequenceDiagram
     W->>EXT: Call FCM/SMS/Email service
     W->>Q: Mark complete or retry on failure
 ```
+
+**Queues in code (2026-09-26)**: `petzonic-email-queue`, `petzonic-broadcast-queue`, and
+`petzonic-maintenance-queue` — the last one runs **scheduled jobs**: `auto-release-escrows`
+(hourly) and `expire-abandoned-orders` (every 15 minutes, 30-minute unpaid TTL). Workers run
+inside the API process. Push delivery (FCM) is still a stub that reports itself unconfigured.
 
 ---
 
@@ -335,7 +345,12 @@ sequenceDiagram
 
 ## 8. Monitoring & Observability
 
-| Layer | Tool | Purpose |
+> **Implemented (2026-09-17/18)**: Prometheus + Grafana + Alertmanager + Loki/Promtail +
+> cAdvisor + Node Exporter via Docker Compose, scraping the API's `/metrics`. Sentry, CloudWatch
+> and X-Ray in the table below are **planned, not used**. See
+> [Infrastructure §9.0](infrastructure.md#90-implemented-stack-docker-compose-since-2026-091718).
+
+| Layer | Tool (planned) | Purpose |
 |-------|------|---------|
 | Application | Sentry | Error tracking, crash reporting |
 | Infrastructure | CloudWatch | CPU, memory, disk, network metrics |

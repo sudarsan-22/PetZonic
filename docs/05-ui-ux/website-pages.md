@@ -1,7 +1,44 @@
 # PetZonic — Website Pages (Next.js)
 
-> **Version**: 1.0.0  
-> **Framework**: Next.js 15 (App Router)
+> **Version**: 1.1.0 (updated 2026-09-26)  
+> **Framework**: Next.js 16 (App Router) — `petzonic-web`, 86 pages
+>
+> Sections 1–4 are the original May 2026 page design. **Section 0** records what the site
+> actually has now; where they differ, section 0 is correct. Full route list:
+> `petzonic-web/docs/routing-page-inventory.md`.
+
+## 0. Current state (2026-09-26)
+
+**Homepage (`/`) sections, top to bottom**: hero ("World's First Pet Ecosystem", search box, one
+row of category pills, all-species pet visual, escrow-protected badge) → 4-pillar services grid
+(vet teleconsultation, pet insurance, pre-owned marketplace, local pet care) → admin-managed
+banners → category tiles → featured pets → How PetZonic works → **"Why buyers trust PetZonic"**
+(escrow on every pet purchase, KYC-checked sellers, dispute window on every order).
+
+**Removed from the homepage (2026-09-22)**: the testimonials carousel (the quotes were not from
+real customers) and the "Get PetZonic on Your Phone" App Store / Google Play banner (no mobile
+app exists).
+
+**Navigation**: row 2 = Pets · Local Breeders · Pre-Owned · Local Services · Pet Products · Brands
+· Pharmacy · Insurance · Community · Learn · Sell/Seller dashboard. Breed Guides and Vet Care
+live in the **All-services drawer** (moved out of row 2 on 2026-09-18/19).
+
+**Pages added since the original design**:
+
+| Route | Added | Purpose |
+|---|---|---|
+| `/pre-owned` | 2026-09-17 | Pre-owned pet gear marketplace |
+| `/seller/products`, `/seller/products/new` | 2026-09-17 | Seller's pre-owned listings |
+| `/breeds`, `/breeds/[breed]` | 2026-09-19 | Breed knowledge hub |
+| `/breeders` | 2026-09-20 | District Breeder Hub |
+| `/pharmacy`, `/pharmacy/products/[slug]` | 2026-09-20 | Pet pharmacy |
+| `/account/prescriptions` | 2026-09-20 | Prescription vault |
+| `/insurance/*`, `/learn/*`, `/education/*`, `/community/*`, `/provider/*`, `/services/consultation/[id]` | before 2026-09 | Insurance, learning, telehealth, community, provider portal |
+
+**Site-wide**: PWA manifest (`src/app/manifest.ts`, theme `#ff8c00`, SVG icon), Schema.org
+JSON-LD, per-section SEO `layout.tsx` metadata, tax-invoice buttons on order pages, real
+contact details on `/contact`.
+
 
 ---
 
@@ -15,8 +52,8 @@
 - **How it works**: 3-step infographic (Browse → Connect → Adopt/Buy)
 - **Product deals**: Grid of discounted products with timer
 - **Services near you**: Provider cards (requires location)
-- **Testimonials**: Customer review carousel
-- **Download app CTA**: App store buttons + QR code
+- ~~**Testimonials**: Customer review carousel~~ — removed 2026-09-22 (replaced by factual trust section)
+- ~~**Download app CTA**: App store buttons + QR code~~ — removed 2026-09-22 (no mobile app)
 - **Footer**: Links, social media, newsletter signup
 
 ### 1.2 Pet Listings (`/pets`)

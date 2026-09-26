@@ -1,7 +1,27 @@
 # PetZonic — Security Design
 
-> **Version**: 1.0.0  
-> **Date**: May 28, 2026
+> **Version**: 1.1.0  
+> **Date**: May 28, 2026 · **Updated**: 2026-09-26 (implementation changes below)
+
+## 0. Implementation changes (2026-09-11 → 2026-09-26)
+
+Verified against `petzonic-api` source. Full list: [Implementation Changelog](../CHANGELOG.md).
+
+| Area | Change | Commit |
+|---|---|---|
+| Production config | API **refuses to boot** in production if `JWT_SECRET` is a known placeholder or shorter than 32 characters, if `RAZORPAY_WEBHOOK_SECRET` is missing, or if `RAZORPAY_MOCK_ENABLED=true` (previously a warning only). Development uses a clearly named dev-only secret | api `c3bfaeb` |
+| Admin data exposure | Admin user endpoints use an explicit field list — `passwordHash` and `tokenVersion` are no longer sent to the admin console | api `c3bfaeb` |
+| Payouts | Seller payouts only for orders with captured payment **and** released escrow | api `c3bfaeb` |
+| Escrow | Auto-release after 7 days now actually runs (hourly scheduled job) | api `c3bfaeb` |
+| Stock hoarding | Unpaid orders older than 30 minutes are cancelled every 15 minutes, freeing stock and pet listings | api `c3bfaeb` |
+| Trust signals | Breeder `isVerified` no longer self-assigned (default `false`, existing badges reset) | api `c3bfaeb` |
+| Honest UI | Web removed fabricated testimonials and the mobile-app banner; trust section now states real protections | web `c41557f` |
+| Pharmacy | Prescription-only items blocked at checkout without an admin-verified prescription; medical fields stay in the Pino redaction list | api `8e74e9e` |
+| CORS | Outside production (or when `CLIENT_URL` is localhost) the allowlist adds localhost:3000–3002, `*.petzonic.com`, `*.ngrok-free.app`, `*.ngrok.io`, `*.trycloudflare.com` for LAN/tunnel testing. Production allows only `CLIENT_URL`-derived origins | api `9b6d264`, `6b7cf64` |
+
+Still open: TLS off by default, Terraform Secrets Manager not wired into ECS tasks, logistics
+webhook accepts unsigned calls when `SHIPROCKET_WEBHOOK_SECRET` is unset, access token persisted
+in web storage, admin console has no tests.
 
 ---
 
@@ -285,7 +305,7 @@ Magic Bytes Check → Virus Scan (optional) → Image Processing → S3 Upload
 ### 8.3 Escrow Security (Pet Purchases)
 - Payment held by Razorpay (Route feature)
 - Release only after buyer confirms receipt
-- Auto-release after 7 days if no dispute raised
+- Auto-release after 7 days if no dispute raised — implemented as the hourly `auto-release-escrows` job (since 2026-09-22)
 - Admin can manually release/refund during disputes
 
 ---

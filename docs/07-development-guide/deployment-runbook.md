@@ -1,12 +1,12 @@
 # PetZonic — Deployment Runbook
 
 > **Version**: 1.0.0  
-> **Date**: May 28, 2026 · **Accuracy-checked**: 2026-09-20  
+> **Date**: May 28, 2026 · **Accuracy-checked**: 2026-09-26  
 > **On-Call Escalation**: Tech Lead → CTO
 
 > ## ⚠️ Target architecture — nothing here has been provisioned
 >
-> **PetZonic has never been deployed.** As of 2026-09-20:
+> **PetZonic has never been deployed.** As of 2026-09-26:
 >
 > - Terraform definitions exist in `petzonic-infra/terraform` (ALB, ECS, VPC, WAF), but
 >   **`terraform apply` has never been run**. No AWS resources exist.
@@ -18,6 +18,13 @@
 >   currently *cannot* deploy.
 > - Section 4.3 (mobile app store release, Shorebird code push) and section 5.4 (mobile
 >   rollback) apply to Flutter apps that **do not exist**.
+>
+> **Production boot checks (since 2026-09-22).** With `NODE_ENV=production` the API refuses to
+> start unless `JWT_SECRET` is a unique value of at least 32 characters (generate with
+> `openssl rand -base64 48`), `RAZORPAY_WEBHOOK_SECRET` is set, and `RAZORPAY_MOCK_ENABLED` is not
+> `true`. Seed production with `npm run db:seed:baseline` only — never `db:seed` / `db:seed:mock` /
+> `db:seed:demo`. Redis must be reachable for scheduled jobs (escrow auto-release, abandoned-order
+> expiry) to run.
 >
 > Treat this document as the **intended** deployment design. Before following any procedure
 > here, confirm the corresponding infrastructure actually exists.

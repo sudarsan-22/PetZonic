@@ -1,6 +1,34 @@
 # PetZonic — Payments API
 
 > **Base**: `/api/v1/payments`
+> **Verified against source**: 2026-09-26 (`petzonic-api/src/modules/payments/`)
+
+## Implementation status (2026-09-26)
+
+| Method | Path | Auth |
+|---|---|---|
+| `POST` | `/payments/create-order` | Authenticated |
+| `POST` | `/payments/verify` | Authenticated |
+| `POST` | `/payments/webhook` | Razorpay HMAC over `rawBody` |
+| `GET` | `/payments/history` | Authenticated |
+| `POST` | `/payments/refund/:orderId` | Authenticated (buyer for returns, admin for disputes) |
+| `GET` | `/payments/seller/earnings` | Seller |
+| `GET` | `/payments/seller/payouts` | Seller |
+| `POST` | `/payments/seller/bank-account` | Seller (stores last 4 digits only) |
+
+> Seller routes live under `/payments/seller/*`, not `/seller/*` as the older sections below show.
+
+**Changes since 2026-09-18 (api `c3bfaeb`)**
+- **Payouts only for released escrow** — seller payouts include an order only when payment is
+  captured **and** `escrowStatus = RELEASED`; held, disputed and refunded pet sales are excluded.
+- **Refunds without a gateway payment** — COD and mock-mode orders have no `Payment` row; refunds
+  now update the order alone instead of failing.
+- **Escrow auto-release runs** — step 3c of the escrow flow below is now real: an hourly job in
+  `petzonic-maintenance-queue` calls `autoReleaseExpiredEscrows()`.
+- **Production guards** — the API refuses to boot in production when
+  `RAZORPAY_WEBHOOK_SECRET` is missing or `RAZORPAY_MOCK_ENABLED=true`.
+
+---
 
 ---
 

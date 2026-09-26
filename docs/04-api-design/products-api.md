@@ -1,6 +1,6 @@
 # PetZonic — Products API
 
-> **Version**: 1.0.0  
+> **Version**: 1.1.0 (pre-owned section added 2026-09-26)  
 > **Base URL**: `/api/v1/products`
 
 ---
@@ -383,6 +383,41 @@ POST /api/v1/admin/products/bulk-import
   "statusUrl": "/api/v1/admin/jobs/job_import_123"
 }
 ```
+
+---
+
+## 3A. Pre-Owned Pet Gear (added 2026-09-17)
+
+> Source: `petzonic-api/src/modules/products/` (api `14bc7ad`, `b32f360`). Web: `/pre-owned`,
+> `/seller/products`, `/seller/products/new`. Admin: moderation on `/products`.
+
+Any logged-in user can list used pet gear (crates, cages, aquariums, carriers…). Listings are
+peer-to-peer and go through admin moderation before they are public.
+
+**Model fields on `Product`**: `condition` (`NEW` | `PRE_OWNED`, default `NEW`), `sellerId?`,
+`preOwnedCondition` (`LIKE_NEW` | `GOOD` | `FAIR`), `preOwnedStatus`
+(`PENDING_REVIEW` → `ACTIVE` → `PENDING_SALE` → `SOLD`, or `REJECTED`), `preOwnedDetails` (JSON:
+`itemAge`, `material`, `dimensions`, `defects`, `includedAccessories`, `reasonForSelling`),
+`moderationNotes`, `rejectionReason`, `moderatedAt`, `moderatedById`.
+
+**Rules**
+- Only categories with `supportsPreOwned = true` accept pre-owned items — consumables and health
+  products must be new.
+- `GOOD` and `FAIR` items must describe their defects (`preOwnedDetails.defects`, min 2 chars).
+- 1–10 photos required; price up to ₹1,00,00,000; `location` required.
+
+| Method | Path | Auth | Description |
+|---|---|---|---|
+| `POST` | `/products/pre-owned` | Authenticated | Create a pre-owned listing (enters `PENDING_REVIEW`) |
+| `GET` | `/products/my-pre-owned` | Authenticated | Caller's pre-owned listings |
+| `PATCH` | `/products/pre-owned/:id` | Owner | Update own listing |
+| `DELETE` | `/products/pre-owned/:id` | Owner | Delete own listing |
+| `GET` | `/admin/products?condition=PRE_OWNED&preOwnedStatus=PENDING_REVIEW` | Admin | Moderation queue |
+| `POST` | `/admin/products/:id/approve` | Admin | Approve (`{ notes? }`) → `ACTIVE` |
+| `POST` | `/admin/products/:id/reject` | Admin | Reject (`{ reason, message }`) → `REJECTED` |
+
+The public list `GET /products` accepts the `condition` filter so the storefront and `/pre-owned`
+page can show new and pre-owned items separately.
 
 ---
 

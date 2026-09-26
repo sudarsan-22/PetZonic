@@ -1,7 +1,7 @@
 # PetZonic — Infrastructure & Deployment
 
-> **Version**: 1.0.0  
-> **Date**: May 28, 2026
+> **Version**: 1.1.0  
+> **Date**: May 28, 2026 · **Updated**: 2026-09-26 (queues, monitoring stack)
 
 ---
 
@@ -283,6 +283,7 @@ All WebSocket gateways (`/chat`, `/consultations`) leverage `@socket.io/redis-ad
 Asynchronous workloads are decoupled from HTTP request lifecycles via BullMQ:
 - **`petzonic-email-queue`**: Handles transactional emails (password reset, account verification, welcome sequences) with exponential backoff (3 attempts).
 - **`petzonic-broadcast-queue`**: Processes administrative broadcast notifications to multi-user segments without blocking API event loops.
+- **`petzonic-maintenance-queue`** (added 2026-09-22): BullMQ job schedulers for time-based rules — `auto-release-escrows` hourly (`0 * * * *`) and `expire-abandoned-orders` every 15 minutes (`*/15 * * * *`). Scheduler ids are stable, so multiple API replicas converge on one schedule. Concurrency 1; retention 50 completed / 200 failed. Without Redis the jobs do not run (queues degrade to direct execution only for email/broadcast).
 - Workers run within API containers or dedicated worker containers, gracefully closing on `SIGTERM` / `SIGINT`.
 
 ---
@@ -344,7 +345,24 @@ All domains: ACM-managed SSL certificates (auto-renewal).
 
 ## 9. Monitoring & Alerting
 
-### CloudWatch Alarms
+### 9.0 Implemented stack (Docker Compose, since 2026-09-17/18)
+
+The CloudWatch design below is the planned AWS setup and is **not deployed**. What exists today
+lives in `petzonic-infra/Deployment container/`:
+
+| Component | Port | Purpose |
+|---|---|---|
+| Prometheus | 9090 | Scrapes API `/metrics` (10 s), cAdvisor, Node Exporter; **19 alert rules** in `monitoring/prometheus/alerts.yml` |
+| Alertmanager | 9093 | Severity routing + inhibition; **both receivers have commented-out webhooks — nothing notifies a human yet** |
+| Grafana | 3003 | Dashboards: infrastructure overview, logs explorer |
+| Loki + Promtail | 3100 | Centralised container logs; Docker log rotation and TSDB size limits |
+| cAdvisor / Node Exporter | 8080 / 9100 | Container and host metrics; backup telemetry via textfile collector |
+
+API side: `/metrics`, `/health`, `/health/liveness`, `/health/readiness`, HTTP latency
+histograms and subsystem probes (api `bcade26`, `dd35b20`). See
+`petzonic-api/docs/observability-and-metrics.md`.
+
+### CloudWatch Alarms (planned, not deployed)
 
 | Metric | Threshold | Action |
 |--------|-----------|--------|

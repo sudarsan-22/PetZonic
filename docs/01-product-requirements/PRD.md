@@ -77,11 +77,11 @@ PetZonic provides a unified platform that:
 
 ### 5.1 Applications
 
-Build status verified 2026-09-20.
+Build status verified 2026-09-26.
 
 | App | Platform | Primary Users | Purpose | Status |
 |-----|----------|---------------|---------|---|
-| **PetZonic Website** | Web (Next.js) | All customers | Full shopping experience + SEO traffic | ✅ Built — 85 pages |
+| **PetZonic Website** | Web (Next.js) | All customers | Full shopping experience + SEO traffic | ✅ Built — 86 pages |
 | **Seller portal** | Web — `petzonic-web` at `/seller/*` | Sellers, Breeders | List pets, manage orders, payouts | ✅ Built |
 | **Provider portal** | Web — `petzonic-web` at `/provider/*` | Vets, groomers, caretakers | Manage bookings, schedule, consultations | ✅ Built |
 | **PetZonic Admin Panel** | Web (Next.js) — separate `petzonic-admin` app | PetZonic team | Platform management & operations | ✅ Built — 29 pages |
@@ -253,7 +253,7 @@ Build status verified 2026-09-20.
 ## 10. Out of Scope (v1.0)
 
 > ⚠️ **This list is out of date — several items were built anyway.** Reconciled against the
-> codebase on 2026-09-20. Do not cite it as the current scope.
+> codebase on 2026-09-26. Do not cite it as the current scope.
 
 **Listed as out of scope, but actually BUILT:**
 - ~~Pet insurance integration~~ → **built**: `InsurancePartner` / `InsurancePlan` /
@@ -266,17 +266,20 @@ Build status verified 2026-09-20.
 **Also built, though never in the original scope at all:**
 - Pet pharmacy with prescription upload and admin verification
   (see [Pharmacy API](../04-api-design/pharmacy-api.md))
-- District-scoped breeder profiles (backend only — see
+- District Breeder Hub — breeder profiles, `/breeders` page with district browse, seller-type
+  filter and breeder badge; verification is admin-granted (see
   [Breeders API](../04-api-design/breeders-api.md))
+- Breed guides (`/breeds`), tax invoices, PWA install, escrow auto-release and abandoned-order
+  expiry jobs (2026-09-18 → 09-22)
 - Pre-owned peer-to-peer product marketplace with its own moderation workflow
 - Education/LMS: courses, lessons, vet Q&A, feeding calculator
-- AI shopping concierge (conversational product discovery)
+- AI concierge — conversational search across all domains with multi-tab routing (2026-09-23)
 - Support ticketing with an SLA engine
 
 **Genuinely still out of scope** (verified absent from the codebase):
 - Multi-language support — **English only today**; Hindi is not implemented
 - International shipping/marketplace
-- Pet DNA testing
+- Pet DNA testing (listed as a future idea in the [feature designs](../10-feature-designs/pet-registry-and-verified-network/16-future-ideas.md))
 - Social media features (pet profiles, feeds, followers)
 - Loyalty/rewards program
 - Subscription boxes

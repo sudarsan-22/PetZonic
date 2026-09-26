@@ -2,6 +2,35 @@
 
 > **Version**: 1.0.0  
 > **Base URL**: `/api/v1/admin`
+> **Verified against source**: 2026-09-26 (`petzonic-api/src/modules/admin/` + `admin-*.router.ts`)
+
+## 0. Implementation status (2026-09-26)
+
+Routes in `admin.router.ts` (mounted **last** under `/api/v1/admin`): `GET /dashboard` ·
+`GET /users`, `GET /users/:id`, `POST /users/:id/suspend|ban|reinstate` · `GET /kyc`,
+`POST /kyc/:id/review` · `GET /listings` · `GET /moderation/listings`,
+`POST /moderation/listings/:id/approve|reject|flag` · `GET /moderation/products`,
+`POST /moderation/products/:id/approve|reject` · `GET /orders`, `POST /orders/:id/status`,
+`POST /orders/:id/refund` · `GET /disputes`, `GET /disputes/:id`, `POST /disputes/:id/resolve` ·
+`GET /reports/revenue`, `GET /reports/payouts`, `POST /payouts/process`, `GET /payouts/:sellerId` ·
+`GET|PATCH /settings` · `GET /audit-log` · `POST /notifications/broadcast`.
+
+Separate admin routers: `/admin/products` (CRUD, stock, **pre-owned approve/reject**),
+`/admin/categories`, `/admin/brands`, `/admin/reviews`, `/admin/services`, `/admin/insurance`,
+`/admin/promotions`, `/admin/banners`, `/admin/notifications`, `/admin/support`,
+**`/admin/pharmacy`** (prescriptions queue, detail, verify, stats — added 2026-09-20).
+
+**Changes since 2026-09-17**
+- **Pre-owned gear moderation** (2026-09-17): approve with optional notes, reject with
+  `{ reason, message }`; admin product list filters by `condition` and `preOwnedStatus`.
+- **Pharmacy prescription review** (2026-09-20): see [Pharmacy API](pharmacy-api.md).
+- **User endpoints no longer leak secrets** (2026-09-22): responses use an explicit field list;
+  `passwordHash` and `tokenVersion` are never returned.
+- **Payout processing** (2026-09-22) only pays orders with captured payment **and** released escrow.
+- **Breeder verification**: `BreederProfile.isVerified` is admin-granted by design, but there is
+  **no admin route to grant it yet**.
+
+---
 
 ---
 

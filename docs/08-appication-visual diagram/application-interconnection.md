@@ -15,7 +15,7 @@
 | **Seller** | `Role.SELLER` (granted after KYC approval) | Seller Dashboard (`/seller/*`) |
 | **Breeder** | `Role.BREEDER` (granted after KYC + license approval) | Seller Dashboard (`/seller/*`, same as Seller) |
 | **Service Provider** (Vet/Groomer/Sitter/Walker/Trainer) | Separate `ServiceProvider` row + status (`PENDING`/`APPROVED`/`REJECTED`) — **not** a `Role` | Provider Dashboard (`/provider/*`) |
-| **Admin** | `Role.ADMIN` | Admin Panel (`/admin/*`) |
+| **Admin** | `Role.ADMIN` | Admin Panel — separate `petzonic-admin` app, routes at its root (`/users`, `/kyc`, …) |
 
 A single logged-in user can hold multiple roles at once (e.g. a Buyer who is
 also a Seller) — the UI below reflects that everywhere it says "role-aware."
@@ -143,43 +143,62 @@ sequenceDiagram
 
 ## 5. Actual System Architecture
 
-The real, currently-implemented stack (simpler than the original aspirational
-spec — no Flutter apps, no NestJS/Redis/Meilisearch yet).
+Updated 2026-09-26 to match the code (the previous diagram said "no Redis yet" and showed
+only the web app).
 
 ```mermaid
 graph TB
-    subgraph Client
-        WEB["petzonic-web<br/>Next.js (App Router)"]
+    subgraph Clients
+        WEB["petzonic-web<br/>Next.js 16 — customer, seller, provider<br/>rewrites /api/v1/* to the API"]
+        ADM["petzonic-admin<br/>Next.js 16 — separate app, root routes"]
     end
 
-    subgraph Backend["petzonic-api"]
-        EXP["Express + TypeScript<br/>REST API"]
-        AUTH["JWT auth<br/>access + refresh tokens"]
-        SOCKET["Socket-based chat"]
+    subgraph Backend["petzonic-api (Express 5 modular monolith, 26 modules)"]
+        EXP["REST /api/v1 — 36 routers"]
+        AUTH["JWT access + rotating refresh tokens<br/>authorize() re-checks DB"]
+        SOCKET["Socket.IO /chat and /consultation"]
+        AI["AI concierge<br/>multi-tab routing"]
+        JOBS["BullMQ workers<br/>email · broadcast · maintenance"]
     end
 
     subgraph Data
-        PG[("PostgreSQL<br/>via Prisma ORM")]
-        DISK[("Local disk storage<br/>uploads/ — via multer")]
+        PG[("PostgreSQL 16<br/>Prisma 7, 68 models")]
+        REDIS[("Redis 7<br/>queues, rate limits, AI sessions")]
+        FILES[("S3 or local /uploads")]
     end
 
     subgraph External["External services (degrade gracefully if unset)"]
-        RZP["Razorpay<br/>payments"]
-        GOOG["Google Identity<br/>OAuth sign-in"]
-        SMTP["Email provider<br/>(OTP / notifications)"]
-        SMS["SMS/OTP provider"]
+        RZP["Razorpay"]
+        GOOG["Google OAuth"]
+        LLM["Ollama / Gemini"]
+        MSG["SMTP · MSG91/Twilio"]
+        SHIP["Shiprocket / Delhivery"]
     end
 
-    WEB -- "axios, /api/v1/*" --> EXP
+    subgraph Ops["petzonic-infra monitoring"]
+        PROM["Prometheus · Grafana<br/>Alertmanager · Loki"]
+    end
+
+    WEB -- "axios /api/v1/*" --> EXP
+    ADM -- "axios /api/v1/admin/*" --> EXP
+    WEB -- "socket.io" --> SOCKET
     EXP --> AUTH
-    EXP --> SOCKET
+    EXP --> AI
     EXP --> PG
-    EXP --> DISK
+    EXP --> REDIS
+    EXP --> FILES
+    JOBS --> REDIS
+    JOBS --> PG
     EXP -.-> RZP
     EXP -.-> GOOG
-    EXP -.-> SMTP
-    EXP -.-> SMS
+    AI -.-> LLM
+    JOBS -.-> MSG
+    EXP -.-> SHIP
+    PROM -- "scrape /metrics" --> EXP
 ```
+
+The maintenance queue runs scheduled jobs: escrow auto-release (hourly) and abandoned-order
+expiry (every 15 minutes).
 
 ---
 
@@ -187,7 +206,7 @@ graph TB
 
 ```mermaid
 graph LR
-    Admin["🛡️ Admin Panel /admin/*"]
+    Admin["🛡️ petzonic-admin (separate app)"]
 
     Admin --> Users["Users<br/>(search, suspend, roles)"]
     Admin --> KYC["KYC queue<br/>(approve/reject sellers)"]
@@ -198,6 +217,8 @@ graph LR
     Admin --> Disputes["Disputes<br/>(buyer vs seller)"]
     Admin --> Orders["Orders<br/>(browse all)"]
     Admin --> Payouts["Payouts &amp; Revenue"]
+    Admin --> Rx["Pharmacy prescriptions<br/>(verify, 2026-09-20)"]
+    Admin --> PreOwned["Pre-owned gear<br/>(approve/reject, 2026-09-17)"]
     Admin --> Promotions["Coupons / Promotions"]
     Admin --> Banners["Homepage Banners"]
     Admin --> Insurance["Insurance partners &amp; plans"]

@@ -1,6 +1,36 @@
 # PetZonic — Pets API
 
 > **Base**: `/api/v1/pets`
+> **Verified against source**: 2026-09-26 (`petzonic-api/src/modules/pets/pets.schema.ts`)
+
+## Implementation status (2026-09-26)
+
+The query table under `GET /pets` below is the original design. The **actual** accepted query
+parameters are:
+
+| Param | Notes |
+|---|---|
+| `page`, `limit` | `limit` default **12**, max 50 |
+| `species`, `breed` | Slugs |
+| `birdType`, `mutation`, `color`, `size`, `ageGroup` | **Dynamic species attributes** (2026-09-17) — validated per species via `GET /pets/filter-config?species=` |
+| `gender` | `MALE` / `FEMALE` |
+| `minAgeMonths`, `maxAgeMonths` | Age range |
+| `city`, `district` | `district` added 2026-09-20 (indexed with status) |
+| `sellerType` | `ALL` (default) / `BREEDER` / `SHOP` / `INDIVIDUAL` — added with the breeder hub (2026-09-20) |
+| `verifiedOnly` | Boolean |
+| `minPrice`, `maxPrice` | INR |
+| `sort` | `newest` (default) / `price_asc` / `price_desc` |
+| `search` | Free text, max 200 chars |
+
+Not implemented from the design: `radius`/`lat`/`lng` distance search, `vaccinated`,
+`priceType`, `sortBy`/`sortOrder`, `q` (use `search`).
+
+Other routes present in code: `GET /pets/species`, `GET /pets/species/:speciesId/breeds`,
+`GET /pets/filter-config`, `GET /pets/suggestions`, `GET /pets/my-listings`,
+`POST /pets/ai-assist`, `GET /pets/:id/similar`, `PATCH /pets/:id/status`, `POST /pets/:id/boost`,
+`POST /pets/:id/report`. Listings store species-specific extras in `attributes` (JSON).
+
+---
 
 ---
 

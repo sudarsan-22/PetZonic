@@ -37,7 +37,7 @@
 
 ## 3. Active Coverage & Test Metrics
 
-> **Test-file counts below were measured from the working tree on 2026-09-20.** Assertion
+> **Test-file counts below were measured from the working tree on 2026-09-26.** Assertion
 > counts are deliberately omitted: they change with every run and no current, reproducible
 > figure exists. Do not quote a total test count — including the "976 tests / 100% GREEN"
 > figure that appeared in earlier revisions of this document — unless you have just produced
@@ -45,7 +45,7 @@
 
 | Repository | Test Framework | Test Files | Status |
 | :--- | :--- | :---: | :--- |
-| **`petzonic-api`** | Vitest v4 + Supertest | 46 | Run `npm test` for current results |
+| **`petzonic-api`** | Vitest v4 + Supertest | 47 | Run `npm test` for current results (newest: `ai-discovery-tabs.test.ts`, payout/escrow and admin-select cases, 2026-09-22/23) |
 | **`petzonic-web`** | Vitest v4 + RTL (JSDOM) | 99 | Run `npm test` for current results |
 | **`petzonic-web`** (e2e) | Playwright | 7 specs | Requires a running stack |
 | **`petzonic-admin`** | — | **0** | ⚠️ No test coverage of any kind |

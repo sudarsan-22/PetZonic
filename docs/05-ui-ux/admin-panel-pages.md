@@ -1,8 +1,32 @@
 # PetZonic — Admin Panel Pages (Next.js)
 
-> **Version**: 1.0.0  
-> **Framework**: Next.js 15 (App Router)  
-> **UI Library**: Tailwind CSS + shadcn/ui components
+> **Version**: 1.1.0 (updated 2026-09-26)  
+> **Framework**: Next.js 16 (App Router) — `petzonic-admin`, 29 pages  
+> **UI Library**: Tailwind CSS v4 + lucide-react (no shadcn/ui)
+
+## 0. Current state (2026-09-26)
+
+Sections 1–4 are the May 2026 design. The real console differs: routes are served at the
+**root** (`/users`, not `/admin/users`), there is no `/users/[id]`, `/orders/[id]`,
+`/products/new`, `/franchises` or `/analytics`, and every admin has full access (`AdminGuard`
+checks `ADMIN` only — no Super Admin / Moderator tiers).
+
+**Sidebar (`src/components/layout/AdminSidebar.tsx`)**
+
+| Group | Pages |
+|---|---|
+| Overview | Dashboard `/`, Revenue Analytics `/revenue`, Audit Log `/audit-log` |
+| Trust & Safety | Moderation Queue `/moderation` (badge), **Prescriptions Review `/pharmacy/prescriptions` (badge, 2026-09-20)**, KYC `/kyc` (badge), Disputes `/disputes` (badge), Support `/support`, Users `/users` |
+| Marketplace Ops | Pet Listings `/listings`, Products `/products` (incl. **pre-owned moderation**, condition and category-eligibility columns, 2026-09-17), Brands `/brands`, Categories `/categories`, Orders `/orders`, Payouts `/payouts`, Providers `/providers`, Reviews `/reviews` |
+| Marketing & Platform | Promotions `/promotions`, Banners `/banners`, Community `/community`, Education `/education`, Insurance `/insurance`, Broadcast `/send-notification`, Settings `/settings` |
+
+Other routes: `/login`, `/disputes/[id]`, `/payouts/[sellerId]`, `/support/[id]`,
+`/pharmacy/prescriptions/[id]` (split-screen: prescription document left, verification right).
+
+**Look and feel (2026-09-18)**: full PetZonic orange/amber brand, Poppins headings and Inter body
+text across icons, inputs, badges and modals. 30-minute idle timeout.
+
+**Not built**: breeder verification screen (the API has no grant endpoint either), admin tests.
 
 ---
 

@@ -4,6 +4,24 @@
 > **Date**: August 23, 2026  
 > **Scope**: Full web + mobile product implementation including customer, seller, admin, and backend platform layers
 
+## Progress snapshot (2026-09-26)
+
+What actually exists, from git history ([Implementation Changelog](../CHANGELOG.md)):
+
+| Area | Status |
+|---|---|
+| Customer website (`petzonic-web`, 86 pages) incl. seller and provider portals | Built |
+| Admin panel (`petzonic-admin`, 29 pages) | Built; zero tests |
+| Backend (`petzonic-api`, 26 modules, 274 endpoints) | Built |
+| Pre-owned gear, pharmacy, breeder hub, breed guides, tax invoice, AI multi-tab concierge | Built 2026-09-17 → 09-23 |
+| Scheduled jobs (escrow auto-release, abandoned-order expiry) | Built 2026-09-22 |
+| Monitoring stack (Prometheus, Grafana, Alertmanager, Loki) | Built in Docker Compose; alert receivers not wired |
+| Customer and seller mobile apps | **Not started** (empty repos) |
+| Production deployment (Terraform, TLS, Razorpay/AWS accounts) | **Not done** |
+| Pet registry, verified network, health passport and related features | Designed only — [feature designs](../10-feature-designs/pet-registry-and-verified-network/README.md) |
+
+---
+
 ---
 
 ## 1. Dependency Overview

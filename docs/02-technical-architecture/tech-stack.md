@@ -19,12 +19,12 @@
 | ✅ | **Web (Customer, Seller, Provider)** | Next.js (React 19) | 16.x (Turbopack, App Router) — `petzonic-web`, 85 pages |
 | ✅ | **Web (Admin)** | Next.js (React 19) | 16.x — `petzonic-admin`, 29 pages |
 | 📋 | **Mobile (Customer & Seller)** | Flutter (Dart) | 3.x — **planned, not started; no code exists** |
-| ✅ | **Backend** | Node.js + Express | 22.x (Node) / 5.x (Express) — 25 modules, 35 mounted routers |
+| ✅ | **Backend** | Node.js + Express | 22.x (Node) / 5.x (Express) — 26 modules, 36 mounted routers, 274 documented endpoints |
 | ✅ | **Language** | TypeScript | 5.x / 6.x |
 | ✅ | **ORM** | Prisma | 7.x (`prisma-client` generator, output `src/generated/prisma`) |
-| ✅ | **Database** | PostgreSQL | 16 — 68 models, 47 enums, 28 migrations, pg_trgm |
+| ✅ | **Database** | PostgreSQL | 16 — 68 models, 47 enums, 29 migrations, pg_trgm |
 | ✅ | **Cache, Limiter & Sessions** | Redis | 7.x (ioredis + rate-limit-redis) — degrades to in-memory when absent |
-| ✅ | **Queues** | BullMQ | 2 queues: `petzonic-email-queue`, `petzonic-broadcast-queue`. No scheduler/cron exists. |
+| ✅ | **Queues** | BullMQ | 3 queues: `petzonic-email-queue`, `petzonic-broadcast-queue`, `petzonic-maintenance-queue` (job schedulers since 2026-09-22: escrow auto-release hourly, abandoned-order expiry every 15 min) |
 | ✅ | **Search** | PostgreSQL pg_trgm | Native trigram fuzzy matching |
 | ✅ | **AI Assist & Discovery** | Ollama (local) + Google Gemini | Falls back to rule-based extraction when no LLM is reachable |
 | ✅ | **Object Storage** | AWS S3 | `@aws-sdk/client-s3` with local `/uploads` fallback. Cloudflare R2 is not configured. |

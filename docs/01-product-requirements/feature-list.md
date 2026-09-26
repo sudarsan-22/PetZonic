@@ -2,7 +2,7 @@
 
 > **Status**: 🔒 FROZEN — No additions or removals without formal change request  
 > **Freeze Date**: May 28, 2026  
-> **Version**: 1.1.0 (Updated: May 28, 2026 — Added COM, EDU, INS modules)
+> **Version**: 1.2.0 (Updated: 2026-09-26 — recorded CR-004…CR-010 for features implemented after the freeze; see [Implementation Changelog](../CHANGELOG.md))
 
 ---
 
@@ -327,6 +327,28 @@ Each feature has a unique ID: `[MODULE]-[NUMBER]`
 
 ---
 
+## Features Added After Freeze (implemented, recorded 2026-09-26)
+
+These shipped between 2026-09-17 and 2026-09-23 and are recorded retroactively as change
+requests CR-004 to CR-010.
+
+| ID | Feature | Description | Acceptance Criteria (as built) |
+|----|---------|-------------|-------------------|
+| PRD-15 | Pre-Owned Pet Gear | Peer listings of used pet gear with moderation | `condition` NEW/PRE_OWNED; condition grade LIKE_NEW/GOOD/FAIR; defects required for GOOD/FAIR; 1–10 photos; only categories with `supportsPreOwned`; admin approve/reject |
+| PHM-01 | Pharmacy Catalog | Pet medicine catalog and search | `/pharmacy`, product detail with clinical info, categories, search |
+| PHM-02 | Prescription Vault | Customers upload and store prescriptions per pet | `/account/prescriptions`; upload; statuses; linked to customer pet profiles |
+| PHM-03 | Prescription Review | Admin verifies prescriptions | Admin queue, split-screen review, verify/reject, sidebar badge, stats |
+| PHM-04 | Rx Gating at Checkout | Prescription-only items need a verified prescription | Checkout blocked without a verified, unexpired prescription |
+| BRD-01 | District Breeder Hub | Find breeders by district | `/breeders`, district list with counts, `?district=` filter, breeder profiles (`GET/PUT /breeders/me`) |
+| BRD-02 | Seller-Type Filter & Breeder Badge | Distinguish breeders, shops, individuals | `sellerType` filter on `/pets`; breeder badge; breeder trust card; verification admin-granted (default unverified) |
+| SCH-11 | Breed Guides | Breed knowledge hub | `/breeds`, `/breeds/[breed]`; linked from drawer, footer, pets catalog |
+| SCH-12 | AI Concierge Multi-Tab Routing | Conversational search across all domains | Intent types incl. BREEDER/PRE_OWNED/PHARMACY/BRAND/INSURANCE/LOST_FOUND; `targetTab`; per-domain zero-result relaxation |
+| ORD-16 | Tax Invoice | Downloadable invoice per order | `GET /orders/:id/invoice` JSON or printable HTML; buyer or admin only |
+| ORD-17 | Abandoned Order Expiry | Free stock held by unpaid orders | Unpaid orders > 30 min cancelled every 15 min; stock and pet listings restored |
+| PAY-13 | Escrow Auto-Release | Release held pet payments automatically | Hourly job releases escrow 7+ days after delivery with no dispute; payouts only for released escrow |
+
+---
+
 ## Feature Count Summary
 
 | Module | Feature Count |
@@ -347,7 +369,10 @@ Each feature has a unique ID: `[MODULE]-[NUMBER]`
 | COM — Community & Forums | 10 |
 | EDU — Educational Content & Training | 12 |
 | INS — Pet Insurance | 8 |
-| **TOTAL** | **183** |
+| PHM — Pet Pharmacy (post-freeze) | 4 |
+| BRD — Breeder Hub (post-freeze) | 2 |
+| Post-freeze additions to PRD/SCH/ORD/PAY | 6 |
+| **TOTAL** | **195** |
 
 ---
 
@@ -364,3 +389,11 @@ Any modifications to this feature list require:
 | CR-001 | May 28, 2026 | Added COM module (Community & Forums, 10 features) | Approved |
 | CR-002 | May 28, 2026 | Added EDU module (Educational Content & Training, 12 features) | Approved |
 | CR-003 | May 28, 2026 | Added INS module (Pet Insurance, 8 features) | Approved |
+| CR-004 | 2026-09-17 | PRD-15 Pre-owned pet gear | Implemented (recorded retroactively) |
+| CR-005 | 2026-09-18 | ORD-16 Tax invoice | Implemented (recorded retroactively) |
+| CR-006 | 2026-09-19 | SCH-11 Breed guides | Implemented (recorded retroactively) |
+| CR-007 | 2026-09-20 | PHM module (Pet Pharmacy, 4 features) | Implemented (recorded retroactively) |
+| CR-008 | 2026-09-20 | BRD module (District Breeder Hub, 2 features) | Implemented (recorded retroactively) |
+| CR-009 | 2026-09-22 | ORD-17 Abandoned order expiry, PAY-13 Escrow auto-release | Implemented (recorded retroactively) |
+| CR-010 | 2026-09-23 | SCH-12 AI concierge multi-tab routing | Implemented (recorded retroactively) |
+| CR-011 | 2026-09-26 | Pet Registry, Verified Network & related features ([feature designs](../10-feature-designs/pet-registry-and-verified-network/README.md)) | Proposed — not implemented |

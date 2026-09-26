@@ -1,6 +1,40 @@
 # PetZonic — Orders API
 
 > **Base**: `/api/v1/orders`, `/api/v1/cart`
+> **Verified against source**: 2026-09-26 (`petzonic-api/src/modules/orders/`, `cart/`)
+
+> ⚠️ The request/response examples further down were written in May 2026 as a design and
+> differ from the code in places (e.g. there is no `productVariantId` or `type` field — items
+> are `{ productId | petListingId, quantity }`). The route table and rules in **Implementation
+> status** below are measured from source; trust them over the examples.
+
+## Implementation status (2026-09-26)
+
+| Method | Path | Auth | Notes |
+|---|---|---|---|
+| `GET` / `POST` / `PATCH` / `DELETE` | `/cart`, `/cart/items`, `/cart/items/:id` | Authenticated | Server-backed cart (web syncs its Redux cart to it since 2026-09-18) |
+| `POST` | `/orders` | Authenticated | Server computes all totals, tax, shipping, coupon |
+| `GET` | `/orders` | Authenticated | Buyer's orders |
+| `GET` | `/orders/seller` | Authenticated | Seller's orders |
+| `GET` | `/orders/:id` | Authenticated | Detail |
+| `POST` | `/orders/:id/ship` | Authenticated (seller) | Courier shipment via logistics factory |
+| `PATCH` | `/orders/:id/tracking` | Authenticated (seller) | Manual tracking entry |
+| `GET` | `/orders/:id/live-tracking` | Authenticated | Courier checkpoints |
+| `GET` | `/orders/:id/shipping-label` | Authenticated (seller) | Label |
+| `GET` | `/orders/:id/invoice` | Authenticated (order's buyer or admin) | **New 2026-09-18** — tax invoice as JSON, or printable HTML with `?format=html` or `Accept: text/html` |
+| `PATCH` | `/orders/:id/cancel` | Authenticated | Restores stock, reverts pet to `ACTIVE`, decrements coupon usage (one transaction) |
+| `POST` | `/orders/:id/return` | Authenticated | Return request |
+| `POST` | `/orders/:id/confirm-receipt` | Authenticated (buyer) | Releases escrow if `HELD` |
+| `POST` | `/orders/logistics/webhook` | Signature | Shiprocket/Delhivery callbacks |
+
+**Scheduled rules (since 2026-09-22, `petzonic-maintenance-queue`)**
+- **Abandoned orders**: every 15 minutes, `PENDING_PAYMENT` orders older than **30 minutes** are
+  cancelled; stock and pet listings return to circulation (`expireAbandonedOrders()`).
+- **Escrow auto-release**: hourly, pet orders delivered 7+ days ago with no dispute move from
+  `HELD` to `RELEASED` (`autoReleaseExpiredEscrows()`).
+- Pet purchase stays an atomic guarded transition: listing `ACTIVE → PAUSED` at order creation.
+
+---
 
 ---
 
